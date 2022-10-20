@@ -1,0 +1,90 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.profile .profile-box {
+  background-color: white;
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+  width: 750px;
+  height: 703px;
+  margin-bottom: 50px;
+}
+.profile .profile-seller {
+  background-color: white;
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+  width: 750px;
+  height: 1203px;
+  margin-bottom: 50px;
+}
+.profile-seller .seller-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 10px;
+}
+
+.profile-box,
+.profile-seller .profile-in {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  height: inherit;
+}
+.profile-in .profile-header {
+  line-height: 50px;
+}
+.profile-form-header h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.profile-form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.profile-form-group label {
+  font-size: 20px;
+  font-weight: 800;
+  color: #b4b4b4;
+}
+.profile-form-group input {
+  outline-color: #6eb2fb;
+  border: 3px solid #b4b4b4;
+  height: 40px;
+  width: 450px;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px;
+}
+.profile-form-group .textarea {
+  resize: none;
+  border: 2px solid #b4b4b4;
+  font-size: 18px;
+  padding: 10px;
+  outline-color: #6eb2fb;
+}
+.profile-form-group .seller-logo {
+  border: none;
+  width: 270px;
+  outline: none;
+  cursor: pointer;
+}
+.profile-form-button {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 40px;
+}
+.profile-form-button button {
+  background: #f62f5e;
+  outline: none;
+  border: none;
+  font-size: 20px;
+  padding: 10px 65px 10px 65px;
+  border-radius: 15px;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}

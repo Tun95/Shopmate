@@ -1,0 +1,1167 @@
+{
+  "sideBar": [
+    {
+      "title": "Home",
+      "icon": "",
+      "path": "/"
+    },
+    {
+      "title": "Store",
+      "icon": "",
+      "path": "/store"
+    },
+    {
+      "title": "Cart",
+      "icon": "",
+      "path": "/cartscreen"
+    },
+    {
+      "title": "Category",
+      "icon": "",
+      "children": [
+        {
+          "title": "Women",
+          "icon": "",
+          "path": ""
+        },
+        {
+          "title": "Men",
+          "icon": "",
+          "path": ""
+        },
+        {
+          "title": "Kids",
+          "icon": "",
+          "path": ""
+        },
+        {
+          "title": "Shoes",
+          "icon": "",
+          "path": ""
+        },
+        {
+          "title": "Brands",
+          "icon": "",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "title": "Admin",
+      "icon": "",
+      "children": [
+        {
+          "title": "Dashboard",
+          "icon": "",
+          "path": "/admin/dashboard"
+        },
+        {
+          "title": "products",
+          "icon": "",
+          "path": "/admin/dashboard"
+        },
+        {
+          "title": "Orders",
+          "icon": "",
+          "path": "/admin/dashboard"
+        },
+        {
+          "title": "Users",
+          "icon": "",
+          "path": "/admin/dashboard"
+        },
+        {
+          "title": "Supports",
+          "icon": "",
+          "path": "/admin/dashboard"
+        }
+      ]
+    },
+    {
+      "title": "Seller",
+      "icon": "",
+      "children": [
+        {
+          "title": "products",
+          "icon": "",
+          "path": "/admin/dashboard"
+        },
+        {
+          "title": "Orders",
+          "icon": "",
+          "path": "/admin/dashboard"
+        }
+      ]
+    },
+    {
+      "title": "Contact",
+      "icon": "",
+      "path": "/contact"
+    }
+  ],
+  "countryList": [
+    {
+      "id": 1,
+      "country": "Afghanistan"
+    },
+    {
+      "id": 2,
+      "country": "Albania"
+    },
+    {
+      "id": 3,
+      "country": "Algeria"
+    },
+    {
+      "id": 4,
+      "country": "Andorra"
+    },
+    {
+      "id": 5,
+      "country": "Angola"
+    },
+    {
+      "id": 6,
+      "country": "Antigua and Barbuda"
+    },
+    {
+      "id": 7,
+      "country": "Argentina"
+    },
+    {
+      "id": 8,
+      "country": "Armenia"
+    },
+    {
+      "id": 9,
+      "country": "Australia"
+    },
+    {
+      "id": 10,
+      "country": "Austria"
+    },
+    {
+      "id": 11,
+      "country": "Azerbaijan"
+    }
+  ],
+  "genderselect": [
+    {
+      "id": "1",
+      "gender": "Male",
+      "value": "Male",
+      "label": "Male"
+    },
+    {
+      "id": "2",
+      "gender": "Female",
+      "value": "Female",
+      "label": "Female"
+    }
+  ],
+
+  "prices": [
+    {
+      "label": "Prices",
+      "value": "Prices",
+      "disabled": true
+    },
+    {
+      "label": "£0 to £10",
+      "value": "0-10",
+      "disabled": false
+    },
+    {
+      "label": "£10 to £20",
+      "value": "10-20",
+      "disabled": false
+    },
+    {
+      "label": "£20 to £30",
+      "value": "20-30",
+      "disabled": false
+    },
+    {
+      "label": "£30 to £40",
+      "value": "30-40",
+      "disabled": false
+    },
+    {
+      "label": "£40 to £50",
+      "value": "40-50",
+      "disabled": false
+    },
+    {
+      "label": "£50 to £60",
+      "value": "50-60",
+      "disabled": false
+    },
+    {
+      "label": "£60 to £70",
+      "value": "60-70",
+      "disabled": false
+    },
+    {
+      "label": "£70 to £80",
+      "value": "70-80",
+      "disabled": false
+    },
+    {
+      "label": "£80 to £90",
+      "value": "80-90",
+      "disabled": false
+    },
+    {
+      "label": "£90 to £100",
+      "value": "90-100",
+      "disabled": false
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "title": "Women's dresses",
+      "cat": "Women",
+      "value": "Women",
+      "label": "Women"
+    },
+    {
+      "id": 2,
+      "title": "Men's dresses",
+      "cat": "Men",
+      "value": "Men",
+      "label": "Men"
+    },
+    {
+      "id": 3,
+      "title": "Kid's dresses",
+      "cat": "Kids",
+      "value": "Kids",
+      "label": "Kids"
+    },
+    {
+      "id": 4,
+      "title": "Shoes's type",
+      "cat": "Shoes",
+      "value": "Shoes",
+      "label": "Shoes"
+    },
+    {
+      "id": 5,
+      "title": "Women's dresses",
+      "cat": "Brands"
+    }
+  ],
+
+  "productcolor": [
+    {
+      "id": "1",
+      "name": "6EB2FB",
+      "color": "fa-solid fa-circle  cl-1",
+      "value": "fa-solid fa-circle  cl-1",
+      "label": "Blue"
+    },
+    {
+      "id": "2",
+      "name": "00D3CA",
+      "color": "fa-solid fa-circle  cl-2",
+      "value": "fa-solid fa-circle  cl-2",
+      "label": "L-Green"
+    },
+    {
+      "id": "3",
+      "name": "F62F5E",
+      "color": "fa-solid fa-circle  cl-3",
+      "value": "fa-solid fa-circle  cl-3",
+      "label": "Red"
+    },
+    {
+      "id": "4",
+      "name": "F35E3D",
+      "color": "fa-solid fa-circle  cl-4",
+      "value": "fa-solid fa-circle  cl-4",
+      "label": "Orange"
+    },
+    {
+      "id": "5",
+      "name": "EFFC90",
+      "color": "fa-solid fa-circle  cl-5",
+      "value": "fa-solid fa-circle  cl-5",
+      "label": "Yellow"
+    },
+    {
+      "id": "6",
+      "name": "5BCA05",
+      "color": "fa-solid fa-circle  cl-6",
+      "value": "fa-solid fa-circle  cl-6",
+      "label": "Green"
+    },
+    {
+      "id": "7",
+      "name": "A020F0",
+      "color": "fa-solid fa-circle  cl-7",
+      "value": "fa-solid fa-circle  cl-7",
+      "label": "Purple"
+    }
+  ],
+  "productbrand": [
+    {
+      "id": "cb1",
+      "checked": false,
+      "brand": "Abercrombie",
+      "value": "Abercrombie",
+      "label": "Abercrombie"
+    },
+    {
+      "id": "cb2",
+      "checked": false,
+      "brand": "Fitch",
+      "value": "Fitch",
+      "label": "Fitch"
+    },
+    {
+      "id": "cb3",
+      "checked": false,
+      "brand": "Adidas",
+      "value": "Adidas",
+      "label": "Adidas"
+    },
+    {
+      "id": "cb4",
+      "checked": false,
+      "brand": "ASOS",
+      "value": "ASOS",
+      "label": "ASOS"
+    },
+    {
+      "id": "cb5",
+      "checked": false,
+      "brand": "Cheap Monday",
+      "value": "Cheap Monday",
+      "label": "Cheap Monday"
+    },
+    {
+      "id": "cb6",
+      "checked": false,
+      "brand": "Nike",
+      "value": "Nike",
+      "label": "Nike"
+    },
+    {
+      "id": "cb7",
+      "checked": false,
+      "brand": "GUCCI",
+      "value": "GUCCI",
+      "label": "GUCCI"
+    },
+    {
+      "id": "cb8",
+      "checked": false,
+      "brand": "Chanel",
+      "value": "Chanel",
+      "label": "Chanel"
+    },
+    {
+      "id": "cb9",
+      "checked": false,
+      "brand": "Louis Vuitton",
+      "value": "Louis Vuitton",
+      "label": "Louis Vuitton"
+    },
+    {
+      "id": "cb10",
+      "checked": false,
+      "brand": "Hermes",
+      "value": "Hermes",
+      "label": "Hermes"
+    }
+  ],
+
+  "productsize": [
+    {
+      "id": 1,
+      "urlParamName": "Extra-Small-Size",
+      "size": "XS",
+      "value": "XS",
+      "label": "XS"
+    },
+    {
+      "id": 2,
+      "urlParamName": "Small-Size",
+      "size": "S",
+      "value": "S",
+      "label": "S"
+    },
+    {
+      "id": 3,
+      "urlParamName": "Medium-Size",
+      "size": "M",
+      "value": "M",
+      "label": "M"
+    },
+    {
+      "id": 4,
+      "urlParamName": "Large-Size",
+      "size": "L",
+      "value": "L",
+      "label": "L"
+    },
+    {
+      "id": 5,
+      "urlParamName": "Extra-Large-Size",
+      "size": "XL",
+      "value": "XL",
+      "label": "XL"
+    },
+    {
+      "id": 6,
+      "urlParamName": "Extra-Extra-Large-Size",
+      "size": "XXL",
+      "value": "XXL",
+      "label": "XXL"
+    }
+  ],
+
+  "adminsize": [
+    {
+      "id": 1,
+      "value": "XS",
+      "label": "XS"
+    },
+    {
+      "id": 2,
+      "value": "S",
+      "label": "S"
+    },
+    {
+      "id": 3,
+      "value": "M",
+      "label": "M"
+    },
+    {
+      "id": 4,
+      "value": "L",
+      "label": "L"
+    },
+    {
+      "id": 5,
+      "value": "XL",
+      "label": "XL"
+    },
+    {
+      "id": 6,
+      "value": "XXL",
+      "label": "XXL"
+    },
+    {
+      "id": 7,
+      "value": "24",
+      "label": "24"
+    },
+    {
+      "id": 8,
+      "value": "28",
+      "label": "28"
+    },
+    {
+      "id": 9,
+      "value": "32",
+      "label": "32"
+    },
+    {
+      "id": 10,
+      "value": "36",
+      "label": "36"
+    },
+    {
+      "id": 11,
+      "value": "40",
+      "label": "40"
+    },
+    {
+      "id": 12,
+      "value": "44",
+      "label": "44"
+    }
+  ],
+
+  "flicker_images": [
+    {
+      "img1": "/imgs/kid1.png",
+      "img2": "/imgs/kid1.png",
+      "img3": "/imgs/kid1.png"
+    },
+    {
+      "img": "/imgs/shirt6.png"
+    },
+    {
+      "img": "/imgs/shirt6.png"
+    }
+  ],
+  "shippingList": [
+    {
+      "id": 1,
+      "label": "standard shipping",
+      "days": "free, 2-3 business days"
+    },
+    {
+      "id": 2,
+      "label": "Express shipping",
+      "days": "£28, 1-2 business days"
+    }
+  ],
+  "products": [
+    {
+      "_id": "1",
+      "name": "Pull&Bear Jumper",
+      "slug": "Pull&Bear Jumper",
+      "keygen": "Kid KD3569",
+      "gender": "Female",
+      "cat": "Kids",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": 0,
+      "brand": "Abercrombie &",
+      "image": "/imgs/kid1.png",
+      "img1": "/imgs/kid1.png",
+      "img2": "/imgs/kid1.png",
+      "img3": "/imgs/kid1.png",
+      "time": "twelve hours ago",
+      "reviewer": "Doris Ramirez",
+      "rating": 3.0,
+
+      "review": "My trusted online shop ever since May of last year. The services here just gets better and better. The one-day delivery is the best upgrade for me."
+    },
+    {
+      "_id": "2",
+      "name": "Men's Knitwear Offers",
+      "slug": "Men's Knitwear Offers",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Men",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Fitch",
+      "image": "/imgs/shirt1.png",
+      "time": "one week ago",
+      "reviewer": "Dash Riprock",
+      "rating": 4.0,
+      "review": "My experience with your company was a pleasurable one. Other stores without naming names were a JOKE!Their idea of a variety of colors were 3 dark, depressinghues that they gave you 2 of in a package of 6. No need to look any further folks, it's here that you'll find what you're looking for."
+    },
+    {
+      "_id": "3",
+      "name": "Women's Knitwear Offers",
+      "slug": "Women's Knitwear Offers",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Women",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Adidas",
+      "image": "/imgs/women1.png",
+      "time": "one week ago",
+      "reviewer": "Dash Riprock",
+      "rating": 3.0,
+      "review": "My experience with your company was a pleasurable one. Other stores without naming names were a JOKE!Their idea of a variety of colors were 3 dark, depressinghues that they gave you 2 of in a package of 6. No need to look any further folks, it's here that you'll find what you're looking for."
+    },
+    {
+      "_id": "4",
+      "name": "Men Casual Lizard",
+      "slug": "Men Casual Lizard",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Men",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 19.99,
+      "countInStock": "20",
+      "brand": "ASOS",
+      "image": "/imgs/shirt2.png",
+      "time": "one hour ago",
+      "reviewer": "Joseph Zazo",
+      "rating": 4.5,
+      "review": "Shirts were fantastic, looked even better than we thought. The little speckles were many bright colors, but were tiny. We wanted a starfield like look and it was perfect. Also they were super soft, which we hoped for and were not disappointed."
+    },
+    {
+      "_id": "5",
+      "name": "Harajuku Tshirt",
+      "slug": "Harajuku Tshirt",
+      "keygen": "Kid KD3569",
+      "gender": "Male",
+      "cat": "Kids",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Cheap Monday",
+      "image": "/imgs/kid2.png",
+      "time": "less a minute ago",
+      "reviewer": "Kathy Reed",
+      "rating": 5.0,
+      "review": "The clothing is true to size. Name brand products at a much reasonable cost. And shipment is within 7-10 days."
+    },
+    {
+      "_id": "6",
+      "name": "Women Casual Lizard",
+      "slug": "Women Casual Lizard",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Women",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 19.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/women2.png",
+      "time": "one hour ago",
+      "reviewer": "Joseph Zazo",
+      "rating": 3.0,
+      "review": "Shirts were fantastic, looked even better than we thought. The little speckles were many bright colors, but were tiny. We wanted a starfield like look and it was perfect. Also they were super soft, which we hoped for and were not disappointed."
+    },
+    {
+      "_id": "7",
+      "name": "Novelty T-Shirts",
+      "slug": "Novelty T-Shirts",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Men",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 12.09,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/shirt3.png",
+      "time": "three days ago",
+      "reviewer": "wOnDeR wOmAn WiLsOn",
+      "rating": 4.0,
+      "review": "T-shirts that are both affordable and comfortable are available. A wide range of styles, colours, and sizes are accessible. Shipping was quick, and the prices were reasonable. I've never had any issues, and shirts are always delivered on time."
+    },
+    {
+      "_id": "8",
+      "name": "Novelty Dress",
+      "slug": "Novelty Dress",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Women",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 12.09,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/women3.png",
+      "time": "three days ago",
+      "rating": 5.0,
+      "reviewer": "wOnDeR wOmAn WiLsOn",
+      "review": "T-shirts that are both affordable and comfortable are available. A wide range of styles, colours, and sizes are accessible. Shipping was quick, and the prices were reasonable. I've never had any issues, and shirts are always delivered on time."
+    },
+    {
+      "_id": "9",
+      "name": "Various T-Shorts",
+      "slug": "Various T-Shorts",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Men",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 24.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/shirt4.png",
+      "time": "twelve days ago",
+      "reviewer": "Tom Reid",
+      "rating": 4.0,
+      "review": "I originally ordered two of these t-shirts in medium size from this site.and in this lockdown i love their service.I was looking for a softer feeling t-shirt to wear around the house or while working out,and i got this too.thank you so much for your service."
+    },
+    {
+      "_id": "10",
+      "name": "Various Shorts",
+      "slug": "Various Shorts",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Women",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 26.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/women4.png",
+      "time": "twelve days ago",
+      "reviewer": "Tom Reid",
+      "rating": 4.0,
+      "review": "I originally ordered two of these t-shirts in medium size from this site.and in this lockdown i love their service.I was looking for a softer feeling t-shirt to wear around the house or while working out,and i got this too.thank you so much for your service."
+    },
+    {
+      "_id": "11",
+      "name": "Pull&Bear Jumper",
+      "slug": "Pull&Bear Jumper",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Men",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/shirt5.png",
+      "time": "twelve hours ago",
+      "reviewer": "Doris Ramirez",
+      "rating": 4.0,
+      "review": "My trusted online shop ever since May of last year. The services here just gets better and better. The one-day delivery is the best upgrade for me."
+    },
+    {
+      "_id": "12",
+      "name": "Pull&Bear Jumper",
+      "slug": "Pull&Bear Jumper",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Women",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/women5.png",
+      "time": "twelve hours ago",
+      "reviewer": "Doris Ramirez",
+      "rating": 3.0,
+      "review": "My trusted online shop ever since May of last year. The services here just gets better and better. The one-day delivery is the best upgrade for me."
+    },
+    {
+      "_id": "13",
+      "name": "Harajuku Men's Tshirt",
+      "slug": "Harajuku Men's Tshirt",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Men",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/shirt6.png",
+      "time": "less a minute ago",
+      "reviewer": "Kathy Reed",
+      "rating": 5.0,
+      "review": "The clothing is true to size. Name brand products at a much reasonable cost. And shipment is within 7-10 days."
+    },
+
+    {
+      "_id": "14",
+      "name": "Harajuku Dress",
+      "slug": "Harajuku Dress",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Women",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/women6.png",
+      "time": "less a minute ago",
+      "reviewer": "Kathy Reed",
+      "rating": 4.5,
+      "review": "The clothing is true to size. Name brand products at a much reasonable cost. And shipment is within 7-10 days."
+    },
+
+    {
+      "_id": "15",
+      "name": "Harajuku Kids Dress",
+      "slug": "Harajuku Kids Dress",
+      "keygen": "Kid KD3569",
+      "gender": "Male",
+      "cat": "Kids",
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/kid3.png",
+      "time": "less a minute ago",
+      "reviewer": "Kathy Reed",
+      "rating": 5.0,
+      "review": "The clothing is true to size. Name brand products at a much reasonable cost. And shipment is within 7-10 days."
+    },
+    {
+      "_id": "16",
+      "name": "Men's Brown Shoe",
+      "slug": "Men's Brown Shoe",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "cat": "Shoes",
+      "size": [24, 28, 32, 36, 40, 44],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+
+      "price": 49.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/m-shoes2.png",
+      "time": "one hour ago",
+      "reviewer": "Joseph Zazo",
+      "rating": 3.0,
+      "review": "Shirts were fantastic, looked even better than we thought. The little speckles were many bright colors, but were tiny. We wanted a starfield like look and it was perfect. Also they were super soft, which we hoped for and were not disappointed."
+    },
+    {
+      "_id": "17",
+      "name": "Kids Blue Shoe",
+      "slug": "Kids Blue Shoe",
+      "keygen": "Kid KD3569",
+      "gender": "Male",
+      "cat": "Shoes",
+      "size": [24, 28, 32, 36, 40, 44],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+
+      "price": 39.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/k-shoes1.png",
+      "time": "one hour ago",
+      "reviewer": "Joseph Zazo",
+      "rating": 3.8,
+      "review": "Shirts were fantastic, looked even better than we thought. The little speckles were many bright colors, but were tiny. We wanted a starfield like look and it was perfect. Also they were super soft, which we hoped for and were not disappointed."
+    },
+    {
+      "_id": "18",
+      "name": "Kids Shinning Shoe",
+      "slug": "Kids Shinning Shoe",
+      "keygen": "Kid KD3569",
+      "gender": "Female",
+      "cat": "Shoes",
+      "size": [24, 28, 32, 36, 40, 44],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+
+      "price": 19.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/k-shoes3.png",
+      "time": "one hour ago",
+      "reviewer": "Joseph Zazo",
+      "rating": 5.0,
+      "review": "Shirts were fantastic, looked even better than we thought. The little speckles were many bright colors, but were tiny. We wanted a starfield like look and it was perfect. Also they were super soft, which we hoped for and were not disappointed."
+    },
+    {
+      "_id": "19",
+      "name": "Women High Heels",
+      "slug": "Women High Heels",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "cat": "Shoes",
+      "size": [24, 28, 32, 36, 40, 44],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+
+      "price": 59.99,
+      "countInStock": "20",
+      "brand": "Abercrombie &",
+      "image": "/imgs/w-shoes3.png",
+      "time": "one hour ago",
+      "reviewer": "Joseph Zazo",
+      "rating": 5.0,
+      "review": "Shirts were fantastic, looked even better than we thought. The little speckles were many bright colors, but were tiny. We wanted a starfield like look and it was perfect. Also they were super soft, which we hoped for and were not disappointed."
+    }
+  ],
+
+  "similarProducts": [
+    {
+      "name": "Men Casual Lizard",
+      "slug": "Men-Casual-Lizard",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "category": ["Men"],
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 19.99,
+      "countInStock": 20,
+      "brand": "ASOS",
+      "image": "/imgs/shirt2.png",
+
+      "rating": 4.5,
+      "numReviews": 10
+    },
+    {
+      "name": "Harajuku Tshirt",
+      "slug": "Harajuku-Tshirt",
+      "keygen": "Kid KD3569",
+      "gender": "Male",
+      "category": ["Kids"],
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": 20,
+      "brand": "Cheap Monday",
+      "image": "/imgs/kid2.png",
+
+      "rating": 5.0,
+      "numReviews": 10
+    },
+    {
+      "name": "Kids Blue Shoe",
+      "slug": "Kids-Blue-Shoe",
+      "keygen": "Kid KD3569",
+      "gender": "Male",
+      "category": ["Shoes"],
+      "size": [24, 28, 32, 36, 40, 44],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+
+      "price": 39.99,
+      "countInStock": 20,
+      "brand": "Abercrombie &",
+      "image": "/imgs/k-shoes1.png",
+
+      "rating": 3.8,
+      "numReviews": 10
+    },
+    {
+      "name": "Novelty T-Shirts",
+      "slug": "Novelty-T-Shirts",
+      "keygen": "Men BK3569",
+      "gender": "Male",
+      "category": ["Men"],
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 12.09,
+      "countInStock": 20,
+      "brand": "Abercrombie &",
+      "image": "/imgs/shirt3.png",
+
+      "rating": 4.0,
+      "numReviews": 10
+    },
+    {
+      "name": "Harajuku Kids Dress",
+      "slug": "Harajuku-Kids-Dress",
+      "keygen": "Kid KD3569",
+      "gender": "Male",
+      "category": ["Kids"],
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 14.99,
+      "countInStock": 20,
+      "brand": "Abercrombie &",
+      "image": "/imgs/kid3.png",
+
+      "rating": 5.0,
+      "numReviews": 10
+    },
+    {
+      "name": "Various Shorts",
+      "slug": "Various-Shorts",
+      "keygen": "Women WM3569",
+      "gender": "Female",
+      "category": ["Women"],
+      "size": ["XS", "S", "M", "L", "XL", "XXL"],
+      "color": [
+        "fa-solid fa-circle  cl-1",
+        "fa-solid fa-circle  cl-2",
+        "fa-solid fa-circle  cl-3",
+        "fa-solid fa-circle  cl-4",
+        "fa-solid fa-circle  cl-5",
+        "fa-solid fa-circle  cl-6",
+        "fa-solid fa-circle  cl-7"
+      ],
+      "price": 26.99,
+      "countInStock": 20,
+      "brand": "Abercrombie &",
+      "image": "/imgs/women4.png",
+
+      "rating": 4.0,
+      "numReviews": 10
+    }
+  ]
+}

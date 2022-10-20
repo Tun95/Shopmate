@@ -1,0 +1,223 @@
+.admin-order {
+  display: flex;
+  justify-content: center;
+}
+
+/* .order .order-box {
+  background-color: #fff;
+
+  padding: 0px 20px;
+  width: 900px;
+  height: 820px;
+  overflow: hidden;
+  margin-bottom: 50px;
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+}
+
+.order-section {
+  -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+  box-shadow: 0px 0px 7px -1px #b4b4b4;
+  padding: 20px;
+  padding-bottom: 20px;
+
+  overflow: hidden;
+}
+.order .order-table {
+  overflow-x: scroll;
+
+} */
+
+.admin-order .admin-order-box {
+  background-color: #fff;
+
+  padding: 0px 20px;
+  width: 900px;
+  height: 790px;
+  overflow: hidden;
+  margin-bottom: 50px;
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+}
+.admin-order-box .order-admin-header {
+  -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+  box-shadow: 0px 0px 7px -1px #b4b4b4;
+}
+.admin-order-section {
+  -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+  box-shadow: 0px 0px 7px -1px #b4b4b4;
+  padding: 20px;
+  padding-bottom: 20px;
+
+  overflow: hidden;
+}
+.admin-order .admin-order-table {
+  overflow-x: scroll;
+}
+
+.admin-order .admin-order-table::-webkit-scrollbar {
+  cursor: pointer;
+  width: 5px;
+  height: 7px;
+}
+.admin-order .admin-order-table::-webkit-scrollbar-track {
+  width: 5px;
+  height: 7px;
+  background-color: #b4b4b4;
+  border-left: 0 solid #fff;
+  border-right: 0 solid #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.admin-order .admin-order-table::-webkit-scrollbar-thumb {
+  background-color: #6c6c6c;
+  width: 5px;
+
+  height: 15% !important;
+  transition: 0.5s ease;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.admin-order-box h1 {
+  display: flex;
+  justify-content: center;
+  padding: px;
+  font-family: "Old Standard TT", serif;
+  font-size: 48px;
+  color: #2e2e2e;
+}
+.admin-order-table-header ul {
+  border-bottom: 3px solid #b4b4b4;
+  width: 900px;
+}
+
+.admin-order-table-header ul {
+  display: inline-flex;
+  justify-content: space-around;
+  list-style: none;
+  color: #b4b4b4;
+  font-weight: 800;
+  padding-bottom: 10px;
+}
+.admin-order-table-header .admin-order-item {
+  width: 140px;
+  display: flex;
+  justify-content: start;
+  position: relative;
+  left: -25px;
+}
+.admin-order-table-header .admin-order-user {
+  margin-left: 20px;
+}
+.admin-order-table-header .admin-order-date {
+  width: 70px;
+  position: relative;
+  left: -20px;
+  display: flex;
+  justify-content: center;
+}
+.admin-order-table-header .admin-order-total {
+  position: relative;
+  left: -10px;
+}
+.admin-order-table-header .admin-order-paid {
+  position: relative;
+  left: -15px;
+}
+
+.admin-order-table-body .admin-order-table-row {
+  overflow-y: scroll;
+  height: 600px;
+  width: 900px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.admin-order-table-body .admin-order-table-row::-webkit-scrollbar {
+  width: 5px;
+}
+
+.admin-order-table-row ul li {
+  display: inline-block;
+  justify-content: space-around;
+  align-items: center;
+  line-height: 40px;
+}
+.admin-order-table-row .admin-order-item-list:nth-child(odd) {
+  background-color: #f7f7f7;
+}
+.admin-order-table-row .admin-item-id {
+  width: 140px;
+  position: relative;
+}
+.admin-order-table-row .admin-user-name {
+  line-height: 18px;
+  width: 40px;
+  position: relative;
+  left: 100px;
+}
+.admin-order-table-body ul .admin-created {
+  width: 100px;
+  text-align: center;
+  position: relative;
+  margin-left: 115px;
+  position: relative;
+  left: 6px;
+}
+.admin-order-table-body ul .admin-total-paid {
+  width: 60px;
+  text-align: center;
+  position: relative;
+  left: 45px;
+  color: #f62f5e;
+  font-weight: 600;
+}
+.admin-order-table-body ul .admin-paid {
+  width: 100px;
+  text-align: center;
+  position: relative;
+  left: 60px;
+}
+.admin-order-table-body ul .admin-paidAt {
+  color: #6eb2fb;
+  font-weight: 600;
+}
+.admin-order-table-body ul .admin-negate {
+  color: #f62f5e;
+}
+.admin-order-table-body ul .admin-deliver {
+  width: 100px;
+  text-align: center;
+  position: relative;
+  left: 95px;
+}
+.admin-order-table-body ul .admin-order-btn-view {
+  display: flex;
+  margin-top: -42px;
+  width: 100px;
+  text-align: center;
+  position: relative;
+  left: 775px;
+}
+.admin-order-table-body ul .admin-order-btn {
+  background: #b4b4b4;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px 5px 15px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-order-table-body .admin-order-delete {
+  padding: 5px 10px 5px 10px;
+  outline: none;
+  border: none;
+  background-color: #f62f5e;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+@media screen and (max-width: 375px) {
+  .admin-order-box .order-admin-header {
+    font-size: 28px;
+  }
+}

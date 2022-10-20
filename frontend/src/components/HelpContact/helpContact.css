@@ -1,0 +1,149 @@
+.contact {
+  display: flex;
+  justify-content: center;
+  transform: translateY(10%);
+}
+.contact .contact-box {
+  background-color: #fff;
+  width: 480px;
+  height: 520px;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 1px 10px 40px -5px #b4b4b4;
+}
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: 30px;
+  margin-bottom: 0px;
+}
+.contact-header .close a {
+  color: #6c6c6c;
+  position: relative;
+  left: 40px;
+  top: -10px;
+  cursor: pointer;
+}
+.contact-header .material-symbols-sharp {
+  font-size: 40px;
+  font-weight: 300;
+}
+.contact-header h2 {
+  color: #f62f5e;
+}
+.contact-box-body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.contact-form-group {
+  line-height: 70px;
+}
+.contact-inner-form .contact-form-group input {
+  padding: 0px 10px;
+  margin-top: 15px;
+}
+.contact-inner-form .contact-form-group .contact-input-box {
+  outline-color: #6eb2fb;
+  border: 1px solid #b4b4b4;
+  height: 50px;
+  width: 320px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.contact-form-group .textarea {
+  margin-top: 15px;
+
+  width: 320px;
+  height: 150px;
+  resize: none;
+  outline-color: #6eb2fb;
+  font-size: 20px;
+  padding: 10px;
+}
+.contact-send .contact-form-button button {
+  width: 160px;
+  height: 45px;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: -5px;
+  border-radius: 30px;
+  outline: none;
+  background-color: #f62f5e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+  .contact .contact-box {
+    width: 460px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .contact .contact-box {
+    width: 400px;
+  }
+  .contact-header .close a {
+    position: relative;
+    left: 20px;
+    top: -20px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .contact .contact-box {
+    width: 360px;
+  }
+  .contact-header .close a {
+    position: relative;
+    left: 2px;
+  }
+  .contact-inner-form .contact-form-group .contact-input-box {
+    width: 290px;
+  }
+  .contact-form-group .textarea {
+    width: 290px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .contact {
+    transform: translateY(5%);
+  }
+  .contact .contact-box {
+    width: 345px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .contact {
+    transform: translateY(2%);
+  }
+  .contact .contact-box {
+    width: 310px;
+    height: 490px;
+  }
+  .contact-inner-form .contact-form-group .contact-input-box {
+    width: 260px;
+  }
+  .contact-form-group .textarea {
+    width: 260px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .contact .contact-box {
+    width: 270px;
+    height: 490px;
+  }
+  .contact-inner-form .contact-form-group .contact-input-box {
+    width: 230px;
+  }
+  .contact-form-group .textarea {
+    width: 230px;
+  }
+  .contact-send .contact-form-button button {
+    width: 140px;
+    height: 40px;
+  }
+}

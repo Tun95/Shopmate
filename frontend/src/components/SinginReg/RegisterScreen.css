@@ -1,0 +1,148 @@
+.reg-in {
+  display: flex;
+  justify-content: center;
+  transform: translateY(10%);
+}
+.reg-in .reg-header {
+  background-color: #fff;
+  width: 380px;
+  height: 520px;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 1px 10px 40px -5px #b4b4b4;
+}
+.reg-header .close a {
+  color: #6c6c6c;
+  position: relative;
+  left: 290px;
+  top: 10px;
+
+  cursor: pointer;
+}
+.reg-header .close-reg {
+  font-size: 34px !important;
+}
+.reg-header .material-symbols-sharp {
+  font-size: 40px;
+  font-weight: 300;
+}
+.reg-in .reg-header .reg-form-header {
+  display: flex;
+  justify-content: center;
+  padding-top: px;
+  padding-bottom: 40px;
+}
+.reg-inner-form {
+  line-height: 30px;
+}
+.reg-inner-form .reg-form-group input {
+  padding: 0px 10px;
+}
+.reg-inner-form .reg-form-group .reg-input-box {
+  outline: none;
+  border: 1px solid #b4b4b4;
+  height: 50px;
+  width: 280px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.reg-form-group #name {
+  margin-bottom: 20px;
+}
+.reg-form-group #password {
+  margin-top: 20px;
+}
+
+.reg-inner-form .reg-form-group .reg-input-box::placeholder {
+  text-align: center;
+  font-weight: 600;
+  color: #b4b4b4;
+  font-size: 16px;
+  position: relative;
+  bottom: 2px;
+}
+.reg-inner-form .reg-check-sign {
+  text-align: center;
+  margin-top: 10px;
+}
+.reg-check-sign .reg-form-button button {
+  height: 50px;
+  width: 200px;
+  font-size: 20px;
+  margin-top: 10px;
+  border-radius: 30px;
+  outline: none;
+  background-color: #f62f5e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.reg-inner-form .reg-form-footer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 20px;
+}
+.reg-inner-form .reg-form-footer a {
+  color: #f62f5e;
+  text-decoration: none;
+}
+
+.reg-form-footer .reg-f-pass {
+  position: relative;
+  right: 15px;
+  color: #6c6c6c;
+}
+@media screen and (max-width: 360px) {
+  .reg-in .reg-header {
+    width: 340px;
+  }
+  .reg-in {
+    transform: translateY(4%);
+  }
+  .reg-header .close a {
+    position: relative;
+    left: 275px;
+  }
+  .reg-check-sign .reg-form-button button {
+    width: 180px;
+    height: 40px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .reg-in {
+    transform: translateY(5%);
+  }
+  .reg-in .reg-header {
+    width: 310px;
+    height: 450px;
+  }
+  .reg-header .close a {
+    position: relative;
+    left: 248px;
+  }
+
+  .reg-inner-form .reg-form-group .reg-input-box {
+    width: 250px;
+    height: 40px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .reg-in .reg-header {
+    width: 260px;
+    height: 450px;
+  }
+  .reg-header .close a {
+    position: relative;
+    left: 200px;
+  }
+  .reg-inner-form .reg-form-group .reg-input-box {
+    width: 200px;
+    height: 40px;
+    position: relative;
+  }
+  .reg-check-sign .reg-form-button button {
+    width: 160px;
+  }
+}

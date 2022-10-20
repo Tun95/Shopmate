@@ -1,0 +1,46 @@
+.similar-prod {
+  display: flex;
+
+  position: relative;
+  left: -36.8px;
+}
+.similar-prod .dress {
+  background-color: #fff;
+  width: 285px;
+  text-align: center;
+  line-height: 25px;
+
+  height: 310px;
+  box-shadow: 1px 3px 3px -2px;
+}
+.similar-prod a {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+.similar-prod .price {
+  font-weight: 800;
+  color: #f62f5e;
+}
+.similar-prod .dress h4 {
+  font-weight: 800;
+}
+.similar-prod .dress .img {
+  margin-top: 10px;
+  width: 189px;
+  height: 190px;
+  object-fit: contain;
+}
+.dress:hover {
+  box-shadow: 1px 10px 40px -5px #6c6c6c;
+}
+.similar-prod .sim-p-name {
+  display: inline-block;
+  position: relative;
+  width: 90%;
+}
+@media screen and (max-width: 280px) {
+  .similar-prod .dress {
+    width: 265px;
+  }
+}
+

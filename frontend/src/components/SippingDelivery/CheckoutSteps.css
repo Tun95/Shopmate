@@ -1,0 +1,89 @@
+.checkout-steps h2 {
+  position: relative;
+  top: 30px;
+  right: 8px;
+}
+.steps ul {
+  text-align: center;
+  position: relative;
+  top: 50px;
+}
+.steps ul li {
+  display: inline-block;
+  width: 160px;
+  position: relative;
+}
+.steps ul li .node {
+  color: #b4b4b4;
+  position: relative;
+}
+.steps ul li p.active {
+  color: #f62f5e;
+  position: relative;
+}
+.steps ul li .node.active {
+  color: #f62f5e;
+  position: relative;
+}
+.steps ul li .node::after {
+  content: "";
+  background-color: #b4b4b4;
+  height: 4px;
+  width: 195px;
+  display: block;
+  position: absolute;
+  left: -200px;
+  top: 5px;
+}
+ul li .node.active::after {
+  content: "";
+  background-color: #f62f5e;
+  height: 4px;
+  width: 195px;
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 5px;
+}
+/* .steps ul li .left::after {
+  display: none;
+} */
+.steps ul li .right.active::after {
+  display: none;
+}
+
+.steps ul li p {
+  position: relative;
+  top: 20px;
+  font-weight: 700;
+}
+.steps ul li:nth-child(1) {
+  position: relative;
+  left: -70px;
+}
+.steps ul li .left {
+  position: relative;
+  right: 25px;
+}
+.steps ul li:nth-child(2) {
+  position: relative;
+  left: -35px;
+}
+.steps ul li:nth-child(3) {
+  position: relative;
+  left: 25px;
+}
+.steps ul li:nth-child(4) {
+  position: relative;
+  left: 70px;
+}
+.steps ul li .right {
+  position: relative;
+  left: 16px;
+}
+
+/* ul > {
+  border-top: 0.2rem solid #f62f5e;
+  color: #f62f5e;
+  width: 60px;
+} */

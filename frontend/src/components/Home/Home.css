@@ -1,0 +1,685 @@
+@import "https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0";
+
+.home-main {
+  width: 100%;
+  overflow: hidden;
+}
+.home {
+  max-width: 900px;
+  margin: 5px auto;
+  overflow: hidden;
+}
+.banner {
+  height: 450px;
+  background-image: url(../images/banner1.png);
+}
+.banner button {
+  background-color: #fff;
+  outline: none;
+  border: none;
+  padding: 10px 30px 10px 30px;
+  border-radius: 20px;
+  color: #f62f5e;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  left: 80px;
+  top: 330px;
+}
+.banner button:hover {
+  background-color: rgb(238, 236, 236);
+}
+.header-desc {
+}
+.header {
+  margin-top: 10px;
+  height: 250px;
+  background-color: #fff;
+  box-shadow: 0px 2px 2px -2px;
+  margin-bottom: 5px;
+  display: flex;
+  padding: 10px;
+}
+.header .sale {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  width: 45px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  background-color: #00d3ca;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+.header img {
+  position: relative;
+  top: 20px;
+  width: 250px;
+  left: 30px;
+  margin: ;
+}
+.header .header-content {
+  margin-left: 80px;
+}
+.header .header-content h2 {
+  position: relative;
+  top: 20px;
+  margin-bottom: 40px;
+}
+.header .header-content p {
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+.header .header-content button {
+  background: #f62f5e;
+  outline: none;
+  border: none;
+  padding: 10px 30px 10px 30px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.header .header-content button:hover {
+  background: rgb(214, 69, 101);
+}
+
+.spec {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.spec .section {
+  display: flex;
+}
+.aside-1 {
+  width: 300px;
+  height: 300px;
+  margin: 5px 10px 10px 0px;
+  background-color: #00d3ca;
+  margin: ;
+}
+.aside-1 .aside-content {
+  text-align: center;
+  position: relative;
+  top: 80px;
+}
+.aside-1 .aside-content h1 {
+  margin-bottom: 30px;
+  font-size: 60px;
+  font-family: "Old Standard TT", serif;
+}
+.aside-1 .aside-content h2 {
+  color: #f62f5e;
+}
+
+.aside-2 {
+  width: 300px;
+  height: 300px;
+  margin: 5px 10px 10px 0px;
+  background-image: linear-gradient(
+      rgba(226, 194, 9, 0.52),
+      rgba(168, 166, 9, 0.52)
+    ),
+    url(../images/men.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.aside-2 h2 {
+  font-family: "Old Standard TT", serif;
+  font-size: 50px;
+  color: #fff;
+}
+.main {
+  width: 670px;
+  background-color: #fff;
+  margin: 5px 0px 10px 0px;
+  box-shadow: 0px 2px 2px -2px;
+}
+.main .pop {
+  background-image: url(../images/gym.jpg);
+  width: 100%;
+  height: 400px;
+}
+.main .pop button {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  width: 45px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  background-color: #f1ad3d;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+.main .h-main-content {
+  margin-top: 30px;
+  text-align: center;
+  line-height: 40px;
+}
+.main .h-main-content h1 {
+  font-family: Georgia;
+  font-size: 40px;
+}
+.main .h-main-content button {
+  margin-top: 20px;
+  background: #f62f5e;
+  outline: none;
+  border: none;
+  padding: 10px 30px 10px 30px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.subscribe {
+  text-align: center;
+  background-color: rgb(226, 225, 225);
+}
+.content-design {
+  display: flex;
+  justify-content: center;
+}
+
+.subscribe .content-sub h3 {
+  padding: 20px;
+  color: #f62f5e;
+}
+.subscribe .content-sub p {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+}
+.subscribe .content-sub .sub-con-e {
+  padding-bottom: 40px;
+  margin-top: 20px;
+}
+.inp-icon-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subscribe .content-sub .material-symbols-sharp {
+  position: relative;
+  left: -230px;
+}
+
+.subscribe .content-sub input {
+  outline: none;
+  border: none;
+  padding: 10px;
+  padding-left: 40px;
+  border-radius: 20px;
+  width: 180px;
+  background: #fff;
+  position: relative;
+  margin-right: 10px;
+}
+.subscribe .content-sub button {
+  background: #f62f5e;
+  outline: none;
+  border: none;
+  margin: ;
+  padding: 8px 15px 8px 15px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.footer {
+  margin-top: -5px;
+}
+.footer .footer-content {
+  margin: 0px 0px 10px 0px;
+
+  background-color: #fff;
+  color: #2e2e2e;
+  display: flex;
+
+  display: flex;
+  justify-content: center;
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: #6c6c6c;
+}
+.footer h4 {
+  color: #2e2e2e;
+  margin-bottom: 10px;
+}
+.footer a {
+  text-decoration: none;
+  color: #6c6c6c;
+}
+.footer ul li {
+  list-style: none;
+  line-height: 30px;
+  position: relative;
+}
+
+.footer .store-foot {
+  padding-left: 50px;
+  margin: ;
+}
+.footer .follow {
+  padding-left: 50px;
+}
+.footer .ltd {
+  padding-left: 50px;
+}
+
+@media screen and (max-width: 920px) {
+  .banner {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .main .h-main-content {
+    line-height: 35px;
+  }
+  .main .h-main-content h1 {
+    margin-bottom: 10px;
+  }
+  .main .h-main-content button {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .section {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .aside {
+    display: flex;
+
+    width: 100%;
+    padding-right: -10px;
+  }
+  .aside-1 {
+    width: 350px;
+    height: 350px;
+  }
+  .aside-2 {
+    width: 350px;
+    height: 350px;
+    margin-right: 0px;
+  }
+  .main .h-main-content {
+    line-height: 25px;
+    padding-bottom: 10px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .header {
+    padding-bottom: 20px;
+  }
+  .header .header-content button {
+    margin-top: -10px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .header-desc {
+    width: 100%;
+  }
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+    text-align: center;
+    margin-left: 0px;
+  }
+
+  .header img {
+    width: 340px;
+    position: relative;
+    left: -24px;
+  }
+  .header .sale {
+    position: relative;
+    top: -265px;
+    left: -13px;
+    padding: 5px 10px 5px 10px;
+  }
+  .header-content {
+    position: relative;
+    left: -40px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .home-main {
+    width: 100%;
+  }
+  .header .sale {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  .header img {
+    width: 300px;
+    position: relative;
+    left: 4px;
+  }
+  .header .header-content h2 {
+    font-size: 30px;
+  }
+  .header .header-content {
+    width: 100%;
+    margin-right: -90px;
+    margin-left: -10px;
+  }
+
+  .aside {
+    display: block;
+
+    width: 100%;
+    padding-right: -10px;
+  }
+  .aside-1 {
+    width: 100%;
+    height: 380px;
+  }
+  .aside-1 .aside-content {
+    position: relative;
+    top: 30px;
+    font-size: 45px;
+  }
+  .aside-1 .aside-content h1 {
+    font-size: 120px;
+  }
+  .aside-2 {
+    width: 100%;
+    height: 380px;
+  }
+  .aside .aside-2 h2 {
+    font-size: 80px;
+  }
+  .main .pop button {
+    padding: 5px 10px 5px 10px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+  }
+  .footer .footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 20px;
+  }
+  .footer-content .follow {
+    position: relative;
+    left: -50px;
+  }
+  .footer-content .store-foot {
+    position: relative;
+    left: -30px;
+    width: 100%;
+  }
+  .footer-content .ltd {
+    width: 100%;
+    margin-top: 94px;
+    position: relative;
+    left: -30px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .aside-cont-h {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 60px;
+  }
+  .aside-1 .aside-content h1 {
+    font-size: 80px;
+  }
+  .aside-1 .aside-content h2 {
+    font-size: 40px;
+  }
+  .main .h-main-content h1 {
+    font-size: 25px;
+  }
+  .main .main-content-reg {
+    font-size: 15px;
+  }
+  .main .h-main-content button {
+    padding: 8px 20px 8px 20px;
+  }
+  .subscribe h3 {
+    font-size: 17px;
+  }
+  .subscribe p {
+    font-size: 13px;
+    padding: 0px 10px;
+  }
+  .subscribe .content-sub button {
+    padding: 8px 15px 8px 15px;
+  }
+  .subscribe .content-sub input {
+    margin-right: -20px;
+    width: 160px;
+  }
+  .subscribe .content-sub .material-symbols-sharp {
+    position: relative;
+    left: -180px;
+  }
+  .footer h4 {
+    font-size: 15px;
+  }
+  .footer ul li {
+    font-size: 15px;
+  }
+  .footer .ltd {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 411px) {
+  .aside-cont-h {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 60px;
+  }
+  .aside-1 .aside-content h1 {
+    font-size: 80px;
+  }
+  .aside-1 .aside-content h2 {
+    font-size: 40px;
+  }
+  .main .h-main-content h1 {
+    font-size: 25px;
+  }
+  .main .main-content-reg {
+    font-size: 15px;
+  }
+  .main .h-main-content button {
+    padding: 8px 20px 8px 20px;
+  }
+  .subscribe h3 {
+    font-size: 17px;
+  }
+  .subscribe p {
+    font-size: 13px;
+    padding: 0px 6px;
+  }
+  .subscribe .content-sub .material-symbols-sharp {
+    position: relative;
+    left: -180px;
+  }
+  .footer h4 {
+    font-size: 15px;
+  }
+  .footer ul li {
+    font-size: 15px;
+  }
+  .footer .ltd {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .aside-cont-h {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 60px;
+  }
+  .aside-1 .aside-content h1 {
+    margin: ;
+    font-size: 70px;
+  }
+  .aside-1 .aside-content h2 {
+    font-size: 40px;
+  }
+
+  .main .main-content-reg {
+    font-size: 14px;
+  }
+  .main .h-main-content button {
+    padding: 8px 18px 8px 18px;
+  }
+  .subscribe h3 {
+    font-size: 17px;
+  }
+  .subscribe p {
+    font-size: 13px;
+    padding: 0px 12px;
+  }
+  .subscribe .content-sub button {
+    padding: 8px 12px 8px 12px;
+  }
+  .subscribe .content-sub input {
+    margin-right: -20px;
+    width: 160px;
+  }
+  .subscribe .content-sub .material-symbols-sharp {
+    position: relative;
+    left: -180px;
+  }
+  .footer h4 {
+    font-size: 13px;
+  }
+  .footer ul li {
+    font-size: 13px;
+  }
+  .footer .ltd {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .header .header-content button {
+    padding: 8px 20px 8px 20px;
+  }
+  .aside-cont-h {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 60px;
+  }
+  .aside-1 .aside-content h1 {
+    margin: ;
+    font-size: 70px;
+  }
+  .aside-1 .aside-content h2 {
+    font-size: 40px;
+  }
+
+  .main .main-content-reg {
+    font-size: 14px;
+  }
+  .main .h-main-content button {
+    padding: 8px 18px 8px 18px;
+  }
+  .subscribe h3 {
+    font-size: 17px;
+  }
+  .subscribe p {
+    font-size: 13px;
+    padding: 0px 12px;
+  }
+  .subscribe .content-sub button {
+    padding: 8px 12px 8px 12px;
+  }
+  .subscribe .content-sub input {
+    margin-right: -20px;
+    width: 160px;
+  }
+  .subscribe .content-sub .material-symbols-sharp {
+    position: relative;
+    left: -190px;
+  }
+  .footer h4 {
+    font-size: 13px;
+  }
+  .footer ul li {
+    font-size: 13px;
+  }
+  .footer .ltd {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .main .main-content-reg {
+    font-size: 13px;
+  }
+  .main .h-main-content button {
+    padding: 6px 15px 6px 15px;
+  }
+
+  .subscribe p {
+    font-size: 12px;
+    padding: 0px 12px;
+  }
+  .subscribe .content-sub input {
+    margin-right: -20px;
+    width: 120px;
+  }
+  .subscribe .content-sub .material-symbols-sharp {
+    position: relative;
+    font-size: 24px;
+    left: -140px;
+  }
+  .subscribe .content-sub button {
+    padding: 6px 10px 6px 10px;
+  }
+  .footer .ltd {
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .header img {
+    width: 250px;
+  }
+  .header .header-content h2 {
+    font-size: 24px;
+  }
+  .header .header-content p {
+    font-size: 15px;
+  }
+  .header .header-content button {
+    padding: 8px 20px 8px 20px;
+  }
+  .footer-content .store-foot {
+    position: relative;
+    left: -50px;
+    width: 100%;
+  }
+  .footer-content .ltd {
+    width: 100%;
+    margin-top: 94px;
+    position: relative;
+    left: -50px;
+  }
+}

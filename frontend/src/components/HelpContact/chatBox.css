@@ -1,0 +1,121 @@
+.chatbox {
+  color: #2e2e2e;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+}
+.chat-box {
+}
+
+.chatbox li {
+  margin-bottom: 1rem;
+}
+.chatbox .chat-box .active-icons {
+  cursor: pointer;
+}
+.chatbox .chat-box .chat-box-open {
+  background-color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chatbox .chat-box .contact-chat-box {
+  font-size: 60px !important;
+  color: #f62f5e;
+  cursor: pointer;
+}
+.chatbox .chat-box .card-body {
+  width: 320px;
+  height: 360px;
+  background-color: #fff;
+}
+.chatbox .card-body .card-style {
+  width: 100%;
+}
+.chatbox .chat-box .card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0px 10px;
+
+  color: #ddddf7;
+  background-color: #5d5b8d;
+}
+
+.chatbox .card-body .chat-height {
+  height: 290px;
+  overflow: hidden;
+}
+.chatbox .chat-scroll {
+  overflow-y: scroll;
+  height: 275px;
+  width: 100%;
+  background-color: #ddddf7;
+}
+.chatbox .chat-scroll li {
+  list-style: none;
+}
+.chatbox .chat-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.chatbox .card-body .reguler-chat {
+  background-color: #f7f7f7;
+  max-width: 70%;
+  padding: 10px;
+  margin-top: 10px;
+  height: inherit;
+  margin-left: 8px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+.chatbox .card-body .chat-list {
+  background-color: #8da4f1;
+  color: #fff;
+  padding: 10px;
+  height: inherit;
+  max-width: 70%;
+  margin-top: 10px;
+  margin-left: 69px;
+  flex-direction: row-reverse;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.chatbox .card input {
+  width: calc(100% - 9rem);
+}
+
+.chatbox .card-body .form-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  padding: 0px 10px;
+  position: relative;
+  bottom: 10px;
+}
+.chatbox .card-body input {
+  width: 80%;
+  padding: 5px;
+  padding-right: 30px;
+  outline: none;
+  border: 2px solid #b4b4bb;
+  font-size: 18px;
+}
+.chatbox .card-body input::placeholder {
+  color: #b4b4bb;
+}
+.chatbox .card-body .chat-box-send {
+  position: relative;
+  right: 30px;
+}
+@media screen and (max-width: 320px) {
+  .chatbox .chat-box .card-body {
+    width: 300px;
+    position: relative;
+    left: 5px;
+  }
+}
