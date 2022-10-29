@@ -265,17 +265,20 @@ productRouter.get("/slug/:slug", async (req, res) => {
 
 //RELATED PRODUCT
 productRouter.get("/related/:id", async (req, res) => {
-  const limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  try {
+    const product = await Product.findById(req.params.id);
+    const related = await Product.find({
+      _id: { $ne: product },
+      category: product.category,
+    })
+      .limit(6)
+      .populate("category", "name");
 
-  Product.find({ _id: { $ne: req.params }, category: req.params.category })
-    .limit(limit)
-    .populate("category", "_id name")
-    .exec((err, product) => {
-      if (err) {
-        return res.status(400).json({ error: "Product not found" });
-      }
-      res.json(product);
-    });
+    console.log("RELATED PRODUCTS", related);
+    res.json(related);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 productRouter.get("/:id", async (req, res) => {

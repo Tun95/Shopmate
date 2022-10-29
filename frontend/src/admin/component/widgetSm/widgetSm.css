@@ -6,6 +6,7 @@
   margin-right: 20px;
   height: 320px;
   overflow: hidden;
+  
 }
 .widgetSmTitle {
   font-size: 22px;
@@ -48,6 +49,7 @@
 }
 .widgetSmUsername {
   font-weight: 600;
+  text-align: center;
 }
 .widgetSmUserTitle {
   font-weight: 300;
@@ -68,4 +70,10 @@
 .widgetSmIcon {
   font-size: 16px !important;
   margin-right: 5px;
+}
+@media screen and (max-width: 663px) {
+  .widgetSm {
+    flex: auto;
+    margin-right: 0px;
+  }
 }

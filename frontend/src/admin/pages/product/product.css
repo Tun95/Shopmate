@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 .product-edit {
   width: 1000px;
@@ -78,6 +79,11 @@
 .productForm {
   display: flex;
   justify-content: space-between;
+}
+.productFormLeft-styles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 .productFormLeft {
   display: flex;
@@ -181,4 +187,64 @@
   outline: none;
   width: 130px;
   margin-left: 33px;
+}
+@media screen and (max-width: 950px) {
+  .productFormLeft-styles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 750px) {
+  .productFormLeft-styles {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .productTop {
+    display: grid;
+    flex-wrap: wrap-reverse;
+  }
+  .productFormRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 414px) {
+  .product .productForm {
+    display: flex;
+    flex-direction: column;
+  }
+  .productFormRight {
+    margin-top: 20px;
+    margin-right: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .productUpload {
+    position: relative;
+    left: 10px;
+  }
+  .product .productUploadImg-delete {
+    margin: 10px 0px;
+  }
+  .product .productButton {
+    margin-top: 10px;
+    width: 200px;
+    position: relative;
+    left: 45px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .product .productButton {
+    position: relative;
+    left: 20px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .product .productButton {
+    position: relative;
+    left: 0px;
+  }
 }

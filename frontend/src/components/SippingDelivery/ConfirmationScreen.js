@@ -46,7 +46,6 @@ function ConfirmationScreen() {
   useEffect(() => {
     if (!shippingAddress.address || cartItems.length === 0) {
       navigate("/shipping?redirect");
-      
     }
   }, [shippingAddress, navigate, cartItems]);
   const backHandler = () => {
@@ -70,7 +69,7 @@ function ConfirmationScreen() {
         {
           orderItems: cartItems,
           shippingAddress,
-
+          // paymentMethod,
           itemsPrice,
           shippingPrice: shippingPrice,
           taxPrice,

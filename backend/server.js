@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import {createServer} from "http";
+import { createServer } from "http";
 import express from "express";
 import data from "./data.js";
 
@@ -11,6 +11,7 @@ import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import morgan from "morgan";
 import uploadRouter from "./routes/uploadRoutes.js";
+// import stripeRouter from "./routes/stripeRoutes.js";
 
 dotenv.config();
 
@@ -51,13 +52,14 @@ app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+// app.use("/api/checkout", stripeRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 
 const server = createServer(app);
-const io = new Server(server, {cors: {origin:"*"}});
+const io = new Server(server, { cors: { origin: "*" } });
 // const httpServer = http.Server(app);
 // const io = SocketIO(httpServer);
 const users = [];

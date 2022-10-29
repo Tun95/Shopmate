@@ -76,7 +76,7 @@ function NavBarSR(props) {
           <div className="admin-select">
             <ul>
               <li>
-                <Link to="">
+                <Link to="#">
                   <span>Admin</span>
                   <i className="fa fa-caret-down"></i>
                 </Link>
@@ -117,7 +117,7 @@ function NavBarSR(props) {
                 <div className="seller-select-nav">
                   <ul>
                     <li>
-                      <Link to="">
+                      <Link to="#">
                         <span>Seller</span>
                         <i className="fa fa-caret-down"></i>
                       </Link>

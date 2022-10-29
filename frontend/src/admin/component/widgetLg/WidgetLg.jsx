@@ -50,7 +50,7 @@ function WidgetLg() {
     <div className="widgetLg">
       <h3 className="widgetLgTitle">Latest Orders</h3>
       <div className="table-box-listoder">
-        <ul className="widgetLgTr">
+        <ul className="widgetLgTr widgetLgTr-heder">
           <li className="widgetLgTh ">Customer</li>
           <li className="widgetLgTh-date">Date</li>
           <li className="widgetLgTh-amount">Amount</li>

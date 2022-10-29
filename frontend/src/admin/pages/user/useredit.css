@@ -165,3 +165,30 @@
   font-weight: 600;
   outline: none;
 }
+@media screen and (max-width: 700px) {
+  .new-user-edit .new-box {
+    height: 100%;
+    padding-bottom: 40px;
+  }
+  .userUpdateForm {
+    display: flex;
+    flex-direction: column;
+  }
+  .userUpdateRight {
+    margin-top: 20px;
+  }
+  .userUpdateButton {
+    margin-top: 30px;
+    width: 100px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .userContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .userUpdate {
+    margin-top: 30px;
+    margin-left: 0px;
+  }
+}

@@ -90,19 +90,19 @@ function ProductPage(props) {
   }, [slug]);
 
   //FETCH RELATED PRODUCTS
-  const id = useParams();
   useEffect(() => {
-    const fetchData = async (item) => {
+    const fetchData = async () => {
       try {
-        const result = await axios.get(`/api/products`);
+        const result = await axios.get(`/api/products/related/${product._id}`);
         dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_SIM_FAIL", payload: error.message });
-        console.log(error);
       }
     };
+
     fetchData();
-  }, [id]);
+  }, [product._id]);
+  console.log(products);
 
   //ADD TO CART
   const { state, dispatch: ctxDispatch } = useContext(Context);
@@ -193,6 +193,7 @@ function ProductPage(props) {
                           <div className="image-selected-preview">
                             {[product.image, ...product.images].map((x) => (
                               <span
+                                key={x}
                                 onClick={() => setSelectedImage(x)}
                                 className={`${
                                   x === selectedImage ? "selected-image" : ""
@@ -243,9 +244,9 @@ function ProductPage(props) {
                         <div className="product-color">
                           <h4>Color</h4>
                           <ul className="ul-color-prod">
-                            {product.color?.map((c) => (
+                            {product.color?.map((c, index) => (
                               <li
-                                key={c}
+                                key={index}
                                 onClick={() => setColor(c)}
                                 className={`${color === c ? "active" : ""}`}
                               >
@@ -262,9 +263,9 @@ function ProductPage(props) {
 
                           <div className="product-size-btn">
                             {/* <button> {product.size[1]}</button> */}
-                            {product.size?.map((s) => (
+                            {product.size?.map((s, index) => (
                               <button
-                                key={s}
+                                key={index}
                                 onClick={() => setSize(s)}
                                 className={`${size === s ? "size" : ""}`}
                               >
@@ -470,8 +471,8 @@ function ProductPage(props) {
                     </div>
                     <div className="related-product">
                       <div className="prod-list">
-                        {products.slice(0, 6).map((product, id) => (
-                          <div className="sim-shirt" key={id}>
+                        {products?.map((product, index) => (
+                          <div className="sim-shirt" key={index}>
                             <Link to={`/product/${product.slug}`}>
                               <img src={product.image} alt="" />
                             </Link>

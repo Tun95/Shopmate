@@ -87,8 +87,10 @@ function Dashboard() {
       ) : (
         <div className="dasboard">
           <div className="dashboard-home">
-            <FeaturedInfo summary={summary} />
-            {/* <div className="chart">
+            <div className="dashboard-home-view">
+              <div className="dash-feature">
+                <FeaturedInfo summary={summary} />
+                {/* <div className="chart">
               <h3 className="chartTitle">Sales</h3>
               <Chart
                 width="100%"
@@ -101,16 +103,19 @@ function Dashboard() {
                 ]}
               ></Chart>
             </div> */}
-            <Charts
-              data={salesStats}
-              title="Sales"
-              grid
-              dataKey="Total Sales"
-            />
-
-            <div className="homeWidgets">
-              <WidgetSm />
-              <WidgetLg />
+                <div className="dashbaord-chart">
+                  <Charts
+                    data={salesStats}
+                    title="Sales"
+                    grid
+                    dataKey="Total Sales"
+                  />
+                </div>
+              </div>
+              <div className="homeWidgets">
+                <WidgetSm />
+                <WidgetLg />
+              </div>
             </div>
           </div>
         </div>

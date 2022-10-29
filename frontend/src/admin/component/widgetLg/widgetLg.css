@@ -5,9 +5,37 @@
   padding: 20px;
   height: 320px;
   overflow: hidden;
+  /* width: 100%; */
 }
 .table-box-listoder {
   margin-top: 20px;
+  overflow-x: scroll;
+}
+.table-box-listoder::-webkit-scrollbar {
+  cursor: pointer;
+  width: 5px;
+  height: 7px;
+}
+.table-box-listoder::-webkit-scrollbar-track {
+  width: 5px;
+  height: 7px;
+  background-color: #b4b4b4;
+  border-left: 0 solid #fff;
+  border-right: 0 solid #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.table-box-listoder::-webkit-scrollbar-thumb {
+  background-color: #6c6c6c;
+  width: 5px;
+
+  height: 15% !important;
+  transition: 0.5s ease;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.widgetLgTr-heder {
+  width: 570px;
 }
 .widgetLgTitle {
   font-size: 22px;
@@ -39,8 +67,9 @@
   width: 100%;
   border-spacing: 20px;
 }
-.widgetLgTr-body {
+.widgetLgTable .widgetLgTr-body {
   line-height: 40px;
+  /* width: 20px; */
 }
 .widgetLgUser {
   display: flex;
@@ -49,6 +78,7 @@
 }
 .widgetLg .scroll-widget {
   height: 250px;
+  width: 570px;
   overflow-y: scroll;
 }
 .scroll-widget::-webkit-scrollbar {
@@ -96,4 +126,9 @@
 .widgetLgButton.Pending {
   background-color: #ebf1fe;
   color: #2a7ade;
+}
+@media screen and (max-width: 663px) {
+  .widgetLg {
+    margin-top: 20px;
+  }
 }

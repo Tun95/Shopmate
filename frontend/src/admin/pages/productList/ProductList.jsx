@@ -166,78 +166,72 @@ function ProductList() {
               </div>
             </div>
             <div className="product-section">
-              <table className="product-table">
-                <div className="product-table">
+              <div className="product-table">
+                <div className="product-table-scroll">
                   <div className="product-table-header">
-                    <thead>
-                      <tr>
-                        <th className="product-id">ID</th>
-                        <th className="product-name">NAME</th>
-                        <th className="product-price">PRICE</th>
-                        <th className="product-category">CATEGORY</th>
-                        <th className="product-color">COLOR</th>
-                        <th className="product-brand">BRAND</th>
-                        <th className="product-size">SIZE</th>
-                        <th className="product-actions">ACTIONS</th>
-                      </tr>
-                    </thead>
+                    <ul>
+                      <li className="product-id">ID</li>
+                      <li className="product-name">NAME</li>
+                      <li className="product-price">PRICE</li>
+                      <li className="product-category">CATEGORY</li>
+                      <li className="product-color">COLOR</li>
+                      <li className="product-brand">BRAND</li>
+                      <li className="product-size">SIZE</li>
+                      <li className="product-actions">ACTIONS</li>
+                    </ul>
                   </div>
-                  <tbody>
-                    <div className="product-table-body">
-                      <div className="product-table-row">
-                        {products.map((product) => (
-                          <tr className="product-item-list" key={product._id}>
-                            <td className="product-item-id">{product._id}</td>
-                            <td className="product-item-name">
-                              {product.name}
-                            </td>
-                            <td className="product-item-price">
-                              £{product.price}
-                            </td>
-                            <td className="product-item-category">
-                              {product.category.map((cat) => (
-                                <td>{cat}</td>
-                              ))}
-                            </td>
-                            <td className="product-item-color">
-                              {product.color?.map((c) => (
-                                <td key={c}>
-                                  <i className={c}></i>&nbsp;
-                                </td>
-                              ))}
-                            </td>
-                            <td className="product-item-brand">
-                              {product.brand?.map((b) => (
-                                <td key={b}>{b}</td>
-                              ))}
-                            </td>
-                            <td className="product-item-size">
-                              {product.size.map((s) => (
-                                <td>{s}&nbsp;</td>
-                              ))}
-                            </td>
-                            <td className="product-btn-view">
-                              <button
-                                className="product-btn"
-                                onClick={() =>
-                                  navigate(`/admin/productedit/${product._id}`)
-                                }
-                              >
-                                Edit
-                              </button>
-                              &nbsp;
-                              <DeleteOutline
-                                className="product-delete"
-                                onClick={() => deleteHandler(product)}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </div>
-                    </div>
-                  </tbody>
+                  <table className="product-table-column">
+                    <tbody className="product-table-row">
+                      {products.map((product, index) => (
+                        <tr className="product-item-list" key={index}>
+                          <td className="product-item-id">{product._id}</td>
+                          <td className="product-item-name">{product.name}</td>
+                          <td className="product-item-price">
+                            £{product.price}
+                          </td>
+                          <td className="product-item-category">
+                            {product.category.map((cat, index) => (
+                              <span key={index}>{cat}</span>
+                            ))}
+                          </td>
+                          <td className="product-item-color">
+                            {product.color?.map((c) => (
+                              <span key={c}>
+                                <i className={c}></i>&nbsp;
+                              </span>
+                            ))}
+                          </td>
+                          <td className="product-item-brand">
+                            {product.brand?.map((b) => (
+                              <span key={b}>{b}</span>
+                            ))}
+                          </td>
+                          <td className="product-item-size">
+                            {product.size.map((s, index) => (
+                              <span key={index}>{s}&nbsp;</span>
+                            ))}
+                          </td>
+                          <td className="product-btn-view">
+                            <button
+                              className="product-btn"
+                              onClick={() =>
+                                navigate(`/admin/productedit/${product._id}`)
+                              }
+                            >
+                              Edit
+                            </button>
+                            &nbsp;
+                            <DeleteOutline
+                              className="product-delete"
+                              onClick={() => deleteHandler(product)}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </table>
+              </div>
               <div className="product-pagination">
                 {/* <div className="productlist-page"> */}
                 {/* {[...Array(pages).keys()].map((x) => (

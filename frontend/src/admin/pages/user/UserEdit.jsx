@@ -86,6 +86,7 @@ function User() {
       }
     };
     fetchData();
+    console.log(userId);
   }, [userId, userInfo]);
 
   const submitHandler = async (e) => {
@@ -158,7 +159,6 @@ function User() {
               <h1 className="userTitle">Edit User</h1>
             </div>
             <div className="userContainer">
-              {/* {users.map((user) => ( */}
               <div className="userShow">
                 <div className="userShowTop">
                   <img
@@ -201,7 +201,7 @@ function User() {
                   </div>
                 </div>
               </div>
-              {/* ))} */}
+
               <div className="userUpdate">
                 <span className="userUpdateTitle">Edit</span>
                 <form

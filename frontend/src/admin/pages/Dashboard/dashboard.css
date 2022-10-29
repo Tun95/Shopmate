@@ -1,19 +1,26 @@
 .dashboard-box {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .dasboard {
   background-color: #fff;
-  width: 1000px;
+  width: 990px;
 }
-.dashboard-home {
-  width: 100%;
+.dashboard-home-view {
   padding-top: 20px;
 }
 
 .homeWidgets {
   display: flex;
+  justify-content: space-between;
+
   margin: 20px;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 663px) {
+  .homeWidgets {
+    display: grid;
+    justify-content: center;
+  }
 }

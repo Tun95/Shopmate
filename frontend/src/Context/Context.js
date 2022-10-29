@@ -58,7 +58,7 @@ function reducer(state, action) {
 
     //CART CLEAR
     case "CART_CLEAR":
-      return{...state, cart: {...state.cart, cartItems: []}}
+      return { ...state, cart: { ...state.cart, cartItems: [] } };
 
     //SIGN IN & SIGN OUT
     case "USER_SIGNIN":

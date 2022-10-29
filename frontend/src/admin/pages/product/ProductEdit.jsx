@@ -314,154 +314,165 @@ function ProductEdit() {
             </div>
             <div className="productBottom">
               <form action="" className="productForm" onSubmit={submitHandler}>
-                <div className="productFormLeft">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Novelty TShirt"
-                  />
-                  <label htmlFor="slug">Slug</label>
-                  <input
-                    type="text"
-                    id="slug"
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                    placeholder="Novelty-TShirt"
-                  />
-                  <label htmlFor="keygen">Keygen</label>
-                  <input
-                    type="text"
-                    id="keygen"
-                    value={keygen}
-                    onChange={(e) => setKeygen(e.target.value)}
-                    placeholder="Men BK3569"
-                  />
-                  <label htmlFor="qty">Quantity</label>
-                  <input
-                    type="text"
-                    id="qty"
-                    value={countInStock}
-                    onChange={(e) => setCountInStock(e.target.value)}
-                    placeholder="123"
-                  />
-                  <label htmlFor="">Description</label>
-                  <div className="text-area-desc">
-                    <textarea
-                      placeholder="Your description here..."
-                      className="textarea"
-                      name="comments"
-                      id="comments"
-                      cols="30"
-                      rows="10"
-                      value={desc}
-                      onChange={(e) => setDesc(e.target.value)}
-                    ></textarea>
+                <div className="productFormLeft-styles">
+                  <div className="productFormLeft productFormLeft-one">
+                    <label htmlFor="name">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Novelty TShirt"
+                    />
+                    <label htmlFor="slug">Slug</label>
+                    <input
+                      type="text"
+                      id="slug"
+                      value={slug}
+                      onChange={(e) => setSlug(e.target.value)}
+                      placeholder="Novelty-TShirt"
+                    />
+                    <label htmlFor="keygen">Keygen</label>
+                    <input
+                      type="text"
+                      id="keygen"
+                      value={keygen}
+                      onChange={(e) => setKeygen(e.target.value)}
+                      placeholder="Men BK3569"
+                    />
+                    <label htmlFor="qty">Quantity</label>
+                    <input
+                      type="text"
+                      id="qty"
+                      value={countInStock}
+                      onChange={(e) => setCountInStock(e.target.value)}
+                      placeholder="123"
+                    />
+                    <label htmlFor="">Description</label>
+                    <div className="text-area-desc">
+                      <textarea
+                        placeholder="Your description here..."
+                        className="textarea"
+                        name="comments"
+                        id="comments"
+                        cols="30"
+                        rows="10"
+                        value={desc}
+                        onChange={(e) => setDesc(e.target.value)}
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="productFormLeft productFormLeft-Two">
+                    <label htmlFor="gender">Gender</label>
+                    <Select
+                      labelId="mui-simple-select-label"
+                      id="mui-simple-select"
+                      value={gender}
+                      label={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                    >
+                      {genderselect.map((g, index) => (
+                        <MenuItem key={index} value={g.gender}>
+                          {g.gender}
+                        </MenuItem>
+                      ))}
+                    </Select>
+
+                    <label htmlFor="category" className="ccatb-des">
+                      Category
+                    </label>
+                    <Select
+                      labelId="mui-simple-select-label"
+                      id="mui-simple-select"
+                      multiple
+                      value={category}
+                      label={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    >
+                      {categories.map((c, index) => (
+                        <MenuItem key={index} value={c.cat}>
+                          {c.cat}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <label htmlFor="color" className="ccatb-des">
+                      Color
+                    </label>
+                    <Select
+                      labelId="mui-simple-select-label"
+                      id="mui-simple-select"
+                      multiple
+                      value={color}
+                      label={color}
+                      onChange={(e) => setColor(e.target.value)}
+                    >
+                      {productcolor.map((c, index) => (
+                        <MenuItem key={index} value={c.color}>
+                          {c.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+
+                    <label htmlFor="img" className="ccatb-des">
+                      Image
+                    </label>
+                    <input
+                      type="text"
+                      id="img"
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
+                      placeholder="/imgs/kid1.png"
+                    />
+
+                    <label htmlFor="price">Price</label>
+                    <input
+                      type="text"
+                      id="price"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      placeholder="23"
+                    />
+                  </div>
+                  <div className="productFormLeft productFormLeft-three">
+                    <label htmlFor="size">Size</label>
+                    <Select
+                      labelId="mui-simple-select-label"
+                      id="mui-simple-select"
+                      multiple
+                      value={size}
+                      label={size}
+                      onChange={(e) => setSize(e.target.value)}
+                    >
+                      {adminsize.map((s, index) => (
+                        <MenuItem key={index} value={s.label}>
+                          {s.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+
+                    <label htmlFor="brand" className="ccatb-des">
+                      Brand
+                    </label>
+                    <Select
+                      labelId="mui-simple-select-label"
+                      id="mui-simple-select"
+                      multiple
+                      value={brand}
+                      label={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                    >
+                      {productbrand.map((b, index) => (
+                        <MenuItem key={index} value={b.brand}>
+                          {b.brand}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </div>
                 </div>
-                <div className="productFormLeft">
-                  <label htmlFor="gender">Gender</label>
-                  <Select
-                    labelId="mui-simple-select-label"
-                    id="mui-simple-select"
-                    value={gender}
-                    label={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                  >
-                    {genderselect.map((g) => (
-                      <MenuItem value={g.gender}>{g.gender}</MenuItem>
-                    ))}
-                  </Select>
-
-                  <label htmlFor="category" className="ccatb-des">
-                    Category
-                  </label>
-                  <Select
-                    labelId="mui-simple-select-label"
-                    id="mui-simple-select"
-                    multiple
-                    value={category}
-                    label={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    {categories.map((c) => (
-                      <MenuItem value={c.cat}>{c.cat}</MenuItem>
-                    ))}
-                  </Select>
-                  <label htmlFor="color" className="ccatb-des">
-                    Color
-                  </label>
-                  <Select
-                    labelId="mui-simple-select-label"
-                    id="mui-simple-select"
-                    multiple
-                    value={color}
-                    label={color}
-                    onChange={(e) => setColor(e.target.value)}
-                  >
-                    {productcolor.map((c) => (
-                      <MenuItem value={c.color}>{c.label}</MenuItem>
-                    ))}
-                  </Select>
-
-                  <label htmlFor="img" className="ccatb-des">
-                    Image
-                  </label>
-                  <input
-                    type="text"
-                    id="img"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                    placeholder="/imgs/kid1.png"
-                  />
-
-                  <label htmlFor="price">Price</label>
-                  <input
-                    type="text"
-                    id="price"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="23"
-                  />
-                </div>
-                <div className="productFormLeft">
-                  <label htmlFor="size">Size</label>
-                  <Select
-                    labelId="mui-simple-select-label"
-                    id="mui-simple-select"
-                    multiple
-                    value={size}
-                    label={size}
-                    onChange={(e) => setSize(e.target.value)}
-                  >
-                    {adminsize.map((s) => (
-                      <MenuItem value={s.label}>{s.label}</MenuItem>
-                    ))}
-                  </Select>
-
-                  <label htmlFor="brand" className="ccatb-des">
-                    Brand
-                  </label>
-                  <Select
-                    labelId="mui-simple-select-label"
-                    id="mui-simple-select"
-                    multiple
-                    value={brand}
-                    label={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                  >
-                    {productbrand.map((b) => (
-                      <MenuItem value={b.brand}>{b.brand}</MenuItem>
-                    ))}
-                  </Select>
-                </div>
-
                 <div className="productFormRight">
                   <div className="productUpload">
                     <img src={image} alt="" className="productUploadImg" />
-                    {loadingUpload && <LoadingBox></LoadingBox>}
+                    {image === loadingUpload && <LoadingBox></LoadingBox>}
                     <label htmlFor="file">
                       <Publish
                         className="upload-btn"
@@ -493,7 +504,7 @@ function ProductEdit() {
                     </div>
                     <label htmlFor="files" className="products-images-upload">
                       {images.length === 0 && <MessageBox>No Image</MessageBox>}
-
+                      {images && loadingUpload && <LoadingBox></LoadingBox>}
                       <Publish
                         className="upload-btn images-list-l"
                         onChange={(e) => uploadFileHandler(e, true)}

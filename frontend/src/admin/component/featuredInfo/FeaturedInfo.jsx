@@ -57,7 +57,7 @@ function FeaturedInfo(props) {
         </div>
         <span className="featuredSub">Compared to last month</span>
       </div>
-      <div className="featuredItem">
+      <div className="featuredItem featuredItem-two">
         <span className="featuredTitle">Orders</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{TotalOrders}</span>
@@ -72,7 +72,7 @@ function FeaturedInfo(props) {
         </div>
         <span className="featuredSub">Compared to last month</span>
       </div>
-      <div className="featuredItem">
+      <div className="featuredItem featuredItem-three">
         <span className="featuredTitle">Sales</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{TotalSales}</span>

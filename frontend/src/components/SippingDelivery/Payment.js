@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import CheckoutSteps from "./CheckoutSteps";
+import StripeCheckout from "react-stripe-checkout";
 import "./Payment.css";
 import paypal from "../images/paypal.png";
 import stripe from "../images/stripe.png";
@@ -37,7 +38,6 @@ function Payment(props) {
   const navigate = useNavigate();
 
   //ORDER POSTING
-
   const {
     state,
     dispatch: ctxDispatch,
@@ -49,20 +49,11 @@ function Payment(props) {
     cart: { cartItems, shippingAddress, paymentMethod },
   } = state;
 
-  //GRANDTOTAL
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
-  const taxPrice = itemsPrice * 0.14;
-  const shippingPrice = shippingAddress.shipping === Express ? 28 : "";
-  const grandTotal = (
-    Number(itemsPrice) +
-    Number(taxPrice) +
-    Number(shippingPrice)
-  ).toFixed(0);
-
   //PAYMENT METHOD
   const [paymentMethodName, setPaymentMethod] = useState(
     paymentMethod || "PayPal"
   );
+
   //STRIPE MODAL
   const [openStripeModal, is0penStripeModal] = useState(false);
   const closeStripeModal = () => {
@@ -189,7 +180,7 @@ function Payment(props) {
 
   //Navigation
   useEffect(() => {
-    if (order.isPaid ) {
+    if (order.isPaid) {
       navigate("/finish?redirect");
     }
   }, [navigate, cartItems, order.isPaid]);
@@ -200,15 +191,32 @@ function Payment(props) {
     localStorage.setItem("paymentMethod", paymentMethodName);
   };
 
-  // //INPUT
+  //STRIPE SECTION
+  // const KEY = process.env.REACT_APP_STRIPE;
+  const KEY =
+    "pk_test_51LddZCG74SnLVBhQAzsedUUcKxd33HOpAIThNyxKl2l4mxvCj8uywmQFZHNq5EmiIn6jNrAVGrBqT1tWHprcD3XF00xOSuchsE";
+  const [stripeToken, setStripeToken] = useState(null);
 
-  // const input = [
-  //   {
-  //     inputMode: "numeric",
-  //   },
-  //checked={paymentMethodName === "PayPal"}
-  // checked={paymentMethodName === "PayPal"}
-  // ];
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  console.log(stripeToken);
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await axios.post("/api/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: order.grandTotal,
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    makeRequest();
+  }, [order.grandTotal, stripeToken]);
+
   return (
     <div className="payment">
       <Helmet>
@@ -244,7 +252,10 @@ function Payment(props) {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   />
                   <span>
-                    <strong> Pay £{grandTotal} with credit card</strong>
+                    <strong>
+                      {" "}
+                      Pay £{order.grandTotal?.toFixed(0)} with credit card
+                    </strong>
                   </span>
                 </div>
               </label>
@@ -268,7 +279,10 @@ function Payment(props) {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   />
                   <span>
-                    <strong> Pay £{grandTotal} with PayPal</strong>
+                    <strong>
+                      {" "}
+                      Pay £{order.grandTotal?.toFixed(0)} with PayPal
+                    </strong>
                   </span>
                 </div>
               </label>
@@ -282,19 +296,13 @@ function Payment(props) {
                       <div className="p-inner-form">
                         <div className="form-group">
                           <label htmlFor="card-holder">Cardholder's Name</label>
-                          <input
-                            type="text"
-                            required
-                            id="name"
-                            placeholder="Name"
-                          />
+                          <input type="text" id="name" placeholder="Name" />
                           <i className="fa fa-user"></i>
                         </div>
                         <div className="form-group">
                           <label htmlFor="card-number">Card Number</label>
                           <input
                             type="tel"
-                            required
                             id="card-number"
                             name="card-number"
                             inputMode="numeric"
@@ -307,13 +315,12 @@ function Payment(props) {
                         <div className="form-date">
                           <div className="form-group-d">
                             <label htmlFor="card-date">Valid thru.</label>
-                            <input type="text" required placeholder="MM/YY" />
+                            <input type="text" placeholder="MM/YY" />
                           </div>
                           <div className="form-group-d">
                             <label htmlFor="card-cvv">CVV / CVC*</label>
                             <input
                               type="tel"
-                              required
                               id="cvv"
                               maxLength="3"
                               pattern="[0-9]{3}"
@@ -352,14 +359,26 @@ function Payment(props) {
                 <button className="back" onClick={backHandler}>
                   Back
                 </button>
-                {openPaypalModal ? (
+                {openPaypalModal && (
                   <button className="pay" disabled>
                     Pay
                   </button>
-                ) : (
-                  <button type="submit" className="next-step">
-                    Pay
-                  </button>
+                )}
+                {openStripeModal && (
+                  <StripeCheckout
+                    name="SHOPMATE"
+                    image=""
+                    billingAddress
+                    shippingAddress
+                    description={`Your total is $${order.grandTotal}`}
+                    amount={order.grandTotal * 100}
+                    token={onToken}
+                    stripeKey={KEY}
+                  >
+                    <button type="submit" className="next-step">
+                      Pay
+                    </button>
+                  </StripeCheckout>
                 )}
               </div>
             </div>
