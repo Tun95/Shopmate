@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import "./widgetSm.css";
 import person from "../../images/person.png";
-import { Visibility } from "@material-ui/icons";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Context } from "../../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -74,7 +74,7 @@ function WidgetSm() {
                     navigate(`/admin/useredit/${user._id}`);
                   }}
                 >
-                  <Visibility className="widgetSmIcon" />
+                  <VisibilityIcon className="widgetSmIcon" />
                   Display
                 </button>
               </li>

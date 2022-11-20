@@ -6,7 +6,7 @@ import MessageBox from "../../../components/Utilities/MessageBox";
 import { Context } from "../../../Context/Context";
 import socketIOClient from "socket.io-client";
 import "./supportScreen.css";
-import Send from "@material-ui/icons/Send";
+import SendIcon from "@mui/icons-material/Send";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 
@@ -211,7 +211,7 @@ function SupportScreen() {
                     onChange={(e) => setMessageBody(e.target.value)}
                     placeholder="type message here"
                   />
-                  <Send className="message-send" onClick={submitHandler} />
+                  <SendIcon className="message-send" onClick={submitHandler} />
                 </form>
               </div>
             )}

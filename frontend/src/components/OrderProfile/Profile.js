@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import person from "../images/person.png"
 import MessageBox from "../Utilities/MessageBox";
-import { Publish } from "@material-ui/icons";
+import PublishIcon from "@mui/icons-material/Publish";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -196,7 +196,7 @@ function Profile() {
                           style={{ display: "none" }}
                         />
                         <label htmlFor="file">
-                          <Publish
+                          <PublishIcon
                             className="userUpdateIcon"
                             onChange={uploadFileHandler}
                           />
@@ -320,7 +320,7 @@ function Profile() {
                                     alt=""
                                   />
                                   <label htmlFor="sellerlogo">
-                                    <Publish
+                                    <PublishIcon
                                       className="userUpdateIcon"
                                       onChange={uploadSellerFileHandler}
                                     />

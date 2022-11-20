@@ -91,6 +91,10 @@
 }
 #mui-simple-select {
   width: 200px;
+  outline: none;
+  height: 10px;
+}
+#formControl {
   margin-top: -5px;
 }
 .ccatb-des {

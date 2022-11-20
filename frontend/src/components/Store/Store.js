@@ -6,16 +6,15 @@ import StoreItems from "./StoreItems";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SimilarProduct from "./SimilarProduct";
 import { Helmet } from "react-helmet-async";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Slider,
-} from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
-import PaginationItem from "@material-ui/lab/PaginationItem";
+
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+
 import MessageBox from "../Utilities/MessageBox";
 import LoadingBox from "../Utilities/LoadingBox";
 import { getError } from "../Utilities/Utils";
@@ -372,7 +371,7 @@ function Store(props) {
                           onChange={updateRange}
                            marks={prices}
                         /> */}
-                        <FormControl>
+                        <FormControl variant="filled" size="small">
                           <InputLabel id="mui-price-select-label">
                             Price
                           </InputLabel>
@@ -381,6 +380,9 @@ function Store(props) {
                             id="mui-simple-select"
                             value={price}
                             MenuProps={MenuProps}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
                             onChange={(e) =>
                               navigate(getFilterUrl({ price: e.target.value }))
                             }
@@ -405,7 +407,7 @@ function Store(props) {
                     <div className="brand">
                       <h4>Brand</h4>
                       <div className="select-brand">
-                        <FormControl>
+                        <FormControl variant="filled" size="small">
                           <InputLabel id="mui-brand-select-label">
                             Brand
                           </InputLabel>
@@ -413,6 +415,9 @@ function Store(props) {
                             labelId="mui-simple-select-label"
                             id="mui-simple-select"
                             MenuProps={MenuProps}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
                             value={brand}
                             label={brand}
                             onChange={(e) =>

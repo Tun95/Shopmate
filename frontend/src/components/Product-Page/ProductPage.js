@@ -8,7 +8,7 @@ import React, {
 import data from "../../data/data.json";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "../Product-Page/ProductPage.css";
-import Rating from "@material-ui/lab/Rating";
+import Rating from "@mui/material/Rating";
 import { Helmet } from "react-helmet-async";
 import Ratings from "../Ratings/Ratings";
 import LoadingBox from "../Utilities/LoadingBox";

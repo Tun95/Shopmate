@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Context } from "../../Context/Context";
 import data from "../../data/data.json";
-import Menu from "@material-ui/icons/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
 
 function NavBar(props) {
   const { showModal, showSideBar } = props;
@@ -61,7 +61,10 @@ function NavBar(props) {
           </div>
           <div className="sidebar-nav">
             <div className="side-bar-icon">
-              <Menu className="sidebarnav-menu-icon" onClick={showSideBar} />
+              <MenuIcon
+                className="sidebarnav-menu-icon"
+                onClick={showSideBar}
+              />
             </div>
           </div>
         </div>

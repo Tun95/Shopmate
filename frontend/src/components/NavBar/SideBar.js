@@ -1,21 +1,21 @@
 import React, { useContext, useState } from "react";
 import "./sideBar.css";
-import Close from "@material-ui/icons/Close";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Home from "@material-ui/icons/Home";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Home from "@mui/icons-material/Home";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 
-import Store from "@material-ui/icons/Store";
-import LocalMallIcon from "@material-ui/icons/LocalMall";
-import ListIcon from "@material-ui/icons/List";
-import Seller from "@material-ui/icons/Storefront";
-import AdminPanel from "@material-ui/icons/AccountBalance";
-import Dashboard from "@material-ui/icons/LineStyle";
+import Store from "@mui/icons-material/Store";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import ListIcon from "@mui/icons-material/List";
+import Seller from "@mui/icons-material/Storefront";
+import AdminPanel from "@mui/icons-material/AccountBalance";
+import Dashboard from "@mui/icons-material/LineStyle";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import LiveHelp from "@material-ui/icons/LiveHelp";
-import GroupIcon from "@material-ui/icons/Group";
-import WorkRounded from "@material-ui/icons/WorkRounded";
+import LiveHelp from "@mui/icons-material/LiveHelp";
+import GroupIcon from "@mui/icons-material/Group";
+import WorkRounded from "@mui/icons-material/WorkRounded";
 import WomanIcon from "@mui/icons-material/Woman";
 import ManIcon from "@mui/icons-material/Man";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
@@ -23,9 +23,9 @@ import DoNotStepIcon from "@mui/icons-material/DoNotStep";
 import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HistoryIcon from "@mui/icons-material/History";
-import AddBoxIcon from "@material-ui/icons/AddBox";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Phone } from "@material-ui/icons";
+import PhoneIcon from "@mui/icons-material/Phone";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -67,7 +67,7 @@ function SideBar(props) {
           <div className="side-box-container">
             <div className="side-container">
               <div className="side-bar-top">
-                <Close onClick={closeSideBar} className="close-sidebar" />
+                <CloseIcon onClick={closeSideBar} className="close-sidebar" />
                 <span>
                   Your bag:{" "}
                   <div className="side-bar-price">
@@ -337,7 +337,7 @@ function SideBar(props) {
                     )}
                     <li className="side-contact">
                       <Link to="/contact">
-                        <Phone className="sidebar-icons" />
+                        <PhoneIcon className="sidebar-icons" />
                         Contact
                       </Link>
                     </li>

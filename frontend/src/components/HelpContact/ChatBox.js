@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { Context } from "../../Context/Context";
 import sockectIOClient from "socket.io-client";
 import "./chatBox.css";
-import Close from "@material-ui/icons/Close";
-import Send from "@material-ui/icons/Send";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
 import HelpIcon from "@mui/icons-material/Help";
 
 const ENDPOINT =
@@ -84,7 +84,7 @@ function ChatBox() {
             <div className="card-style">
               <div className="card-row">
                 <strong>Support</strong>
-                <Close
+                <CloseIcon
                   onClick={closeHandler}
                   className="close-message-box active-icons"
                 />
@@ -116,7 +116,7 @@ function ChatBox() {
                     onChange={(e) => setMessageBody(e.target.value)}
                     placeholder="type message here"
                   />
-                  <Send
+                  <SendIcon
                     onClick={submitHandler}
                     className="chat-box-send active-icons"
                   />

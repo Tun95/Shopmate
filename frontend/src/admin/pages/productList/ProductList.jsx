@@ -14,12 +14,13 @@ import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import { Context } from "../../../Context/Context";
 import "./productList.css";
-import { DeleteOutline } from "@material-ui/icons";
-import Pagination from "@material-ui/lab/Pagination";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
 import { toast } from "react-toastify";
 import { getError } from "../../../components/Utilities/Utils";
-import PaginationItem from "@material-ui/lab/PaginationItem";
-import { makeStyles } from "@material-ui/core";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+
 import Footer from "../../../components/Footer/Footer";
 
 const reducer = (state, action) => {
@@ -289,7 +290,7 @@ function ProductList() {
                                   Edit
                                 </button>
                                 &nbsp;
-                                <DeleteOutline
+                                <DeleteOutlineIcon
                                   className="product-delete"
                                   onClick={showDeleteModal}
                                 />

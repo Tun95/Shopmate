@@ -1,6 +1,7 @@
 import React from "react";
 import "./featuredInfo.css";
-import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 function FeaturedInfo(props) {
   const { summary, salesStats } = props;
@@ -54,9 +55,9 @@ function FeaturedInfo(props) {
           <span className="featuredMoneyRate">
             %{Math.abs(userPerc)}{" "}
             {userPerc > 0 ? (
-              <ArrowUpward className="featuredIcon positive" />
+              <ArrowUpwardIcon className="featuredIcon positive" />
             ) : (
-              <ArrowDownward className="featuredIcon negative" />
+              <ArrowDownwardIcon className="featuredIcon negative" />
             )}
           </span>
         </div>
@@ -69,9 +70,9 @@ function FeaturedInfo(props) {
           <span className="featuredMoneyRate">
             %{Math.abs(orderPerc)}{" "}
             {orderPerc > 0 ? (
-              <ArrowUpward className="featuredIcon positive" />
+              <ArrowUpwardIcon className="featuredIcon positive" />
             ) : (
-              <ArrowDownward className="featuredIcon negative" />
+              <ArrowDownwardIcon className="featuredIcon negative" />
             )}
           </span>
         </div>
@@ -84,9 +85,9 @@ function FeaturedInfo(props) {
           <span className="featuredMoneyRate">
             %{Math.abs(salesPerc)}{" "}
             {salesPerc > 0 ? (
-              <ArrowUpward className="featuredIcon positive" />
+              <ArrowUpwardIcon className="featuredIcon positive" />
             ) : (
-              <ArrowDownward className="featuredIcon negative" />
+              <ArrowDownwardIcon className="featuredIcon negative" />
             )}
           </span>
         </div>

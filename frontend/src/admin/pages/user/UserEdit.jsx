@@ -3,14 +3,14 @@ import "./useredit.css";
 import person from "../../images/person.png";
 import photo from "../../images/photo.jpg";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  CalendarToday,
-  LocationSearching,
-  MailOutline,
-  PermIdentity,
-  PhoneAndroid,
-  Publish,
-} from "@material-ui/icons";
+
+import PublishIcon from "@mui/icons-material/Publish";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
+
 import { Context } from "../../../Context/Context";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -185,26 +185,26 @@ function User() {
                     <div className="userShowBottom">
                       <span className="userShowTitle">Account Details</span>
                       <div className="userShowInfo">
-                        <PermIdentity className="userShowIcon" />
+                        <PermIdentityIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">
                           <div>{name}</div>
                         </span>
                       </div>
                       <div className="userShowInfo">
-                        <CalendarToday className="userShowIcon" />
+                        <CalendarTodayIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">10.12.1999</span>
                       </div>
                       <span className="userShowTitle">Contact Details</span>
                       <div className="userShowInfo">
-                        <PhoneAndroid className="userShowIcon" />
+                        <PhoneAndroidIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">{phone}</span>
                       </div>
                       <div className="userShowInfo">
-                        <MailOutline className="userShowIcon" />
+                        <MailOutlineIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">{email}</span>
                       </div>
                       <div className="userShowInfo">
-                        <LocationSearching className="userShowIcon" />
+                        <LocationSearchingIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">
                           {address}, {country}
                         </span>
@@ -307,7 +307,7 @@ function User() {
                             className="userUpdateImg"
                           />
                           <label htmlFor="file">
-                            <Publish
+                            <PublishIcon
                               className="userUpdateIcon"
                               onChange={uploadFileHandler}
                             />
