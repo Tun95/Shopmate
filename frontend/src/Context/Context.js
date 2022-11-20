@@ -53,12 +53,16 @@ function reducer(state, action) {
       );
 
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } };
+      return { ...state, error: "", cart: { ...state.cart, cartItems } };
     }
 
     //CART CLEAR
     case "CART_CLEAR":
-      return { ...state, cart: { ...state.cart, cartItems: [] } };
+      return { ...state, error: "", cart: { ...state.cart, cartItems: [] } };
+
+    //CART_ADD_ITEM_FAIL
+    case "CART_ADD_ITEM_FAIL":
+      return { ...state, error: action.payload };
 
     //SIGN IN & SIGN OUT
     case "USER_SIGNIN":

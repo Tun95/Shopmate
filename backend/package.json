@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
@@ -20,12 +21,14 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.5",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.8.0",
     "socket.io": "^4.5.2",
     "streamifier": "^0.1.1",
     "stripe": "^10.15.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "sib-api-v3-sdk": "^8.4.2"
   }
 }

@@ -36,7 +36,7 @@ function StoreItems(props) {
     }
     ctxDispatch({
       type: "CART_ADD_ITEM",
-      payload: { ...item, quantity, size, color },
+      payload: { ...item, seller: data.seller, quantity, size, color },
     });
   };
 
@@ -60,27 +60,10 @@ function StoreItems(props) {
               <div className="price">£{product.price}</div>
             </div>
 
-            {/* <div key={item.id} className="add-rem-clear">
-              <div className="add-rem">
-                <button onClick={() => onRemove(item)} className="remove">
-                  -
-                </button>
-                <div className="in-cart">
-                  <strong style={{ fontSize: "20px" }}>{item.qty}</strong>
-                </div>
-                <button onClick={() => onAdd(item)} className="add">
-                  +
-                </button>
-              </div>
-              <div className="remove-items">
-                <button
-                  onClick={() => removeItem(item)}
-                  className="remove-item"
-                >
-                  Remove
-                </button>
-              </div>
-            </div> */}
+            {/* <Link to={`/sellers-screen/${product.seller._id}`}>
+              {product.seller.seller.name}
+            </Link> */}
+
             {product.countInStock === 0 ? (
               <button className="out-stock" variant="light" disabled>
                 Out of stock

@@ -1,7 +1,6 @@
 .reg-in {
   display: flex;
   justify-content: center;
-  transform: translateY(10%);
 }
 .reg-in .reg-header {
   background-color: #fff;
@@ -10,6 +9,7 @@
   display: flex;
   justify-content: center;
   border-radius: 5px;
+  margin: 40px 0px;
   box-shadow: 1px 10px 40px -5px #b4b4b4;
 }
 .reg-header .close a {

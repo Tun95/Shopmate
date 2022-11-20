@@ -1,0 +1,339 @@
+.payment {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.payment-box {
+  background-color: white;
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+  width: 750px;
+  height: 100%;
+  margin-bottom: 100px;
+}
+
+.payment-section {
+  margin-top: 90px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  gap: 20px;
+}
+.payment-section img {
+  width: 130px;
+  height: 40px;
+}
+.payment-section .stripe {
+  cursor: pointer;
+  border: 1px solid #b4b4b4;
+  width: 320px;
+  height: 120px;
+  text-align: center;
+  position: relative;
+  left: -5px;
+  line-height: 30px;
+  background-color: #f7f7f7;
+}
+
+.stripe .stripe-svg {
+  position: relative;
+  top: 30px;
+}
+.stripe .svg {
+  display: flex;
+  justify-content: center;
+}
+.stripe .svg .masvis img {
+  width: 60px;
+}
+.payment-section .active {
+  border: 1px solid #6eb2fb;
+  cursor: pointer;
+  width: 320px;
+  height: 120px;
+  text-align: center;
+  position: relative;
+  left: -5px;
+  line-height: 30px;
+  background-color: #e5f1ff;
+}
+.active .stripe-svg {
+  position: relative;
+  top: 30px;
+}
+.active .svg {
+  display: flex;
+  justify-content: center;
+}
+.active .svg .masvis img {
+  width: 60px;
+}
+
+.payment-section .paypal {
+  cursor: pointer;
+  border: 1px solid #b4b4b4;
+  width: 320px;
+  height: 120px;
+  text-align: center;
+  position: relative;
+  background-color: #f7f7f7;
+  line-height: 30px;
+}
+.paypal .paypal-svg {
+  position: relative;
+  top: 30px;
+}
+.payment-section .active-paypal {
+  border: 1px solid #6eb2fb;
+  cursor: pointer;
+  width: 320px;
+  height: 120px;
+  text-align: center;
+  position: relative;
+
+  line-height: 30px;
+  background-color: #e5f1ff;
+}
+.active-paypal .paypal-svg {
+  position: relative;
+  top: 30px;
+}
+
+/* DETAILS */
+
+.paypal-stripe {
+  min-height: 241px;
+}
+.stripe-details {
+  position: relative;
+  top: 15px;
+}
+.stripe-details .p-inner-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  padding: 10px 40px;
+  position: relative;
+  left: -5px;
+  line-height: 40px;
+}
+.stripe-details .p-inner-form .form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.payment-input-box {
+  border: 1px solid #b4b4b4;
+  height: 40px;
+  width: 89%;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.p-inner-form .form-group input {
+  outline: none;
+  border: none;
+  height: 40px;
+  border-radius: 5px;
+  width: 90%;
+  font-size: 25px;
+
+  background: transparent;
+}
+.p-inner-form .form-group #name::placeholder {
+  color: #b4b4b4;
+  position: relative;
+}
+.p-inner-form .form-group #card-number::placeholder {
+  color: #b4b4b4;
+  position: relative;
+  top: 8px;
+}
+.p-inner-form label {
+  font-weight: 600;
+  color: #b4b4b4;
+}
+.p-inner-form .form-group .fa {
+  position: relative;
+
+  bottom: 5px;
+  width: 10px;
+}
+
+.form-group span {
+  line-height: 20px;
+  color: #b4b4b4;
+  position: relative;
+  top: 15px;
+}
+.p-inner-form .form-date {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: -10px;
+  gap: 20px;
+}
+.cvc-fa-icon {
+  border: 1px solid #b4b4b4;
+  height: 40px;
+  width: 77%;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+.form-date .form-group-d input {
+  border: none;
+  font-size: 25px;
+  width: 90%;
+  outline: none;
+  position: relative;
+  top: 3px;
+}
+
+.form-date .form-group-d #cvv::placeholder {
+  color: #b4b4b4;
+}
+.form-group-d #passcvv {
+  position: relative;
+  margin-left: -15px;
+  width: 10px;
+}
+
+/* PAYPAL-DETAILS */
+.paypal-stripe .paypal-details {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.payment-details .paypal-btn {
+  position: relative;
+  top: 40px;
+  width: 50%;
+}
+/* PAYPAL-DETAILS */
+
+.p-lower-btn {
+  position: relative;
+  top: 66px;
+  background-color: #e4e4e4;
+  position: relative;
+  bottom: px;
+}
+.payment-details .p-lower-btn .btn-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 38px;
+}
+.payment-details .p-lower-btn .btn-group .back {
+  background: #fff;
+  outline: none;
+  border: none;
+  padding: 10px 45px 10px 45px;
+  border-radius: 20px;
+  color: #f62f5e;
+  font-weight: 800;
+  cursor: pointer;
+}
+.payment-details .p-lower-btn .btn-group .next-step {
+  background: #f62f5e;
+  outline: none;
+  border: none;
+  padding: 10px 50px 10px 50px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.payment-details .p-lower-btn .btn-group .pay {
+  background-color: #f7f7f7;
+  outline: none;
+  border: none;
+  padding: 10px 50px 10px 50px;
+  border-radius: 20px;
+  color: #b4b4b4;
+  font-weight: 800;
+}
+@media screen and (max-width: 760px) {
+  .payment {
+    padding: 10px;
+  }
+  .payment-box {
+    width: 100%;
+    height: 100%;
+  }
+  .n-t-y {
+    margin-left: 17px;
+  }
+}
+@media screen and (max-width: 580px) {
+  .stripe-details .p-inner-form {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    position: relative;
+    left: 15px;
+    height: 100%;
+  }
+  .form-date .form-group-d #cvv {
+    padding-right: 30px;
+    width: 60%;
+  }
+ 
+}
+@media screen and (max-width: 540px) {
+  .payment-section {
+    display: grid;
+    justify-content: center;
+  }
+  .payment-section .stripe {
+    left: 0px;
+  }
+  .payment-section .active {
+    left: 0px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .payment-section {
+    position: relative;
+    right: 21px;
+  }
+  .payment-section .stripe {
+    width: 120%;
+  }
+  .payment-section .active {
+    width: 120%;
+  }
+  .payment-section .paypal {
+    width: 120%;
+  }
+  .payment-section .active-paypal {
+    width: 120%;
+  }
+  .payment-section img {
+    width: 120px;
+    height: 40px;
+  }
+  .payment-details .paypal-btn {
+    left: -15px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .stripe-details .p-inner-form {
+    left: 0px;
+  }
+  .payment-input-box {
+    width: 95%;
+  }
+  .p-inner-form .form-group input {
+    width: 90%;
+  }
+  .p-inner-form .form-date {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cvc-fa-icon {
+    width: 50%;
+  }
+  .form-date .form-group-d input {
+    width: 90%;
+  }
+
+}

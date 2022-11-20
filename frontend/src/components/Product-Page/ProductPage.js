@@ -106,24 +106,38 @@ function ProductPage(props) {
 
   //ADD TO CART
   const { state, dispatch: ctxDispatch } = useContext(Context);
-  const { cart, userInfo } = state;
+  const { cart: cartItems, userInfo } = state;
   const addToCartHandler = async () => {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
-    if (data.countInStock < quantity) {
-      toast.error("Sorry, Product stock limit reached or out of stock", {
-        position: "bottom-center",
+    if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
+      dispatch({
+        type: "CART_ADD_ITEM_FAIL",
+        payload: `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
       });
-      return;
     } else {
-      toast.success(`${product.name} is successfully added to cart`, {
-        position: "bottom-center",
+      if (data.countInStock < quantity) {
+        toast.error("Sorry, Product stock limit reached or out of stock", {
+          position: "bottom-center",
+        });
+        return;
+      } else {
+        toast.success(`${product.name} is successfully added to cart`, {
+          position: "bottom-center",
+        });
+      }
+
+      ctxDispatch({
+        type: "CART_ADD_ITEM",
+        payload: {
+          ...product,
+          seller: data.seller,
+          quantity,
+          size,
+          color,
+        },
       });
     }
-    ctxDispatch({
-      type: "CART_ADD_ITEM",
-      payload: { ...product, quantity, size, color },
-    });
   };
 
   //PRODUCT REVIEWS
@@ -134,7 +148,7 @@ function ProductPage(props) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!comment || !rating) {
+    if (!comment && !rating) {
       toast.error("Please enter comment and select rating of your choice", {
         position: "bottom-center",
       });
@@ -149,7 +163,7 @@ function ProductPage(props) {
         }
       );
 
-      dispatch({ type: "CREATE_SUCCESS" });
+      dispatch({ type: "CREATE_SUCCESS", payload: { seller: data.seller } });
       toast.success("Review submitted successfully", {
         position: "bottom-center",
       });
@@ -190,7 +204,7 @@ function ProductPage(props) {
                           <img src={selectedImage || product.image} alt="" />
                         </div>
                         <div className="img-small-l">
-                          <div className="image-selected-preview">
+                          <div className="image-selected-preview-prod">
                             {[product.image, ...product.images].map((x) => (
                               <span
                                 key={x}
@@ -240,6 +254,16 @@ function ProductPage(props) {
                         <div className="prod-title">
                           <h2>{product.name}</h2>
                         </div>
+                        {product.seller ? (
+                          <div className="seller-name-link">
+                            <h4>Seller: </h4>
+                            <Link to={`/sellers-screen/${product.seller._id}`}>
+                              {product.seller.seller.name}
+                            </Link>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                         <div className="price">£{product.price}</div>
                         <div className="product-color">
                           <h4>Color</h4>
@@ -262,7 +286,6 @@ function ProductPage(props) {
                           </div>
 
                           <div className="product-size-btn">
-                            {/* <button> {product.size[1]}</button> */}
                             {product.size?.map((s, index) => (
                               <button
                                 key={index}
@@ -287,9 +310,7 @@ function ProductPage(props) {
                               <span>{quantity}</span>
                             </div>
                             <button
-                              disabled={
-                                product.quantity === product.countInStock
-                              }
+                              disabled={product.countInStock === 0}
                               onClick={() => handleQuantity("inc")}
                               className="add-to"
                             >
@@ -309,14 +330,14 @@ function ProductPage(props) {
                                 </button>
                               </div>
                             )}
-                            <div className="wish-list">
+                            {/* <div className="wish-list">
                               <span className="material-symbols-sharp">
                                 favorite
                               </span>
                               <div className="add-wish">
                                 <p>Add to Wish List</p>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -373,12 +394,12 @@ function ProductPage(props) {
                     </div>
                     {product.reviews.length !== 0 && (
                       <div className="page-rev">
-                        <div className="page">
+                        {/* <div className="page">
                           <span className="material-symbols-sharp">
                             favorite
                           </span>
                           <span className="fav-count">113</span>
-                        </div>
+                        </div> */}
                         <div className="page-fav-rev">
                           <div className="page-fava-rev">
                             <i className="fa-regular fa-comment"></i>

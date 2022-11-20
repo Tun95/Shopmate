@@ -14,7 +14,7 @@ const reviewSchema = new mongoose.Schema(
 const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
-    seller: { type: mongoose.Schema.Types.ObjectId },
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     slug: { type: String, required: true },
     keygen: { type: String, required: true },
     gender: { type: String, required: true },
@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema(
     brand: { type: Array },
     image: { type: String, required: true },
     images: [String],
-    desc: { type: String, required: true },
+    desc: { type: String },
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
     reviews: [reviewSchema],

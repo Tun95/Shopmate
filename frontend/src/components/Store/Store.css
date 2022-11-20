@@ -429,7 +429,7 @@
 
 .similar-prod-store {
   width: 104.5%;
-  
+
   padding-right: 20px;
 }
 .end-list {
@@ -754,7 +754,6 @@
     width: 95%;
     position: relative;
     right: 34px;
-    
   }
   .end-list::-webkit-scrollbar-track {
     margin-right: 3px;
@@ -828,7 +827,6 @@
     width: 87%;
     position: relative;
     right: 2px;
-   
   }
   .end-list::-webkit-scrollbar-track {
     margin-right: 3px;
@@ -865,7 +863,6 @@
     width: 76%;
     position: relative;
     right: 2px;
-    
   }
   .end-list::-webkit-scrollbar-track {
     margin-right: 3px;
@@ -907,6 +904,9 @@
     padding: 8px;
     width: 150px;
   }
+  .subscribe-offer .spa-in input {
+    width: 130px;
+  }
   .subscribe-offer .spa-in #icon {
     font-size: 14px;
   }
@@ -919,7 +919,6 @@
     width: 83%;
     position: relative;
     right: 2px;
-    
   }
   .end-list::-webkit-scrollbar-track {
     margin-right: 3px;
@@ -981,7 +980,6 @@
     width: 70%;
     position: relative;
     right: 0px;
-    
   }
   .end-list::-webkit-scrollbar-track {
     margin-right: 3px;
@@ -1025,7 +1023,6 @@
     width: 76%;
     position: relative;
     right: 0px;
-   
   }
   .end-list::-webkit-scrollbar-track {
     margin-right: 3px;

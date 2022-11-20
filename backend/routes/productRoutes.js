@@ -24,7 +24,7 @@ productRouter.post(
       slug: "sample-name-" + Date.now(),
       keygen: "Men BK3569",
       gender: "Male",
-      category: ["Men"],
+      category: ["Brands", "Men"],
       size: ["XS", "S", "24", "32"],
       color: ["fa-solid fa-circle  cl-1", "fa-solid fa-circle  cl-2"],
       brand: ["Abercrombie"],
@@ -74,7 +74,7 @@ productRouter.put(
 productRouter.delete(
   "/:id",
   isAuth,
-  isAdmin,
+  isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -94,28 +94,34 @@ productRouter.post(
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
-      if (product.reviews.find((x) => x.name === req.user.name)) {
+      if (product.seller === req.user._id) {
         return res
           .status(400)
-          .send({ message: "You already submitted a review" });
+          .send({ message: "You can't review your product" });
+      } else {
+        if (product.reviews.find((x) => x.name === req.user.name)) {
+          return res
+            .status(400)
+            .send({ message: "You already submitted a review" });
+        }
+        const review = {
+          name: req.user.name,
+          rating: Number(req.body.rating),
+          comment: req.body.comment,
+        };
+        product.reviews.push(review);
+        product.numReviews = product.reviews.length;
+        product.rating =
+          product.reviews.reduce((a, c) => c.rating + a, 0) /
+          product.reviews.length;
+        const updatedProduct = await product.save();
+        res.status(201).send({
+          message: "Review Created",
+          review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+          numReviews: product.numReviews,
+          rating: product.rating,
+        });
       }
-      const review = {
-        name: req.user.name,
-        rating: Number(req.body.rating),
-        comment: req.body.comment,
-      };
-      product.reviews.push(review);
-      product.numReviews = product.reviews.length;
-      product.rating =
-        product.reviews.reduce((a, c) => c.rating + a, 0) /
-        product.reviews.length;
-      const updatedProduct = await product.save();
-      res.status(201).send({
-        message: "Review Created",
-        review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
-        numReviews: product.numReviews,
-        rating: product.rating,
-      });
     } else {
       res.status(404).send({ message: "Product Not Found" });
     }
@@ -126,17 +132,30 @@ productRouter.post(
 const PAGE_SIZE = 6;
 productRouter.get(
   "/admin",
-  isAuth,
-  isAdmin,
+  // isAuth,
+  // isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
     const { query } = req;
     const page = query.page || 1;
+    const seller = query.seller || "";
     const pageSize = query.pageSize || PAGE_SIZE;
 
-    const products = await Product.find()
+    //const sellerFilter = seller ? { seller } : {};
+    const sellerFilter = seller && seller !== "all" ? { seller } : {};
+    const products = await Product.find({
+      ...sellerFilter,
+    })
+      .populate(
+        "seller",
+        "seller.name seller.logo seller.rating seller.numReviews"
+      )
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-    const countProducts = await Product.countDocuments();
+
+    const countProducts = await Product.countDocuments({
+      ...sellerFilter,
+    });
+
     res.send({
       products,
       countProducts,
@@ -155,6 +174,7 @@ productRouter.get(
     const pageSize = query.pageSize || PAGE_SIZE;
     const page = query.page || 1;
     const category = query.category || "";
+    const seller = query.seller || "";
     const gender = query.gender || "";
     const color = query.color || "";
     const size = query.size || "";
@@ -174,6 +194,8 @@ productRouter.get(
           }
         : {};
     const categoryFilter = category && category !== "all" ? { category } : {};
+    //const sellerFilter = seller ? { seller } : {};
+    const sellerFilter = seller && seller !== "all" ? { seller } : {};
     const genderFilter = gender && gender !== "all" ? { gender } : {};
     const sizeFilter = size && size !== "all" ? { size } : {};
     const colorFilter = color && color !== "all" ? { color } : {};
@@ -214,6 +236,7 @@ productRouter.get(
     const products = await Product.find({
       ...queryFilter,
       ...categoryFilter,
+      ...sellerFilter,
       ...genderFilter,
       ...colorFilter,
       ...sizeFilter,
@@ -221,6 +244,7 @@ productRouter.get(
       ...priceFilter,
       ...ratingFilter,
     })
+      .populate("seller", "seller.name")
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
       .limit(pageSize);
@@ -228,6 +252,7 @@ productRouter.get(
     const countProducts = await Product.countDocuments({
       ...queryFilter,
       ...categoryFilter,
+      ...sellerFilter,
       ...genderFilter,
       ...colorFilter,
       ...sizeFilter,
@@ -255,7 +280,9 @@ productRouter.get(
 
 //PRODUCT DETAILS
 productRouter.get("/slug/:slug", async (req, res) => {
-  const product = await Product.findOne({ slug: req.params.slug });
+  const product = await Product.findOne({ slug: req.params.slug }).populate(
+    "seller"
+  );
   if (product) {
     res.send(product);
   } else {
@@ -282,7 +309,10 @@ productRouter.get("/related/:id", async (req, res) => {
 });
 
 productRouter.get("/:id", async (req, res) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate(
+    "seller",
+    "seller.name seller.logo seller.rating seller.numReviews"
+  );
   if (product) {
     res.send(product);
   } else {

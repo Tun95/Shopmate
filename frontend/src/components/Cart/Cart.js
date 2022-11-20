@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {  useState, useContext } from "react";
 import "../Cart/Cart.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -27,7 +28,9 @@ function Cart(props) {
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert("Sorry, Product is out of stock");
+      toast.error("Sorry, Product is out of stock", {
+        position: "bottom-center",
+      });
       return;
     }
     ctxDispatch({
@@ -66,13 +69,7 @@ function Cart(props) {
                         Items In Your Cart
                       </h2>
                     </div>
-                    <span
-                      onClick={closeModal}
-                      className="material-symbols-sharp"
-                      id="sharp"
-                    >
-                      close
-                    </span>
+                    <i onClick={closeModal} className="fa-solid fa-xmark"></i>
                   </div>
                   <div className="cart-content">
                     <div className="empty-cart">
@@ -117,12 +114,10 @@ function Cart(props) {
                                     onClick={() => removeItemHandler(item)}
                                     className="remove-item"
                                   >
-                                    <span
-                                      className="material-symbols-sharp"
-                                      id="sharp"
-                                    >
-                                      close
-                                    </span>
+                                    <CloseIcon
+                                      onClick={closeModal}
+                                      className="close-reg"
+                                    />
                                     <span className="remove-text">Remove</span>
                                   </span>
                                 </div>

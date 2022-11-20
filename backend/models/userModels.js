@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     phone: { type: Number },
     address: { type: String },
+    country: { type: String },
     image: { type: String },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, default: false, required: true },
@@ -14,13 +15,21 @@ const userSchema = new mongoose.Schema(
       name: String,
       logo: String,
       description: String,
-      rating: { type: Number, default: 0, required: true },
-      numReviews: { type: Number, default: 0, required: true },
+      rating: { type: Number, required: true },
+      numReviews: { type: Number, required: true },
     },
   },
   {
     timestamps: true,
   }
 );
+
+//Virtual method to populate created post
+userSchema.virtual("products", {
+  ref: "Product",
+  foreignField: "user",
+  localField: "_id",
+});
+
 const User = mongoose.model("User", userSchema);
 export default User;

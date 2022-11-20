@@ -7,6 +7,7 @@ import MessageBox from "../Utilities/MessageBox";
 import "./OrderHistory.css";
 import axios from "axios";
 import { getError } from "../Utilities/Utils";
+import Footer from "../Footer/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -51,79 +52,87 @@ function OrderHistory() {
   }, [userInfo, navigate]);
 
   return (
-    <div className="order">
-      <Helmet>
-        <title>Order History</title>
-      </Helmet>
+    <>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox>{error}</MessageBox>
       ) : (
-        <div className="order-box">
-          <h1 className="order-box-header">Order History</h1>
+        <>
+          <div className="order">
+            <Helmet>
+              <title>Order History</title>
+            </Helmet>
 
-          <div className="order-section">
-            <div className="order-table">
-              <div className="order-table-header">
-                <ul>
-                  <li className="order-item">ID</li>
-                  <li className="order-date">DATE</li>
-                  <li className="order-total">TOTAL</li>
-                  <li className="order-paid">PAID</li>
-                  <li className="order-deliv">DELIVERED</li>
-                  <li className="order-actions">ACTIONS</li>
-                </ul>
-              </div>
+            <div className="order-box">
+              <h1 className="order-box-header">Order History</h1>
 
-              <div className="order-table-body">
-                <div className="order-table-row">
-                  {orders.reverse().map((order) => (
-                    <ul className="order-item-list" key={order._id}>
-                      <li className="item-id">{order._id}</li>
-                      <li className="created">
-                        {order.createdAt.substring(0, 10)}
-                      </li>
-                      <li className="total-paid">
-                        £{order.grandTotal.toFixed(2)}
-                      </li>
-                      <li className="paid">
-                        {order.isPaid ? (
-                          <div className="paidAt">
-                            {order.paidAt.substring(0, 10)}
-                          </div>
-                        ) : (
-                          <div className="negate">No</div>
-                        )}
-                      </li>
-                      <li className="deliver">
-                        {order.isDelivered ? (
-                          <div className="paidAt">
-                            {order.deliveredAt.substring(0, 10)}
-                          </div>
-                        ) : (
-                          <div className="negate">No</div>
-                        )}
-                      </li>
-                      <li className="order-btn-view">
-                        <button
-                          className="order-btn"
-                          onClick={() => {
-                            navigate(`/order/${order._id}`);
-                          }}
-                        >
-                          Details
-                        </button>
-                      </li>
+              <div className="order-section">
+                <div className="order-table">
+                  <div className="order-table-header">
+                    <ul>
+                      <li className="order-item">ID</li>
+                      <li className="order-date">DATE</li>
+                      <li className="order-total">TOTAL</li>
+                      <li className="order-paid">PAID</li>
+                      <li className="order-deliv">DELIVERED</li>
+                      <li className="order-actions">ACTIONS</li>
                     </ul>
-                  ))}
+                  </div>
+
+                  <div className="order-table-body">
+                    <div className="order-table-row">
+                      {orders.reverse().map((order) => (
+                        <ul className="order-item-list" key={order._id}>
+                          <li className="item-id">{order._id}</li>
+                          <li className="created">
+                            {order.createdAt.substring(0, 10)}
+                          </li>
+                          <li className="total-paid">
+                            £{order.grandTotal.toFixed(2)}
+                          </li>
+                          <li className="paid">
+                            {order.isPaid ? (
+                              <div className="paidAt">
+                                {order.paidAt.substring(0, 10)}
+                              </div>
+                            ) : (
+                              <div className="negate">No</div>
+                            )}
+                          </li>
+                          <li className="deliver">
+                            {order.isDelivered ? (
+                              <div className="paidAt">
+                                {order.deliveredAt.substring(0, 10)}
+                              </div>
+                            ) : (
+                              <div className="negate">No</div>
+                            )}
+                          </li>
+                          <li className="order-btn-view">
+                            <button
+                              className="order-btn"
+                              onClick={() => {
+                                navigate(`/order/${order._id}`);
+                              }}
+                            >
+                              Details
+                            </button>
+                          </li>
+                        </ul>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <div className="footer">
+            <Footer />
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

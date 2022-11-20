@@ -61,9 +61,9 @@ function Ratings(props) {
           ></i>
         </span>
       </div>
-      {/* <div className="rev">
+      <div className="rev">
         <span>{numReviews} </span>
-      </div> */}
+      </div>
     </div>
   );
 }

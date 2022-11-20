@@ -1,8 +1,21 @@
 .profile {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px 0px;
   overflow: hidden;
+}
+.profile .alert-danger {
+  position: relative;
+  width: 140px;
+}
+.profile #load-err {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: lightgreen;
+  color: green;
 }
 .profile-styles {
   box-shadow: 1px 2px 4px -2px #b4b4b4;
@@ -27,6 +40,8 @@
   justify-content: center;
   position: relative;
   top: 10px;
+  text-transform: uppercase;
+  color: #6c6c6c;
 }
 
 /* .profile-box,
@@ -40,9 +55,20 @@
   line-height: 50px;
   margin-top: 10px;
 }
-.profile-form-header h1 {
+.profile-form-header img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile-form-header {
   font-size: 40px;
   text-align: center;
+  text-transform: uppercase;
+  color: #6c6c6c;
+}
+.profile-form-header h1 {
+  font-size: 40px;
 }
 .profile-form-group {
   display: grid;
@@ -75,6 +101,12 @@
   width: 270px;
   outline: none;
   cursor: pointer;
+}
+.prof-seller-logo img {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 .profile-form-button {
   display: flex;

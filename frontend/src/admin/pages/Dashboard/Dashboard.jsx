@@ -17,6 +17,7 @@ import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../../components/Footer/Footer";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -72,25 +73,25 @@ function Dashboard() {
     };
     getStats();
   }, [summary.dailyOrders]);
-  console.log(salesStats);
 
   return (
-    <div className="dashboard-box">
-      <Helmet>
-        <title>Admin Dashboard</title>
-      </Helmet>
-
+    <>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <div className="dasboard">
-          <div className="dashboard-home">
-            <div className="dashboard-home-view">
-              <div className="dash-feature">
-                <FeaturedInfo summary={summary} />
-                {/* <div className="chart">
+        <>
+          <div className="dashboard-box">
+            <Helmet>
+              <title>Admin Dashboard</title>
+            </Helmet>
+            <div className="dasboard">
+              <div className="dashboard-home">
+                <div className="dashboard-home-view">
+                  <div className="dash-feature">
+                    <FeaturedInfo summary={summary} salesStats={salesStats} />
+                    {/* <div className="chart">
               <h3 className="chartTitle">Sales</h3>
               <Chart
                 width="100%"
@@ -103,24 +104,29 @@ function Dashboard() {
                 ]}
               ></Chart>
             </div> */}
-                <div className="dashbaord-chart">
-                  <Charts
-                    data={salesStats}
-                    title="Sales"
-                    grid
-                    dataKey="Total Sales"
-                  />
+                    <div className="dashbaord-chart">
+                      <Charts
+                        data={salesStats}
+                        title="Sales"
+                        grid
+                        dataKey="Total Sales"
+                      />
+                    </div>
+                  </div>
+                  <div className="homeWidgets">
+                    <WidgetSm />
+                    <WidgetLg />
+                  </div>
                 </div>
-              </div>
-              <div className="homeWidgets">
-                <WidgetSm />
-                <WidgetLg />
               </div>
             </div>
           </div>
-        </div>
+          <div className="footer">
+            <Footer />
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../NavBar/NavBarSR.css";
 import gb from "../images/gb.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 
 function NavBarSR(props) {
@@ -14,6 +14,15 @@ function NavBarSR(props) {
     (a, c) => a + c.price * c.quantity,
     0
   );
+
+  //TOTAL SALES 
+  let TotalItemPrice = new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(totalPrice);
+
+  //SELLER BOX
+  const navigate = useNavigate();
 
   const signoutHandler = () => {
     dispatch({ type: "USER_SIGNOUT" });
@@ -41,7 +50,14 @@ function NavBarSR(props) {
                   </Link>
                   <ul className="drop-list">
                     <li>
-                      <Link to="/profile">Profile </Link>
+                      <div
+                        className="prof"
+                        onClick={() => {
+                          navigate(`/profile/${userInfo._id}`);
+                        }}
+                      >
+                        Profile
+                      </div>
                     </li>
                     <li>
                       <Link to="/orderhistory">Orders </Link>
@@ -151,12 +167,12 @@ function NavBarSR(props) {
           </div>
           <div className="cart" id="cart">
             <Link to="#" onClick={showModal}>
-              <span className="material-symbols-sharp">shopping_bag</span>
+              <i className="fa-sharp fa-solid fa-bag-shopping"></i>
               <div className="cart-top-counter">
                 <span>{cart.cartItems.length}</span>
               </div>
             </Link>
-            <span className="qty">Your bag: £{totalPrice.toFixed(2)}</span>
+            <span className="qty">Your bag: {TotalItemPrice}</span>
           </div>
         </div>
       </div>

@@ -5,13 +5,11 @@
 .order-screen .o-screen {
   width: 900px;
   background-color: #fff;
-  margin-top: 20px;
   padding: 0px 20px;
   padding-top: 20px;
   height: 100%;
   padding-bottom: 40px;
   overflow: hidden;
-  margin-bottom: 50px;
   box-shadow: 1px 2px 4px -2px #b4b4b4;
 }
 .top-split {
@@ -63,8 +61,9 @@
   display: inline-block;
   box-shadow: 1px 2px 2px -2px;
   border-radius: 0.5rem;
-  background-color: #6eb2fb;
-  color: #fff;
+  margin: ;
+  background-color: lightgreen;
+  color: green;
 }
 
 .order-a-ship {
@@ -112,8 +111,8 @@
   display: inline-block;
   box-shadow: 1px 2px 2px -2px;
   border-radius: 0.5rem;
-  background-color: #6eb2fb;
-  color: #fff;
+  background-color: lightgreen;
+  color: green;
 }
 .sec-box .not-paid-btn {
   display: flex;
@@ -298,7 +297,7 @@
     font-size: 20px;
     text-align: center;
   }
-  .order-screen  h2{
+  .order-screen h2 {
     font-size: 16px;
   }
 }

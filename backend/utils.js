@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 export const generateToken = (user) => {
   return jwt.sign(
@@ -51,6 +52,7 @@ export const isSeller = (req, res, next) => {
     res.status(401).send({ message: "Invalid Seller Token" });
   }
 };
+
 export const isSellerOrAdmin = (req, res, next) => {
   if (req.user && (req.user.isSeller || req.user.isAdmin)) {
     next();
@@ -58,3 +60,12 @@ export const isSellerOrAdmin = (req, res, next) => {
     res.status(401).send({ message: "Invalid Admin/Seller Token" });
   }
 };
+
+export const transporter = nodemailer.createTransport({
+  service: process.env.MAIL_SERVICE,
+  auth: {
+    user: process.env.GMAIL_EMAIL,
+    pass: process.env.GMAIL_PASS,
+  },
+});
+

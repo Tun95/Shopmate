@@ -40,6 +40,8 @@ function CartScreen() {
   const returnHandler = () => {
     navigate("/store");
   };
+
+  console.log(cartItems)
   return (
     <div className="cart-mobile">
       <div className="cart-mobile-stle">

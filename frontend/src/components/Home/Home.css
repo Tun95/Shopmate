@@ -60,7 +60,6 @@
   top: 20px;
   width: 250px;
   left: 30px;
-  margin: ;
 }
 .header .header-content {
   margin-left: 80px;
@@ -101,7 +100,6 @@
   height: 300px;
   margin: 5px 10px 10px 0px;
   background-color: #00d3ca;
-  margin: ;
 }
 .aside-1 .aside-content {
   text-align: center;
@@ -231,19 +229,18 @@
   background: #f62f5e;
   outline: none;
   border: none;
-  margin: ;
+
   padding: 8px 15px 8px 15px;
   border-radius: 20px;
   color: #fff;
   font-weight: 800;
   cursor: pointer;
 }
-.footer {
-  margin-top: -5px;
+.home-main .footer {
+  margin-top: 10px;
 }
-.footer .footer-content {
-  margin: 0px 0px 10px 0px;
-
+.home-main .footer .footer-content {
+  height: 100%;
   background-color: #fff;
   color: #2e2e2e;
   display: flex;
@@ -252,31 +249,30 @@
   justify-content: center;
 
   padding-top: 30px;
-  padding-bottom: 30px;
+
   color: #6c6c6c;
 }
-.footer h4 {
+.home-main .footer h4 {
   color: #2e2e2e;
   margin-bottom: 10px;
 }
-.footer a {
+.home-main .footer a {
   text-decoration: none;
   color: #6c6c6c;
 }
-.footer ul li {
+.home-main .footer ul li {
   list-style: none;
   line-height: 30px;
   position: relative;
 }
 
-.footer .store-foot {
-  padding-left: 50px;
-  margin: ;
-}
-.footer .follow {
+.home-main .footer .store-foot {
   padding-left: 50px;
 }
-.footer .ltd {
+.home-main .footer .follow {
+  padding-left: 50px;
+}
+.home-main .footer .ltd {
   padding-left: 50px;
 }
 
@@ -414,21 +410,21 @@
     top: 20px;
     left: 20px;
   }
-  .footer .footer-content {
+  .home-main .footer .footer-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding-left: 20px;
   }
-  .footer-content .follow {
+  .home-main .footer-content .follow {
     position: relative;
     left: -50px;
   }
-  .footer-content .store-foot {
+  .home-main .footer-content .store-foot {
     position: relative;
     left: -30px;
     width: 100%;
   }
-  .footer-content .ltd {
+  .home-main .footer-content .ltd {
     width: 100%;
     margin-top: 94px;
     position: relative;
@@ -537,7 +533,6 @@
     top: 60px;
   }
   .aside-1 .aside-content h1 {
-    margin: ;
     font-size: 70px;
   }
   .aside-1 .aside-content h2 {
@@ -589,7 +584,6 @@
     top: 60px;
   }
   .aside-1 .aside-content h1 {
-    margin: ;
     font-size: 70px;
   }
   .aside-1 .aside-content h2 {
@@ -671,12 +665,12 @@
   .header .header-content button {
     padding: 8px 20px 8px 20px;
   }
-  .footer-content .store-foot {
+  .home-main .footer-content .store-foot {
     position: relative;
     left: -50px;
     width: 100%;
   }
-  .footer-content .ltd {
+  .home-main .footer-content .ltd {
     width: 100%;
     margin-top: 94px;
     position: relative;

@@ -128,15 +128,15 @@ function ProductEdit() {
     fetchData();
   }, [productId]);
 
-  const loadOptions = (searchValue, callback) => {
-    setTimeout(() => {
-      const filteredOptions = adminsize.filter((option) =>
-        option.label.toLowerCase().includes(searchValue.toLowerCase())
-      );
-      console.log("loadOptions", searchValue, filteredOptions);
-      callback(filteredOptions);
-    }, 2000);
-  };
+  // const loadOptions = (searchValue, callback) => {
+  //   setTimeout(() => {
+  //     const filteredOptions = adminsize.filter((option) =>
+  //       option.label.toLowerCase().includes(searchValue.toLowerCase())
+  //     );
+  //     console.log("loadOptions", searchValue, filteredOptions);
+  //     callback(filteredOptions);
+  //   }, 2000);
+  // };
 
   //PRODUCT UPDATE
   const submitHandler = async (e) => {
@@ -211,7 +211,7 @@ function ProductEdit() {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
         const { data } = await axios.get(
-          `/api/orders/summary?_id=${productId}`,
+          `/api/orders/summary?id=${productId}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -264,6 +264,16 @@ function ProductEdit() {
     });
   };
 
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 210,
+      },
+    },
+  };
   return (
     <div className="product-edit-page">
       <Helmet>
@@ -369,6 +379,7 @@ function ProductEdit() {
                       id="mui-simple-select"
                       value={gender}
                       label={gender}
+                      MenuProps={MenuProps}
                       onChange={(e) => setGender(e.target.value)}
                     >
                       {genderselect.map((g, index) => (
@@ -385,6 +396,7 @@ function ProductEdit() {
                       labelId="mui-simple-select-label"
                       id="mui-simple-select"
                       multiple
+                      MenuProps={MenuProps}
                       value={category}
                       label={category}
                       onChange={(e) => setCategory(e.target.value)}
@@ -402,6 +414,7 @@ function ProductEdit() {
                       labelId="mui-simple-select-label"
                       id="mui-simple-select"
                       multiple
+                      MenuProps={MenuProps}
                       value={color}
                       label={color}
                       onChange={(e) => setColor(e.target.value)}
@@ -439,6 +452,7 @@ function ProductEdit() {
                       labelId="mui-simple-select-label"
                       id="mui-simple-select"
                       multiple
+                      MenuProps={MenuProps}
                       value={size}
                       label={size}
                       onChange={(e) => setSize(e.target.value)}
@@ -457,6 +471,7 @@ function ProductEdit() {
                       labelId="mui-simple-select-label"
                       id="mui-simple-select"
                       multiple
+                      MenuProps={MenuProps}
                       value={brand}
                       label={brand}
                       onChange={(e) => setBrand(e.target.value)}

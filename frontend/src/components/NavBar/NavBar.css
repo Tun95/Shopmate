@@ -3,7 +3,6 @@
   top: 0px;
   z-index: 1000;
   width: 100%;
- 
 }
 
 .nav-bar {
@@ -17,7 +16,6 @@
   background-color: black;
   padding: 15px 10px;
   font-weight: 800;
-  
 
   color: #fff;
 }
@@ -36,7 +34,8 @@
 .nav-bar .list ul li {
   display: inline-block;
   margin-left: 30px;
-
+  position: relative;
+  left: 50px;
   list-style: none;
 }
 .nav-bar .cart {
@@ -87,10 +86,13 @@
   outline: none;
   cursor: pointer;
 }
+.search-bar-cart .cart .fa-sharp{
+  font-size: 26px;
+}
 .search-bar-cart .count-cart-items {
   position: relative;
   left: -12px;
-  bottom: 5px;
+  bottom: 7px;
   background-color: #fff;
   color: #f62f5e;
   width: 12px;

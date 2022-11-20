@@ -87,7 +87,9 @@
   position: relative;
   left: 20px;
 }
-
+.order-table-header .order-actions {
+  margin-right: 10px;
+}
 .order-table-body .order-table-row {
   overflow-y: scroll;
   height: 600px;
@@ -150,7 +152,7 @@
   width: 100px;
   text-align: center;
   position: relative;
-  left: 163px;
+  left: 153px;
 }
 .order-table-body ul .order-btn {
   background: #f62f5e;

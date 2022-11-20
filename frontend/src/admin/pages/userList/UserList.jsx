@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from "../../../components/Footer/Footer";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import { getError } from "../../../components/Utilities/Utils";
@@ -87,79 +88,81 @@ function UserList() {
     }
   };
   return (
-    <div>
-      <div className="admin-user">
-        <Helmet>
-          <title>Users</title>
-        </Helmet>
-        {loading ? (
-          <LoadingBox></LoadingBox>
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <div className="admin-user-box">
-            <h1 className="user-admin-header">User List</h1>
+    <>
+      {loading ? (
+        <LoadingBox></LoadingBox>
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <div>
+          <div className="admin-user">
+            <Helmet>
+              <title>Users</title>
+            </Helmet>
 
-            <div className="admin-user-section">
-              <div className="admin-user-table">
-                <div className="admin-user-table-header">
-                  <ul>
-                    <li className="admin-user-list-id">ID</li>
-                    <li className="admin-user-list">NAME</li>
-                    <li className="admin-user-email">EMAIL</li>
-                    <li className="admin-user-isseller">ISSELLER</li>
-                    <li className="admin-user-isadmin">ISADMIN</li>
-                    <li className="admin-user-actions">ACTIONS</li>
-                  </ul>
-                </div>
+            <div className="admin-user-box">
+              <h1 className="user-admin-header">User List</h1>
 
-                <div className="admin-user-table-body">
-                  <div className="admin-user-table-row">
-                    {users?.map((user) => (
-                      <ul className="admin-user-data-list" key={user._id}>
-                        <li className="admin-user-id">{user._id}</li>
-                        <li className="admin-user-name">{user.name}</li>
-                        <li className="user-email">{user.email}</li>
-                        <li className="admin-userIseller">
-                          {user.isSeller ? (
-                            <div className="admin-yes">YES</div>
-                          ) : (
-                            <div className="admin-negate">NO</div>
-                          )}
-                        </li>
-                        <li className="admin-userIsadmin">
-                          {user.isAdmin ? (
-                            <div className="admin-yes">YES</div>
-                          ) : (
-                            <div className="admin-negate">NO</div>
-                          )}
-                        </li>
-                        <li className="admin-user-btn-view">
-                          <button
-                            className="admin-user-btn"
-                            onClick={() => {
-                              navigate(`/admin/useredit/${user._id}`);
-                            }}
-                          >
-                            Edit
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            className="admin-user-delete"
-                            onClick={() => deleteHandler(user)}
-                          >
-                            Delete
-                          </button>
-                        </li>
-                      </ul>
-                    ))}
+              <div className="admin-user-section">
+                <div className="admin-user-table">
+                  <div className="admin-user-table-header">
+                    <ul>
+                      <li className="admin-user-list-id">ID</li>
+                      <li className="admin-user-list">NAME</li>
+                      <li className="admin-user-email">EMAIL</li>
+                      <li className="admin-user-isseller">ISSELLER</li>
+                      <li className="admin-user-isadmin">ISADMIN</li>
+                      <li className="admin-user-actions">ACTIONS</li>
+                    </ul>
+                  </div>
+
+                  <div className="admin-user-table-body">
+                    <div className="admin-user-table-row">
+                      {users?.map((user) => (
+                        <ul className="admin-user-data-list" key={user._id}>
+                          <li className="admin-user-id">{user._id}</li>
+                          <li className="admin-user-name">{user.name}</li>
+                          <li className="user-email">{user.email}</li>
+                          <li className="admin-userIseller">
+                            {user.isSeller ? (
+                              <div className="admin-yes">YES</div>
+                            ) : (
+                              <div className="admin-negate">NO</div>
+                            )}
+                          </li>
+                          <li className="admin-userIsadmin">
+                            {user.isAdmin ? (
+                              <div className="admin-yes">YES</div>
+                            ) : (
+                              <div className="admin-negate">NO</div>
+                            )}
+                          </li>
+                          <li className="admin-user-btn-view">
+                            <button
+                              className="admin-user-btn"
+                              onClick={() => {
+                                navigate(`/admin/useredit/${user._id}`);
+                              }}
+                            >
+                              Edit
+                            </button>
+                            &nbsp;
+                            <button
+                              type="button"
+                              className="admin-user-delete"
+                              onClick={() => deleteHandler(user)}
+                            >
+                              Delete
+                            </button>
+                          </li>
+                        </ul>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="product-pagination">
-              {/* <div className="productlist-page">
+              <div className="product-pagination">
+                {/* <div className="productlist-page">
               {[...Array(pages).keys()].map((x) => (
                 <Link
                   className={x + 1 === Number(page) ? "btn text-bold" : "btn"}
@@ -170,11 +173,15 @@ function UserList() {
                 </Link>
               ))}
             </div> */}
+              </div>
             </div>
           </div>
-        )}
-      </div>
-    </div>
+          <div className="footer">
+            <Footer />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -8,24 +8,24 @@ import { generateToken, isAdmin, isAuth } from "../utils.js";
 
 const userRouter = express.Router();
 
-//ADMIN USER LIST FETCHING
+//TOP SELLERS
 userRouter.get(
-  "/",
-  isAuth,
-  isAdmin,
+  "/top-sellers",
   expressAsyncHandler(async (req, res) => {
-    const users = await User.find({});
-    res.send(users);
+    const topSellers = await User.find({ isSeller: true })
+      .sort({
+        "seller.rating": -1,
+      })
+      .limit(3);
+    res.send(topSellers);
   })
 );
 
-//ADMIN USER INFO FETCHING
+// USER INFO FETCHING
 userRouter.get(
   "/:id",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate("products");
     if (user) {
       res.send(user);
     } else {
@@ -33,113 +33,6 @@ userRouter.get(
     }
   })
 );
-
-//USER PROFILE UPDATE
-userRouter.put(
-  "/profile",
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      if (user.isSeller) {
-        user.seller.name = req.body.sellerName || user.seller.name;
-        user.seller.logo = req.body.sellerLogo || user.seller.logo;
-        user.seller.description =
-          req.body.sellerDescription || user.seller.description;
-      }
-      if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 8);
-      }
-      const updatedUser = await user.save();
-      res.send({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-        isSeller: user.isSeller,
-        token: generateToken(updatedUser),
-      });
-    }
-  })
-);
-// userRouter.put(
-//   "/profile",
-//   isAuth,
-//   expressAsyncHandler(async (req, res) => {
-//     const user = await User.findById(req.user._id);
-//     if (user) {
-//       user.name = req.body.name || user.name;
-//       user.email = req.body.email || user.email;
-
-//       if (user.isSeller) {
-//         user.seller.name = req.body.sellerName || user.seller.name;
-//         user.seller.logo = req.body.sellerLogo || user.seller.logo;
-//         user.seller.description =
-//           req.body.sellerDescription || user.seller.description;
-//       }
-//       if (req.body.password) {
-//         user.password = bcrypt.hashSync(req.body.password, 8);
-//       }
-//       const updateUser = await user.save();
-//       res.send({
-//         _id: updateUser._id,
-//         name: updateUser.name,
-//         email: updateUser.email,
-//         isAdmin: updateUser.isAdmin,
-//         isSeller: user.isSeller,
-//         token: generateToken(updateUser),
-//       });
-//     } else {
-//       res.status(404).send({ message: "User not found" });
-//     }
-//   })
-// );
-
-//ADMIN USER UPDATE
-userRouter.put(
-  "/:id",
-  isAuth,
-  isAdmin,
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      user.phone = req.body.phone || user.phone;
-      user.address = req.body.address || user.address;
-      user.image = req.body.image || user.image;
-      user.isAdmin = Boolean(req.body.isAdmin);
-      user.isSeller = Boolean(req.body.isSeller);
-      const updatedUser = await user.save();
-      res.send({ message: "User Updated Successfully", user: updatedUser });
-    } else {
-      res.status(404).send({ message: "User Not Found" });
-    }
-  })
-);
-
-//ADMIN USER DELETE
-userRouter.delete(
-  "/:id",
-  isAuth,
-  isAdmin,
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if (user) {
-      if (user.email === "admin@example.com") {
-        res.status(400).send({ message: "Can Not Delete Admin User" });
-        return;
-      }
-      await user.remove();
-      res.send({ message: "User Deleted Successfuly" });
-    } else {
-      res.status(404).send({ message: "User Not Found" });
-    }
-  })
-);
-
 //USER SIGNIN
 userRouter.post(
   "/signin",
@@ -180,6 +73,100 @@ userRouter.post(
       isSeller: user.isSeller,
       token: generateToken(user),
     });
+  })
+);
+
+//USER PROFILE UPDATE
+userRouter.put(
+  "/profile",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.image = req.body.image || user.image;
+      user.phone = req.body.phone || user.phone;
+      user.address = req.body.address || user.address;
+      user.country = req.body.country || user.country;
+      if (user.isSeller) {
+        user.seller.name = req.body.sellerName || user.seller.name;
+        user.seller.logo = req.body.sellerLogo || user.seller.logo;
+        user.seller.description =
+          req.body.sellerDescription || user.seller.description;
+      }
+      if (req.body.password) {
+        user.password = bcrypt.hashSync(req.body.password, 8);
+      }
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        image: updatedUser.image,
+        phone: updatedUser.phone,
+        address: updatedUser.address,
+        country: updatedUser.country,
+        isAdmin: updatedUser.isAdmin,
+        isSeller: user.isSeller,
+        token: generateToken(updatedUser),
+      });
+    }
+  })
+);
+
+//ADMIN USER LIST FETCHING
+userRouter.get(
+  "/",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
+  })
+);
+
+//ADMIN USER DELETE
+userRouter.delete(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.email === "admin@example.com") {
+        res.status(400).send({ message: "Can Not Delete Admin User" });
+        return;
+      }
+      await user.remove();
+      res.send({ message: "User Deleted Successfuly" });
+    } else {
+      res.status(404).send({ message: "User Not Found" });
+    }
+  })
+);
+
+//ADMIN USER UPDATE
+userRouter.put(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.phone = req.body.phone || user.phone;
+      user.address = req.body.address || user.address;
+      user.country = req.body.country || user.country;
+      user.image = req.body.image || user.image;
+      user.isAdmin = Boolean(req.body.isAdmin);
+      user.isSeller = Boolean(req.body.isSeller);
+      const updatedUser = await user.save();
+      res.send({ message: "User Updated Successfully", user: updatedUser });
+    } else {
+      res.status(404).send({ message: "User Not Found" });
+    }
   })
 );
 

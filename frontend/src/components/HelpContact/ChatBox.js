@@ -4,7 +4,6 @@ import { Context } from "../../Context/Context";
 import sockectIOClient from "socket.io-client";
 import "./chatBox.css";
 import Close from "@material-ui/icons/Close";
-import Contact from "@material-ui/icons/ContactSupportRounded";
 import Send from "@material-ui/icons/Send";
 import HelpIcon from "@mui/icons-material/Help";
 
@@ -17,7 +16,6 @@ function ChatBox() {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
-  const [selectedUser, setSelectedUser] = useState({});
   const uiMessagesRef = useRef(null);
   const [socket, setSocket] = useState(null);
   const [messageBody, setMessageBody] = useState("");

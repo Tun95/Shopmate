@@ -1,15 +1,10 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext } from "react";
 import "./NavBar.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { getError } from "../Utilities/Utils";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 import { Context } from "../../Context/Context";
-import { toast } from "react-toastify";
 import data from "../../data/data.json";
 import Menu from "@material-ui/icons/Menu";
-import SideBar from "./SideBar";
 
 function NavBar(props) {
   const { showModal, showSideBar } = props;
@@ -25,31 +20,16 @@ function NavBar(props) {
     navigate(query ? `/store/?query=${query}` : "/store");
   };
 
-  // //FETCHING CATEGORIES
-  // const [categories, setCategories] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     try {
-  //       const { data } = await axios.get("/api/products/categories");
-  //       setCategories(data);
-  //     } catch (err) {
-  //       toast.error(getError(err), { position: "bottom-center" });
-  //     }
-  //   };
-  //   fetchCategories();
-  // }, []);
-
   return (
     <div className="nav-cart">
       <nav>
         <div className="nav-bar">
           <div className="logo">
-            <Link to="/">Shopmore</Link>
+            <Link to="/">Shopmate</Link>
           </div>
           <div className="list">
             <ul>
-              {categories.map((item) => (
+              {categories.slice(0, 5).map((item) => (
                 <Link key={item.id} to={`/store?category=${item.cat}`}>
                   <li>{item.cat}</li>
                 </Link>
@@ -73,9 +53,7 @@ function NavBar(props) {
               </button>
             </form>
             <div onClick={showModal} className="cart">
-              <span id="cart-shopmore" className="material-symbols-sharp">
-                shopping_bag
-              </span>
+              <i className="fa-sharp fa-solid fa-bag-shopping"></i>
               <div className="count-cart-items">
                 <span>{cart.cartItems.length}</span>
               </div>

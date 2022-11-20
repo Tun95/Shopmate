@@ -1,14 +1,61 @@
-import React, { useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import "./Home.css";
 import { Link, useNavigate } from "react-router-dom";
 import bag from "../images/bag.png";
 import { Helmet } from "react-helmet-async";
+import { Context } from "../../Context/Context";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { getError } from "../Utilities/Utils";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "POST_REQUEST":
+      return { ...state, loading: true };
+    case "POST_SUCCESS":
+      return { ...state, loading: false };
+    case "POST_FAIL":
+      return { ...state, loading: false };
+
+    default:
+      return state;
+  }
+};
 
 function Home() {
   const navigate = useNavigate();
   const navigateHandler = () => {
     navigate("/signup");
   };
+
+  const [{ loading, error, message }, dispatch] = useReducer(reducer, {
+    loading: true,
+    error: "",
+  });
+
+  const { state } = useContext(Context);
+  const { userInfo } = state;
+
+  const [email, setEmail] = useState();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error("email field is required", { position: "bottom-center" });
+    } else {
+      try {
+        const { data } = axios.post("/api/message/subscribe", {
+          email,
+        });
+        dispatch({ type: "POST_SUCCESS", payload: data });
+        toast.success("You have successfully subscribe to our newsletter", {
+          position: "bottom-center",
+        });
+      } catch (err) {
+        toast.error(getError(err), { position: "bottom-center" });
+      }
+    }
+  };
+
   return (
     <div className="home-main">
       <Helmet>
@@ -67,9 +114,13 @@ function Home() {
                 <p className="main-content-reg">
                   <strong>Registration is on - get readey for the Open</strong>
                 </p>
-                <button className="Register" onClick={navigateHandler}>
-                  Register
-                </button>
+                {!userInfo ? (
+                  <button className="Register" onClick={navigateHandler}>
+                    Register
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -85,12 +136,13 @@ function Home() {
                 <br /> this tote offers a roomy interior.
               </p>
               <div className="sub-con-e">
-                <form action="">
+                <form action="" onSubmit={submitHandler}>
                   <div className="inp-icon-btn">
                     <input
                       type="email"
                       name="email"
                       placeholder="Your e-mail here"
+                      onChange={(e) => setEmail(e.target.value)}
                       id="email"
                     />
                     <span className="material-symbols-sharp" id="icon">
@@ -112,10 +164,10 @@ function Home() {
               <Link to="/contact">
                 <li>Help</li>
               </Link>
-              <Link to="">
+              <Link to="/orderhistory">
                 <li>Track Order</li>
               </Link>
-              <Link to="">
+              <Link to="/about-terms-privacy">
                 <li>Returns</li>
               </Link>
             </ul>
@@ -132,7 +184,7 @@ function Home() {
               <Link to="/store">
                 <li>Product A-Z</li>
               </Link>
-              <Link to="">
+              <Link to="/store">
                 <li>Buy Gift Vouchers</li>
               </Link>
             </ul>
@@ -140,15 +192,27 @@ function Home() {
           <div className="follow">
             <h4>FOLLOW US</h4>
             <ul>
-              <Link to="">
+              <a
+                href="https://web.facebook.com/?_rdc=1&_rdr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <li>Facebook</li>
-              </Link>
-              <Link to="">
+              </a>
+              <a
+                href="https://twitter.com/home"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <li>Twitter</li>
-              </Link>
-              <Link to="">
+              </a>
+              <a
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <li>YouTube</li>
-              </Link>
+              </a>
             </ul>
           </div>
           <div className="ltd">©2022 shopping Ltd</div>

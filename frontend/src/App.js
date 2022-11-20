@@ -10,10 +10,10 @@ import ProductPage from "./components/Product-Page/ProductPage";
 import NavBarSR from "./components/NavBar/NavBarSR";
 import SigninScreen from "./components/SinginReg/SigninScreen";
 import RegisterScreen from "./components/SinginReg/RegisterScreen";
-import ShippingAddressScreen from "./components/SippingDelivery/ShippingAddressScreen";
-import Payment from "./components/SippingDelivery/Payment";
-import ConfirmationScreen from "./components/SippingDelivery/ConfirmationScreen";
-import FinishScreen from "./components/SippingDelivery/FinishScreen";
+import ShippingAddressScreen from "./components/ShippingDelivery/ShippingAddressScreen";
+import Payment from "./components/ShippingDelivery/Payment";
+import ConfirmationScreen from "./components/ShippingDelivery/ConfirmationScreen";
+import FinishScreen from "./components/ShippingDelivery/FinishScreen";
 import OrderHistory from "./components/OrderProfile/OrderHistory";
 import Profile from "./components/OrderProfile/Profile";
 import OrderScreen from "./components/OrderProfile/OrderScreen";
@@ -25,7 +25,6 @@ import AdminRoute from "./components/protectedRoute/AdminRoute";
 import OrderList from "./admin/pages/orderList/OrderList";
 import ProductEdit from "./admin/pages/product/ProductEdit";
 import NewProduct from "./admin/pages/newProduct/NewProduct";
-import NewUser from "./admin/pages/newUser/NewUser";
 import User from "./admin/pages/user/UserEdit";
 import SellerRoute from "./components/protectedRoute/SellerRoute";
 import SupportScreen from "./admin/pages/support/SupportScreen";
@@ -34,6 +33,11 @@ import ChatBox from "./components/HelpContact/ChatBox";
 import CartScreen from "./components/Cart/CartScreen";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import SideBar from "./components/NavBar/SideBar";
+import SellerProduct from "./admin/pages/productList/SellerProducts";
+import SellerProductEdit from "./admin/pages/product/SellerProdEdit";
+import SellerOrders from "./admin/pages/orderList/SellerOrder";
+import AboutAndTerms from "./components/About/AboutAndTerms";
+import SellersScreen from "./components/SellersScreen/SellersScreen";
 
 function App() {
   const { state } = useContext(Context);
@@ -65,17 +69,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <NavBarSR
-          openModal={openModal}
-          isOpenModal={isOpenModal}
-          showModal={showModal}
-        />
+        <NavBarSR showModal={showModal} />
 
-        <NavBar
-          showModal={showModal}
-          closeModal={closeModal}
-          showSideBar={showSideBar}
-        />
+        <NavBar showModal={showModal} showSideBar={showSideBar} />
         <ToastContainer />
         <Cart
           path="/cart"
@@ -89,6 +85,7 @@ function App() {
           closeSideBar={closeSideBar}
           showSideBar={showSideBar}
         />
+
         <div className="main-box">
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
@@ -97,6 +94,14 @@ function App() {
             <Route path="/signin" element={<SigninScreen />}></Route>
             <Route path="/signup" element={<RegisterScreen />}></Route>
             <Route path="/cartscreen" element={<CartScreen />}></Route>
+            <Route
+              path="/sellers-screen/:id"
+              element={<SellersScreen />}
+            ></Route>
+            <Route
+              path="/about-terms-privacy"
+              element={<AboutAndTerms />}
+            ></Route>
             <Route
               path="/shipping"
               element={
@@ -128,7 +133,7 @@ function App() {
             ></Route>
             <Route path="/order/:id" element={<OrderScreen />}></Route>
             <Route
-              path="/profile"
+              path="/profile/:id"
               element={
                 <ProtectedRoute>
                   <Profile />
@@ -210,7 +215,15 @@ function App() {
               path="/seller/products"
               element={
                 <SellerRoute>
-                  <ProductList />
+                  <SellerProduct />
+                </SellerRoute>
+              }
+            ></Route>
+            <Route
+              path="/seller/productedit/:id"
+              element={
+                <SellerRoute>
+                  <SellerProductEdit />
                 </SellerRoute>
               }
             ></Route>
@@ -218,7 +231,7 @@ function App() {
               path="/seller/orderlist"
               element={
                 <SellerRoute>
-                  <OrderList />
+                  <SellerOrders />
                 </SellerRoute>
               }
             ></Route>

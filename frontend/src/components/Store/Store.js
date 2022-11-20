@@ -55,7 +55,6 @@ const minDistance = 10;
 
 function Store(props) {
   const {
-    similarProducts,
     prices,
     categories,
     genderselect,
@@ -119,6 +118,7 @@ function Store(props) {
     const filterBrand = filter.brand || brand;
     return `/store?page=${filterPage}&query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
   };
+  console.log(products);
 
   //SIM PRODUCTS
 
@@ -157,6 +157,29 @@ function Store(props) {
         width: 210,
       },
     },
+  };
+
+  //EMAIL SUBSCIBER
+  const [email, setEmail] = useState();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error("email field is required", { position: "bottom-center" });
+    } else {
+      try {
+        const { data } = axios.post("/api/message/subscribe", {
+          email,
+        });
+        dispatch({ type: "POST_SUCCESS", payload: data });
+
+        toast.success("You have successfully subscribe to our newsletter", {
+          position: "bottom-center",
+        });
+      } catch {
+        dispatch({ type: "POST_FAIL" });
+        toast.error(getError(error.message));
+      }
+    }
   };
 
   return (
@@ -490,12 +513,16 @@ function Store(props) {
                     <Pagination
                       page={page}
                       count={pages}
+                      defaultPage={1}
+                      // siblingCount={3}
+                      // boundaryCount={2}
                       color="secondary"
                       renderItem={(item) => (
                         <PaginationItem
                           component={Link}
                           to={`/store?page=${item.page}&query=${query}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`}
                           {...item}
+                          //{`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
                         />
                       )}
                     />
@@ -507,7 +534,7 @@ function Store(props) {
         </div>
         <div className="similar-prod-store">
           <div className="end-list">
-            {simProducts.slice(5, 13).map((sim) => (
+            {simProducts.slice(0, 10).map((sim) => (
               <div key={sim.id} className="endlist">
                 <SimilarProduct sim={sim} />
               </div>
@@ -522,22 +549,29 @@ function Store(props) {
               Explore styles tough enough to <br />
               handle all your workouts
             </p>
-            <Link to="/Brand"></Link>
-            <button>Show Brand</button>
+            <Link to="/store?category=Shoes">
+              <button>Show Brand</button>
+            </Link>
           </div>
         </div>
       </div>
       <div className="subscribe-offer">
         <p>Subscribe for shop news, updates and special offers</p>
-        <div className="sub-response">
-          <div className="spa-in">
-            <span className="material-symbols-sharp" id="icon">
-              mail
-            </span>
-            <input type="email" placeholder="Your e-mail here" />
+        <form action="" onSubmit={submitHandler}>
+          <div className="sub-response">
+            <div className="spa-in">
+              <span className="material-symbols-sharp" id="icon">
+                mail
+              </span>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Your e-mail here"
+              />
+            </div>
+            <button>Subscribe</button>
           </div>
-          <button>Subscribe</button>
-        </div>
+        </form>
       </div>
       <div className="footer">
         <Footer />

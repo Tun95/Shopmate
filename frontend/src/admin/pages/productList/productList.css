@@ -68,6 +68,9 @@
 }
 .admin-product .product-table-scroll {
   overflow-x: scroll;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 .admin-product .product-table-scroll::-webkit-scrollbar {
   cursor: pointer;
@@ -113,16 +116,13 @@
 }
 .product-table-header .product-price {
   position: relative;
-  left: 175px;
+  left: 130px;
 }
 .product-table-header .product-category {
   position: relative;
-  left: 130px;
+  left: 70px;
 }
-.product-table-header .product-color {
-  position: relative;
-  left: 85px;
-}
+
 .product-table-header .product-brand {
   position: relative;
   left: 45px;
@@ -133,6 +133,7 @@
 }
 .product-table-header .product-actions {
   position: relative;
+  right: 20px;
 }
 .product-table-row tr {
   display: flex;
@@ -144,9 +145,7 @@
   height: 730px;
   margin-top: 10px;
 }
-/* .admin-product .product-table-row::-webkit-scrollbar {
-  width: 5px;
-} */
+
 .product-table-row .product-item-list:nth-child(odd) {
   background-color: #f7f7f7;
   min-height: 120px;
@@ -163,7 +162,7 @@
   justify-content: start;
   align-items: center;
   position: relative;
-  left: 20px;
+  left: 50px;
 }
 .admin-product .product-item-price {
   color: #f62f5e;
@@ -171,7 +170,7 @@
   position: relative;
   display: flex;
   justify-content: start;
-  left: 20px;
+  left: 80px;
   width: 60px;
 }
 .admin-product .product-item-category {
@@ -180,24 +179,7 @@
   display: grid;
   grid-template-columns: 1fr;
   justify-content: start;
-  left: 40px;
-}
-.admin-product .product-item-color {
-  width: 60px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: start;
-  position: relative;
-  left: 90px;
-  top: 5px;
-}
-.admin-product .product-item-brand {
-  width: 60px;
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  left: 105px;
-  padding: 3px 0px;
+  left: 150px;
 }
 .admin-product .product-item-size {
   width: 80px;
@@ -205,12 +187,12 @@
   grid-template-columns: repeat(3, 1fr);
   justify-content: start;
   position: relative;
-  left: 150px;
+  left: 200px;
 }
 
 .admin-product .product-btn-view {
-  margin-left: 160px;
-
+  margin-left: 260px;
+  padding-right: 8px;
   width: 80px;
   display: flex;
   justify-content: start;
@@ -291,3 +273,5 @@
     align-items: center;
   }
 }
+
+

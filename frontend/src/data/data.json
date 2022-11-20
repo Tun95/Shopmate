@@ -1,104 +1,4 @@
 {
-  "sideBar": [
-    {
-      "title": "Home",
-      "icon": "",
-      "path": "/"
-    },
-    {
-      "title": "Store",
-      "icon": "",
-      "path": "/store"
-    },
-    {
-      "title": "Cart",
-      "icon": "",
-      "path": "/cartscreen"
-    },
-    {
-      "title": "Category",
-      "icon": "",
-      "children": [
-        {
-          "title": "Women",
-          "icon": "",
-          "path": ""
-        },
-        {
-          "title": "Men",
-          "icon": "",
-          "path": ""
-        },
-        {
-          "title": "Kids",
-          "icon": "",
-          "path": ""
-        },
-        {
-          "title": "Shoes",
-          "icon": "",
-          "path": ""
-        },
-        {
-          "title": "Brands",
-          "icon": "",
-          "path": ""
-        }
-      ]
-    },
-    {
-      "title": "Admin",
-      "icon": "",
-      "children": [
-        {
-          "title": "Dashboard",
-          "icon": "",
-          "path": "/admin/dashboard"
-        },
-        {
-          "title": "products",
-          "icon": "",
-          "path": "/admin/dashboard"
-        },
-        {
-          "title": "Orders",
-          "icon": "",
-          "path": "/admin/dashboard"
-        },
-        {
-          "title": "Users",
-          "icon": "",
-          "path": "/admin/dashboard"
-        },
-        {
-          "title": "Supports",
-          "icon": "",
-          "path": "/admin/dashboard"
-        }
-      ]
-    },
-    {
-      "title": "Seller",
-      "icon": "",
-      "children": [
-        {
-          "title": "products",
-          "icon": "",
-          "path": "/admin/dashboard"
-        },
-        {
-          "title": "Orders",
-          "icon": "",
-          "path": "/admin/dashboard"
-        }
-      ]
-    },
-    {
-      "title": "Contact",
-      "icon": "",
-      "path": "/contact"
-    }
-  ],
   "countryList": [
     {
       "id": 1,
@@ -248,8 +148,13 @@
     },
     {
       "id": 5,
-      "title": "Women's dresses",
+      "title": "Brand",
       "cat": "Brands"
+    },
+    {
+      "id": 5,
+      "title": "Bags",
+      "cat": "Bags"
     }
   ],
 

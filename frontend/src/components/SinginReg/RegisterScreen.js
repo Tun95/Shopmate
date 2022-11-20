@@ -7,6 +7,7 @@ import { Context } from "../../Context/Context";
 import { getError } from "../Utilities/Utils";
 import "./RegisterScreen.css";
 import CloseIcon from "@mui/icons-material/Close";
+import Footer from "../Footer/Footer";
 
 function RegisterScreen(props) {
   const navigate = useNavigate();
@@ -27,28 +28,32 @@ function RegisterScreen(props) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error("Password do not match", { position: "bottom-center" });
-      return;
-    }
-    // if (email.userInfo) {
-    //   toast.error("email already exist");
-    //   return;
-    // }
-    try {
-      const { data } = await Axios.post("/api/users/signup", {
-        name,
-        email,
-        password,
-      });
-      ctxDispatch({ type: "USER_SIGNIN", payload: data });
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/");
-    } catch (err) {
-      toast.error(getError(err), {
+    if (!name || !email || !password) {
+      toast.error("name, email or password field is required", {
         position: "bottom-center",
-        limit: 1,
       });
+    } else {
+      if (password !== confirmPassword) {
+        toast.error("Password do not match", { position: "bottom-center" });
+        return;
+      }
+
+      try {
+        const { data } = await Axios.post("/api/users/signup", {
+          name,
+          email,
+          password,
+        });
+        ctxDispatch({ type: "USER_SIGNIN", payload: data });
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        navigate(redirect || "/");
+        toast.error("sign up successfully", { position: "bottom-center" });
+      } catch (err) {
+        toast.error(getError(err), {
+          position: "bottom-center",
+          limit: 1,
+        });
+      }
     }
   };
 
@@ -67,13 +72,6 @@ function RegisterScreen(props) {
           <form onSubmit={submitHandler}>
             <div className="close">
               <Link to="/">
-                {/* <span
-                  onClick={closeModal}
-                  className="material-symbols-sharp"
-                  id="sharp"
-                >
-                  close
-                </span> */}
                 <CloseIcon onClick={closeModal} className="close-reg" />
               </Link>
             </div>
@@ -88,7 +86,6 @@ function RegisterScreen(props) {
                   id="name"
                   type="name"
                   placeholder="Name"
-                  required
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -99,7 +96,6 @@ function RegisterScreen(props) {
                   type="email"
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                 />
               </div>
 
@@ -110,7 +106,6 @@ function RegisterScreen(props) {
                   type="password"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
               </div>
               <div className="reg-form-group">
@@ -120,7 +115,6 @@ function RegisterScreen(props) {
                   type="password"
                   placeholder="Re-type password"
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
                 />
               </div>
               <div className="reg-check-sign">
@@ -141,6 +135,9 @@ function RegisterScreen(props) {
             </div>
           </form>
         </div>
+      </div>
+      <div className="footer">
+        <Footer />
       </div>
     </div>
   );

@@ -64,8 +64,8 @@ function WidgetLg() {
                 {orders
                   ?.reverse()
                   .slice(0, 20)
-                  .map((order) => (
-                    <tr className="widgetLgTr-body " key={order._id}>
+                  .map((order, index) => (
+                    <tr className="widgetLgTr-body " key={index}>
                       <td className="widgetLgUser">
                         <span className="widgetLgName">{order._id}</span>
                       </td>
@@ -82,7 +82,7 @@ function WidgetLg() {
                         ) : order.isPaid ? (
                           <Button type="Pending" />
                         ) : (
-                          <Button type="Declined" />
+                          <Button type="Passive" />
                         )}
                       </td>
                     </tr>

@@ -48,8 +48,8 @@ function WidgetSm() {
         {users
           ?.slice(0, 20)
           .reverse()
-          .map((user) => (
-            <ul className="widgetSmList" key={user._id}>
+          .map((user, index) => (
+            <ul className="widgetSmList" key={index}>
               <li className="widgetSmListItem">
                 <img
                   src={user.image ? user.image : person}
