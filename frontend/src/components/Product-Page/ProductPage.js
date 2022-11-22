@@ -5,8 +5,7 @@ import React, {
   useContext,
   useRef,
 } from "react";
-import data from "../../data/data.json";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../Product-Page/ProductPage.css";
 import Rating from "@mui/material/Rating";
 import { Helmet } from "react-helmet-async";
@@ -106,7 +105,10 @@ function ProductPage(props) {
 
   //ADD TO CART
   const { state, dispatch: ctxDispatch } = useContext(Context);
-  const { cart: cartItems, userInfo } = state;
+  const {
+    cart: { cartItems },
+    userInfo,
+  } = state;
   const addToCartHandler = async () => {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
@@ -115,6 +117,12 @@ function ProductPage(props) {
         type: "CART_ADD_ITEM_FAIL",
         payload: `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
       });
+      toast.error(
+        `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
+        {
+          position: "bottom-center",
+        }
+      );
     } else {
       if (data.countInStock < quantity) {
         toast.error("Sorry, Product stock limit reached or out of stock", {
@@ -137,6 +145,7 @@ function ProductPage(props) {
           color,
         },
       });
+      localStorage.setItem("cartItems", JSON.stringify(state.cart.cartItems));
     }
   };
 

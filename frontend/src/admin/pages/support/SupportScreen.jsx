@@ -9,6 +9,7 @@ import "./supportScreen.css";
 import SendIcon from "@mui/icons-material/Send";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+import Footer from "../../../components/Footer/Footer";
 
 let allUsers = [];
 let allMessages = [];
@@ -118,107 +119,117 @@ function SupportScreen() {
     }
   };
   return (
-    <div className="support">
-      <div className="support-screen">
-        {/* <div className="chat-box-header">
+    <>
+      <div className="support">
+        <div className="support-screen">
+          {/* <div className="chat-box-header">
           <h1>CHAT BOX</h1>
         </div> */}
-        <div className="support-box">
-          <div className="users-box">
-            <div className="header-box messgechat-user">USERS</div>
-            {users.filter((x) => x._id !== userInfo._id).length === 0 && (
-              <MessageBox>No Online User Found</MessageBox>
-            )}
-            <ul>
-              {users
-                .filter((x) => x._id !== userInfo._id)
-                .map((user) => (
-                  <li key={user._id}>
-                    <button
-                      className={
-                        user._id === selectedUser._id ? "block-btn" : "selected"
-                      }
-                      type="buton"
-                      onClick={() => selectUser(user)}
-                    >
-                      <div className="btn-users">
-                        <PermIdentityIcon />
-                        {user.name}
-                      </div>
-                      <div
-                        id="info-status"
+          <div className="support-box">
+            <div className="users-box">
+              <div className="header-box messgechat-user">USERS</div>
+              {users.filter((x) => x._id !== userInfo._id).length === 0 && (
+                <MessageBox>No Online User Found</MessageBox>
+              )}
+              <ul>
+                {users
+                  .filter((x) => x._id !== userInfo._id)
+                  .map((user) => (
+                    <li key={user._id}>
+                      <button
                         className={
-                          user.unread
-                            ? "unread"
-                            : user.online
-                            ? "online"
-                            : "offline"
+                          user._id === selectedUser._id
+                            ? "block-btn"
+                            : "selected"
                         }
-                      ></div>
-                    </button>
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="message-box">
-            <div className="header-box pad messgechat-messages">MESSAGES</div>
-            {!selectedUser._id ? (
-              <MessageBox>Select a user to start chat</MessageBox>
-            ) : (
-              <div>
-                <div className="messages-row">
-                  <strong className="messages-row-strong">
-                    Chat with{" "}
-                    <RecordVoiceOverIcon className="messages-row-strong-icon" />
-                    {selectedUser.name}
-                  </strong>
-                </div>
-                <div className="message-box-scroll">
-                  <div className="message-scroll" ref={uiMessagesRef}>
-                    <ul>
-                      {messages.length === 0 && (
-                        <li className="no-msg">No Message.</li>
-                      )}
-                      <div className="message-list-all">
-                        {messages.map((msg, index) => (
-                          <li
-                            key={index}
-                            className={
-                              msg.isAdmin
-                                ? "message-list"
-                                : msg._id === msg.selectedUser
-                                ? "message-list"
-                                : "reguler-user"
-                            }
-                          >
-                            <strong>{`${msg.name}: `}</strong>
-                            <p className="message-body">{msg.body}</p>
-                          </li>
-                        ))}
-                      </div>
-                    </ul>
+                        type="buton"
+                        onClick={() => selectUser(user)}
+                      >
+                        <div className="btn-users">
+                          <PermIdentityIcon />
+                          {user.name}
+                        </div>
+                        <div
+                          id="info-status"
+                          className={
+                            user.unread
+                              ? "unread"
+                              : user.online
+                              ? "online"
+                              : "offline"
+                          }
+                        ></div>
+                      </button>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+            <div className="message-box">
+              <div className="header-box pad messgechat-messages">MESSAGES</div>
+              {!selectedUser._id ? (
+                <MessageBox>Select a user to start chat</MessageBox>
+              ) : (
+                <div>
+                  <div className="messages-row">
+                    <strong className="messages-row-strong">
+                      Chat with{" "}
+                      <RecordVoiceOverIcon className="messages-row-strong-icon" />
+                      {selectedUser.name}
+                    </strong>
                   </div>
+                  <div className="message-box-scroll">
+                    <div className="message-scroll" ref={uiMessagesRef}>
+                      <ul>
+                        {messages.length === 0 && (
+                          <li className="no-msg">No Message.</li>
+                        )}
+                        <div className="message-list-all">
+                          {messages.map((msg, index) => (
+                            <li
+                              key={index}
+                              className={
+                                msg.isAdmin
+                                  ? "message-list"
+                                  : msg._id === msg.selectedUser
+                                  ? "message-list"
+                                  : "reguler-user"
+                              }
+                            >
+                              <strong>{`${msg.name}: `}</strong>
+                              <p className="message-body">{msg.body}</p>
+                            </li>
+                          ))}
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                  <form
+                    action=""
+                    onSubmit={submitHandler}
+                    className="message-form"
+                  >
+                    <input
+                      type="text"
+                      className="message-input"
+                      value={messageBody}
+                      onChange={(e) => setMessageBody(e.target.value)}
+                      placeholder="type message here"
+                    />
+                    <SendIcon
+                      className="message-send"
+                      onClick={submitHandler}
+                    />
+                  </form>
                 </div>
-                <form
-                  action=""
-                  onSubmit={submitHandler}
-                  className="message-form"
-                >
-                  <input
-                    type="text"
-                    className="message-input"
-                    value={messageBody}
-                    onChange={(e) => setMessageBody(e.target.value)}
-                    placeholder="type message here"
-                  />
-                  <SendIcon className="message-send" onClick={submitHandler} />
-                </form>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="footer">
+        <Footer />
+      </div>
+    </>
   );
 }
 

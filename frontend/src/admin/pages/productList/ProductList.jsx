@@ -93,6 +93,7 @@ function ProductList() {
   const sp = new URLSearchParams(search);
   const page = parseInt(sp.get("page") || 1);
 
+  //FETCH PRODUCTS
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -338,7 +339,7 @@ function ProductList() {
                     page={page}
                     count={pages}
                     // classes={{ ul: classes.ul }}
-                    color="secondary"
+                    color="primary"
                     renderItem={(item) => (
                       <PaginationItem
                         component={Link}

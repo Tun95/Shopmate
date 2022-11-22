@@ -152,7 +152,7 @@ function SellersScreen() {
                   <div className="box-1">
                     <div className="seller-details">
                       <div className="seller-name-img">
-                        <img src={user.seller.logo} alt={user.seller.name} />
+                        <img src={user.seller.logo || person} alt={user.seller.name} />
                         <h2>{user.seller.name}</h2>
                       </div>
                       <div className="ratings-rev">

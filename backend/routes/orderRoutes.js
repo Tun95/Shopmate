@@ -9,21 +9,6 @@ import Product from "../models/productModels.js";
 
 const orderRouter = express.Router();
 
-// orderRouter.get(
-//   "/",
-//   isAuth,
-//   isSellerOrAdmin,
-//   expressAsyncHandler(async (req, res) => {
-//     const seller = req.query.seller || "";
-//      //const sellerFilter = seller ? { seller } : {};
-//     const sellerFilter = seller && seller !== "all" ? { seller } : {};
-//     const orders = await Order.find({ ...sellerFilter }).populate(
-//       "user",
-//       "name"
-//     );
-//     res.send(orders);
-//   })
-// );
 orderRouter.get(
   "/",
   isAuth,
@@ -49,12 +34,13 @@ orderRouter.post(
       seller: req.body.orderItems[0].seller,
       orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
       shippingAddress: req.body.shippingAddress,
-      // paymentMethod: req.body.paymentMethod,
+      paymentMethod: req.body.paymentMethod,
       itemsPrice: req.body.itemsPrice,
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       grandTotal: req.body.grandTotal,
       user: req.user._id,
+      product: req.body.orderItems.product,
     });
     const order = await newOrder.save();
     res.status(201).send({ message: "New Order Created", order });
@@ -106,13 +92,13 @@ orderRouter.get(
   isAuth,
   isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
-    const productId = req.query._id;
+    const productId = req.query.pid;
     const date = new Date();
     const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
     const previousMonth = new Date(
       new Date().setMonth(lastMonth.getMonth() - 1)
     );
-
+    console.log(productId);
     //GET MONTLY ORDERS
     const orders = await Order.aggregate([
       { $match: { createdAt: { $gte: previousMonth } } },
@@ -162,7 +148,6 @@ orderRouter.get(
         },
       },
       { $sort: { _id: 1 } },
-      
     ]);
 
     //GET MONTHLY INCOME
@@ -171,7 +156,7 @@ orderRouter.get(
         $match: {
           createdAt: { $gte: previousMonth },
           ...(productId && {
-            product: { $elemMatch: { productId } },
+            products: { $elemMatch: { productId } },
           }),
         },
       },

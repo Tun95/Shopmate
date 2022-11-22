@@ -30,13 +30,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SUCCESS":
-      return { ...state, loading: false };
+      return { ...state, loading: false, product: action.payload };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
 
@@ -82,12 +81,14 @@ function ProductEdit() {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
-  const [{ loading, error, loadingUpload, errorUpload, summary }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      summary: { salesData: [] },
-      error: "",
-    });
+  const [
+    { loading, error, product, loadingUpload, errorUpload, summary },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    summary: { salesData: [] },
+    error: "",
+  });
 
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
@@ -122,15 +123,13 @@ function ProductEdit() {
         setBrand(data.brand);
         setImage(data.image);
         setImages(data.images);
-        dispatch({ type: "FETCH_SUCCESS" });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
     fetchData();
   }, [productId]);
-
- 
 
   //PRODUCT UPDATE
   const submitHandler = async (e) => {
@@ -205,7 +204,7 @@ function ProductEdit() {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
         const { data } = await axios.get(
-          `/api/orders/summary?id=${productId}`,
+          "/api/orders/summary?pid=" + productId,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -249,6 +248,7 @@ function ProductEdit() {
     getStats();
   }, [MONTHS, summary.income]);
   console.log(salesStats);
+  console.log(summary);
 
   //DELETE IMAGES
   const deleteFileHandler = async (fileName) => {
@@ -296,13 +296,16 @@ function ProductEdit() {
               </div>
               <div className="productTopRight">
                 <div className="productInfoTop">
-                  <img src={image} alt="" className="productInfoImg" />
-                  <span className="productName">{name}</span>
+                  <img src={product.image} alt="" className="productInfoImg" />
+                  <span className="productName">{product.name}</span>
                 </div>
                 <div className="productInfoBottom">
                   <div className="productInfoItem">
                     <span className="productInfoKey">id: </span>
-                    <span className="productInfoValue"> &nbsp;{productId}</span>
+                    <span className="productInfoValue">
+                      {" "}
+                      &nbsp;{product._id}
+                    </span>
                   </div>
                   <div className="productInfoItem">
                     <span className="productInfoKey">sales:</span>
@@ -311,7 +314,9 @@ function ProductEdit() {
 
                   <div className="productInfoItem">
                     <span className="productInfoKey">in stock:</span>
-                    <span className="productInfoValue">{countInStock}</span>
+                    <span className="productInfoValue">
+                      {product.countInStock}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -368,7 +373,7 @@ function ProductEdit() {
                   </div>
                   <div className="productFormLeft productFormLeft-Two">
                     <label htmlFor="gender">Gender</label>
-                    <FormControl variant="filled" size="small" id="formControl">             
+                    <FormControl variant="filled" size="small" id="formControl">
                       <Select
                         labelId="mui-simple-select-label"
                         id="mui-simple-select"

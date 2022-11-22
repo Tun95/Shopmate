@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
-import React, { Component } from "react";
-import { toast } from "react-toastify";
 
 export const Context = createContext();
 

@@ -68,6 +68,7 @@ function User() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
 
+  //FETCHING
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -83,7 +84,7 @@ function User() {
         setIsAdmin(data.isAdmin);
         setIsSeller(data.isSeller);
         setImage(data.image);
-        dispatch({ type: "FETCH_SUCCESS" });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
@@ -92,6 +93,7 @@ function User() {
     console.log(userId);
   }, [userId, userInfo]);
 
+  //UPDATE
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -170,15 +172,20 @@ function User() {
                   <div className="userShow">
                     <div className="userShowTop">
                       <img
-                        src={image ? image : person}
+                        src={user.image ? user.image : person}
                         alt=""
                         className="userShowImg"
                       />
                       <div className="userShowTopTitle">
-                        <span className="userShowUsername">{name}</span>
+                        <span className="userShowUsername">{user.name}</span>
                         <span className="userShowUserTitle">
-                          {isSeller ? "Seller" : ""}
-                          {isAdmin ? "Admin" : ""}
+                          {user.isAdmin && user.isSeller
+                            ? "Admin & Seller"
+                            : user.isSeller
+                            ? "Seller"
+                            : user.isAdmin
+                            ? "Admin"
+                            : ""}
                         </span>
                       </div>
                     </div>
@@ -187,7 +194,7 @@ function User() {
                       <div className="userShowInfo">
                         <PermIdentityIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">
-                          <div>{name}</div>
+                          <div>{user.name}</div>
                         </span>
                       </div>
                       <div className="userShowInfo">
@@ -197,16 +204,16 @@ function User() {
                       <span className="userShowTitle">Contact Details</span>
                       <div className="userShowInfo">
                         <PhoneAndroidIcon className="userShowIcon" />
-                        <span className="userShowInfoTitle">{phone}</span>
+                        <span className="userShowInfoTitle">{user.phone}</span>
                       </div>
                       <div className="userShowInfo">
                         <MailOutlineIcon className="userShowIcon" />
-                        <span className="userShowInfoTitle">{email}</span>
+                        <span className="userShowInfoTitle">{user.email}</span>
                       </div>
                       <div className="userShowInfo">
                         <LocationSearchingIcon className="userShowIcon" />
                         <span className="userShowInfoTitle">
-                          {address}, {country}
+                          {user.address}, {user.country}
                         </span>
                       </div>
                     </div>

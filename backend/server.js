@@ -11,7 +11,8 @@ import orderRouter from "./routes/orderRoutes.js";
 import morgan from "morgan";
 import uploadRouter from "./routes/uploadRoutes.js";
 import sendEmailRouter from "./routes/emailMsgRoutes.js";
-// import stripeRouter from "./routes/stripeRoutes.js";
+import stripeRouter from "./routes/stripeRoutes.js";
+import settingsRoutes from "./routes/settingRoutes.js";
 
 dotenv.config();
 
@@ -52,7 +53,8 @@ app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
-// app.use("/api/checkout", stripeRouter);
+app.use("/api/settings", settingsRoutes);
+app.use("/api/checkout", stripeRouter);
 
 const _dirname = path.resolve();
 app.use(express.static(path.join(_dirname, "/frontend/build")));

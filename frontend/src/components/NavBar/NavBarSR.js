@@ -112,6 +112,9 @@ function NavBarSR(props) {
                   <li>
                     <Link to="/admin/support">Support</Link>
                   </li>
+                  <li>
+                    <Link to="/admin/settings">Settings</Link>
+                  </li>
                 </ul>
               </li>
             </ul>

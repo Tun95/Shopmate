@@ -28,6 +28,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 function SideBar(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
@@ -133,7 +134,7 @@ function SideBar(props) {
                           ) : (
                             <div>
                               <li className="inner-list">
-                                <Link to="/profile">
+                                <Link to={`/profile/${userInfo._id}`}>
                                   <AccountCircleIcon className="sidebar-icons" />
                                   Profile
                                 </Link>
@@ -286,6 +287,12 @@ function SideBar(props) {
                             <Link to="/admin/support">
                               <LiveHelp className="sidebar-icons" />
                               Support
+                            </Link>
+                          </li>
+                          <li className="inner-list">
+                            <Link to="/admin/settings">
+                              <SettingsIcon className="sidebar-icons" />
+                              Settings
                             </Link>
                           </li>
                         </ul>

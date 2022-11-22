@@ -2,6 +2,8 @@
   background-color: black;
   color: #fff;
   text-align: center;
+  position: relative;
+  bottom: ;
 }
 .footer-social a {
   text-decoration: none;

@@ -1,0 +1,248 @@
+.settings {
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+  box-shadow: 0px 0px 7px -1px #b4b4b4;
+}
+
+.new-settings-edit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.new-settings-edit .new-box {
+  background-color: #fff;
+  padding: 0px 20px;
+  padding-bottom: 20px;
+  width: 960px;
+  height: 100%;
+  overflow: hidden;
+
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+}
+.settings .d_flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings .d_flex .fa-solid {
+  font-size: 40px;
+  cursor: pointer;
+  color: green;
+}
+.settingsForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+.settingsItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.settingsItem > input {
+  height: 20px;
+  padding: 10px;
+  font-size: 18px;
+  margin: 20px 0px;
+  outline-color: #6eb2fb;
+  border: 1px solid #b4b4b4;
+  border-radius: 5px;
+}
+.ck-editor__editable {
+  min-height: 400px;
+}
+
+.settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.settings-btn .update-btn {
+  background-color: #53a5fd;
+}
+.settings-btn .setting-create {
+  width: 40%;
+}
+.settingsButton {
+  width: 100%;
+  border: none;
+  background-color: #f62f5e;
+  color: #fff;
+  padding: 7px 10px;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 5px;
+  margin-top: 30px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* SETTINGS LIST STYLE */
+
+.admin-settings {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-settings .admin-settings-box {
+  background-color: #fff;
+
+  padding: 0px 20px;
+  width: 940px;
+  height: 100%;
+  padding-bottom: 20px;
+  overflow: hidden;
+
+  box-shadow: 1px 2px 4px -2px #b4b4b4;
+}
+.admin-settings-box .order-admin-header {
+  -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+  box-shadow: 0px 0px 7px -1px #b4b4b4;
+}
+.admin-settings-section {
+  -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+  box-shadow: 0px 0px 7px -1px #b4b4b4;
+  padding: 20px;
+  padding-bottom: 20px;
+
+  overflow: hidden;
+}
+.admin-settings .admin-settings-table {
+  overflow-x: scroll;
+}
+
+.admin-settings .admin-settings-table::-webkit-scrollbar {
+  cursor: pointer;
+  width: 5px;
+  height: 7px;
+}
+.admin-settings .admin-settings-table::-webkit-scrollbar-track {
+  width: 5px;
+  height: 7px;
+  background-color: #b4b4b4;
+  border-left: 0 solid #fff;
+  border-right: 0 solid #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.admin-settings .admin-settings-table::-webkit-scrollbar-thumb {
+  background-color: #6c6c6c;
+  width: 5px;
+
+  height: 15% !important;
+  transition: 0.5s ease;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.admin-settings-box h1 {
+  display: flex;
+  justify-content: center;
+  padding: px;
+  font-family: "Old Standard TT", serif;
+  font-size: 48px;
+  color: #2e2e2e;
+}
+.admin-settings-box .fa-square-plus {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 40px;
+  cursor: pointer;
+  color: green;
+  margin-top: -40px;
+  position: relative;
+  bottom: 10px;
+}
+.admin-settings-table-header ul {
+  border-bottom: 3px solid #b4b4b4;
+  width: 900px;
+}
+
+.admin-settings-table-header ul {
+  display: inline-flex;
+  justify-content: space-between;
+  list-style: none;
+  color: #b4b4b4;
+  font-weight: 800;
+  padding-bottom: 10px;
+}
+.admin-settings-table-header ul .admin-settings-user,
+.admin-settings-date {
+  position: relative;
+  left: 30px;
+}
+
+.admin-settings-table-body .admin-settings-table-row {
+  overflow-y: scroll;
+  height: 600px;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.admin-settings-table-body .admin-settings-table-row::-webkit-scrollbar {
+  width: 5px;
+}
+
+.admin-settings-table-row .admin-settings-item-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  list-style: none;
+  padding: 10px 0px;
+}
+.admin-settings-table-row .admin-settings-item-list:nth-child(odd) {
+  background-color: #f7f7f7;
+}
+.admin-settings-table-body ul .admin-item-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  left: 10px;
+  width: 150px;
+}
+.admin-settings-table-body ul .admin-user-name {
+  position: relative;
+  display: flex;
+  align-items: center;
+  left: 10px;
+  width: 150px;
+}
+.admin-settings-table-body ul .admin-user-name img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.admin-settings-table-body ul .admin-created {
+  color: #6eb2fb;
+  font-weight: 600;
+  position: relative;
+  width: 100px;
+  /* left: -35px; */
+  margin-right: 30px;
+}
+
+.admin-settings-table-body ul .fa-solid {
+  font-size: 24px;
+  color: #6c6c6c;
+  cursor: pointer;
+}
+.admin-settings-table-body .admin-settings-delete {
+  padding: 5px 10px 5px 10px;
+  outline: none;
+  border: none;
+  background-color: #f62f5e;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+@media screen and (max-width: 375px) {
+  .admin-settings-box .order-admin-header {
+    font-size: 28px;
+  }
+}

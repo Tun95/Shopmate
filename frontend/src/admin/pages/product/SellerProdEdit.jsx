@@ -29,13 +29,12 @@ import Select from "@mui/material/Select";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SUCCESS":
-      return { ...state, loading: false };
+      return { ...state, loading: false, product: action.payload };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
 
@@ -81,12 +80,14 @@ function SellerProductEdit() {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
-  const [{ loading, error, loadingUpload, errorUpload, summary }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      summary: { salesData: [] },
-      error: "",
-    });
+  const [
+    { loading, error, product, loadingUpload, errorUpload, summary },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    summary: { salesData: [] },
+    error: "",
+  });
 
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
@@ -121,7 +122,7 @@ function SellerProductEdit() {
         setBrand(data.brand);
         setImage(data.image);
         setImages(data.images);
-        dispatch({ type: "FETCH_SUCCESS" });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
@@ -184,11 +185,10 @@ function SellerProductEdit() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post("/api/upload", bodyFormData, 
-			{
+      const { data } = await axios.post("/api/upload", bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
-           authorization: `Bearer ${userInfo.token}`,
+          authorization: `Bearer ${userInfo.token}`,
         },
       });
       dispatch({ type: "UPLOAD_SUCCESS" });
@@ -212,12 +212,9 @@ function SellerProductEdit() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
-        const { data } = await axios.get(
-          `/api/orders/summary`,
-          {
-            headers: { Authorization: `Bearer ${userInfo.token}` },
-          }
-        );
+        const { data } = await axios.get(`/api/orders/summary`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
         dispatch({ type: "FETCH_STATS_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_STATS_FAIL", payload: getError(err) });
@@ -266,7 +263,6 @@ function SellerProductEdit() {
     });
   };
 
-
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -306,13 +302,16 @@ function SellerProductEdit() {
               </div>
               <div className="productTopRight">
                 <div className="productInfoTop">
-                  <img src={image} alt="" className="productInfoImg" />
-                  <span className="productName">{name}</span>
+                  <img src={product.image} alt="" className="productInfoImg" />
+                  <span className="productName">{product.name}</span>
                 </div>
                 <div className="productInfoBottom">
                   <div className="productInfoItem">
                     <span className="productInfoKey">id: </span>
-                    <span className="productInfoValue"> &nbsp;{productId}</span>
+                    <span className="productInfoValue">
+                      {" "}
+                      &nbsp;{product._id}
+                    </span>
                   </div>
                   <div className="productInfoItem">
                     <span className="productInfoKey">sales:</span>
@@ -321,7 +320,9 @@ function SellerProductEdit() {
 
                   <div className="productInfoItem">
                     <span className="productInfoKey">in stock:</span>
-                    <span className="productInfoValue">{countInStock}</span>
+                    <span className="productInfoValue">
+                      {product.countInStock}
+                    </span>
                   </div>
                 </div>
               </div>

@@ -30,7 +30,7 @@ const orderSchema = new mongoose.Schema(
       country: { type: String, required: true },
       shipping: { type: String, required: true },
     },
-    // paymentMethod: { type: String, required: true },
+    paymentMethod: { type: String },
     paymentResult: {
       id: String,
       status: String,
@@ -46,6 +46,18 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectID,
       ref: "User",
     },
+    products: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
     isDelivered: { type: Boolean, default: false },

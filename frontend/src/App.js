@@ -38,6 +38,9 @@ import SellerProductEdit from "./admin/pages/product/SellerProdEdit";
 import SellerOrders from "./admin/pages/orderList/SellerOrder";
 import AboutAndTerms from "./components/About/AboutAndTerms";
 import SellersScreen from "./components/SellersScreen/SellersScreen";
+import Settings from "./admin/pages/settings/updateSettings";
+import AddSettings from "./admin/pages/settings/addSettings";
+import SettingsList from "./admin/pages/settings/settingList";
 
 function App() {
   const { state } = useContext(Context);
@@ -206,6 +209,30 @@ function App() {
               element={
                 <AdminRoute>
                   <SupportScreen />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/settings"
+              element={
+                <AdminRoute>
+                  <SettingsList />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/create-settings"
+              element={
+                <AdminRoute>
+                  <AddSettings />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/update-settings/:id"
+              element={
+                <AdminRoute>
+                  <Settings />
                 </AdminRoute>
               }
             ></Route>
