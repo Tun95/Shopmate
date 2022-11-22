@@ -49,7 +49,7 @@ function AddSettings() {
         }
       );
       dispatch({ type: "CREATE_SUCCESS", payload: data });
-      toast.success("product created successfully", {
+      toast.success("Created successfully", {
         position: "bottom-center",
       });
       navigate(`/admin/settings`);
