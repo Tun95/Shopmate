@@ -16,6 +16,13 @@
   display: flex;
   align-items: center;
 }
+.top-case .admin-sign-reg {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 200px;
+}
 
 .top-case .user-select ul li {
   list-style: none;
@@ -63,8 +70,6 @@
 
 /* ADMIN */
 .top-case .admin-select {
-  position: absolute;
-  left: 150px;
 }
 .top-case .admin-select ul li {
   list-style: none;
@@ -108,7 +113,6 @@
 .admin-select ul ul li .user-signout a {
   color: #f62f5e;
 }
-
 /* Seller */
 .prof {
   cursor: pointer;
@@ -126,62 +130,41 @@
   font-weight: 800;
   color: #f62f5e;
   cursor: pointer;
-  position: relative;
-  right: 90px;
 }
 .top-case .seller-select-nav .fa-caret-down {
   color: #f62f5e;
   cursor: pointer;
-  position: relative;
-  right: 80px;
+  margin-left: 10px;
+}
+.top-case .seller-select-nav .seller-drop-list-nav {
+  display: none;
+  opacity: 0;
+}
+
+.seller-select-nav .seller-drop-list-nav {
+  position: absolute;
+
+  top: 23px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  z-index: 5000;
+
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 .top-case .seller-select-nav ul li a {
   display: block;
   color: #fff;
+  line-height: 30px;
   text-decoration: none;
 }
-.seller-select-nav ul ul {
-  display: none;
-  position: absolute;
-  right: 55px;
-  top: 23px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-  z-index: 5000;
-  padding: 5px;
-  border-radius: 5px;
-}
-.seller-select-nav ul ul li a {
+.seller-select-nav ul li a {
   border-bottom: 1px solid #fff;
-  position: relative;
-  right: 90px;
 }
 
-.seller-select-nav ul li:hover > ul {
+.seller-select-nav:hover > .seller-drop-list-nav {
   display: block;
-  position: absolute;
-  line-height: 30px;
+  opacity: 1;
 }
-/* .top-case .sign-reg .user-select {
-  z-index: 5000;
-  display: flex;
-}
-.top-case .sign-reg .user-select select {
- 
-  font-weight: 800;
-  color: #6c6c6c;
-  cursor: pointer;
-}
-.top-case .sign-reg .user-select .user a{
-  color: #f62f5e;
-  margin-right: 10px;
-}
-.user-select .user-signout a {
-  color: #2e2e2e;
-}
-.top-case .sign-reg .user-select select option {
-  font-weight: 800;
-  color: #b4b4b4;
-} */
 
 .top-case .sign-reg span {
   margin-right: 3px;
@@ -191,20 +174,27 @@
   display: inline-block;
   align-items: center;
 }
-.top-case .islist ul li {
-  display: inline-flex;
-  margin-left: 30px;
-  color: black;
+.top-case .list .k-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
-  right: -75px;
+  width: 350px;
+  list-style: none;
+  margin-left: 30px;
 }
-.top-case .list ul li {
+.top-case .list ul a {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+/* .top-case .list ul li {
   display: inline-flex;
   margin-left: 45px;
+  width: 100px;
   color: black;
   position: relative;
   left: 18px;
-}
+} */
 .currency-cart {
   display: flex;
   align-items: center;
@@ -224,7 +214,7 @@
   text-decoration: none;
   color: #2e2e2e;
 }
-.top-case .cart .fa-sharp{
+.top-case .cart .fa-sharp {
   font-size: 26px;
   position: relative;
   left: -10px;
@@ -247,7 +237,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 @media screen and (max-width: 980px) {
   .top-case .list {

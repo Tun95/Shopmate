@@ -178,7 +178,8 @@
 .admin-settings-table-body .admin-settings-table-row {
   overflow-y: scroll;
   height: 600px;
-  width: 100%;
+  /* width: 100%; */
+  width: 900px;
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -190,12 +191,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  width: 900px;
   list-style: none;
   padding: 10px 0px;
 }
 .admin-settings-table-row .admin-settings-item-list:nth-child(odd) {
   background-color: #f7f7f7;
+  width: 900px;
 }
 .admin-settings-table-body ul .admin-item-title {
   position: relative;
