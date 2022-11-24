@@ -172,8 +172,7 @@ orderRouter.get(
           total: { $sum: "$sales" },
         },
       },
-      { $sort: { _id: -1 } },
-      { $limit: 2 },
+      { $sort: { _id: 1 } },
     ]);
 
     res.send({ users, orders, income, dailyOrders });

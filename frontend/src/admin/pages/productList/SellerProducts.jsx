@@ -141,7 +141,18 @@ function SellerProduct() {
     }
   };
 
+  //OPENING DELETE MODALS
+  const [openDeleteModal, isOpenDeleteModal] = useState(false);
+  const closeDeleteModal = () => {
+    isOpenDeleteModal(false);
+    document.body.style.overflow = "unset";
+  };
+  const showDeleteModal = (product) => {
+    isOpenDeleteModal(true);
+  };
+
   //DELETE PRODUCT
+  
   const deleteHandler = async (product) => {
     try {
       await axios.delete(`/api/products/${product._id}`, {
@@ -157,15 +168,6 @@ function SellerProduct() {
     }
   };
 
-  //OPENING DELETE MODALS
-  const [openDeleteModal, isOpenDeleteModal] = useState(false);
-  const closeDeleteModal = () => {
-    isOpenDeleteModal(false);
-    document.body.style.overflow = "unset";
-  };
-  const showDeleteModal = () => {
-    isOpenDeleteModal(true);
-  };
   //OPENING CREATE MODALS
   const [openCreateModal, isOpenCreateModal] = useState(false);
   const closeCreateModal = () => {

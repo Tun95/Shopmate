@@ -20,7 +20,7 @@ function FeaturedInfo(props) {
   ).toFixed(0);
 
   const salesPerc = (
-    (summary.income[0].total * 100) / summary.income[1].total -
+    (summary.orders[0].totalSales * 100) / summary.orders[1].totalSales -
     100
   ).toFixed(0);
 
@@ -36,8 +36,8 @@ function FeaturedInfo(props) {
 
   //TOTAL SALES PER MONTHS
   const salesTotal =
-    summary.income && summary.users[1]
-      ? summary.income[0]?.total.toFixed(0)
+    summary.orders && summary.users[1]
+      ? summary.orders[0]?.totalSales.toFixed(0)
       : 0;
   let TotalSales = new Intl.NumberFormat("en-GB", {
     style: "currency",

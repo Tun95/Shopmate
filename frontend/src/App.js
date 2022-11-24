@@ -41,6 +41,7 @@ import SellersScreen from "./components/SellersScreen/SellersScreen";
 import Settings from "./admin/pages/settings/updateSettings";
 import AddSettings from "./admin/pages/settings/addSettings";
 import SettingsList from "./admin/pages/settings/settingList";
+import Modal from "./components/modal/Modal";
 
 function App() {
   const { state } = useContext(Context);
@@ -69,10 +70,20 @@ function App() {
     isOpenSideBar(true);
   };
 
+  //BECOME A MERCHANT MODAL
+  const [openSModal, isOpenSModal] = useState(false);
+  const closeSModal = () => {
+    isOpenSModal(false);
+    // document.body.style.overflow = "unset";
+  };
+  const showSModal = () => {
+    isOpenSModal(true);
+  };
+
   return (
     <div className="App">
       <Router>
-        <NavBarSR showModal={showModal} />
+        <NavBarSR showModal={showModal} showSModal={showSModal} />
 
         <NavBar showModal={showModal} showSideBar={showSideBar} />
         <ToastContainer />
@@ -88,7 +99,7 @@ function App() {
           closeSideBar={closeSideBar}
           showSideBar={showSideBar}
         />
-
+        <Modal openSModal={openSModal} closeSModal={closeSModal} />
         <div className="main-box">
           <Routes>
             <Route exact path="/" element={<Home />}></Route>

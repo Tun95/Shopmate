@@ -20,6 +20,7 @@ import LoadingBox from "../Utilities/LoadingBox";
 import { getError } from "../Utilities/Utils";
 import { toast } from "react-toastify";
 import Footer from "../Footer/Footer";
+// import { makeStyles } from "@mui/styles";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -92,6 +93,7 @@ function Store(props) {
     loading: true,
     error: "",
   });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -107,7 +109,6 @@ function Store(props) {
   }, [category, brand, color, size, gender, page, price, query]);
 
   const getFilterUrl = (filter) => {
-    const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
     const filterQuery = filter.query || query;
     const filterGender = filter.gender || gender;
@@ -115,12 +116,11 @@ function Store(props) {
     const filterSize = filter.size || size;
     const filterPrice = filter.price || price;
     const filterBrand = filter.brand || brand;
-    return `/store?page=${filterPage}&query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
+    return `/store?query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
   };
   console.log(products);
 
   //SIM PRODUCTS
-
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_SIM_REQUEST" });
@@ -157,6 +157,15 @@ function Store(props) {
       },
     },
   };
+
+  // const useStyles = makeStyles(() => ({
+  //   ul: {
+  //     "& .MuiPaginationItem-root": {
+  //       color: "#fff",
+  //     },
+  //   },
+  // }));
+  // const classes = useStyles();
 
   //EMAIL SUBSCIBER
   const [email, setEmail] = useState();
@@ -503,31 +512,17 @@ function Store(props) {
                     ))}
                   </div>
                   <div className="pagination">
-                    {/* <div className="productlist-page"></div> */}
-                    {/* {[...Array(pages).keys()].map((x) => (
-                        <Link
-                          className={
-                            x + 1 === Number(page) ? "btn text-bold" : "btn"
-                          }
-                          key={x + 1}
-                          to={`/store?page=${x + 1}`}
-                        >
-                          {x + 1}
-                        </Link>
-                      ))} */}
                     <Pagination
                       page={page}
                       count={pages}
                       defaultPage={1}
-                      // siblingCount={3}
-                      // boundaryCount={2}
                       color="secondary"
+                      //classes={{ ul: classes.ul }}
                       renderItem={(item) => (
                         <PaginationItem
                           component={Link}
                           to={`/store?page=${item.page}&query=${query}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`}
                           {...item}
-                          //{`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
                         />
                       )}
                     />

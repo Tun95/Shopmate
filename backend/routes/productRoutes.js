@@ -179,6 +179,10 @@ productRouter.get(
     const color = query.color || "";
     const size = query.size || "";
     const price = query.price || "";
+
+    // const min = query.min && Number(query.min) !== 0 ? Number(query.min) : 0;
+    // const max = query.max && Number(query.max) !== 0 ? Number(query.max) : 0;
+
     const rating = query.rating || "";
     const order = query.order || "";
     const brand = query.brand || "";
@@ -209,7 +213,7 @@ productRouter.get(
             },
           }
         : {};
-
+    // const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
     const priceFilter =
       price && price !== "all"
         ? {
@@ -244,7 +248,7 @@ productRouter.get(
       ...priceFilter,
       ...ratingFilter,
     })
-      .populate("seller", "seller.name")
+      .populate("seller")
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
       .limit(pageSize);

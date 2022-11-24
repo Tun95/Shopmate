@@ -28,7 +28,7 @@ function Home() {
     navigate("/signup");
   };
 
-  const [{ loading, error, message }, dispatch] = useReducer(reducer, {
+  const [{ loading, error }, dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
   });
@@ -43,7 +43,7 @@ function Home() {
       toast.error("email field is required", { position: "bottom-center" });
     } else {
       try {
-        const { data } = axios.post("/api/message/subscribe", {
+        const { data } = await axios.post("/api/message/subscribe", {
           email,
         });
         dispatch({ type: "POST_SUCCESS", payload: data });
@@ -52,6 +52,7 @@ function Home() {
         });
       } catch (err) {
         toast.error(getError(err), { position: "bottom-center" });
+        dispatch({ type: "POST_FAIL" });
       }
     }
   };

@@ -2,29 +2,13 @@ import mongoose from "mongoose";
 
 const emailMsgSchema = new mongoose.Schema(
   {
-    name: {
+    email: {
       type: String,
       required: true,
     },
-    from: {
-      type: String,
-      required: true,
-    },
-    to: {
-      type: String,
-      required: true,
-    },
-    subject: {
-      type: String,
-      required: true,
-    },
-    message: {
-      type: String,
-      required: true,
-    },
-    isFlagged: {
-      type: Boolean,
-      default: false,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {

@@ -69,8 +69,7 @@
 }
 
 /* ADMIN */
-.top-case .admin-select {
-}
+
 .top-case .admin-select ul li {
   list-style: none;
 }
@@ -122,6 +121,7 @@
 .sell-link-nav {
   text-decoration: none;
   color: #2e2e2e;
+  cursor: pointer;
 }
 .top-case .seller-select-nav ul li {
   list-style: none;

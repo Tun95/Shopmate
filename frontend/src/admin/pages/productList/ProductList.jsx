@@ -258,7 +258,7 @@ function ProductList() {
                     </div>
                     <table className="product-table-column">
                       <tbody className="product-table-row">
-                        {products?.map((product, index) => (
+                        {products?.map((product, index, _id) => (
                           <tr className="product-item-list" key={index}>
                             <tr>
                               <td className="product-item-id">{product._id}</td>
@@ -312,7 +312,7 @@ function ProductList() {
                                           </button>
                                           <button
                                             onClick={() => {
-                                              deleteHandler(product);
+                                              deleteHandler(product._id);
                                               closeDeleteModal();
                                             }}
                                             className="delete-modal-btn-yes"

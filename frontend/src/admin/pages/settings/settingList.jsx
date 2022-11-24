@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Footer from "../../../components/Footer/Footer";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
@@ -52,6 +53,14 @@ function SettingsList() {
     fetchData();
   }, [userInfo]);
   console.log(other);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  //CREATE
+  const createHandler = async (e) => {
+    e.preventDefault();
+  };
 
   return (
     <>
@@ -112,6 +121,46 @@ function SettingsList() {
                         </ul>
                       ))}
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="new-settings-edit">
+                <div className="new-box">
+                  <div className="settings">
+                    <h1 className="settingsTitle">Send News Letter</h1>
+                    <form
+                      action=""
+                      className="settingsForm"
+                      onSubmit={createHandler}
+                    >
+                      <div className="settingsItem">
+                        <input
+                          type="text"
+                          placeholder="Subject e.g new letter"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <CKEditor
+                          editor={ClassicEditor}
+                          data={description}
+                          onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setDescription(data);
+                          }}
+                        />
+                        {/* <textarea
+                  type="text"
+                  placeholder="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                /> */}
+                        <div className="settings-btn">
+                          <button className="settingsButton setting-create">
+                            Send
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

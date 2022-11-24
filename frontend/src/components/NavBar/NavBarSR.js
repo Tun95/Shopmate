@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 
 function NavBarSR(props) {
-  const { showModal } = props;
+  const { showModal, showSModal } = props;
 
   const { state, dispatch } = useContext(Context);
   const { cart, userInfo } = state;
@@ -144,9 +144,9 @@ function NavBarSR(props) {
                   </ul>
                 </div>
               ) : (
-                <Link to="" className="sell-link-nav">
+                <p onClick={showSModal} className="sell-link-nav">
                   Sell
-                </Link>
+                </p>
               )}
             </li>
             <Link to="/contact">

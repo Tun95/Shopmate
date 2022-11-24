@@ -204,7 +204,7 @@ function ProductEdit() {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
         const { data } = await axios.get(
-          "/api/orders/summary?pid=" + productId,
+          "/api/orders/summary",
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
