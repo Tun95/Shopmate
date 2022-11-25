@@ -225,6 +225,10 @@
   background-color: #f62f5e;
   color: #fff;
 }
+.product-pagination .paginationItemStyle.active:hover {
+  background-color: #f62f5e;
+  color: #fff;
+}
 .productlist-page {
   width: 150px;
   display: flex;
