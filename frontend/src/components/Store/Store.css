@@ -414,6 +414,10 @@
   background-color: #f62f5e;
   color: #fff;
 }
+.pagination .paginationItemStyle.active:hover {
+  background-color: #f62f5e;
+  color: #fff;
+}
 .pagination a {
   color: #2e2e2e;
   width: 30px;
