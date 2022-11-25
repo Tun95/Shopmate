@@ -152,7 +152,7 @@ function SellerProduct() {
   };
 
   //DELETE PRODUCT
-  
+
   const deleteHandler = async (product) => {
     try {
       await axios.delete(`/api/products/${product._id}`, {
@@ -330,25 +330,17 @@ function SellerProduct() {
                   </div>
                 </div>
                 <div className="product-pagination">
-                  {/* <div className="productlist-page"> */}
-                  {/* {[...Array(pages).keys()].map((x) => (
-                    <Link
-                      className={
-                        x + 1 === Number(page) ? "btn text-bold" : "btn"
-                      }
-                      key={x + 1}
-                      to={`/admin/products?page=${x + 1}`}
-                    >
-                      {x + 1}
-                    </Link>
-                  ))} */}
                   <Pagination
                     page={page}
                     count={pages}
-                    // classes={{ ul: classes.ul }}
                     color="secondary"
                     renderItem={(item) => (
                       <PaginationItem
+                        className={`${
+                          item.page !== page
+                            ? "paginationItemStyle"
+                            : "paginationItemStyle active"
+                        }`}
                         component={Link}
                         to={`/seller/products?page=${item.page}`}
                         {...item}

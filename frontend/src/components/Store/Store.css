@@ -263,10 +263,9 @@
 }
 
 /* Brand Style*/
-#mui-brand-select-label, #mui-price-select-label{
-margin-top: -12px;
- 
- 
+#mui-brand-select-label,
+#mui-price-select-label {
+  margin-top: -12px;
 }
 .brand .select-brand {
   margin-left: 25px;
@@ -410,6 +409,10 @@ margin-top: -12px;
   align-items: center;
   position: relative;
   top: 3px;
+}
+.pagination .paginationItemStyle.active {
+  background-color: #f62f5e;
+  color: #fff;
 }
 .pagination a {
   color: #2e2e2e;

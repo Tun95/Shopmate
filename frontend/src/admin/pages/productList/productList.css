@@ -221,6 +221,10 @@
   align-items: center;
   padding: 20px 0px;
 }
+.product-pagination .paginationItemStyle.active {
+  background-color: #f62f5e;
+  color: #fff;
+}
 .productlist-page {
   width: 150px;
   display: flex;
@@ -273,5 +277,3 @@
     align-items: center;
   }
 }
-
-

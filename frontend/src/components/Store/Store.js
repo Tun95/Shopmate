@@ -516,10 +516,14 @@ function Store(props) {
                       page={page}
                       count={pages}
                       defaultPage={1}
-                      color="secondary"
                       //classes={{ ul: classes.ul }}
                       renderItem={(item) => (
                         <PaginationItem
+                          className={`${
+                            item.page !== page
+                              ? "paginationItemStyle"
+                              : "paginationItemStyle active"
+                          }`}
                           component={Link}
                           to={`/store?page=${item.page}&query=${query}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`}
                           {...item}

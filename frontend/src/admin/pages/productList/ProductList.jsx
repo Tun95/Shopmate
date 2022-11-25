@@ -60,15 +60,6 @@ const reducer = (state, action) => {
   }
 };
 
-// const useStyles = makeStyles(() => ({
-//   ul: {
-//     "& .MuiPaginationItem-root": {
-//       color: "#fff",
-//       backgroundColor: "#2e2e2e",
-//     },
-//   },
-// }));
-
 function ProductList() {
   const { state } = useContext(Context);
   const { userInfo } = state;
@@ -338,10 +329,13 @@ function ProductList() {
                   <Pagination
                     page={page}
                     count={pages}
-                    // classes={{ ul: classes.ul }}
-                    color="primary"
                     renderItem={(item) => (
                       <PaginationItem
+                        className={`${
+                          item.page !== page
+                            ? "paginationItemStyle"
+                            : "paginationItemStyle active"
+                        }`}
                         component={Link}
                         to={`/admin/products?page=${item.page}`}
                         {...item}
