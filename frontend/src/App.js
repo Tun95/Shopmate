@@ -42,6 +42,8 @@ import Settings from "./admin/pages/settings/updateSettings";
 import AddSettings from "./admin/pages/settings/addSettings";
 import SettingsList from "./admin/pages/settings/settingList";
 import Modal from "./components/modal/Modal";
+import { Brand, Category, Size } from "./admin/pages/settings/filterCreate";
+import { BrandUpdate, CategoryUpdate, SizeUpdate } from "./admin/pages/settings/filterUpdate";
 
 function App() {
   const { state } = useContext(Context);
@@ -155,7 +157,6 @@ function App() {
               }
             ></Route>
             <Route path="/contact" element={<HelpContact />}></Route>
-
             {/* ADMIN ROUTE*/}
             <Route
               path="/admin/dashboard"
@@ -247,7 +248,54 @@ function App() {
                 </AdminRoute>
               }
             ></Route>
-
+            <Route
+              path="/admin/create-category"
+              element={
+                <AdminRoute>
+                  <Category />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/update-category/:id"
+              element={
+                <AdminRoute>
+                  <CategoryUpdate />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/create-brand"
+              element={
+                <AdminRoute>
+                  <Brand />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/update-brand/:id"
+              element={
+                <AdminRoute>
+                  <BrandUpdate />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/create-size"
+              element={
+                <AdminRoute>
+                  <Size />
+                </AdminRoute>
+              }
+            ></Route>
+            <Route
+              path="/admin/update-size/:id"
+              element={
+                <AdminRoute>
+                  <SizeUpdate />
+                </AdminRoute>
+              }
+            ></Route>
             {/* SELLER ROUTE */}
             <Route
               path="/seller/products"

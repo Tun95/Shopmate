@@ -13,6 +13,7 @@
   background-color: #fff;
   padding: 0px 20px;
   padding-bottom: 20px;
+
   width: 960px;
   height: 100%;
   overflow: hidden;
@@ -20,12 +21,31 @@
   -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
   box-shadow: 0px 0px 7px -1px #b4b4b4;
 }
+.new-settings-edit .filter-create-shadow {
+  padding-top: 20px;
+}
+.new-settings-edit .filter-create-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+.FilterForm {
+  width: 600px;
+  text-align: center;
+}
+.FilterForm h1 {
+  font-family: "Old Standard TT", serif;
+}
 .settings .d_flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.settings .d_flex .fa-solid {
+.filter-create-shadow .fa-solid {
+  float: right;
+}
+.fa-square-plus {
   font-size: 40px;
   cursor: pointer;
   color: green;
@@ -39,6 +59,10 @@
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+}
+.Filterbtn {
+  display: flex;
+  justify-content: center;
 }
 
 .settingsItem > input {
@@ -116,6 +140,15 @@
 
   overflow: hidden;
 }
+.filter-settings {
+  height: 310px;
+}
+.setting-margin-b {
+  margin-bottom: 20px;
+}
+.admin-settings-box .news-letter {
+  margin-top: 20px;
+}
 .admin-settings .admin-settings-table {
   overflow-x: scroll;
 }
@@ -144,14 +177,34 @@
   cursor: pointer;
 }
 
+.admin-settings .filter-settings-table::-webkit-scrollbar-track {
+  display: none;
+}
+
+.filterSettings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: ;
+  gap: 20px;
+}
+
 .admin-settings-box h1 {
   display: flex;
   justify-content: center;
-  padding: px;
+  padding: ;
   font-family: "Old Standard TT", serif;
   font-size: 48px;
   color: #2e2e2e;
 }
+
+.admin-settings-box .newsLetterTitle {
+  font-size: 30px;
+}
+
+.admin-settings-box .FilterTitle {
+  font-size: 18px;
+}
+
 .admin-settings-box .fa-square-plus {
   display: flex;
   float: right;
@@ -165,9 +218,19 @@
   position: relative;
   bottom: 10px;
 }
+
+.filterSettings .filterPlus {
+  position: relative;
+  top: 5px;
+  font-size: 30px;
+  width: 30px;
+}
 .admin-settings-table-header ul {
   border-bottom: 3px solid #b4b4b4;
   width: 900px;
+}
+.admin-settings-table-header .filter-settings-header {
+  width: 100%;
 }
 
 .admin-settings-table-header ul {
@@ -193,11 +256,12 @@
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
 .admin-settings-table-body .admin-settings-table-row::-webkit-scrollbar {
   width: 5px;
 }
 
-.admin-settings-table-row .admin-settings-item-list {
+.admin-settings-table-row ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,9 +269,14 @@
   list-style: none;
   padding: 10px 0px;
 }
+.admin-settings-table-body .filter-style {
+  height: 230px;
+}
+.admin-settings-table-body .filter-settings-list {
+  width: 100%;
+}
 .admin-settings-table-row .admin-settings-item-list:nth-child(odd) {
   background-color: #f7f7f7;
-  width: 900px;
 }
 .admin-settings-table-body ul .admin-item-title {
   position: relative;
@@ -253,8 +322,42 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.admin-settings-table-body .newsLetterDelete {
+  padding: 5px 10px 5px 10px;
+  outline: none;
+  border: none;
+  background-color: #f62f5e;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+@media screen and (max-width: 480px) {
+  .filterSettings {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 411px) {
+  .admin-settings-box h1 {
+    font-size: 30px;
+  }
+  .admin-settings-box .fa-square-plus {
+    font-size: 30px;
+    margin-top: -30px;
+    position: relative;
+
+    bottom: 4px;
+  }
+}
 @media screen and (max-width: 375px) {
   .admin-settings-box .order-admin-header {
     font-size: 28px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .admin-settings-box h1 {
+    font-size: 25px;
+  }
+  .admin-settings-box .newsLetterTitle {
+    font-size: 20px;
   }
 }

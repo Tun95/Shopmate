@@ -13,6 +13,7 @@ import { getError } from "../Utilities/Utils";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import axios from "axios";
 import LoadingBox from "../Utilities/LoadingBox";
+import Footer from "../Footer/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -194,7 +195,6 @@ function Payment(props) {
   //STRIPE SECTION
   // const KEY = process.env.REACT_APP_STRIPE;
 
-    
   const [stripeToken, setStripeToken] = useState(null);
 
   const onToken = (token) => {
@@ -218,161 +218,164 @@ function Payment(props) {
   }, [order.grandTotal, stripeToken]);
 
   return (
-    <div className="payment">
-      <Helmet>
-        <title>Payment</title>
-      </Helmet>
-      <div className="payment-box">
-        <div className="header-check">
-          <div className="c-check">
-            <h2 className="box-check n-t-y">Checkout</h2>
-            <h3 className="box-check-title ">Payment Methods</h3>
-            <div className="checkout">
-              <CheckoutSteps step1 step2 step3></CheckoutSteps>
+    <>
+      <div className="payment">
+        <Helmet>
+          <title>Payment</title>
+        </Helmet>
+        <div className="payment-box">
+          <div className="header-check">
+            <div className="c-check">
+              <h2 className="box-check n-t-y">Checkout</h2>
+              <h3 className="box-check-title ">Payment Methods</h3>
+              <div className="checkout">
+                <CheckoutSteps step1 step2 step3></CheckoutSteps>
+              </div>
             </div>
           </div>
-        </div>
-        <form action="" onSubmit={submitHandler}>
-          <div className="payment-details">
-            <div className="payment-section">
-              <label
-                className={openStripeModal ? "active" : "stripe"}
-                htmlFor="stripe"
-                onClick={StripeModal}
-              >
-                <div className="stripe-svg">
-                  <div className="svg">
-                    <img src={stripe} alt="" />
-                    <div className="masvis">
-                      <img src={vismas} alt="" />
+          <form action="" onSubmit={submitHandler}>
+            <div className="payment-details">
+              <div className="payment-section">
+                <label
+                  className={openStripeModal ? "active" : "stripe"}
+                  htmlFor="stripe"
+                  onClick={StripeModal}
+                >
+                  <div className="stripe-svg">
+                    <div className="svg">
+                      <img src={stripe} alt="" />
+                      <div className="masvis">
+                        <img src={vismas} alt="" />
+                      </div>
                     </div>
+
+                    <input
+                      type="radio"
+                      required
+                      name="payment"
+                      id="stripe"
+                      value="Stripe"
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                    />
+                    <span>
+                      <strong>
+                        {" "}
+                        Pay £{order.grandTotal?.toFixed(0)} with credit card
+                      </strong>
+                    </span>
                   </div>
+                </label>
 
-                  <input
-                    type="radio"
-                    required
-                    name="payment"
-                    id="stripe"
-                    value="Stripe"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  <span>
-                    <strong>
-                      {" "}
-                      Pay £{order.grandTotal?.toFixed(0)} with credit card
-                    </strong>
-                  </span>
-                </div>
-              </label>
+                <label
+                  className={openPaypalModal ? "active-paypal" : "paypal"}
+                  id="paypal"
+                  onClick={PaypalOrderModal}
+                >
+                  <div className="paypal-svg">
+                    <div className="svg">
+                      <img src={paypal} alt="" />
+                    </div>
 
-              <label
-                className={openPaypalModal ? "active-paypal" : "paypal"}
-                id="paypal"
-                onClick={PaypalOrderModal}
-              >
-                <div className="paypal-svg">
-                  <div className="svg">
-                    <img src={paypal} alt="" />
+                    <input
+                      type="radio"
+                      required
+                      name="payment"
+                      id="paypal"
+                      value="PayPal"
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                    />
+                    <span>
+                      <strong>
+                        {" "}
+                        Pay £{order.grandTotal?.toFixed(0)} with PayPal
+                      </strong>
+                    </span>
                   </div>
+                </label>
+              </div>
 
-                  <input
-                    type="radio"
-                    required
-                    name="payment"
-                    id="paypal"
-                    value="PayPal"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  <span>
-                    <strong>
-                      {" "}
-                      Pay £{order.grandTotal?.toFixed(0)} with PayPal
-                    </strong>
-                  </span>
-                </div>
-              </label>
-            </div>
-
-            <div className="paypal-stripe">
-              {!order.isPaid && (
-                <div>
-                  {openStripeModal && (
-                    <div className="stripe-details">
-                      <div className="p-inner-form">
-                        <div className="form-group">
-                          <label htmlFor="card-holder">Cardholder's Name</label>
-                          <div className="payment-input-box">
-                            <input type="text" id="name" placeholder="Name" />
-                            <i className="fa fa-user"></i>
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="card-number">Card Number</label>
-                          <div className="payment-input-box">
-                            <input
-                              type="tel"
-                              id="card-number"
-                              name="card-number"
-                              inputMode="numeric"
-                              pattern="[\d ]{10,30}"
-                              maxLength="16"
-                              placeholder="**** **** **** ****"
-                            />
-                            <i className="fa fa-credit-card"></i>
-                          </div>
-                        </div>
-                        <div className="form-date">
-                          <div className="form-group-d">
-                            <label htmlFor="card-date">Valid thru.</label>
-                            <div className="cvc-fa-icon">
-                              <input type="text" placeholder="MM/YY" />
+              <div className="paypal-stripe">
+                {!order.isPaid && (
+                  <div>
+                    {openStripeModal && (
+                      <div className="stripe-details">
+                        <div className="p-inner-form">
+                          <div className="form-group">
+                            <label htmlFor="card-holder">
+                              Cardholder's Name
+                            </label>
+                            <div className="payment-input-box">
+                              <input type="text" id="name" placeholder="Name" />
+                              <i className="fa fa-user"></i>
                             </div>
                           </div>
-                          <div className="form-group-d">
-                            <label htmlFor="card-cvv">CVV / CVC*</label>
-                            <div className="cvc-fa-icon">
+                          <div className="form-group">
+                            <label htmlFor="card-number">Card Number</label>
+                            <div className="payment-input-box">
                               <input
                                 type="tel"
-                                id="cvv"
-                                maxLength="3"
-                                pattern="[0-9]{3}"
-                                placeholder="cvv"
+                                id="card-number"
+                                name="card-number"
+                                inputMode="numeric"
+                                pattern="[\d ]{10,30}"
+                                maxLength="16"
+                                placeholder="**** **** **** ****"
                               />
-                              <i className="fa fa-lock" id="passcvv"></i>
+                              <i className="fa fa-credit-card"></i>
                             </div>
                           </div>
-                        </div>
-                        <div className="form-group">
-                          <span>
-                            * CVV or CVC is the card security code, unique three
-                            digits number on the back of your card separate from
-                            its number
-                          </span>
+                          <div className="form-date">
+                            <div className="form-group-d">
+                              <label htmlFor="card-date">Valid thru.</label>
+                              <div className="cvc-fa-icon">
+                                <input type="text" placeholder="MM/YY" />
+                              </div>
+                            </div>
+                            <div className="form-group-d">
+                              <label htmlFor="card-cvv">CVV / CVC*</label>
+                              <div className="cvc-fa-icon">
+                                <input
+                                  type="tel"
+                                  id="cvv"
+                                  maxLength="3"
+                                  pattern="[0-9]{3}"
+                                  placeholder="cvv"
+                                />
+                                <i className="fa fa-lock" id="passcvv"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <span>
+                              * CVV or CVC is the card security code, unique
+                              three digits number on the back of your card
+                              separate from its number
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                  {openPaypalModal && (
-                    <div className="paypal-details">
-                      <div className="paypal-btn">
-                        <PayPalButtons
-                          createOrder={createOrder}
-                          onApprove={onApprove}
-                          onError={onError}
-                        ></PayPalButtons>
+                    )}
+                    {openPaypalModal && (
+                      <div className="paypal-details">
+                        <div className="paypal-btn">
+                          <PayPalButtons
+                            createOrder={createOrder}
+                            onApprove={onApprove}
+                            onError={onError}
+                          ></PayPalButtons>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+                    )}
+                  </div>
+                )}
+              </div>
 
-            <div className="p-lower-btn">
-              <div className="btn-group">
-                <button className="back" onClick={backHandler}>
-                  Back
-                </button>
-                {/* {openPaypalModal && (
+              <div className="p-lower-btn">
+                <div className="btn-group">
+                  <button className="back" onClick={backHandler}>
+                    Back
+                  </button>
+                  {/* {openPaypalModal && (
                   <button className="pay" disabled>
                     Pay
                   </button>
@@ -393,12 +396,16 @@ function Payment(props) {
                     </button>
                   </StripeCheckout>
                 )} */}
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+      <div className="footer">
+        <Footer />
+      </div>
+    </>
   );
 }
 

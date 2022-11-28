@@ -1,22 +1,21 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
-import  Settings  from "../models/settings.js";
+import Category from "../models/category.js";
 import { isAuth } from "../utils.js";
 
-const settingsRoutes = express.Router();
+const categoryRoutes = express.Router();
 
 //create
-settingsRoutes.post(
+categoryRoutes.post(
   "/",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     try {
-      const other = await Settings.create({
-        title: req.body.title,
-        user: req.user._id,
-        description: req.body.description,
+      const category = await Category.create({
+        category: req.body.category,
+        // user: req.user._id,
       });
-      res.send(other);
+      res.send(category);
     } catch (error) {
       res.send(error);
     }
@@ -24,12 +23,14 @@ settingsRoutes.post(
 );
 
 //Fetch all
-settingsRoutes.get(
+categoryRoutes.get(
   "/",
   expressAsyncHandler(async (req, res) => {
     try {
-      const other = await Settings.find({}).populate("user").sort("-createdAt");
-      res.send(other);
+      const categories = await Category.find({})
+        .populate("user")
+        .sort("-createdAt");
+      res.send(categories);
     } catch (error) {
       res.send(error);
     }
@@ -37,14 +38,14 @@ settingsRoutes.get(
 );
 
 //Fetch single
-settingsRoutes.get(
+categoryRoutes.get(
   "/:id",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findById(id);
-      res.send(other);
+      const category = await Category.findById(id);
+      res.send(category);
     } catch (error) {
       res.send(error);
     }
@@ -52,39 +53,39 @@ settingsRoutes.get(
 );
 
 //Update
-settingsRoutes.put(
+categoryRoutes.put(
   "/:id",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findByIdAndUpdate(
+      const category = await Category.findByIdAndUpdate(
         id,
         {
           ...req.body,
         },
         { new: true }
       );
-      res.send(other);
+      res.send(category);
     } catch (error) {
       res.send(error);
     }
   })
 );
 
-//Fetch single
-settingsRoutes.delete(
+//Delete single
+categoryRoutes.delete(
   "/:id",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findByIdAndDelete(id);
-      res.send(other);
+      const category = await Category.findByIdAndDelete(id);
+      res.send(category);
     } catch (error) {
       res.send(error);
     }
   })
 );
 
-export default settingsRoutes;
+export default categoryRoutes;

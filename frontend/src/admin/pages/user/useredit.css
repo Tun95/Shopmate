@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 .new-user-edit .new-box {
   background-color: #fff;

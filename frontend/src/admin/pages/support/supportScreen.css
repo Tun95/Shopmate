@@ -1,6 +1,7 @@
 .support {
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 .support-screen {
   padding: 0px 20px;

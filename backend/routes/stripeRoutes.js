@@ -1,12 +1,12 @@
 import express from "express";
-import stripe from "stripe"
+import Stripe from "stripe";
 
 // const stripe = require("stripe")(process.env.STRIPE_KEY);
-const stripeEnv = (stripe)(process.env.STRIPE_KEY);
+const stripe = Stripe(process.env.STRIPE_KEY);
 
 const stripeRouter = express.Router();
 stripeRouter.post("/payment", (req, res) => {
-  stripeEnv.charges.create(
+  stripe.charges.create(
     {
       source: req.body.tokenId,
       amount: req.body.amount,

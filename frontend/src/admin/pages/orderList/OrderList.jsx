@@ -62,6 +62,7 @@ function OrderList() {
     }
   }, [successDelete, userInfo]);
   console.log(orders);
+  
   //DELETE
   const deleteHandler = async (order) => {
     try {

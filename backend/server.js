@@ -13,6 +13,9 @@ import uploadRouter from "./routes/uploadRoutes.js";
 import sendEmailRouter from "./routes/emailMsgRoutes.js";
 import stripeRouter from "./routes/stripeRoutes.js";
 import settingsRoutes from "./routes/settingRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import brandRoutes from "./routes/brandRoutes.js";
+import sizeRoutes from "./routes/sizeRoutes.js";
 
 dotenv.config();
 
@@ -53,6 +56,9 @@ app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/category", categoryRoutes);
+app.use("/api/brand", brandRoutes);
+app.use("/api/size", sizeRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/checkout", stripeRouter);
 

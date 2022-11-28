@@ -29,6 +29,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Footer from "../../../components/Footer/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,6 +38,27 @@ const reducer = (state, action) => {
     case "FETCH_SUCCESS":
       return { ...state, loading: false, product: action.payload };
     case "FETCH_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_CATEGORY_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_CATEGORY_SUCCESS":
+      return { ...state, loading: false, categories: action.payload };
+    case "FETCH_CATEGORY_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_BRAND_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_BRAND_SUCCESS":
+      return { ...state, loading: false, brands: action.payload };
+    case "FETCH_BRAND_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_SIZE_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_SIZE_SUCCESS":
+      return { ...state, loading: false, sizes: action.payload };
+    case "FETCH_SIZE_FAIL":
       return { ...state, loading: false, error: action.payload };
 
     case "UPDATE_REQUEST":
@@ -74,7 +96,7 @@ function ProductEdit() {
     adminsize,
     productsize,
     productcolor,
-    categories,
+
     productbrand,
     genderselect,
   } = data;
@@ -82,7 +104,17 @@ function ProductEdit() {
   const { userInfo } = state;
 
   const [
-    { loading, error, product, loadingUpload, errorUpload, summary },
+    {
+      loading,
+      error,
+      product,
+      loadingUpload,
+      brands,
+      sizes,
+      categories,
+      errorUpload,
+      summary,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loading: true,
@@ -203,12 +235,9 @@ function ProductEdit() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
-        const { data } = await axios.get(
-          "/api/orders/summary",
-          {
-            headers: { Authorization: `Bearer ${userInfo.token}` },
-          }
-        );
+        const { data } = await axios.get("/api/orders/summary", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
         dispatch({ type: "FETCH_STATS_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_STATS_FAIL", payload: getError(err) });
@@ -258,6 +287,57 @@ function ProductEdit() {
     });
   };
 
+  //FETCH ALL CATEGORY
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/category", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_CATEGORY_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(categories);
+
+  //FETCH ALL BRANDS
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_BRAND_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/brand", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_BRAND_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(brands);
+
+  //FETCH ALL SIZE
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_SIZE_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/size", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_SIZE_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(sizes);
+
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -269,308 +349,348 @@ function ProductEdit() {
     },
   };
   return (
-    <div className="product-edit-page">
-      <Helmet>
-        <title>Product Edit ${productId}</title>
-      </Helmet>
+    <>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <div className="product-edit">
-          <div className="product">
-            <div className="productTitleContainer">
-              <h1 className="productTitle">Product Edit </h1>
-              {/* <Link to="/admin/newproduct">
-              <button className="productAddButton">Create</button>
-            </Link> */}
-            </div>
-            <div className="productTop">
-              <div className="productTopLeft">
-                <Charts
-                  data={salesStats}
-                  dataKey="Sales"
-                  title="Sales Performance"
-                />
-              </div>
-              <div className="productTopRight">
-                <div className="productInfoTop">
-                  <img src={product.image} alt="" className="productInfoImg" />
-                  <span className="productName">{product.name}</span>
-                </div>
-                <div className="productInfoBottom">
-                  <div className="productInfoItem">
-                    <span className="productInfoKey">id: </span>
-                    <span className="productInfoValue">
-                      {" "}
-                      &nbsp;{product._id}
-                    </span>
-                  </div>
-                  <div className="productInfoItem">
-                    <span className="productInfoKey">sales:</span>
-                    <span className="productInfoValue">4123</span>
-                  </div>
+        <>
+          <div className="product-edit-page">
+            <Helmet>
+              <title>Product Edit ${productId}</title>
+            </Helmet>
 
-                  <div className="productInfoItem">
-                    <span className="productInfoKey">in stock:</span>
-                    <span className="productInfoValue">
-                      {product.countInStock}
-                    </span>
-                  </div>
+            <div className="product-edit">
+              <div className="product">
+                <div className="productTitleContainer">
+                  <h1 className="productTitle">Product Edit </h1>
                 </div>
-              </div>
-            </div>
-            <div className="productBottom">
-              <form action="" className="productForm" onSubmit={submitHandler}>
-                <div className="productFormLeft-styles">
-                  <div className="productFormLeft productFormLeft-one">
-                    <label htmlFor="name">Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Novelty TShirt"
+                <div className="productTop">
+                  <div className="productTopLeft">
+                    <Charts
+                      data={salesStats}
+                      dataKey="Sales"
+                      title="Sales Performance"
                     />
-                    <label htmlFor="slug">Slug</label>
-                    <input
-                      type="text"
-                      id="slug"
-                      value={slug}
-                      onChange={(e) => setSlug(e.target.value)}
-                      placeholder="Novelty-TShirt"
-                    />
-                    <label htmlFor="keygen">Keygen</label>
-                    <input
-                      type="text"
-                      id="keygen"
-                      value={keygen}
-                      onChange={(e) => setKeygen(e.target.value)}
-                      placeholder="Men BK3569"
-                    />
-                    <label htmlFor="qty">Quantity</label>
-                    <input
-                      type="text"
-                      id="qty"
-                      value={countInStock}
-                      onChange={(e) => setCountInStock(e.target.value)}
-                      placeholder="123"
-                    />
-                    <label htmlFor="">Description</label>
-                    <div className="text-area-desc">
-                      <textarea
-                        placeholder="Your description here..."
-                        className="textarea"
-                        name="comments"
-                        id="comments"
-                        cols="30"
-                        rows="10"
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                      ></textarea>
+                  </div>
+                  <div className="productTopRight">
+                    <div className="productInfoTop">
+                      <img
+                        src={product?.image}
+                        alt=""
+                        className="productInfoImg"
+                      />
+                      <span className="productName">{product.name}</span>
+                    </div>
+                    <div className="productInfoBottom">
+                      <div className="productInfoItem">
+                        <span className="productInfoKey">id: </span>
+                        <span className="productInfoValue">
+                          {" "}
+                          &nbsp;{product._id}
+                        </span>
+                      </div>
+                      <div className="productInfoItem">
+                        <span className="productInfoKey">sales:</span>
+                        <span className="productInfoValue">
+                          {product.numSales}
+                        </span>
+                      </div>
+
+                      <div className="productInfoItem">
+                        <span className="productInfoKey">in stock:</span>
+                        <span className="productInfoValue">
+                          {product.countInStock}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="productFormLeft productFormLeft-Two">
-                    <label htmlFor="gender">Gender</label>
-                    <FormControl variant="filled" size="small" id="formControl">
-                      <Select
-                        labelId="mui-simple-select-label"
-                        id="mui-simple-select"
-                        value={gender}
-                        label={gender}
-                        SelectDisplayProps={{
-                          style: { paddingTop: 8, paddingBottom: 8 },
-                        }}
-                        MenuProps={MenuProps}
-                        onChange={(e) => setGender(e.target.value)}
-                      >
-                        {genderselect.map((g, index) => (
-                          <MenuItem key={index} value={g.gender}>
-                            {g.gender}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <label htmlFor="category" className="ccatb-des">
-                      Category
-                    </label>
-                    <FormControl variant="filled" size="small" id="formControl">
-                      {/* <InputLabel id="mui-simple-select-label">
+                </div>
+                <div className="productBottom">
+                  <form
+                    action=""
+                    className="productForm"
+                    onSubmit={submitHandler}
+                  >
+                    <div className="productFormLeft-styles">
+                      <div className="productFormLeft productFormLeft-one">
+                        <label htmlFor="name">Name</label>
+                        <input
+                          type="text"
+                          id="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Novelty TShirt"
+                        />
+                        <label htmlFor="slug">Slug</label>
+                        <input
+                          type="text"
+                          id="slug"
+                          value={slug}
+                          onChange={(e) => setSlug(e.target.value)}
+                          placeholder="Novelty-TShirt"
+                        />
+                        <label htmlFor="keygen">Keygen</label>
+                        <input
+                          type="text"
+                          id="keygen"
+                          value={keygen}
+                          onChange={(e) => setKeygen(e.target.value)}
+                          placeholder="Men BK3569"
+                        />
+                        <label htmlFor="qty">Quantity</label>
+                        <input
+                          type="text"
+                          id="qty"
+                          value={countInStock}
+                          onChange={(e) => setCountInStock(e.target.value)}
+                          placeholder="123"
+                        />
+                        <label htmlFor="">Description</label>
+                        <div className="text-area-desc">
+                          <textarea
+                            placeholder="Your description here..."
+                            className="textarea"
+                            name="comments"
+                            id="comments"
+                            cols="30"
+                            rows="10"
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div className="productFormLeft productFormLeft-Two">
+                        <label htmlFor="gender">Gender</label>
+                        <FormControl
+                          variant="filled"
+                          size="small"
+                          id="formControl"
+                        >
+                          <Select
+                            labelId="mui-simple-select-label"
+                            id="mui-simple-select"
+                            value={gender}
+                            label={gender}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
+                            MenuProps={MenuProps}
+                            onChange={(e) => setGender(e.target.value)}
+                          >
+                            {genderselect.map((g, index) => (
+                              <MenuItem key={index} value={g.gender}>
+                                {g.gender}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <label htmlFor="category" className="ccatb-des">
+                          Category
+                        </label>
+                        <FormControl
+                          variant="filled"
+                          size="small"
+                          id="formControl"
+                        >
+                          {/* <InputLabel id="mui-simple-select-label">
                         Category
                       </InputLabel> */}
-                      <Select
-                        labelId="mui-simple-select-label"
-                        id="mui-simple-select"
-                        multiple
-                        MenuProps={MenuProps}
-                        SelectDisplayProps={{
-                          style: { paddingTop: 8, paddingBottom: 8 },
-                        }}
-                        value={category}
-                        label={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                      >
-                        {categories.map((c, index) => (
-                          <MenuItem key={index} value={c.cat}>
-                            {c.cat}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <label htmlFor="color" className="ccatb-des">
-                      Color
-                    </label>
-                    <FormControl variant="filled" size="small" id="formControl">
-                      {/* <InputLabel id="mui-simple-select-label">
+                          <Select
+                            labelId="mui-simple-select-label"
+                            id="mui-simple-select"
+                            multiple
+                            MenuProps={MenuProps}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
+                            value={category}
+                            label={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                          >
+                            {categories?.map((c, index) => (
+                              <MenuItem key={index} value={c.category}>
+                                {c.category}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <label htmlFor="color" className="ccatb-des">
+                          Color
+                        </label>
+                        <FormControl
+                          variant="filled"
+                          size="small"
+                          id="formControl"
+                        >
+                          {/* <InputLabel id="mui-simple-select-label">
                         Color
                       </InputLabel> */}
-                      <Select
-                        labelId="mui-simple-select-label"
-                        id="mui-simple-select"
-                        multiple
-                        MenuProps={MenuProps}
-                        SelectDisplayProps={{
-                          style: { paddingTop: 8, paddingBottom: 8 },
-                        }}
-                        value={color}
-                        label={color}
-                        onChange={(e) => setColor(e.target.value)}
-                      >
-                        {productcolor.map((c, index) => (
-                          <MenuItem key={index} value={c.color}>
-                            {c.label}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <label htmlFor="img" className="ccatb-des">
-                      Image
-                    </label>
-                    <input
-                      type="text"
-                      id="img"
-                      value={image}
-                      onChange={(e) => setImage(e.target.value)}
-                      placeholder="/imgs/kid1.png"
-                    />
+                          <Select
+                            labelId="mui-simple-select-label"
+                            id="mui-simple-select"
+                            multiple
+                            MenuProps={MenuProps}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
+                            value={color}
+                            label={color}
+                            onChange={(e) => setColor(e.target.value)}
+                          >
+                            {productcolor.map((c, index) => (
+                              <MenuItem key={index} value={c.color}>
+                                {c.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <label htmlFor="img" className="ccatb-des">
+                          Image
+                        </label>
+                        <input
+                          type="text"
+                          id="img"
+                          value={image}
+                          onChange={(e) => setImage(e.target.value)}
+                          placeholder="/imgs/kid1.png"
+                        />
 
-                    <label htmlFor="price">Price</label>
-                    <input
-                      type="text"
-                      id="price"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      placeholder="23"
-                    />
-                  </div>
-                  <div className="productFormLeft productFormLeft-three">
-                    <label htmlFor="size">Size</label>
-                    <FormControl variant="filled" size="small" id="formControl">
-                      {/* <InputLabel id="mui-simple-select-label">Size</InputLabel> */}
-                      <Select
-                        labelId="mui-simple-select-label"
-                        id="mui-simple-select"
-                        multiple
-                        MenuProps={MenuProps}
-                        SelectDisplayProps={{
-                          style: { paddingTop: 8, paddingBottom: 8 },
-                        }}
-                        value={size}
-                        label={size}
-                        onChange={(e) => setSize(e.target.value)}
-                      >
-                        {adminsize.map((s, index) => (
-                          <MenuItem key={index} value={s.label}>
-                            {s.label}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <label htmlFor="brand" className="ccatb-des">
-                      Brand
-                    </label>
-                    <FormControl variant="filled" size="small" id="formControl">
-                      {/* <InputLabel id="mui-simple-select-label">
+                        <label htmlFor="price">Price</label>
+                        <input
+                          type="text"
+                          id="price"
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          placeholder="23"
+                        />
+                      </div>
+                      <div className="productFormLeft productFormLeft-three">
+                        <label htmlFor="size">Size</label>
+                        <FormControl
+                          variant="filled"
+                          size="small"
+                          id="formControl"
+                        >
+                          {/* <InputLabel id="mui-simple-select-label">Size</InputLabel> */}
+                          <Select
+                            labelId="mui-simple-select-label"
+                            id="mui-simple-select"
+                            multiple
+                            MenuProps={MenuProps}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
+                            value={size}
+                            label={size}
+                            onChange={(e) => setSize(e.target.value)}
+                          >
+                            {sizes?.map((s, index) => (
+                              <MenuItem key={index} value={s.size}>
+                                {s.size}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <label htmlFor="brand" className="ccatb-des">
+                          Brand
+                        </label>
+                        <FormControl
+                          variant="filled"
+                          size="small"
+                          id="formControl"
+                        >
+                          {/* <InputLabel id="mui-simple-select-label">
                         Brand
                       </InputLabel> */}
-                      <Select
-                        labelId="mui-simple-select-label"
-                        id="mui-simple-select"
-                        multiple
-                        MenuProps={MenuProps}
-                        SelectDisplayProps={{
-                          style: { paddingTop: 8, paddingBottom: 8 },
-                        }}
-                        value={brand}
-                        label={brand}
-                        onChange={(e) => setBrand(e.target.value)}
-                      >
-                        {productbrand.map((b, index) => (
-                          <MenuItem key={index} value={b.brand}>
-                            {b.brand}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                </div>
-                <div className="productFormRight">
-                  <div className="productUpload">
-                    <img src={image} alt="" className="productUploadImg" />
-                    {image === loadingUpload && <LoadingBox></LoadingBox>}
-                    <label htmlFor="file">
-                      <PublishIcon
-                        className="upload-btn"
-                        onChange={uploadFileHandler}
-                      />
-                    </label>
-                    <input
-                      onChange={uploadFileHandler}
-                      type="file"
-                      id="file"
-                      style={{ display: "none" }}
-                    />
-                  </div>
-                  <div className="productUpload">
-                    <div className="productUploadImg-delete">
-                      {images.map((x) => (
-                        <div key={x}>
-                          <img
-                            src={x}
-                            alt=""
-                            className="productUploadImg wtdh-imgs"
-                          />
-                          <DeleteIcon
-                            onClick={() => deleteFileHandler(x)}
-                            className="deleteImages"
-                          />
-                        </div>
-                      ))}
+                          <Select
+                            labelId="mui-simple-select-label"
+                            id="mui-simple-select"
+                            multiple
+                            MenuProps={MenuProps}
+                            SelectDisplayProps={{
+                              style: { paddingTop: 8, paddingBottom: 8 },
+                            }}
+                            value={brand}
+                            label={brand}
+                            onChange={(e) => setBrand(e.target.value)}
+                          >
+                            {brands?.map((b, index) => (
+                              <MenuItem key={index} value={b.brand}>
+                                {b.brand}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
                     </div>
-                    <label htmlFor="files" className="products-images-upload">
-                      {images.length === 0 && <MessageBox>No Image</MessageBox>}
-                      {images && loadingUpload && <LoadingBox></LoadingBox>}
-                      <PublishIcon
-                        className="upload-btn images-list-l"
-                        onChange={(e) => uploadFileHandler(e, true)}
-                      />
-                    </label>
-                    <input
-                      style={{ display: "none" }}
-                      type="file"
-                      id="files"
-                      onChange={(e) => uploadFileHandler(e, true)}
-                    />
-                  </div>
-                  <button className="productButton">Update</button>
+                    <div className="productFormRight">
+                      <div className="productUpload">
+                        <img src={image} alt="" className="productUploadImg" />
+                        {image === loadingUpload && <LoadingBox></LoadingBox>}
+                        <label htmlFor="file">
+                          <PublishIcon
+                            className="upload-btn"
+                            onChange={uploadFileHandler}
+                          />
+                        </label>
+                        <input
+                          onChange={uploadFileHandler}
+                          type="file"
+                          id="file"
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                      <div className="productUpload">
+                        <div className="productUploadImg-delete">
+                          {images.map((x) => (
+                            <div key={x}>
+                              <img
+                                src={x}
+                                alt=""
+                                className="productUploadImg wtdh-imgs"
+                              />
+                              <DeleteIcon
+                                onClick={() => deleteFileHandler(x)}
+                                className="deleteImages"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <label
+                          htmlFor="files"
+                          className="products-images-upload"
+                        >
+                          {images.length === 0 && (
+                            <MessageBox>No Image</MessageBox>
+                          )}
+                          {images && loadingUpload && <LoadingBox></LoadingBox>}
+                          <PublishIcon
+                            className="upload-btn images-list-l"
+                            onChange={(e) => uploadFileHandler(e, true)}
+                          />
+                        </label>
+                        <input
+                          style={{ display: "none" }}
+                          type="file"
+                          id="files"
+                          onChange={(e) => uploadFileHandler(e, true)}
+                        />
+                      </div>
+                      <button className="productButton">Update</button>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
+          <div className="footer">
+            <Footer />
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

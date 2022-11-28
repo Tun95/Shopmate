@@ -215,7 +215,7 @@ productRouter.get(
         : {};
     // const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
     const priceFilter =
-      price && price !== "all"
+      price && price
         ? {
             price: {
               $gte: Number(price.split("-")[0]),

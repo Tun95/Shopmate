@@ -243,6 +243,7 @@ orderRouter.put(
         const item = order.orderItems[index];
         const product = await Product.findById(item.product);
         product.countInStock -= item.quantity;
+        product.numSales += item.quantity;
         await product.save();
       }
 

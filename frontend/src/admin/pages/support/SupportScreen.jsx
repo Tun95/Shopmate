@@ -10,6 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import Footer from "../../../components/Footer/Footer";
+import { Helmet } from "react-helmet-async";
 
 let allUsers = [];
 let allMessages = [];
@@ -122,9 +123,9 @@ function SupportScreen() {
     <>
       <div className="support">
         <div className="support-screen">
-          {/* <div className="chat-box-header">
-          <h1>CHAT BOX</h1>
-        </div> */}
+          <Helmet>
+            <title>Products</title>
+          </Helmet>
           <div className="support-box">
             <div className="users-box">
               <div className="header-box messgechat-user">USERS</div>

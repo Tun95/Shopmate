@@ -1,22 +1,22 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
-import  Settings  from "../models/settings.js";
+import Size from "../models/size.js";
+
 import { isAuth } from "../utils.js";
 
-const settingsRoutes = express.Router();
+const sizeRoutes = express.Router();
 
 //create
-settingsRoutes.post(
+sizeRoutes.post(
   "/",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     try {
-      const other = await Settings.create({
-        title: req.body.title,
-        user: req.user._id,
-        description: req.body.description,
+      const size = await Size.create({
+        size: req.body.size,
+        // user: req.user._id,
       });
-      res.send(other);
+      res.send(size);
     } catch (error) {
       res.send(error);
     }
@@ -24,12 +24,12 @@ settingsRoutes.post(
 );
 
 //Fetch all
-settingsRoutes.get(
+sizeRoutes.get(
   "/",
   expressAsyncHandler(async (req, res) => {
     try {
-      const other = await Settings.find({}).populate("user").sort("-createdAt");
-      res.send(other);
+      const sizes = await Size.find({}).populate("user").sort("-createdAt");
+      res.send(sizes);
     } catch (error) {
       res.send(error);
     }
@@ -37,14 +37,14 @@ settingsRoutes.get(
 );
 
 //Fetch single
-settingsRoutes.get(
+sizeRoutes.get(
   "/:id",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findById(id);
-      res.send(other);
+      const size = await Size.findById(id);
+      res.send(size);
     } catch (error) {
       res.send(error);
     }
@@ -52,39 +52,39 @@ settingsRoutes.get(
 );
 
 //Update
-settingsRoutes.put(
+sizeRoutes.put(
   "/:id",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findByIdAndUpdate(
+      const size = await Size.findByIdAndUpdate(
         id,
         {
           ...req.body,
         },
         { new: true }
       );
-      res.send(other);
+      res.send(size);
     } catch (error) {
       res.send(error);
     }
   })
 );
 
-//Fetch single
-settingsRoutes.delete(
+//Delete single
+sizeRoutes.delete(
   "/:id",
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findByIdAndDelete(id);
-      res.send(other);
+      const size = await Size.findByIdAndDelete(id);
+      res.send(size);
     } catch (error) {
       res.send(error);
     }
   })
 );
 
-export default settingsRoutes;
+export default sizeRoutes;

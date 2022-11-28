@@ -315,7 +315,7 @@ function SellerProductEdit() {
                   </div>
                   <div className="productInfoItem">
                     <span className="productInfoKey">sales:</span>
-                    <span className="productInfoValue">4123</span>
+                    <span className="productInfoValue">{product.numSales}</span>
                   </div>
 
                   <div className="productInfoItem">

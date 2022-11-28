@@ -20,7 +20,7 @@ import LoadingBox from "../Utilities/LoadingBox";
 import { getError } from "../Utilities/Utils";
 import { toast } from "react-toastify";
 import Footer from "../Footer/Footer";
-// import { makeStyles } from "@mui/styles";
+import { Slider } from "@mui/material";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,6 +48,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -80,9 +81,16 @@ function Store(props) {
   const gender = sp.get("gender") || "all";
   const color = sp.get("color") || "all";
   const size = sp.get("size") || "all";
-  const price = sp.get("price") || "all";
+  // const price = parseInt(sp.get("price") || 0);
   const brand = sp.get("brand") || "all";
   const page = parseInt(sp.get("page") || 1);
+
+  //PRICE RANGE
+  const [price, setPrice] = useState([]);
+  const updateRange = (e, price) => {
+    setPrice(price);
+    console.log(price);
+  };
 
   const [
     { loading, error, products, simProducts, pages, countProducts },
@@ -94,6 +102,7 @@ function Store(props) {
     error: "",
   });
 
+  //&price=${price}
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -114,9 +123,9 @@ function Store(props) {
     const filterGender = filter.gender || gender;
     const filterColor = filter.color || color;
     const filterSize = filter.size || size;
-    const filterPrice = filter.price || price;
+    // const filterPrice = filter.price || price;
     const filterBrand = filter.brand || brand;
-    return `/store?query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
+    return `/store?query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&brand=${filterBrand}`;
   };
   console.log(products);
 
@@ -134,19 +143,6 @@ function Store(props) {
     fetchData();
   }, []);
 
-  // const [value, setValue] = useState([10, 100]);
-  // const updateRange = (e, price) => {
-  //   setValue(price);
-  //   console.log(price);
-  // };
-
-  const handlePageChange = (e, page) => {
-    navigate(getFilterUrl({ page: e.target.textContent }));
-    // window.scroll(0, 0);
-    // const from = (page - 1) * pages;
-    // const to = (page - 1) * pages + pages;
-    // setPagination({ ...pagination, from: from, to: to });
-  };
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -158,15 +154,6 @@ function Store(props) {
     },
   };
 
-  // const useStyles = makeStyles(() => ({
-  //   ul: {
-  //     "& .MuiPaginationItem-root": {
-  //       color: "#fff",
-  //     },
-  //   },
-  // }));
-  // const classes = useStyles();
-
   //EMAIL SUBSCIBER
   const [email, setEmail] = useState();
   const submitHandler = async (e) => {
@@ -175,17 +162,16 @@ function Store(props) {
       toast.error("email field is required", { position: "bottom-center" });
     } else {
       try {
-        const { data } = axios.post("/api/message/subscribe", {
+        const { data } = await axios.post("/api/message/subscribe", {
           email,
         });
         dispatch({ type: "POST_SUCCESS", payload: data });
-
         toast.success("You have successfully subscribe to our newsletter", {
           position: "bottom-center",
         });
-      } catch {
+      } catch (err) {
+        toast.error(getError(err), { position: "bottom-center" });
         dispatch({ type: "POST_FAIL" });
-        toast.error(getError(error.message));
       }
     }
   };
@@ -291,8 +277,8 @@ function Store(props) {
                           navigate(getFilterUrl({ gender: e.target.value }))
                         }
                       >
-                        {genderselect.map((g) => (
-                          <option key={g.id} className="gender-select">
+                        {genderselect.map((g, index) => (
+                          <option key={index} className="gender-select">
                             {g.gender}
                           </option>
                         ))}
@@ -310,9 +296,9 @@ function Store(props) {
                           navigate(getFilterUrl({ category: e.target.value }))
                         }
                       >
-                        {categories.map((category) => (
+                        {categories.map((category, index) => (
                           <option
-                            key={category.id}
+                            key={index}
                             className="cat-select"
                             value={category.cat}
                           >
@@ -326,8 +312,9 @@ function Store(props) {
                     <div className="product-color">
                       <h4>Color</h4>
                       <ul className="ul-color">
-                        {productcolor.map((c) => (
+                        {productcolor.map((c, index) => (
                           <span
+                            key={index}
                             value={color}
                             onClick={() => navigate(getFilterUrl(c))}
                           >
@@ -345,9 +332,9 @@ function Store(props) {
                     <div className="product-size">
                       <h4>Size</h4>
                       <div className="product-size-btn">
-                        {productsize.map((s, id) => (
+                        {productsize.map((s, index) => (
                           <span
-                            key={s.value}
+                            key={index}
                             onClick={() => setActiveSize(s)}
                             className={`${activeSize === s ? "size" : ""}`}
                           >
@@ -366,21 +353,21 @@ function Store(props) {
                     <div className="price-range">
                       <h4>Price range</h4>
                       <div className="middle">
-                        {/* <Slider
+                        <Slider
                           getAriaLabel={() => "price"}
-                          value={value}
-                          onChange={handleChange}
+                          value={price}
+                          onChange={updateRange}
                           min={0}
                           max={200}
-                          getAriaValueText={valuetext}
+                          // getAriaValueText={valuetext}
                           className="slider"
-                        /> */}
+                        />
                         {/* <Slider
                           value={price}
                           onChange={updateRange}
                            marks={prices}
                         /> */}
-                        <FormControl variant="filled" size="small">
+                        {/* <FormControl variant="filled" size="small">
                           <InputLabel id="mui-price-select-label">
                             Price
                           </InputLabel>
@@ -396,7 +383,7 @@ function Store(props) {
                               navigate(getFilterUrl({ price: e.target.value }))
                             }
                           >
-                            {prices.map((p) => (
+                            {prices.map((p)1 => (
                               <MenuItem
                                 value={p.value}
                                 disabled={p.disabled}
@@ -406,12 +393,12 @@ function Store(props) {
                               </MenuItem>
                             ))}
                           </Select>
-                        </FormControl>
+                        </FormControl> */}
                       </div>
-                      {/* <div className="amount">
-                        <span className="lower">£{value[0]}</span>
-                        <span className="higher">£{value[1]}</span>
-                      </div> */}
+                      <div className="amount">
+                        <span className="lower">£{price[0]}</span>
+                        <span className="higher">£{price[1]}</span>
+                      </div>
                     </div>
                     <div className="brand">
                       <h4>Brand</h4>
@@ -433,8 +420,10 @@ function Store(props) {
                               navigate(getFilterUrl({ brand: e.target.value }))
                             }
                           >
-                            {productbrand.map((b) => (
-                              <MenuItem value={b.brand}>{b.brand}</MenuItem>
+                            {productbrand.map((b, index) => (
+                              <MenuItem key={index} value={b.brand}>
+                                {b.brand}
+                              </MenuItem>
                             ))}
                           </Select>
                         </FormControl>
@@ -442,7 +431,7 @@ function Store(props) {
                       {/* <div className="check-list">
                         
                         <div className="brand-list">
-                          {productbrand.map((b, id) => (
+                          {productbrand.map((b,1 id) => (
                             <form key={b.id}>
                               <input
                                 type="checkbox"
@@ -505,8 +494,8 @@ function Store(props) {
                         <MessageBox>No Product Found </MessageBox>
                       </span>
                     )}
-                    {products?.map((product) => (
-                      <div key={product._id}>
+                    {products?.map((product, index) => (
+                      <div key={index}>
                         <StoreItems product={product}></StoreItems>
                       </div>
                     ))}
@@ -538,8 +527,8 @@ function Store(props) {
         </div>
         <div className="similar-prod-store">
           <div className="end-list">
-            {simProducts.slice(0, 10).map((sim) => (
-              <div key={sim.id} className="endlist">
+            {simProducts.slice(0, 10).map((sim, index) => (
+              <div key={index} className="endlist">
                 <SimilarProduct sim={sim} />
               </div>
             ))}
