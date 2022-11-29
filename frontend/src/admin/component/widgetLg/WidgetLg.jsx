@@ -74,7 +74,7 @@ function WidgetLg() {
                       </td>
                       <td className="widgetLgAmount">
                         {" "}
-                        £{order.grandTotal.toFixed(2)}
+                        £{order.grandTotal.toFixed(0)}
                       </td>
                       <td className="widgetLgStatus">
                         {order.isDelivered ? (

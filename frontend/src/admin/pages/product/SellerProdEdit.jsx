@@ -45,6 +45,27 @@ const reducer = (state, action) => {
     case "UPDATE_FAIL":
       return { ...state, loadingUpdate: false };
 
+    case "FETCH_CATEGORY_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_CATEGORY_SUCCESS":
+      return { ...state, loading: false, categories: action.payload };
+    case "FETCH_CATEGORY_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_BRAND_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_BRAND_SUCCESS":
+      return { ...state, loading: false, brands: action.payload };
+    case "FETCH_BRAND_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_SIZE_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_SIZE_SUCCESS":
+      return { ...state, loading: false, sizes: action.payload };
+    case "FETCH_SIZE_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
     case "UPLOAD_REQUEST":
       return { ...state, loadingUpload: true, errorUpload: "" };
     case "UPLOAD_SUCCESS":
@@ -73,7 +94,7 @@ function SellerProductEdit() {
     adminsize,
     productsize,
     productcolor,
-    categories,
+
     productbrand,
     genderselect,
   } = data;
@@ -81,7 +102,17 @@ function SellerProductEdit() {
   const { userInfo } = state;
 
   const [
-    { loading, error, product, loadingUpload, errorUpload, summary },
+    {
+      loading,
+      error,
+      product,
+      loadingUpload,
+      brands,
+      sizes,
+      categories,
+      errorUpload,
+      summary,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loading: true,
@@ -263,6 +294,57 @@ function SellerProductEdit() {
     });
   };
 
+  //FETCH ALL CATEGORY
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/category", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_CATEGORY_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(categories);
+
+  //FETCH ALL BRANDS
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_BRAND_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/brand", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_BRAND_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(brands);
+
+  //FETCH ALL SIZE
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_SIZE_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/size", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_SIZE_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(sizes);
+
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -417,9 +499,9 @@ function SellerProductEdit() {
                         label={category}
                         onChange={(e) => setCategory(e.target.value)}
                       >
-                        {categories.map((c, index) => (
-                          <MenuItem key={index} value={c.cat}>
-                            {c.cat}
+                        {categories?.map((c, index) => (
+                          <MenuItem key={index} value={c.category}>
+                            {c.category}
                           </MenuItem>
                         ))}
                       </Select>
@@ -486,9 +568,9 @@ function SellerProductEdit() {
                         label={size}
                         onChange={(e) => setSize(e.target.value)}
                       >
-                        {adminsize.map((s, index) => (
-                          <MenuItem key={index} value={s.label}>
-                            {s.label}
+                        {sizes?.map((s, index) => (
+                          <MenuItem key={index} value={s.size}>
+                            {s.size}
                           </MenuItem>
                         ))}
                       </Select>
@@ -512,7 +594,7 @@ function SellerProductEdit() {
                         label={brand}
                         onChange={(e) => setBrand(e.target.value)}
                       >
-                        {productbrand.map((b, index) => (
+                        {brands?.map((b, index) => (
                           <MenuItem key={index} value={b.brand}>
                             {b.brand}
                           </MenuItem>
