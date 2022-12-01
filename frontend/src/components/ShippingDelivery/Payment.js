@@ -92,8 +92,50 @@ function Payment(props) {
       loadingPay: false,
     });
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-  const [sdkReady, setSdkReady] = useState(false);
+  // const [sdkReady, setSdkReady] = useState(false);
+
+  // useEffect(() => {
+  //   const fetchOrder = async () => {
+  //     try {
+  //       dispatch({ type: "FETCH_REQUEST" });
+  //       const { data } = await axios.get(`/api/orders/${orderId}`, {
+  //         headers: { authorization: `Bearer ${userInfo.token}` },
+  //       });
+  //       dispatch({ type: "FETCH_SUCCESS", payload: data });
+  //     } catch (err) {
+  //       dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+  //     }
+  //   };
+  //   if (!userInfo) {
+  //     return navigate("/login");
+  //   }
+  //   if (!order._id || successPay || (order._id && order._id !== orderId)) {
+  //     fetchOrder();
+  //     if (successPay) {
+  //       dispatch({ type: "PAY_RESET" });
+  //     }
+  //   } else {
+  //     const loadPaypalScript = async () => {
+  //       const { data: clientId } = await axios.get("/api/keys/paypal", {
+  //         headers: { authorization: `Bearer ${userInfo.token}` },
+  //       });
+  //       paypalDispatch({
+  //         type: "resetOptions",
+  //         value: {
+  //           "client-id": clientId,
+  //           currency: "GBP",
+  //         },
+  //       });
+  //       paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+  //     };
+
+  //     loadPaypalScript();
+  //   }
+  // }, []);
   useEffect(() => {
+    if (!userInfo) {
+      return navigate("/login");
+    }
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
@@ -105,9 +147,6 @@ function Payment(props) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
-    if (!userInfo) {
-      return navigate("/login");
-    }
     if (!order._id || successPay || (order._id && order._id !== orderId)) {
       fetchOrder();
       if (successPay) {
@@ -115,22 +154,21 @@ function Payment(props) {
       }
     } else {
       const loadPaypalScript = async () => {
-        // const { data: clientId } = await axios.get("/api/keys/paypal", {
-        //   headers: { authorization: `Bearer ${userInfo.token}` },
-        // });
+        const { data: clientId } = await axios.get("/api/keys/paypal", {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        });
         paypalDispatch({
           type: "resetOptions",
           value: {
-            "client-id": process.env.PAYPAL_CLIENT_ID,
-            currency: "GBP",
+            "client-id": clientId,
+            currency: "USD",
           },
         });
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
-
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
+  }, [order, successPay]);
 
   function createOrder(data, action) {
     return action.order
@@ -208,15 +246,18 @@ function Payment(props) {
       try {
         const res = await axios.post("/api/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: order.grandTotal,
+          amount: order.grandTotal * 100,
         });
+        if (order.isPaid) {
+          navigate("/finish?redirect");
+        }
         console.log(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-    makeRequest();
-  }, [order.grandTotal, stripeToken]);
+    stripeToken && makeRequest();
+  }, [navigate, order, stripeToken]);
 
   return (
     <>
@@ -369,15 +410,17 @@ function Payment(props) {
                     )}
                     {openPaypalModal && (
                       <div className="paypal-details">
-                        <div className="paypal-btn">
-                          {/* // {isPending && ( */}
-                          <PayPalButtons
-                            createOrder={createOrder}
-                            onApprove={onApprove}
-                            onError={onError}
-                          ></PayPalButtons>
-                          {/* //)} */}
-                        </div>
+                        {/* {!order.isPaid && ( */}
+                          <div className="paypal-btn">
+                            {/* {isPending && ( */}
+                              <PayPalButtons
+                                createOrder={createOrder}
+                                onApprove={onApprove}
+                                onError={onError}
+                              ></PayPalButtons>
+                            {/* )} */}
+                          </div>
+                        {/* )} */}
                       </div>
                     )}
                   </div>

@@ -322,7 +322,7 @@ orderRouter.put(
 
       const tranEmailApi = new Sib.TransactionalEmailsApi();
       const sender = {
-        name: "Shopmate",
+        name: process.env.SHOP_NAME,
         email: process.env.EMAIL_ADDRESS,
       };
       const receivers = [
