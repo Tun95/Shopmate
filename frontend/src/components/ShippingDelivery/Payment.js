@@ -115,13 +115,13 @@ function Payment(props) {
       }
     } else {
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get("/api/keys/paypal", {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
+        // const { data: clientId } = await axios.get("/api/keys/paypal", {
+        //   headers: { authorization: `Bearer ${userInfo.token}` },
+        // });
         paypalDispatch({
           type: "resetOptions",
           value: {
-           "client-id": clientId,
+            "client-id": process.env.PAYPAL_CLIENT_ID,
             currency: "GBP",
           },
         });

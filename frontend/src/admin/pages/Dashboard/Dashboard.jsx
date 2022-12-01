@@ -1,16 +1,13 @@
 import React from "react";
-// import Chart from "../../component/chart/Chart";
-import Chart from "react-google-charts";
 import Charts from "../../component/chart/Charts";
 import FeaturedInfo from "../../component/featuredInfo/FeaturedInfo";
 import "./dashboard.css";
-import { userData } from "../../dummyData";
 import WidgetSm from "../../component/widgetSm/WidgetSm";
 import WidgetLg from "../../component/widgetLg/WidgetLg";
 import { useReducer } from "react";
 import { useContext } from "react";
 import { Context } from "../../../Context/Context";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { getError } from "../../../components/Utilities/Utils";
 import axios from "axios";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
