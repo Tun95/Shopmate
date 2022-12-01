@@ -61,32 +61,29 @@ function WidgetLg() {
           <div className="widgetLgTable">
             <table>
               <tbody>
-                {orders
-                  ?.reverse()
-                  .slice(0, 20)
-                  .map((order, index) => (
-                    <tr className="widgetLgTr-body " key={index}>
-                      <td className="widgetLgUser">
-                        <span className="widgetLgName">{order._id}</span>
-                      </td>
-                      <td className="widgetLgDate">
-                        {order.createdAt.substring(0, 10)}
-                      </td>
-                      <td className="widgetLgAmount">
-                        {" "}
-                        £{order.grandTotal.toFixed(0)}
-                      </td>
-                      <td className="widgetLgStatus">
-                        {order.isDelivered ? (
-                          <Button type="Approved" />
-                        ) : order.isPaid ? (
-                          <Button type="Pending" />
-                        ) : (
-                          <Button type="Passive" />
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                {orders?.slice(0, 20).map((order, index) => (
+                  <tr className="widgetLgTr-body " key={index}>
+                    <td className="widgetLgUser">
+                      <span className="widgetLgName">{order._id}</span>
+                    </td>
+                    <td className="widgetLgDate">
+                      {order.createdAt.substring(0, 10)}
+                    </td>
+                    <td className="widgetLgAmount">
+                      {" "}
+                      £{order.grandTotal.toFixed(0)}
+                    </td>
+                    <td className="widgetLgStatus">
+                      {order.isDelivered ? (
+                        <Button type="Approved" />
+                      ) : order.isPaid ? (
+                        <Button type="Pending" />
+                      ) : (
+                        <Button type="Passive" />
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

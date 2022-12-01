@@ -29,6 +29,8 @@ const reducer = (state, action) => {
     case "PAY_SUCCESS":
       return { ...state, loadingPay: false, successPay: true };
     case "PAY_FAIL":
+      return { ...state, loadingPay: false };
+    case "PAY_RESET":
       return { ...state, loadingPay: false, errorPay: action.payload };
 
     default:
@@ -39,12 +41,7 @@ function Payment(props) {
   const navigate = useNavigate();
 
   //ORDER POSTING
-  const {
-    state,
-    dispatch: ctxDispatch,
-    Express,
-    Standard,
-  } = useContext(Context);
+  const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
     userInfo,
     cart: { cartItems, shippingAddress, paymentMethod },
@@ -95,7 +92,7 @@ function Payment(props) {
       loadingPay: false,
     });
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-
+  const [sdkReady, setSdkReady] = useState(false);
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -123,10 +120,14 @@ function Payment(props) {
         });
         paypalDispatch({
           type: "resetOptions",
-          value: { "client-id": clientId, currency: "USD" },
+          value: {
+           "client-id": clientId,
+            currency: "GBP",
+          },
         });
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
+
       loadPaypalScript();
     }
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
@@ -305,7 +306,12 @@ function Payment(props) {
                               Cardholder's Name
                             </label>
                             <div className="payment-input-box">
-                              <input type="text" id="name" placeholder="Name" />
+                              <input
+                                disabled
+                                type="text"
+                                id="name"
+                                placeholder="Name"
+                              />
                               <i className="fa fa-user"></i>
                             </div>
                           </div>
@@ -314,6 +320,7 @@ function Payment(props) {
                             <div className="payment-input-box">
                               <input
                                 type="tel"
+                                disabled
                                 id="card-number"
                                 name="card-number"
                                 inputMode="numeric"
@@ -328,7 +335,11 @@ function Payment(props) {
                             <div className="form-group-d">
                               <label htmlFor="card-date">Valid thru.</label>
                               <div className="cvc-fa-icon">
-                                <input type="text" placeholder="MM/YY" />
+                                <input
+                                  disabled
+                                  type="text"
+                                  placeholder="MM/YY"
+                                />
                               </div>
                             </div>
                             <div className="form-group-d">
@@ -336,6 +347,7 @@ function Payment(props) {
                               <div className="cvc-fa-icon">
                                 <input
                                   type="tel"
+                                  disabled
                                   id="cvv"
                                   maxLength="3"
                                   pattern="[0-9]{3}"
@@ -358,11 +370,13 @@ function Payment(props) {
                     {openPaypalModal && (
                       <div className="paypal-details">
                         <div className="paypal-btn">
+                          {/* // {isPending && ( */}
                           <PayPalButtons
                             createOrder={createOrder}
                             onApprove={onApprove}
                             onError={onError}
                           ></PayPalButtons>
+                          {/* //)} */}
                         </div>
                       </div>
                     )}

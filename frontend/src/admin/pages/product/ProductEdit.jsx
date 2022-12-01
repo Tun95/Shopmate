@@ -92,14 +92,7 @@ function ProductEdit() {
   const params = useParams();
   const { id: productId } = params;
 
-  const {
-    adminsize,
-    productsize,
-    productcolor,
-
-    productbrand,
-    genderselect,
-  } = data;
+  const { productcolor, genderselect } = data;
   const { state } = useContext(Context);
   const { userInfo } = state;
 
@@ -381,27 +374,27 @@ function ProductEdit() {
                         alt=""
                         className="productInfoImg"
                       />
-                      <span className="productName">{product.name}</span>
+                      <span className="productName">{product?.name}</span>
                     </div>
                     <div className="productInfoBottom">
                       <div className="productInfoItem">
                         <span className="productInfoKey">id: </span>
                         <span className="productInfoValue">
                           {" "}
-                          &nbsp;{product._id}
+                          &nbsp;{product?._id}
                         </span>
                       </div>
                       <div className="productInfoItem">
                         <span className="productInfoKey">sales:</span>
                         <span className="productInfoValue">
-                          {product.numSales}
+                          {product?.numSales}
                         </span>
                       </div>
 
                       <div className="productInfoItem">
                         <span className="productInfoKey">in stock:</span>
                         <span className="productInfoValue">
-                          {product.countInStock}
+                          {product?.countInStock}
                         </span>
                       </div>
                     </div>
@@ -420,6 +413,7 @@ function ProductEdit() {
                           type="text"
                           id="name"
                           value={name}
+                          maxLength="25"
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Novelty TShirt"
                         />

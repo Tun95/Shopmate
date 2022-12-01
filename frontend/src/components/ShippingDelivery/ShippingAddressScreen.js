@@ -6,6 +6,7 @@ import CheckoutSteps from "./CheckoutSteps";
 import "./ShippingAddressScreen.css";
 import data from "../../data/data.json";
 import Footer from "../Footer/Footer";
+import { toast } from "react-toastify";
 
 export default function ShippingAddressScreen() {
   const { countryList } = data;
@@ -36,36 +37,56 @@ export default function ShippingAddressScreen() {
     }
   }, [navigate, userInfo, cartItems]);
 
+  const Msg = ({ closeToast, toastProps }) => (
+    <div>
+      The following fields <span className="starField">" <span id="starField">*</span> "</span> are required
+    </div>
+  );
+
   const submitHandler = (e) => {
     e.preventDefault();
-
-    ctxDispatch({
-      type: "SAVE_SHIPPING_ADDRESS",
-      payload: {
-        firstName,
-        lastName,
-        address,
-        city,
-        cState,
-        country,
-        zipCode,
-        shipping,
-      },
-    });
-    localStorage.setItem(
-      "shippingAddress",
-      JSON.stringify({
-        firstName,
-        lastName,
-        address,
-        city,
-        cState,
-        country,
-        zipCode,
-        shipping,
-      })
-    );
-    navigate("/confirmation?redirect");
+    if (
+      !firstName ||
+      !lastName ||
+      !address ||
+      !city ||
+      !cState ||
+      !country ||
+      !zipCode ||
+      !shipping
+    ) {
+      toast.error(<Msg />, {
+        position: "bottom-center",
+      });
+    } else {
+      ctxDispatch({
+        type: "SAVE_SHIPPING_ADDRESS",
+        payload: {
+          firstName,
+          lastName,
+          address,
+          city,
+          cState,
+          country,
+          zipCode,
+          shipping,
+        },
+      });
+      localStorage.setItem(
+        "shippingAddress",
+        JSON.stringify({
+          firstName,
+          lastName,
+          address,
+          city,
+          cState,
+          country,
+          zipCode,
+          shipping,
+        })
+      );
+      navigate("/confirmation?redirect");
+    }
   };
 
   const backHandler = () => {
@@ -104,14 +125,12 @@ export default function ShippingAddressScreen() {
                         type="name"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        required="required"
                       />
                     </div>
                     <div className="form-group">
                       <label htmlFor="lname">Last name*</label>
                       <input
                         type="name"
-                        required="required"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                       />
@@ -120,7 +139,6 @@ export default function ShippingAddressScreen() {
                       <label htmlFor="address">Address*</label>
                       <input
                         type="text"
-                        required="required"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                       />
@@ -129,7 +147,6 @@ export default function ShippingAddressScreen() {
                       <label htmlFor="city">City*</label>
                       <input
                         type="text"
-                        required="required"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                       />
@@ -138,7 +155,6 @@ export default function ShippingAddressScreen() {
                       <label htmlFor="state">State*</label>
                       <input
                         type="text"
-                        required="required"
                         value={cState}
                         onChange={(e) => setcState(e.target.value)}
                       />
@@ -147,9 +163,16 @@ export default function ShippingAddressScreen() {
                       <label htmlFor="z-code">ZIP code*</label>
                       <input
                         type="text"
-                        required="required"
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="z-code">Country*</label>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
                       />
                     </div>
                   </div>
@@ -160,14 +183,14 @@ export default function ShippingAddressScreen() {
                       <div className="country">
                         <label htmlFor="country">*Country: </label>
                         <span>
-                          <select
+                          {/* <select
                             name="country"
                             id="select"
                             value={country}
-                            required="required"
+                            required
                             onChange={(e) => setCountry(e.target.value)}
                           >
-                            <option selected disabled>
+                            <option disabled selected value="Select Country">
                               Select Country
                             </option>
                             <option value="Afghanistan">Afghanistan</option>
@@ -202,7 +225,14 @@ export default function ShippingAddressScreen() {
                             <option value="Bulgaria">Bulgaria</option>
                             <option value="Burkina Faso">Burkina Faso</option>
                             <option value="Burundi">Burundi</option>
-                          </select>{" "}
+                          </select>{" "} */}
+                          {/* <input
+                            type="text"
+                            
+                            className="country-input"
+                            value={country}
+                            onChange={(e) => setCountry(e.target.value)}
+                          /> */}
                         </span>
                       </div>
                       <div className="billing-add">
@@ -214,14 +244,13 @@ export default function ShippingAddressScreen() {
                       </div>
                     </div>
                     <div className="delivery-opt">
-                      <h2>Delivery options</h2>
+                      <h2>Delivery options*</h2>
                       <div className="delivery-container">
                         <input
                           type="radio"
                           id="standard"
                           name="shipping"
                           value={Standard}
-                          required="required"
                           onChange={(e) => setShipping(e.target.value)}
                         />
                         <label htmlFor="standard">
@@ -234,7 +263,6 @@ export default function ShippingAddressScreen() {
                         </label>
 
                         <input
-                          required="required"
                           type="radio"
                           id="express"
                           value={Express}

@@ -90,14 +90,7 @@ function SellerProductEdit() {
   const params = useParams();
   const { id: productId } = params;
 
-  const {
-    adminsize,
-    productsize,
-    productcolor,
-
-    productbrand,
-    genderselect,
-  } = data;
+  const { productcolor, genderselect } = data;
   const { state } = useContext(Context);
   const { userInfo } = state;
 
@@ -163,7 +156,7 @@ function SellerProductEdit() {
 
   const loadOptions = (searchValue, callback) => {
     setTimeout(() => {
-      const filteredOptions = adminsize.filter((option) =>
+      const filteredOptions = sizes.filter((option) =>
         option.label.toLowerCase().includes(searchValue.toLowerCase())
       );
       console.log("loadOptions", searchValue, filteredOptions);
@@ -384,26 +377,26 @@ function SellerProductEdit() {
               </div>
               <div className="productTopRight">
                 <div className="productInfoTop">
-                  <img src={product.image} alt="" className="productInfoImg" />
-                  <span className="productName">{product.name}</span>
+                  <img src={product?.image} alt="" className="productInfoImg" />
+                  <span className="productName">{product?.name}</span>
                 </div>
                 <div className="productInfoBottom">
                   <div className="productInfoItem">
                     <span className="productInfoKey">id: </span>
                     <span className="productInfoValue">
                       {" "}
-                      &nbsp;{product._id}
+                      &nbsp;{product?._id}
                     </span>
                   </div>
                   <div className="productInfoItem">
                     <span className="productInfoKey">sales:</span>
-                    <span className="productInfoValue">{product.numSales}</span>
+                    <span className="productInfoValue">{product?.numSales}</span>
                   </div>
 
                   <div className="productInfoItem">
                     <span className="productInfoKey">in stock:</span>
                     <span className="productInfoValue">
-                      {product.countInStock}
+                      {product?.countInStock}
                     </span>
                   </div>
                 </div>

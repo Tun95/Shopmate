@@ -8,6 +8,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { getError } from "../Utilities/Utils";
 
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "POST_REQUEST":
@@ -146,9 +148,7 @@ function Home() {
                       onChange={(e) => setEmail(e.target.value)}
                       id="email"
                     />
-                    <span className="material-symbols-sharp" id="icon">
-                      mail
-                    </span>
+                    <MailOutlineIcon id="icon" className="sharp"/>
                     <button>Subscribe</button>
                   </div>
                 </form>

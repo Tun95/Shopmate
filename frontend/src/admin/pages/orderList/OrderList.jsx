@@ -122,7 +122,7 @@ function OrderList() {
 
                   <div className="admin-order-table-body">
                     <div className="admin-order-table-row">
-                      {orders.reverse().map((order) => (
+                      {orders.map((order) => (
                         <ul className="admin-order-item-list" key={order._id}>
                           <li className="admin-item-id">{order._id}</li>
                           <li className="admin-user-name">
@@ -165,13 +165,13 @@ function OrderList() {
                             <button
                               type="button"
                               className="admin-order-delete"
-                              onClick={showDeleteModal}
+                              onClick={() => deleteHandler(order)}
                             >
                               Delete
                             </button>
                           </li>
 
-                          {openDeleteModal ? (
+                          {/* {openDeleteModal ? (
                             <div className="delete-modal">
                               <div className="delete-modal-box">
                                 <div className="delete-modal-content">
@@ -198,7 +198,7 @@ function OrderList() {
                             </div>
                           ) : (
                             ""
-                          )}
+                          )} */}
                         </ul>
                       ))}
                     </div>

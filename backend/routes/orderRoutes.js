@@ -20,7 +20,7 @@ orderRouter.get(
     const orders = await Order.find({ ...sellerFilter }).populate(
       "user",
       "name"
-    );
+    ).sort("-createdAt");
     res.send(orders);
   })
 );
@@ -276,7 +276,7 @@ orderRouter.put(
           <td align="left">${item.size || ""}</td>
           <td align="center"><i className=${item.color || ""}></i></td>
           <td align="center">${item.quantity}</td>
-          <td align="right"> $${item.price.toFixed(2)}</td>
+          <td align="right"> £${item.price.toFixed(2)}</td>
           </tr>
         `
           )
@@ -285,19 +285,19 @@ orderRouter.put(
         <tfoot>
         <tr>
         <td colspan="2">Items Price:</td>
-        <td align="right"> $${order.itemsPrice.toFixed(2)}</td>
+        <td align="right"> £${order.itemsPrice.toFixed(2)}</td>
         </tr>
         <tr>
         <td colspan="2">Tax Price:</td>
-        <td align="right"> $${order.taxPrice.toFixed(2)}</td>
+        <td align="right"> £${order.taxPrice.toFixed(2)}</td>
         </tr>
         <tr>
         <td colspan="2">Shipping Price:</td>
-        <td align="right"> $${order.shippingPrice.toFixed(2)}</td>
+        <td align="right"> £${order.shippingPrice.toFixed(2)}</td>
         </tr>
         <tr>
         <td colspan="2"><strong>Total Price:</strong></td>
-        <td align="right"><strong> $${order.grandTotal.toFixed(2)}</strong></td>
+        <td align="right"><strong> £${order.grandTotal.toFixed(2)}</strong></td>
         </tr>
         </table>
         <h2>Shipping address</h2>

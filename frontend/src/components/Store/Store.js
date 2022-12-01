@@ -11,6 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import CloseIcon from "@mui/icons-material/Close";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
@@ -21,6 +23,7 @@ import { getError } from "../Utilities/Utils";
 import { toast } from "react-toastify";
 import Footer from "../Footer/Footer";
 import { Slider } from "@mui/material";
+import { Context } from "../../Context/Context";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,6 +40,28 @@ const reducer = (state, action) => {
       };
     case "FETCH_FAIL":
       return { ...state, error: action.payload, loading: false };
+
+    case "FETCH_CATEGORY_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_CATEGORY_SUCCESS":
+      return { ...state, loading: false, categories: action.payload };
+    case "FETCH_CATEGORY_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_BRAND_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_BRAND_SUCCESS":
+      return { ...state, loading: false, brands: action.payload };
+    case "FETCH_BRAND_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_SIZE_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_SIZE_SUCCESS":
+      return { ...state, loading: false, sizes: action.payload };
+    case "FETCH_SIZE_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
     case "FETCH_SIM_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SIM_SUCCESS":
@@ -55,14 +80,10 @@ function valuetext(value) {
 const minDistance = 10;
 
 function Store(props) {
-  const {
-    prices,
-    categories,
-    genderselect,
-    productsize,
-    productcolor,
-    productbrand,
-  } = data;
+  const { state } = useContext(Context);
+  const { userInfo } = state;
+
+  const { genderselect, productcolor, productsize, prices } = data;
 
   const [activeSize, setActiveSize] = useState("");
 
@@ -81,19 +102,29 @@ function Store(props) {
   const gender = sp.get("gender") || "all";
   const color = sp.get("color") || "all";
   const size = sp.get("size") || "all";
-  // const price = parseInt(sp.get("price") || 0);
+  const price = sp.get("price") || "all";
   const brand = sp.get("brand") || "all";
   const page = parseInt(sp.get("page") || 1);
 
   //PRICE RANGE
-  const [price, setPrice] = useState([]);
-  const updateRange = (e, price) => {
-    setPrice(price);
-    console.log(price);
-  };
+  // const [price, setPrice] = useState([]);
+  // const updateRange = (e, price) => {
+  //   setPrice(price);
+  //   console.log(price);
+  // };
 
   const [
-    { loading, error, products, simProducts, pages, countProducts },
+    {
+      loading,
+      error,
+      products,
+      simProducts,
+      brands,
+      sizes,
+      categories,
+      pages,
+      countProducts,
+    },
     dispatch,
   ] = useReducer(reducer, {
     products: [],
@@ -123,9 +154,9 @@ function Store(props) {
     const filterGender = filter.gender || gender;
     const filterColor = filter.color || color;
     const filterSize = filter.size || size;
-    // const filterPrice = filter.price || price;
+    const filterPrice = filter.price || price;
     const filterBrand = filter.brand || brand;
-    return `/store?query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&brand=${filterBrand}`;
+    return `/store?query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
   };
   console.log(products);
 
@@ -175,6 +206,57 @@ function Store(props) {
       }
     }
   };
+
+  //FETCH ALL CATEGORY
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/category", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_CATEGORY_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(categories);
+
+  //FETCH ALL BRANDS
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_BRAND_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/brand", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_BRAND_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(brands);
+
+  //FETCH ALL SIZE
+  useEffect(() => {
+    const fetchData = async () => {
+      //dispatch({ type: "FETCH_SIZE_REQUEST" });
+      try {
+        const { data } = await axios.get("/api/size", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_SIZE_FAIL", payload: getError(err) });
+      }
+    };
+    fetchData();
+  }, [userInfo]);
+  console.log(sizes);
 
   return (
     <div className="content-cloth">
@@ -265,9 +347,7 @@ function Store(props) {
                       Filter {countProducts === 0 ? "No" : countProducts} items
                     </h3>
                     <div className="gen-cat">
-                      <span className="material-symbols-sharp" id="sharp">
-                        close
-                      </span>
+                      <CloseIcon id="sharp" />
                       <label htmlFor="Gender">Gender: </label>
                       <select
                         name="gender"
@@ -284,9 +364,7 @@ function Store(props) {
                         ))}
                       </select>
                       <br />
-                      <span className="material-symbols-sharp" id="sharp">
-                        close
-                      </span>
+                      <CloseIcon id="sharp" />
                       <label htmlFor="Category">Category: </label>
                       <select
                         name="cat"
@@ -296,13 +374,13 @@ function Store(props) {
                           navigate(getFilterUrl({ category: e.target.value }))
                         }
                       >
-                        {categories.map((category, index) => (
+                        {categories?.map((c, index) => (
                           <option
                             key={index}
                             className="cat-select"
-                            value={category.cat}
+                            value={c.category}
                           >
-                            {category.cat}
+                            {c.category}
                           </option>
                         ))}
                       </select>
@@ -332,7 +410,7 @@ function Store(props) {
                     <div className="product-size">
                       <h4>Size</h4>
                       <div className="product-size-btn">
-                        {productsize.map((s, index) => (
+                        {productsize?.map((s, index) => (
                           <span
                             key={index}
                             onClick={() => setActiveSize(s)}
@@ -353,7 +431,7 @@ function Store(props) {
                     <div className="price-range">
                       <h4>Price range</h4>
                       <div className="middle">
-                        <Slider
+                        {/* <Slider
                           getAriaLabel={() => "price"}
                           value={price}
                           onChange={updateRange}
@@ -361,13 +439,13 @@ function Store(props) {
                           max={200}
                           // getAriaValueText={valuetext}
                           className="slider"
-                        />
+                        /> */}
                         {/* <Slider
                           value={price}
                           onChange={updateRange}
                            marks={prices}
                         /> */}
-                        {/* <FormControl variant="filled" size="small">
+                        <FormControl variant="filled" size="small">
                           <InputLabel id="mui-price-select-label">
                             Price
                           </InputLabel>
@@ -383,7 +461,7 @@ function Store(props) {
                               navigate(getFilterUrl({ price: e.target.value }))
                             }
                           >
-                            {prices.map((p)1 => (
+                            {prices.map((p) => (
                               <MenuItem
                                 value={p.value}
                                 disabled={p.disabled}
@@ -393,12 +471,12 @@ function Store(props) {
                               </MenuItem>
                             ))}
                           </Select>
-                        </FormControl> */}
+                        </FormControl>
                       </div>
-                      <div className="amount">
+                      {/* <div className="amount">
                         <span className="lower">£{price[0]}</span>
                         <span className="higher">£{price[1]}</span>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="brand">
                       <h4>Brand</h4>
@@ -420,7 +498,7 @@ function Store(props) {
                               navigate(getFilterUrl({ brand: e.target.value }))
                             }
                           >
-                            {productbrand.map((b, index) => (
+                            {brands?.map((b, index) => (
                               <MenuItem key={index} value={b.brand}>
                                 {b.brand}
                               </MenuItem>
@@ -553,9 +631,7 @@ function Store(props) {
         <form action="" onSubmit={submitHandler}>
           <div className="sub-response">
             <div className="spa-in">
-              <span className="material-symbols-sharp" id="icon">
-                mail
-              </span>
+              <MailOutlineIcon id="icon" className="sharp" />
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"

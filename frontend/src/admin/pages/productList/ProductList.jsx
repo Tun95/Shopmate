@@ -146,24 +146,22 @@ function ProductList() {
 
   //DELETE PRODUCT
   const deleteHandler = async (product) => {
-    if (openDeleteModal.show && openDeleteModal._id) {
-      try {
-        await axios.delete(`/api/products/${product._id}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+    try {
+      await axios.delete(`/api/products/${product._id}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
 
-        toast.success("product deleted successfully", {
-          position: "bottom-center",
-        });
-        dispatch({ type: "DELETE_SUCCESS", _id: product._id });
-        isOpenDeleteModal({
-          show: false,
-          _id: null,
-        });
-      } catch (err) {
-        toast.error(getError(err), { position: "bottom-center" });
-        dispatch({ type: "DELETE_FAIL" });
-      }
+      toast.success("product deleted successfully", {
+        position: "bottom-center",
+      });
+      dispatch({ type: "DELETE_SUCCESS", _id: product._id });
+      isOpenDeleteModal({
+        show: false,
+        _id: null,
+      });
+    } catch (err) {
+      toast.error(getError(err), { position: "bottom-center" });
+      dispatch({ type: "DELETE_FAIL" });
     }
   };
 
@@ -284,10 +282,10 @@ function ProductList() {
                                 &nbsp;
                                 <DeleteOutlineIcon
                                   className="product-delete"
-                                  onClick={showDeleteModal}
+                                  onClick={() => deleteHandler(product)}
                                 />
                                 {/* MODAL */}
-                                {openDeleteModal.show && (
+                                {/* {openDeleteModal.show && (
                                   <div className="delete-modal">
                                     <div className="delete-modal-box">
                                       <div className="delete-modal-content">
@@ -303,7 +301,7 @@ function ProductList() {
                                           </button>
                                           <button
                                             onClick={() => {
-                                              deleteHandler(product._id);
+                                              deleteHandler(product);
                                               closeDeleteModal();
                                             }}
                                             className="delete-modal-btn-yes"
@@ -315,7 +313,7 @@ function ProductList() {
                                       </div>
                                     </div>
                                   </div>
-                                )}
+                                )} */}
                               </td>
                             </tr>
                             <tr></tr>

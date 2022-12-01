@@ -150,7 +150,8 @@ productRouter.get(
         "seller.name seller.logo seller.rating seller.numReviews"
       )
       .skip(pageSize * (page - 1))
-      .limit(pageSize);
+      .limit(pageSize)
+      .sort("-createdAt");
 
     const countProducts = await Product.countDocuments({
       ...sellerFilter,
@@ -215,7 +216,7 @@ productRouter.get(
         : {};
     // const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
     const priceFilter =
-      price && price
+      price && price !== "all"
         ? {
             price: {
               $gte: Number(price.split("-")[0]),

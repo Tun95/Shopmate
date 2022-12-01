@@ -4,6 +4,15 @@
   margin-top: 20px;
   overflow: hidden;
 }
+.starField {
+  color: #f62f5e;
+}
+#starField{
+  font-size: 30px;
+  font-weight: 600;
+  position: relative;
+  top: 10px;
+}
 .shipping .shipping-box {
   background-color: white;
   box-shadow: 1px 2px 4px -2px #b4b4b4;
@@ -24,7 +33,6 @@
   position: relative;
   top: 30px;
   left: -25px;
-  
 }
 .shipping-box-form .inner-design {
   display: flex;
@@ -53,7 +61,7 @@
   outline: none;
   border: 1px solid #b4b4b4;
   height: 40px;
-  
+
   width: 90%;
   border-radius: 5px;
   font-size: 25px;
@@ -79,6 +87,19 @@
   border-radius: 5px;
   font-weight: 800;
   color: #6c6c6c;
+}
+
+.shipping-box-form .country {
+  display: grid;
+}
+.shipping-form .bill-dev .country-input {
+  outline: none;
+  border: 1px solid #b4b4b4;
+  height: 40px;
+  padding-left: 10px;
+  width: 45.5%;
+  border-radius: 5px;
+  font-size: 25px;
 }
 
 .shipping-box-form .billing .billing-add {
@@ -123,7 +144,6 @@
 }
 .shipping-box-form .billing {
   content: "";
-  
 
   border-bottom: 1px solid #b4b4b4;
 }
@@ -167,8 +187,7 @@
 .shipping-box .lower-btn {
   background-color: #e4e4e4;
   position: relative;
- 
- 
+
   align-items: center;
   width: 100%;
 }
@@ -177,7 +196,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 38px;
-  
 }
 .lower-btn .btn-group .back {
   background: #fff;
@@ -203,7 +221,6 @@
   .box-check-title {
     display: none;
   }
-  
 }
 @media screen and (max-width: 760px) {
   .box-check {
@@ -244,9 +261,6 @@
     width: 98%;
     position: relative;
     padding: 0px 10px;
-  }
-  .shipping-form .inner-form .form-group input {
-    font-size: 18px;
   }
 
   .shipping .delivery-container {

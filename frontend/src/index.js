@@ -12,7 +12,7 @@ root.render(
     <HelmetProvider>
       <PayPalScriptProvider
         deferLoading={true}
-        options={{ components: "buttons" }}
+        // options={{ components: "buttons" }}
       >
         <App />
       </PayPalScriptProvider>

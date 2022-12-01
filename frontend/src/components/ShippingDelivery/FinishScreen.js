@@ -5,6 +5,7 @@ import finish from "../images/finish.png";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 import Footer from "../Footer/Footer";
+import { Helmet } from "react-helmet-async";
 
 function FinishScreen() {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ function FinishScreen() {
   return (
     <>
       <div className="finish">
+        <Helmet>
+          <title>Finish</title>
+        </Helmet>
         <div className="finish-box">
           <h2>Checkout</h2>
           <div className="checkout">

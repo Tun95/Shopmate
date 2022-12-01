@@ -124,7 +124,7 @@ function NavBarSR(props) {
         </div>
         <div className="list">
           <ul className="k-list">
-            <Link to="/deals">
+            <Link to="/store">
               <li>Daily Deals</li>
             </Link>
             <li>

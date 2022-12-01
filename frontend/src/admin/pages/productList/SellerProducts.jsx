@@ -81,11 +81,10 @@ function SellerProduct() {
     error: "",
   });
   const { search } = useLocation();
-  //const { pathname } = useLocation();
+
   const sp = new URLSearchParams(search);
   const page = parseInt(sp.get("page") || 1);
   const seller = sp.get("seller") || userInfo._id || "";
-  // const sellerMode = pathname.indexOf("/seller") >= 0;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -284,13 +283,13 @@ function SellerProduct() {
                                 &nbsp;
                                 <DeleteOutlineIcon
                                   className="product-delete"
-                                  onClick={showDeleteModal}
+                                  onClick={() => deleteHandler(product)}
                                 />
                               </td>
                             </tr>
                             <tr>
                               <tr>
-                                {openDeleteModal ? (
+                                {/* {openDeleteModal ? (
                                   <div className="delete-modal">
                                     <div className="delete-modal-box">
                                       <div className="delete-modal-content">
@@ -320,7 +319,7 @@ function SellerProduct() {
                                   </div>
                                 ) : (
                                   ""
-                                )}
+                                )} */}
                               </tr>
                             </tr>
                           </tr>

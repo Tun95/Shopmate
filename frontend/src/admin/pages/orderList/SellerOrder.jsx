@@ -83,23 +83,20 @@ function SellerOrders() {
 
   //DELETE
   const deleteHandler = async (order) => {
-    if (openDeleteModal) {
-      try {
-        dispatch({ type: "DELETE_REQUEST" });
-        await axios.delete(`/api/orders/${order._id}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
-        toast.success("Order deleted successfully", {
-          position: "bottom-center",
-        });
-        dispatch({ type: "DELETE_SUCCESS" });
-      } catch (err) {
-        toast.error(getError(err), { position: "bottom-center" });
-        dispatch({ type: "DELETE_FAIL" });
-      }
+    try {
+      dispatch({ type: "DELETE_REQUEST" });
+      await axios.delete(`/api/orders/${order._id}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+      toast.success("Order deleted successfully", {
+        position: "bottom-center",
+      });
+      dispatch({ type: "DELETE_SUCCESS" });
+    } catch (err) {
+      toast.error(getError(err), { position: "bottom-center" });
+      dispatch({ type: "DELETE_FAIL" });
     }
   };
-  console.log(orders);
 
   return (
     <>
@@ -177,12 +174,12 @@ function SellerOrders() {
                             <button
                               type="button"
                               className="admin-order-delete"
-                              onClick={showDeleteModal}
+                              onClick={() => deleteHandler(order)}
                             >
                               Delete
                             </button>
                           </li>
-                          {openDeleteModal ? (
+                          {/* {openDeleteModal ? (
                             <div className="delete-modal">
                               <div className="delete-modal-box">
                                 <div className="delete-modal-content">
@@ -209,7 +206,7 @@ function SellerOrders() {
                             </div>
                           ) : (
                             ""
-                          )}
+                          )} */}
                         </ul>
                       ))}
                     </div>
