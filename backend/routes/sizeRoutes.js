@@ -2,19 +2,20 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Size from "../models/size.js";
 
-import { isAuth } from "../utils.js";
+import { isAdmin, isAuth } from "../utils.js";
 
 const sizeRoutes = express.Router();
 
 //create
 sizeRoutes.post(
   "/",
-  // isAuth,
+  isAuth,
+   isAdmin,
   expressAsyncHandler(async (req, res) => {
     try {
       const size = await Size.create({
         size: req.body.size,
-        // user: req.user._id,
+         user: req.user._id,
       });
       res.send(size);
     } catch (error) {
@@ -39,7 +40,8 @@ sizeRoutes.get(
 //Fetch single
 sizeRoutes.get(
   "/:id",
-  // isAuth,
+  isAuth,
+   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
@@ -54,7 +56,8 @@ sizeRoutes.get(
 //Update
 sizeRoutes.put(
   "/:id",
-  // isAuth,
+  isAuth,
+   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
@@ -75,7 +78,8 @@ sizeRoutes.put(
 //Delete single
 sizeRoutes.delete(
   "/:id",
-  // isAuth,
+  isAuth,
+   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {

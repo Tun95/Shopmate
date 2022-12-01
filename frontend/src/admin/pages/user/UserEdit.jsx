@@ -199,7 +199,9 @@ function User() {
                       </div>
                       <div className="userShowInfo">
                         <CalendarTodayIcon className="userShowIcon" />
-                        <span className="userShowInfoTitle">10.12.1999</span>
+                        <span className="userShowInfoTitle">
+                          {user.createdAt.substring(0, 10)}
+                        </span>
                       </div>
                       <span className="userShowTitle">Contact Details</span>
                       <div className="userShowInfo">
@@ -244,7 +246,7 @@ function User() {
                             placeholder="tunji@gmail.com"
                             className="userUpdateInput"
                             value={email}
-                            disabled={userInfo?.isAdmin}
+                            // disabled={userInfo?.isAdmin}
                             onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>

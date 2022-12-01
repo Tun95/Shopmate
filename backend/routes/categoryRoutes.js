@@ -1,19 +1,20 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Category from "../models/category.js";
-import { isAuth } from "../utils.js";
+import { isAdmin, isAuth } from "../utils.js";
 
 const categoryRoutes = express.Router();
 
 //create
 categoryRoutes.post(
   "/",
-  // isAuth,
+   isAuth,
+   isAdmin,
   expressAsyncHandler(async (req, res) => {
     try {
       const category = await Category.create({
         category: req.body.category,
-        // user: req.user._id,
+         user: req.user._id,
       });
       res.send(category);
     } catch (error) {
@@ -40,7 +41,8 @@ categoryRoutes.get(
 //Fetch single
 categoryRoutes.get(
   "/:id",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
@@ -55,7 +57,8 @@ categoryRoutes.get(
 //Update
 categoryRoutes.put(
   "/:id",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
@@ -76,7 +79,8 @@ categoryRoutes.put(
 //Delete single
 categoryRoutes.delete(
   "/:id",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {

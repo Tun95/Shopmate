@@ -45,41 +45,38 @@ function WidgetSm() {
     <div className="widgetSm">
       <span className="widgetSmTitle">New Join Members</span>
       <div className="small-user-list">
-        {users
-          ?.slice(0, 20)
-          .reverse()
-          .map((user, index) => (
-            <ul className="widgetSmList" key={index}>
-              <li className="widgetSmListItem">
-                <img
-                  src={user.image ? user.image : person}
-                  alt=""
-                  className="widgetSmImg"
-                />
-                <div className="widgetSmUser">
-                  <span className="widgetSmUsername">{user.name}</span>
-                  <span className="widgetSmUserTitle">
-                    {user.isAdmin && user.isSeller
-                      ? "Seller & Admin"
-                      : user.isSeller
-                      ? "Seller"
-                      : user.isAdmin
-                      ? "Admin"
-                      : "Customer"}
-                  </span>
-                </div>
-                <button
-                  className="widgetSmButton"
-                  onClick={() => {
-                    navigate(`/admin/useredit/${user._id}`);
-                  }}
-                >
-                  <VisibilityIcon className="widgetSmIcon" />
-                  Display
-                </button>
-              </li>
-            </ul>
-          ))}
+        {users?.slice(0, 20).map((user, index) => (
+          <ul className="widgetSmList" key={index}>
+            <li className="widgetSmListItem">
+              <img
+                src={user.image ? user.image : person}
+                alt=""
+                className="widgetSmImg"
+              />
+              <div className="widgetSmUser">
+                <span className="widgetSmUsername">{user.name}</span>
+                <span className="widgetSmUserTitle">
+                  {user.isAdmin && user.isSeller
+                    ? "Seller & Admin"
+                    : user.isSeller
+                    ? "Seller"
+                    : user.isAdmin
+                    ? "Admin"
+                    : "Customer"}
+                </span>
+              </div>
+              <button
+                className="widgetSmButton"
+                onClick={() => {
+                  navigate(`/admin/useredit/${user._id}`);
+                }}
+              >
+                <VisibilityIcon className="widgetSmIcon" />
+                Display
+              </button>
+            </li>
+          </ul>
+        ))}
       </div>
     </div>
   );

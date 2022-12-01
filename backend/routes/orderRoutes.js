@@ -17,10 +17,9 @@ orderRouter.get(
     const seller = req.query.seller || "";
     // const sellerFilter = seller ? { seller } : {};
     const sellerFilter = seller && seller !== "all" ? { seller } : {};
-    const orders = await Order.find({ ...sellerFilter }).populate(
-      "user",
-      "name"
-    ).sort("-createdAt");
+    const orders = await Order.find({ ...sellerFilter })
+      .populate("user", "name")
+      .sort("-createdAt");
     res.send(orders);
   })
 );

@@ -2,19 +2,20 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Brand from "../models/brand.js";
 
-import { isAuth } from "../utils.js";
+import { isAdmin, isAuth } from "../utils.js";
 
 const brandRoutes = express.Router();
 
 //create
 brandRoutes.post(
   "/",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     try {
       const brand = await Brand.create({
         brand: req.body.brand,
-        // user: req.user._id,
+        user: req.user._id,
       });
       res.send(brand);
     } catch (error) {
@@ -39,7 +40,8 @@ brandRoutes.get(
 //Fetch single
 brandRoutes.get(
   "/:id",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
@@ -54,7 +56,8 @@ brandRoutes.get(
 //Update
 brandRoutes.put(
   "/:id",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
@@ -75,7 +78,8 @@ brandRoutes.put(
 //Delete single
 brandRoutes.delete(
   "/:id",
-  // isAuth,
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
