@@ -48,7 +48,7 @@
   box-shadow: 0px 0px 7px -1px #b4b4b4;
   padding: 20px;
   display: grid;
-
+  min-height: 640px;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   flex-wrap: wrap;
@@ -108,6 +108,13 @@
   color: #f62f5e;
   position: relative;
   top: -5px;
+}
+.seller .product-pagination {
+  display: flex;
+  align-items: ;
+  position: relative;
+  top: 18px;
+  justify-content: center;
 }
 
 @media screen and (max-width: 950px) {
@@ -191,9 +198,7 @@
   .seller-box .box .box-1 {
     margin-right: 0px;
   }
-  /* .seller-box .box .box-2 {
-    width: 90%;
-  } */
+
   .seller .prod-design {
     display: grid;
     height: 350px;
@@ -208,77 +213,3 @@
     border-radius: 10px;
   }
 }
-
-/* @media screen and (max-width: 414px) {
-  .seller .prod-design {
-    width: 390px;
-  }
-}
-@media screen and (max-width: 375px) {
-  .seller .prod-design {
-    height: 400px;
-    width: 355px;
-  }
-}
-@media screen and (max-width: 360px) {
-  .seller .prod-design {
-    position: relative;
-    top: 50px;
-    height: 380px;
-    width: 340px;
-    padding-top: 10px;
-    padding-bottom: 0px;
-
-    text-align: center;
-    position: relative;
-    left: 15px;
-    margin-bottom: 50px;
-    margin-top: -50px;
-  }
-  .seller .prod-design .product-img {
-    width: 300px;
-    height: 260px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .seller .prod-design {
-    position: relative;
-    top: 50px;
-    height: 360px;
-    width: 300px;
-    padding-top: 10px;
-    padding-bottom: 0px;
-
-    text-align: center;
-    position: relative;
-    left: 15px;
-    margin-bottom: 50px;
-    margin-top: -50px;
-  }
-  .seller .prod-design .product-img {
-    width: 280px;
-    height: 230px;
-  }
-}
-@media screen and (max-width: 280px) {
-  .seller .prod-design {
-    position: relative;
-    top: 50px;
-    height: 300px;
-    width: 270px;
-    padding-top: 10px;
-    padding-bottom: 0px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    left: 15px;
-    margin-bottom: 50px;
-    margin-top: -50px;
-  }
-  .seller .prod-design .product-img {
-    width: 190px;
-    height: 160px;
-  }
-} */

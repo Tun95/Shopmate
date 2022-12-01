@@ -153,10 +153,11 @@ function Payment(props) {
         dispatch({ type: "PAY_RESET" });
       }
     } else {
-      const loadPaypalScript = async () => {
+       const loadPaypalScript = async () => {
         const { data: clientId } = await axios.get("/api/keys/paypal", {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
+       
         paypalDispatch({
           type: "resetOptions",
           value: {
@@ -167,8 +168,8 @@ function Payment(props) {
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
-    }
-  }, [order, successPay]);
+     }
+  }, [navigate, order._id, orderId, paypalDispatch, successPay, userInfo]);
 
   function createOrder(data, action) {
     return action.order
@@ -411,15 +412,15 @@ function Payment(props) {
                     {openPaypalModal && (
                       <div className="paypal-details">
                         {/* {!order.isPaid && ( */}
-                          <div className="paypal-btn">
-                            {/* {isPending && ( */}
-                              <PayPalButtons
-                                createOrder={createOrder}
-                                onApprove={onApprove}
-                                onError={onError}
-                              ></PayPalButtons>
-                            {/* )} */}
-                          </div>
+                        <div className="paypal-btn">
+                          {/* {isPending && ( */}
+                          <PayPalButtons
+                            createOrder={createOrder}
+                            onApprove={onApprove}
+                            onError={onError}
+                          ></PayPalButtons>
+                          {/* )} */}
+                        </div>
                         {/* )} */}
                       </div>
                     )}

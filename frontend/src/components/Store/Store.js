@@ -210,52 +210,43 @@ function Store(props) {
   //FETCH ALL CATEGORY
   useEffect(() => {
     const fetchData = async () => {
-      //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get("/api/category", {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get("/api/category");
         dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_CATEGORY_FAIL", payload: getError(err) });
       }
     };
     fetchData();
-  }, [userInfo]);
+  }, []);
   console.log(categories);
 
   //FETCH ALL BRANDS
   useEffect(() => {
     const fetchData = async () => {
-      //dispatch({ type: "FETCH_BRAND_REQUEST" });
       try {
-        const { data } = await axios.get("/api/brand", {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get("/api/brand");
         dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_BRAND_FAIL", payload: getError(err) });
       }
     };
     fetchData();
-  }, [userInfo]);
+  }, []);
   console.log(brands);
 
   //FETCH ALL SIZE
   useEffect(() => {
     const fetchData = async () => {
-      //dispatch({ type: "FETCH_SIZE_REQUEST" });
       try {
-        const { data } = await axios.get("/api/size", {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get("/api/size");
         dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_SIZE_FAIL", payload: getError(err) });
       }
     };
     fetchData();
-  }, [userInfo]);
+  }, []);
   console.log(sizes);
 
   return (

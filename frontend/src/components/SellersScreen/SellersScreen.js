@@ -12,6 +12,7 @@ import person from "../images/person.png";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { Pagination, PaginationItem } from "@mui/material";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -55,7 +56,16 @@ function SellersScreen() {
   const { id: sellerId } = params;
 
   const [
-    { loading, error, products, user, topseller, loadingSeller, errorSeller },
+    {
+      loading,
+      error,
+      products,
+      user,
+      pages,
+      topseller,
+      loadingSeller,
+      errorSeller,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loading: true,
@@ -152,23 +162,26 @@ function SellersScreen() {
                   <div className="box-1">
                     <div className="seller-details">
                       <div className="seller-name-img">
-                        <img src={user.seller.logo || person} alt={user.seller.name} />
-                        <h2>{user.seller.name}</h2>
+                        <img
+                          src={user?.seller?.logo || person}
+                          alt={user?.seller?.name}
+                        />
+                        <h2>{user?.seller?.name}</h2>
                       </div>
                       <div className="ratings-rev">
                         <Ratings
-                          rating={user.seller.rating}
+                          rating={user?.seller?.rating}
                           // numReviews={user.seller.numReviews}
                         ></Ratings>
-                        {user.seller.numReviews} Reviews
+                        {user?.seller?.numReviews} Reviews
                       </div>
                       <div>
                         <h4>
-                          <a href={`mailto:${user.email}`}>Contact Seller</a>
+                          <a href={`mailto:${user?.email}`}>Contact Seller</a>
                         </h4>
                       </div>
                       <div>
-                        <span>{user.seller.description}</span>
+                        <span>{user?.seller?.description}</span>
                       </div>
                     </div>
                   </div>
@@ -205,6 +218,24 @@ function SellersScreen() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                  <div className="product-pagination">
+                    <Pagination
+                      page={page}
+                      count={pages}
+                      renderItem={(item) => (
+                        <PaginationItem
+                          className={`${
+                            item.page !== page
+                              ? "paginationItemStyle"
+                              : "paginationItemStyle active"
+                          }`}
+                          component={Link}
+                          to={`/sellers-screen/${user?._id}?page=${item.page}`}
+                          {...item}
+                        />
+                      )}
+                    />
                   </div>
                 </div>
               </div>

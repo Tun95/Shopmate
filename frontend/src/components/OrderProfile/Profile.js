@@ -222,6 +222,7 @@ function Profile() {
                             id="email"
                             type="email"
                             value={email}
+                            disabled={userInfo?.isAdmin}
                             placeholder="Email"
                             onChange={(e) => setEmail(e.target.value)}
                           />
@@ -267,6 +268,7 @@ function Profile() {
                             id="password"
                             type="password"
                             value={password}
+                            disabled={userInfo?.isAdmin}
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
                           />
@@ -278,6 +280,7 @@ function Profile() {
                             id="c-password"
                             type="password"
                             value={confirmPassword}
+                            disabled={userInfo?.isAdmin}
                             placeholder="Confirm password"
                             onChange={(e) => setConfirmPassword(e.target.value)}
                           />
