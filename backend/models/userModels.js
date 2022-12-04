@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema(
       name: String,
       logo: String,
       description: String,
-      rating: { type: Number, required: true },
-      numReviews: { type: Number, required: true },
+      rating: { type: Number },
+      numReviews: { type: Number },
     },
   },
   {

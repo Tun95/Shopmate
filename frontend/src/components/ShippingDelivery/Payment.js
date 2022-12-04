@@ -153,11 +153,11 @@ function Payment(props) {
         dispatch({ type: "PAY_RESET" });
       }
     } else {
-       const loadPaypalScript = async () => {
+      const loadPaypalScript = async () => {
         const { data: clientId } = await axios.get("/api/keys/paypal", {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
-       
+
         paypalDispatch({
           type: "resetOptions",
           value: {
@@ -168,7 +168,7 @@ function Payment(props) {
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
-     }
+    }
   }, [navigate, order._id, orderId, paypalDispatch, successPay, userInfo]);
 
   function createOrder(data, action) {
@@ -200,8 +200,6 @@ function Payment(props) {
           // localStorage.removeItem("cartItems");
           navigate("/finish");
         }
-
-        // navigate("/finish/");
       } catch (err) {
         dispatch({ type: "PAY_FAIL", payload: getError(err) });
         toast.error(getError(err), { position: "bottom-center" });

@@ -16,6 +16,7 @@ import settingsRoutes from "./routes/settingRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
 import sizeRoutes from "./routes/sizeRoutes.js";
+import cartRouter from "./routes/cartRoutes.js";
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ app.use("/api/upload", uploadRouter);
 app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/category", categoryRoutes);
 app.use("/api/brand", brandRoutes);

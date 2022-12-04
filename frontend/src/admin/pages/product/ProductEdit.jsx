@@ -228,9 +228,12 @@ function ProductEdit() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
-        const { data } = await axios.get("/api/orders/summary", {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get(
+          `/api/orders/summary`,
+          {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+          }
+        );
         dispatch({ type: "FETCH_STATS_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_STATS_FAIL", payload: getError(err) });

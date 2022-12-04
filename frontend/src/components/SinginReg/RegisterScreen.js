@@ -47,7 +47,7 @@ function RegisterScreen(props) {
         ctxDispatch({ type: "USER_SIGNIN", payload: data });
         localStorage.setItem("userInfo", JSON.stringify(data));
         navigate(redirect || "/");
-        toast.error("sign up successfully", { position: "bottom-center" });
+        toast.success("sign up successfully", { position: "bottom-center" });
       } catch (err) {
         toast.error(getError(err), {
           position: "bottom-center",

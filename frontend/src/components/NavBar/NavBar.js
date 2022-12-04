@@ -45,7 +45,9 @@ function NavBar(props) {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get("/api/category");
+        const { data } = await axios.get("/api/category", {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
         dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_CATEGORY_FAIL", payload: getError(err) });

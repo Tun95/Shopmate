@@ -88,10 +88,10 @@ orderRouter.get(
 //ORDER SUMMARY
 orderRouter.get(
   "/summary",
-  isAuth,
-  isSellerOrAdmin,
+  // isAuth,
+  // isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
-    const productId = req.query.pid;
+    const productId = req?.query.id;
     const date = new Date();
     const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
     const previousMonth = new Date(
@@ -155,7 +155,7 @@ orderRouter.get(
         $match: {
           createdAt: { $gte: previousMonth },
           ...(productId && {
-            products: { $elemMatch: { productId } },
+            orderItems: { $elemMatch: { productId } },
           }),
         },
       },

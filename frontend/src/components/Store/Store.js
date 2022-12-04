@@ -533,16 +533,12 @@ function Store(props) {
                         className="close-btn-clear"
                         onClick={() => navigate("/store")}
                       >
-                        <span className="material-symbols-sharp" id="sharp">
-                          close
-                        </span>
+                        <CloseIcon id="sharp " className="close-sharp" />
                         <div className="clear-all">Clear All</div>
                       </div>
                     ) : (
                       <div className="close-btn-clear">
-                        <span className="material-symbols-sharp" id="sharp">
-                          close
-                        </span>
+                        <CloseIcon id="sharp " className="close-sharp" />
                         <div className="clear-all">Clear All</div>
                       </div>
                     )}

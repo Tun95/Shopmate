@@ -32,12 +32,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 function SideBar(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
-  const {
-    userInfo,
-    cart: { cartItems },
-  } = state;
+  const { userInfo } = state;
 
-  const { showSideBar, closeSideBar, openSideBar } = props;
+  const { cartItems, closeSideBar, openSideBar } = props;
 
   const [openAccount, setOpenAccount] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);

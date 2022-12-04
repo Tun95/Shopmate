@@ -372,7 +372,13 @@
   color: #f62f5e;
   cursor: pointer;
 }
-
+.apply-btn-clear .close-btn-clear .close-sharp {
+  color: #f62f5e;
+  font-size: 15px;
+  margin-left: 15px;
+  margin-right: 3px;
+  cursor: pointer;
+}
 .page-main-product {
   width: 652px;
   height: inherit;
