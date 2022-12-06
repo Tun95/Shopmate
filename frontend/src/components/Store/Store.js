@@ -74,11 +74,6 @@ const reducer = (state, action) => {
   }
 };
 
-function valuetext(value) {
-  return `${value}°C`;
-}
-const minDistance = 10;
-
 function Store(props) {
   const { state } = useContext(Context);
   const { userInfo } = state;
@@ -106,8 +101,8 @@ function Store(props) {
   const brand = sp.get("brand") || "all";
   const page = parseInt(sp.get("page") || 1);
 
-  //PRICE RANGE
-  // const [price, setPrice] = useState([]);
+  // //PRICE RANGE
+  // const [price, setPrice] = useState([0, 100]);
   // const updateRange = (e, price) => {
   //   setPrice(price);
   //   console.log(price);
@@ -148,6 +143,7 @@ function Store(props) {
     fetchData();
   }, [category, brand, color, size, gender, page, price, query]);
 
+  //&price=${filterPrice}
   const getFilterUrl = (filter) => {
     const filterCategory = filter.category || category;
     const filterQuery = filter.query || query;
@@ -219,7 +215,6 @@ function Store(props) {
     };
     fetchData();
   }, []);
-  console.log(categories);
 
   //FETCH ALL BRANDS
   useEffect(() => {
@@ -233,7 +228,6 @@ function Store(props) {
     };
     fetchData();
   }, []);
-  console.log(brands);
 
   //FETCH ALL SIZE
   useEffect(() => {
@@ -247,7 +241,6 @@ function Store(props) {
     };
     fetchData();
   }, []);
-  console.log(sizes);
 
   return (
     <div className="content-cloth">
@@ -431,11 +424,7 @@ function Store(props) {
                           // getAriaValueText={valuetext}
                           className="slider"
                         /> */}
-                        {/* <Slider
-                          value={price}
-                          onChange={updateRange}
-                           marks={prices}
-                        /> */}
+
                         <FormControl variant="filled" size="small">
                           <InputLabel id="mui-price-select-label">
                             Price

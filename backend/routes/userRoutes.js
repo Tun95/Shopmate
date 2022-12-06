@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import expressAsyncHandler from "express-async-handler";
 import User from "../models/userModels.js";
 import { generateToken, isAdmin, isAuth } from "../utils.js";
+import Product from "../models/productModels.js";
 
 const userRouter = express.Router();
 
@@ -33,6 +34,28 @@ userRouter.get(
     }
   })
 );
+
+//TEST
+userRouter.get(
+  "/:id/num",
+  expressAsyncHandler(async (req, res) => {
+    const numReviews = await User.aggregate([
+      // { $match: {} },
+      { $group: { _id: "$seller", numReviews: { $sum: "$numReviews" } } },
+      // { $lookup: { from: "user", localField: "_id", foreignField: "_id", as: "class"}},
+      // {
+      //   $lookup: {
+      //     from: "Product",
+      //     localField: "seller.numReviews",
+      //     foreignField: "numReviews",
+      //     as: "seller",
+      //   },
+      // },
+    ]);
+    res.send(numReviews);
+  })
+);
+
 //USER SIGNIN
 userRouter.post(
   "/signin",

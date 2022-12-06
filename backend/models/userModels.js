@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema(
       rating: { type: Number },
       numReviews: { type: Number },
     },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
   },
   {
     timestamps: true,

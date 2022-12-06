@@ -155,7 +155,7 @@ orderRouter.get(
         $match: {
           createdAt: { $gte: previousMonth },
           ...(productId && {
-            orderItems: { $elemMatch: { productId } },
+            products: { $elemMatch: { productId } },
           }),
         },
       },
@@ -175,6 +175,18 @@ orderRouter.get(
     ]);
 
     res.send({ users, orders, income, dailyOrders });
+  })
+);
+
+//TEST
+orderRouter.get(
+  "/spent",
+  expressAsyncHandler(async (req, res) => {
+    const income = await Order.aggregate([
+      { $match: {} },
+      { $group: { _id: "$user", total: { $sum: "$grandTotal" } } },
+    ]);
+    res.send(income);
   })
 );
 
