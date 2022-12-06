@@ -132,6 +132,7 @@ function Payment(props) {
   //     loadPaypalScript();
   //   }
   // }, []);
+  
   useEffect(() => {
     if (!userInfo) {
       return navigate("/login");
