@@ -32,9 +32,10 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 function SideBar(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
-  const { userInfo } = state;
 
-  const { cartItems, closeSideBar, openSideBar } = props;
+  const { cart, userInfo } = state;
+
+  const { closeSideBar, openSideBar } = props;
 
   const [openAccount, setOpenAccount] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
@@ -58,6 +59,18 @@ function SideBar(props) {
     e.preventDefault();
     navigate(query ? `/store/?query=${query}` : "/store");
   };
+
+  const totalPrice = cart.cartItems.reduce(
+    (a, c) => a + c.price * c.quantity,
+    0
+  );
+
+  //TOTAL SALES
+  let TotalItemPrice = new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(totalPrice);
+
   return (
     <div>
       {openSideBar && (
@@ -68,12 +81,7 @@ function SideBar(props) {
                 <CloseIcon onClick={closeSideBar} className="close-sidebar" />
                 <span>
                   Your bag:{" "}
-                  <div className="side-bar-price">
-                    £
-                    {cartItems
-                      .reduce((a, c) => a + c.price * c.quantity, 0)
-                      .toFixed(2)}
-                  </div>
+                  <div className="side-bar-price">{TotalItemPrice}</div>
                 </span>
               </div>
               <div className="side-bar-list">
@@ -164,7 +172,9 @@ function SideBar(props) {
                     <li>
                       <Link to="/cartscreen">
                         <LocalMallIcon className="sidebar-icons" />
-                        <span className="side-badge">{cartItems.length}</span>
+                        <span className="side-badge">
+                          {cart.cartItems?.length}
+                        </span>
                         Cart
                       </Link>
                     </li>
