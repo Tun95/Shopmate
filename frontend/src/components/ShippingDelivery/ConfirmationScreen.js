@@ -70,7 +70,7 @@ function ConfirmationScreen() {
         {
           orderItems: cartItems,
           shippingAddress,
-           paymentMethod,
+           //paymentMethod,
           itemsPrice,
           shippingPrice: shippingPrice,
           taxPrice,
