@@ -162,7 +162,7 @@ function Payment(props) {
           type: "resetOptions",
           value: {
             "client-id": clientId,
-            currency: "USD",
+            currency: "GBP",
           },
         });
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
