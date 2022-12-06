@@ -72,9 +72,9 @@ function Profile() {
         setCountry(data.country);
         setImage(data.image);
 
-        setSellerName(data.seller.name);
-        setSellerLogo(data.seller.logo);
-        setSellerDescription(data.seller.description);
+        setSellerName(data?.seller?.name);
+        setSellerLogo(data?.seller?.logo);
+        setSellerDescription(data?.seller?.description);
 
         dispatch({ type: "FETCH_SUCCESS" });
       } catch (err) {
