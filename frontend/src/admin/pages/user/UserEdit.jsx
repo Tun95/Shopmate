@@ -187,6 +187,15 @@ function User() {
                             ? "Admin"
                             : ""}
                         </span>
+                        {!user.isAccountVerified ? (
+                          <span className="unverified-account">
+                            unverified account
+                          </span>
+                        ) : (
+                          <span className="verified-account">
+                            verified account
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="userShowBottom">

@@ -11,7 +11,7 @@ function NavBarSR(props) {
   const { cart, userInfo } = state;
 
   const totalPrice = cart.cartItems.reduce(
-    (a, c) => a + c.price * c.quantity,
+    (a, c) => a + (c.price - (c.price * c.discount) / 100) * c.quantity,
     0
   );
 

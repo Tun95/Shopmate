@@ -36,7 +36,14 @@ function StoreItems(props) {
     }
     ctxDispatch({
       type: "CART_ADD_ITEM",
-      payload: { ...item, seller: data.seller, quantity, size, color },
+      payload: {
+        ...item,
+        discount: data.discount,
+        seller: data.seller,
+        quantity,
+        size,
+        color,
+      },
     });
   };
 
@@ -45,6 +52,7 @@ function StoreItems(props) {
       <div className="product-list">
         <div className="prod-design">
           <div className="top-list-product">
+            {product.discount > 0 && <div className="item-discount">{product.discount}%</div>}
             <Link to={`/product/${product.slug}`}>
               {" "}
               <img
@@ -57,7 +65,20 @@ function StoreItems(props) {
               <Link to={`/product/${product.slug}`}>
                 <h4>{product.name}</h4>
               </Link>
-              <div className="price">£{product.price}</div>
+              {product.discount > 0 ? (
+                <>
+                  <div className="price">
+                    £
+                    {(
+                      product.price -
+                      (product.price * product.discount) / 100
+                    )?.toFixed(2)}
+                  </div>
+                  <s className="price-discount">£{product.price}</s>
+                </>
+              ) : (
+                <div className="price">£{product.price}</div>
+              )}
             </div>
 
             {/* <Link to={`/sellers-screen/${product.seller._id}`}>

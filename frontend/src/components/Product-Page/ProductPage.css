@@ -162,6 +162,17 @@
   border-bottom: 1px solid;
 }
 
+.prod-details .price-discount-style {
+  display: flex;
+  align-items: center;
+}
+.prod-details .price-discount{
+  font-weight: 600;
+  font-size: 15px;
+  margin-left: 10px;
+  color: #6c6c6c;
+}
+
 .prod-details .price {
   font-weight: 800;
   font-size: 26px;
@@ -669,9 +680,30 @@
 .sim-shirt:hover {
   box-shadow: 1px 10px 40px -5px #6c6c6c;
 }
+.prod-list .item-discount {
+  background-color: #f62f5e;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 45px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -25px;
+  color: #fff;
+  font-weight: 600;
+}
+
 .prod-list .price {
   font-weight: 800;
   color: #f62f5e;
+}
+
+.prod-list .price-discount{
+   font-weight: 600;
+  font-size: 15px;
+  color: #6c6c6c;
 }
 .prod-list::-webkit-scrollbar {
   cursor: pointer;
@@ -867,7 +899,7 @@
     position: relative;
     right: 20px;
   }
- 
+
   .section-1 .image-sec {
     width: 100%;
     display: flex;
@@ -1046,21 +1078,19 @@
   }
   .section-1 {
     position: relative;
-
   }
   .section-product-desc {
     width: 100%;
   }
   .section-prod-desc {
-   
     padding: 0px 30px;
   }
- .section-prod-desc .section-desc {
+  .section-prod-desc .section-desc {
     padding: 40px 60px;
 
     width: 90%;
   }
- .section-prod-desc .description {
+  .section-prod-desc .description {
     width: 90%;
   }
 
@@ -1204,7 +1234,7 @@
     position: relative;
     right: 0px;
   }
- 
+
   .prod-details .prod-top ul {
     display: flex;
 

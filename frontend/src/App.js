@@ -43,7 +43,15 @@ import AddSettings from "./admin/pages/settings/addSettings";
 import SettingsList from "./admin/pages/settings/settingList";
 import Modal from "./components/modal/Modal";
 import { Brand, Category, Size } from "./admin/pages/settings/filterCreate";
-import { BrandUpdate, CategoryUpdate, SizeUpdate } from "./admin/pages/settings/filterUpdate";
+import {
+  BrandUpdate,
+  CategoryUpdate,
+  SizeUpdate,
+} from "./admin/pages/settings/filterUpdate";
+import Alert from "./components/NavBar/Alert";
+import Verify from "./components/Verify/Verify";
+import PassReset from "./components/SinginReg/PassReset";
+import PassResetForm from "./components/SinginReg/PassResetForm";
 
 function App() {
   const { state } = useContext(Context);
@@ -76,7 +84,6 @@ function App() {
   const [openSModal, isOpenSModal] = useState(false);
   const closeSModal = () => {
     isOpenSModal(false);
-    // document.body.style.overflow = "unset";
   };
   const showSModal = () => {
     isOpenSModal(true);
@@ -88,6 +95,7 @@ function App() {
         <NavBarSR showModal={showModal} showSModal={showSModal} />
 
         <NavBar showModal={showModal} showSideBar={showSideBar} />
+        {userInfo && !userInfo.isAccountVerified && <Alert />}
         <ToastContainer />
         <Cart
           path="/cart"
@@ -110,6 +118,19 @@ function App() {
             <Route path="/signin" element={<SigninScreen />}></Route>
             <Route path="/signup" element={<RegisterScreen />}></Route>
             <Route path="/cartscreen" element={<CartScreen />}></Route>
+            <Route
+              path="/verify-account/:id/:token"
+              element={
+                <ProtectedRoute>
+                  <Verify />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route path="/password-reset" element={<PassReset />}></Route>
+            <Route
+              path="/:id/reset-password/:token"
+              element={<PassResetForm />}
+            ></Route>
             <Route
               path="/sellers-screen/:id"
               element={<SellersScreen />}

@@ -13,9 +13,28 @@
   height: 310px;
   box-shadow: 1px 3px 3px -2px;
 }
+.similar-prod .item-discount {
+  background-color: #f62f5e;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 45px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -25px;
+  color: #fff;
+  font-weight: 600;
+}
 .similar-prod a {
   text-decoration: none;
   color: #2e2e2e;
+}
+.similar-prod .price-discount{
+   font-weight: 600;
+  font-size: 15px;
+  color: #6c6c6c;
 }
 .similar-prod .price {
   font-weight: 800;

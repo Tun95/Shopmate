@@ -4,9 +4,14 @@ import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./SigninScreen.css";
 import { Context } from "../../Context/Context";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { getError } from "../Utilities/Utils";
 import CloseIcon from "@mui/icons-material/Close";
+
+import { Icon } from "react-icons-kit";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+import { eye } from "react-icons-kit/feather/eye";
+
 import Footer from "../Footer/Footer";
 
 function SigninScreen(props) {
@@ -38,6 +43,7 @@ function SigninScreen(props) {
         });
         ctxDispatch({ type: "USER_SIGNIN", payload: data });
         localStorage.setItem("userInfo", JSON.stringify(data));
+        toast.success("Sign in successfully", { position: "bottom-center" });
         navigate(redirect || "/");
       } catch (err) {
         toast.error(getError(err), {
@@ -53,6 +59,20 @@ function SigninScreen(props) {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
+
+  //TOGGLE PASSWOD VIEW
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
   return (
     <>
       <div className="sign-in">
@@ -85,10 +105,13 @@ function SigninScreen(props) {
                 <input
                   className="input-box"
                   id="password"
-                  type="password"
+                  type={type}
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <span onClick={handleToggle}>
+                  <Icon icon={icon} size={25} className="eye-icon" />
+                </span>
               </div>
               <div className="check-sign">
                 <div className="form-checkbox">
@@ -101,7 +124,7 @@ function SigninScreen(props) {
               </div>
               <div className="form-footer">
                 <div className="f-pass">
-                  <Link to="#">
+                  <Link to="/password-reset">
                     <span>Forgot password</span>
                   </Link>
                 </div>

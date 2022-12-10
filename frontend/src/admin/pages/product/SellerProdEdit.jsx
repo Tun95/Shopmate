@@ -118,6 +118,7 @@ function SellerProductEdit() {
   const [keygen, setKeygen] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
   const [desc, setDesc] = useState("");
   const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
@@ -138,6 +139,7 @@ function SellerProductEdit() {
         setKeygen(data.keygen);
         setCountInStock(data.countInStock);
         setPrice(data.price);
+        setDiscount(data.discount);
         setDesc(data.desc);
         setGender(data.gender);
         setCategory(data.category);
@@ -178,6 +180,7 @@ function SellerProductEdit() {
           keygen,
           countInStock,
           price,
+          discount,
           desc,
           gender,
           category,
@@ -390,7 +393,9 @@ function SellerProductEdit() {
                   </div>
                   <div className="productInfoItem">
                     <span className="productInfoKey">sales:</span>
-                    <span className="productInfoValue">{product?.numSales}</span>
+                    <span className="productInfoValue">
+                      {product?.numSales}
+                    </span>
                   </div>
 
                   <div className="productInfoItem">
@@ -411,6 +416,7 @@ function SellerProductEdit() {
                       type="text"
                       id="name"
                       value={name}
+                      maxLength="23"
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Novelty TShirt"
                     />
@@ -543,6 +549,14 @@ function SellerProductEdit() {
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                       placeholder="23"
+                    />
+                    <label htmlFor="discount">Discount</label>
+                    <input
+                      type="text"
+                      id="discount"
+                      value={discount}
+                      onChange={(e) => setDiscount(e.target.value)}
+                      placeholder="10"
                     />
                   </div>
                   <div className="productFormLeft productFormLeft-three">

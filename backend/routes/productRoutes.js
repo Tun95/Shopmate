@@ -33,6 +33,7 @@ productRouter.post(
       price: 0,
       countInStock: 0,
       rating: 0,
+      discount: 0,
       numReviews: 0,
     });
     const product = await newProduct.save();
@@ -61,6 +62,7 @@ productRouter.put(
       product.images = req.body.images;
       product.desc = req.body.desc;
       product.price = req.body.price;
+      product.discount = req.body.discount;
       product.countInStock = req.body.countInStock;
       await product.save();
       res.send({ message: "Product Updated" });

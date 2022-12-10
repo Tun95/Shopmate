@@ -72,6 +72,26 @@
   font-weight: 300;
   color: #6c6c6c;
 }
+.unverified-account {
+  background-color: #f62f5e;
+  color: #fff;
+  padding: 1px 3px;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  width: 100%;
+  font-weight: 600;
+}
+.verified-account{
+  background-color: #00d3ca;
+  color: #fff;
+  padding: 1px 3px;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  width: 100%;
+  font-weight: 600;
+}
 .userShowBottom {
   margin-top: 20px;
 }

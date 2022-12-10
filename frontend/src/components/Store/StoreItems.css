@@ -15,7 +15,20 @@
 .prod-design:hover {
   box-shadow: 1px 10px 40px -5px #6c6c6c;
 }
-
+.prod-design .item-discount {
+  background-color: #f62f5e;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 45px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -25px;
+  color: #fff;
+  font-weight: 600;
+}
 .prod-design .product-img {
   height: 180px;
   border-radius: 10px;
@@ -31,6 +44,11 @@
   color: #f62f5e;
   position: relative;
   top: -5px;
+}
+.prod-design .p-name .price-discount {
+  font-weight: 600;
+  font-size: 15px;
+  color: #6c6c6c;
 }
 
 .add-rem {

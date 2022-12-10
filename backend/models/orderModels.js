@@ -12,6 +12,7 @@ const orderSchema = new mongoose.Schema(
         quantity: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
+        discount: { type: Number, required: true },
         seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         product: {
           type: mongoose.Schema.Types.ObjectId,
@@ -30,7 +31,7 @@ const orderSchema = new mongoose.Schema(
       country: { type: String, required: true },
       shipping: { type: String, required: true },
     },
-   //paymentMethod: { type: String },
+    //paymentMethod: { type: String },
     paymentResult: {
       id: String,
       status: String,

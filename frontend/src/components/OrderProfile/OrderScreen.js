@@ -270,7 +270,19 @@ function OrderScreen() {
                                 </div>
                                 <div className="order-forth-row">
                                   <div className="order-cart-price">
-                                    £{item.price.toFixed(0) * item.quantity}
+                                    {item.discount ? (
+                                      <div className="cart-price">
+                                        £
+                                        {(
+                                          item.price -
+                                          (item.price * item.discount) / 100
+                                        ).toFixed(0) * item.quantity}
+                                      </div>
+                                    ) : (
+                                      <div className="cart-price">
+                                        £{item.price.toFixed(0) * item.quantity}
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                               </div>

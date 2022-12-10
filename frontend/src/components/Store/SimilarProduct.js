@@ -7,6 +7,9 @@ function SimilarProduct(props) {
   return (
     <div className="similar-prod">
       <div className="dress">
+        {sim.discount > 0 && (
+          <div className="item-discount">{sim.discount}%</div>
+        )}
         <Link to={`/product/${sim.slug}`}>
           <img src={sim.image} alt="" className="img" />
         </Link>
@@ -16,7 +19,16 @@ function SimilarProduct(props) {
               <h4>{sim.name}</h4>
             </Link>
           </div>
-          <div className="price">£{sim.price}</div>
+          {sim.discount > 0 ? (
+            <>
+              <div className="price">
+                £{(sim.price - (sim.price * sim.discount) / 100)?.toFixed(2)}
+              </div>
+              <s className="price-discount">£{sim.price}</s>
+            </>
+          ) : (
+            <div className="price">£{sim.price}</div>
+          )}
         </div>
       </div>
     </div>

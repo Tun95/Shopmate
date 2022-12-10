@@ -1,4 +1,4 @@
-import React, {  useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import "../Cart/Cart.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ function Cart(props) {
   //FETCHING CARTITEMS
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
+    userInfo,
     cart: { cartItems },
   } = state;
 
@@ -50,7 +51,11 @@ function Cart(props) {
   //CHECKOUT
   const navigate = useNavigate();
   const checkoutHandler = () => {
-    navigate("signin?redirect=/shipping");
+    if (userInfo && !userInfo.isAccountVerified) {
+      toast.error("Email address not verified", { position: "bottom-center" });
+    } else {
+      return navigate("signin?redirect=/shipping");
+    }
   };
   return (
     <div>
@@ -149,9 +154,19 @@ function Cart(props) {
                                 </button>
                               </div>
                               <div className="forth-row">
-                                <div className="cart-price">
-                                  £{item.price.toFixed(0) * item.quantity}
-                                </div>
+                                {item.discount ? (
+                                  <div className="cart-price">
+                                    £
+                                    {(
+                                      item.price -
+                                      (item.price * item.discount) / 100
+                                    ).toFixed(0) * item.quantity}
+                                  </div>
+                                ) : (
+                                  <div className="cart-price">
+                                    £{item.price.toFixed(0) * item.quantity}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           ))}

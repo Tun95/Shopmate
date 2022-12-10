@@ -8,7 +8,7 @@ import axios from "axios";
 import LoadingBox from "../Utilities/LoadingBox";
 import { useParams } from "react-router-dom";
 import Footer from "../Footer/Footer";
-import person from "../images/person.png"
+import person from "../images/person.png";
 import MessageBox from "../Utilities/MessageBox";
 import PublishIcon from "@mui/icons-material/Publish";
 
@@ -188,6 +188,7 @@ function Profile() {
                       <div className="profile-form-header">
                         <h1>User Profile</h1>
                         <img src={image ? image : person} alt="" />
+
                         <input
                           className="profile-input-box"
                           id="file"
@@ -201,6 +202,17 @@ function Profile() {
                             onChange={uploadFileHandler}
                           />
                         </label>
+                        <span>
+                          {!userInfo.isAccountVerified ? (
+                            <span className="unverified-account">
+                              unverified account
+                            </span>
+                          ) : (
+                            <span className="verified-account">
+                              verified account
+                            </span>
+                          )}
+                        </span>
                       </div>
 
                       <div className="profile-inner-form">

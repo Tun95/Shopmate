@@ -50,6 +50,12 @@
   border-radius: 5px;
   font-size: 20px;
 }
+.eye-icon {
+  margin-left: -35px;
+  font-size: 80px;
+  cursor: pointer;
+  color: #6c6c6c;
+}
 .form-group #password {
   margin-top: 20px;
 }
@@ -197,6 +203,9 @@
     height: 40px;
     position: relative;
     left: 9px;
+  }
+  .eye-icon {
+    margin-left: -25px;
   }
   .check-sign .form-button button {
     width: 160px;

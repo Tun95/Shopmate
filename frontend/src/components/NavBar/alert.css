@@ -1,0 +1,29 @@
+.alert-bar {
+  width: 100%;
+  display: flex;
+}
+.yellow-bar {
+  padding: 3px;
+  background: yellow;
+}
+.alert-bar-content {
+  display: flex;
+
+  align-items: center;
+  background-color: #f62f5e;
+  width: 100%;
+}
+.alert-top-icon {
+  color: yellow;
+  margin-left: 2%;
+}
+.alert-text {
+  color: yellow;
+  font-weight: 600;
+  margin-left: 1%;
+  margin-right: 5px;
+}
+.alert-bar a {
+  text-decoration: underline;
+  color: rgb(245, 247, 159);
+}

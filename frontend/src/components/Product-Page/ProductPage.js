@@ -124,28 +124,28 @@ function ProductPage(props) {
     //     }
     //   );
     // } else {
-      if (data.countInStock < quantity) {
-        toast.error("Sorry, Product stock limit reached or out of stock", {
-          position: "bottom-center",
-        });
-        return;
-      } else {
-        toast.success(`${product.name} is successfully added to cart`, {
-          position: "bottom-center",
-        });
-      }
-
-      ctxDispatch({
-        type: "CART_ADD_ITEM",
-        payload: {
-          ...product,
-          seller: data.seller,
-          quantity,
-          size,
-          color,
-        },
+    if (data.countInStock < quantity) {
+      toast.error("Sorry, Product stock limit reached or out of stock", {
+        position: "bottom-center",
       });
-      localStorage.setItem("cartItems", JSON.stringify(state.cart.cartItems));
+      return;
+    } else {
+      toast.success(`${product.name} is successfully added to cart`, {
+        position: "bottom-center",
+      });
+    }
+
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: {
+        ...product,
+        seller: data.seller,
+        quantity,
+        size,
+        color,
+      },
+    });
+    localStorage.setItem("cartItems", JSON.stringify(state.cart.cartItems));
     // }
   };
 
@@ -273,7 +273,21 @@ function ProductPage(props) {
                         ) : (
                           ""
                         )}
-                        <div className="price">£{product.price}</div>
+                        {product.discount > 0 ? (
+                          <div className="price-discount-style">
+                            <div className="price">
+                              £
+                              {(
+                                product.price -
+                                (product.price * product.discount) / 100
+                              )?.toFixed(2)}
+                            </div>
+                            <s className="price-discount">£{product.price}</s>
+                          </div>
+                        ) : (
+                          <div className="price">£{product.price}</div>
+                        )}
+                        {/* <div className="price">£{product.price}</div> */}
                         <div className="product-color">
                           <h4>Color</h4>
                           <ul className="ul-color-prod">
@@ -503,13 +517,33 @@ function ProductPage(props) {
                       <div className="prod-list">
                         {products?.map((product, index) => (
                           <div className="sim-shirt" key={index}>
+                            {product.discount > 0 && (
+                              <div className="item-discount">
+                                {product.discount}%
+                              </div>
+                            )}
                             <Link to={`/product/${product.slug}`}>
                               <img src={product.image} alt="" />
                             </Link>
                             <Link to={`/product/${product.slug}`}>
                               <h4 className="sim-name">{product.name}</h4>
                             </Link>
-                            <div className="price">£{product.price}</div>
+                            {product.discount > 0 ? (
+                              <>
+                                <div className="price">
+                                  £
+                                  {(
+                                    product.price -
+                                    (product.price * product.discount) / 100
+                                  )?.toFixed(2)}
+                                </div>
+                                <s className="price-discount">
+                                  £{product.price}
+                                </s>
+                              </>
+                            ) : (
+                              <div className="price">£{product.price}</div>
+                            )}
                           </div>
                         ))}
                       </div>

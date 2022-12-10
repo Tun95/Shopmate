@@ -1,11 +1,10 @@
 import express from "express";
-
 import bcrypt from "bcryptjs";
-
 import expressAsyncHandler from "express-async-handler";
 import User from "../models/userModels.js";
 import { generateToken, isAdmin, isAuth } from "../utils.js";
-import Product from "../models/productModels.js";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
 
 const userRouter = express.Router();
 
@@ -26,7 +25,7 @@ userRouter.get(
 userRouter.get(
   "/:id",
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id).populate("products");
+    const user = await User.findById(req.params.id);
     if (user) {
       res.send(user);
     } else {
@@ -69,8 +68,10 @@ userRouter.post(
           email: user.email,
           isAdmin: user.isAdmin,
           isSeller: user.isSeller,
+          isAccountVerified: user.isAccountVerified,
           token: generateToken(user),
         });
+
         return;
       }
     }
@@ -78,10 +79,40 @@ userRouter.post(
   })
 );
 
+// userRouter.post(
+//   "/signin",
+//   expressAsyncHandler(async (req, res) => {
+//     const { email, password } = req.body;
+//     const user = await User.findOne({ email });
+
+//     //Check if password matches
+//     if (user && (await user.isPasswordMatch(password))) {
+//       res.json({
+//         _id: user?._id,
+//         name: user?.name,
+//         email: user?.email,
+//         isAdmin: user?.isAdmin,
+//         isSeller: user?.isSeller,
+//         isAccountVerified: user?.isAccountVerified,
+//         token: generateToken(user?._id),
+//       });
+
+//       return;
+//     } else {
+//       res.status(401);
+//       throw new Error("Invalid Login credentials");
+//     }
+//   })
+// );
+
 //USER SIGNUP
 userRouter.post(
   "/signup",
   expressAsyncHandler(async (req, res) => {
+    const userExists = await User.findOne({ email: req.body?.email });
+    if (userExists) {
+      throw new Error("User already exist");
+    }
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
@@ -94,6 +125,7 @@ userRouter.post(
       email: user.email,
       isAdmin: user.isAdmin,
       isSeller: user.isSeller,
+      isAccountVerified: user.isAccountVerified,
       token: generateToken(user),
     });
   })
@@ -190,6 +222,144 @@ userRouter.put(
     } else {
       res.status(404).send({ message: "User Not Found" });
     }
+  })
+);
+
+//===============
+//Generate Email Verification Token
+//===============
+userRouter.post(
+  "/verification-token",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const loginUserId = req?.user?._id;
+    const user = await User.findById(loginUserId);
+    try {
+      const verificationToken = await user?.createAccountVerificationToken();
+      await user.save();
+      console.log(verificationToken);
+
+      //HTML message
+      const resetURL = `if you were requested to verify your
+      account, verify now within the next 10mins,
+      otherwise ignore this message
+      <a href="${process.env.SUB_DOMAIN}/verify-account/${user.id}/${verificationToken}">Click here to verify</a>`;
+      const smtpTransport = nodemailer.createTransport({
+        service: process.env.MAIL_SERVICE,
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.GMAIL_PASS,
+        },
+      });
+      const mailOptions = {
+        from: `Shopmate ${process.env.EMAIL_ADDRESS}`,
+        to: `${user.email}`,
+        subject: "Verify your email address",
+        html: resetURL,
+      };
+      smtpTransport.sendMail(mailOptions);
+      res.send(resetURL);
+    } catch (error) {
+      res.send(error);
+    }
+  })
+);
+
+//===============
+//Account Verification
+//===============
+userRouter.put(
+  "/verify-account/:id/",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const { token } = req?.body;
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+    //find user by token
+    const userFound = await User.findOne({
+      accountVerificationToken: hashedToken,
+      accountVerificationTokenExpires: { $gt: new Date() },
+    });
+    if (!userFound) {
+      throw new Error("Invalid token or Token expired, try again");
+    }
+    userFound.isAccountVerified = true;
+    userFound.accountVerificationToken = undefined;
+    userFound.accountVerificationTokenExpires = undefined;
+    await userFound.save();
+    res.send(userFound);
+  })
+);
+
+//===============
+//Password Reset Token
+//===============
+userRouter.post(
+  "/password-token",
+  expressAsyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) throw new Error("User not Found");
+    try {
+      const token = await user.createPasswordResetToken();
+      await user.save();
+
+      //HTML message
+      const resetURL = `if you were requested to reset your 
+		password, resest now within the next 10mins,
+		otherwise ignore this message 
+		<a href="${process.env.SUB_DOMAIN}/${user.id}/reset-password/${token}">Click here to reset</a>`;
+      const smtpTransport = nodemailer.createTransport({
+        service: process.env.MAIL_SERVICE,
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.GMAIL_PASS,
+        },
+      });
+      //kakszzxtewcdustm
+      const mailOptions = {
+        from: `Shopmate ${process.env.EMAIL_ADDRESS}`,
+        to: email,
+        subject: "Reset Password",
+        html: resetURL,
+      };
+      smtpTransport.sendMail(mailOptions);
+      res.send({
+        msg: `A verification email has been successfully sent to ${user?.email}.
+			 Reset now within 10mins, ${resetURL} `,
+      });
+    } catch (error) {
+      res.send(error);
+    }
+  })
+);
+
+//===============
+//Password Reset
+//===============
+userRouter.put(
+  "/:id/reset-password",
+  // isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const password = bcrypt.hashSync(req.body.password);
+    const {token} = req?.body;
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    //find user by token
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetTokenExpires: { $gt: new Date() },
+    });
+    console.log(hashedToken);
+    if (!user) throw new Error("Invalid token or token expired, try again");
+
+    //update user password
+    user.password = password;
+    user.passwordResetToken = undefined;
+    user.passwordResetTokenExpires = undefined;
+    await user.save();
+
+    res.send(user);
+    console.log(user);
   })
 );
 

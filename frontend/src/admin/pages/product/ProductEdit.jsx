@@ -120,6 +120,7 @@ function ProductEdit() {
   const [keygen, setKeygen] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
   const [desc, setDesc] = useState("");
   const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
@@ -140,6 +141,7 @@ function ProductEdit() {
         setKeygen(data.keygen);
         setCountInStock(data.countInStock);
         setPrice(data.price);
+        setDiscount(data.discount);
         setDesc(data.desc);
         setGender(data.gender);
         setCategory(data.category);
@@ -170,6 +172,7 @@ function ProductEdit() {
           keygen,
           countInStock,
           price,
+          discount,
           desc,
           gender,
           category,
@@ -416,7 +419,7 @@ function ProductEdit() {
                           type="text"
                           id="name"
                           value={name}
-                          maxLength="25"
+                          maxLength="23"
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Novelty TShirt"
                         />
@@ -561,6 +564,14 @@ function ProductEdit() {
                           value={price}
                           onChange={(e) => setPrice(e.target.value)}
                           placeholder="23"
+                        />
+                        <label htmlFor="discount">Discount</label>
+                        <input
+                          type="text"
+                          id="discount"
+                          value={discount}
+                          onChange={(e) => setDiscount(e.target.value)}
+                          placeholder="10"
                         />
                       </div>
                       <div className="productFormLeft productFormLeft-three">

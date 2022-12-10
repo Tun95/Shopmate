@@ -35,7 +35,10 @@ function ConfirmationScreen() {
     cart: { cartItems, shippingAddress, paymentMethod },
   } = state;
 
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
+   const itemsPrice = cartItems.reduce(
+     (a, c) => a + (c.price - (c.price * c.discount) / 100) * c.quantity,
+     0
+   );
   const taxPrice = itemsPrice * 0.14;
   const shippingPrice = shippingAddress.shipping === Express ? 28 : 0;
   const grandTotal = (
@@ -52,10 +55,6 @@ function ConfirmationScreen() {
   const backHandler = () => {
     navigate("/shipping");
   };
-
-  // const nextStep = () => {
-  //   navigate(`/payment/${order._id}`);
-  // };
 
   const [{ loading, error }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -128,7 +127,19 @@ function ConfirmationScreen() {
                             <p className="item-name">{item.name}</p>
                             <span className="qty">{item.quantity}</span>
                             <span className="price">
-                              £{item.price.toFixed(0) * item.quantity}
+                              {item.discount ? (
+                                <div className="cart-price">
+                                  £
+                                  {(
+                                    item.price -
+                                    (item.price * item.discount) / 100
+                                  ).toFixed(0) * item.quantity}
+                                </div>
+                              ) : (
+                                <div className="cart-price">
+                                  £{item.price.toFixed(0) * item.quantity}
+                                </div>
+                              )}
                             </span>
                           </li>
                         ))}
