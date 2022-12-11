@@ -244,7 +244,7 @@ userRouter.post(
       const resetURL = `if you were requested to verify your
       account, verify now within the next 10mins,
       otherwise ignore this message
-      <a href="https://${subdomain}verify-account/${user.id}/${verificationToken}">Click here to verify</a>`;
+      <a href="https://shopmate-0b17.onrender.com/verify-account/${user.id}/${verificationToken}">Click here to verify</a>`;
       const smtpTransport = nodemailer.createTransport({
         service: process.env.MAIL_SERVICE,
         auth: {
@@ -309,7 +309,7 @@ userRouter.post(
       const resetURL = `if you were requested to reset your 
 		password, resest now within the next 10mins,
 		otherwise ignore this message 
-		<a href="https://${subdomain}${user.id}/reset-password/${token}">Click here to reset</a>`;
+		<a href="https://shopmate-0b17.onrender.com/${user.id}/reset-password/${token}">Click here to reset</a>`;
       const smtpTransport = nodemailer.createTransport({
         service: process.env.MAIL_SERVICE,
         auth: {
