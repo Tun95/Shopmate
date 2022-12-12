@@ -53,7 +53,7 @@ function Verify(props) {
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
-    // localStorage.removeItem("!userInfo" && "cartItems");
+     localStorage.removeItem("!userInfo" && "cartItems");
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("paymentMethod");
     window.location.href = "/signin";
