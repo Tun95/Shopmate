@@ -37,7 +37,7 @@ function CartScreen() {
     if (userInfo && !userInfo.isAccountVerified) {
       toast.error("Email address not verified", { position: "bottom-center" });
     } else {
-      return navigate("signin?redirect=/shipping");
+      return navigate("/signin?redirect=/shipping");
     }
   };
 
