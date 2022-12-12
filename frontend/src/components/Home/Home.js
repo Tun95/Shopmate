@@ -41,20 +41,32 @@ function Home() {
   const [email, setEmail] = useState();
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!email) {
-      toast.error("email field is required", { position: "bottom-center" });
+    if (!userInfo) {
+      toast.error("You need to login and be a verified user", {
+        position: "bottom-center",
+      });
     } else {
-      try {
-        const { data } = await axios.post("/api/message/subscribe", {
-          email,
-        });
-        dispatch({ type: "POST_SUCCESS", payload: data });
-        toast.success("You have successfully subscribe to our newsletter", {
+      if (!userInfo.isAccountVerified) {
+        toast.error("Only a verified user have access to 10% discount", {
           position: "bottom-center",
         });
-      } catch (err) {
-        toast.error(getError(err), { position: "bottom-center" });
-        dispatch({ type: "POST_FAIL" });
+      } else {
+        if (!email) {
+          toast.error("email field is required", { position: "bottom-center" });
+        } else {
+          try {
+            const { data } = await axios.post("/api/message/subscribe", {
+              email,
+            });
+            dispatch({ type: "POST_SUCCESS", payload: data });
+            toast.success("You have successfully subscribe to our newsletter", {
+              position: "bottom-center",
+            });
+          } catch (err) {
+            toast.error(getError(err), { position: "bottom-center" });
+            dispatch({ type: "POST_FAIL" });
+          }
+        }
       }
     }
   };
@@ -148,7 +160,7 @@ function Home() {
                       onChange={(e) => setEmail(e.target.value)}
                       id="email"
                     />
-                    <MailOutlineIcon id="icon" className="sharp"/>
+                    <MailOutlineIcon id="icon" className="sharp" />
                     <button>Subscribe</button>
                   </div>
                 </form>
