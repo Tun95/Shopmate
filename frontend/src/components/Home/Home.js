@@ -115,7 +115,7 @@ function Home() {
               <div className="h-main-content">
                 <h1>Let the Game begin</h1>
                 <p className="main-content-reg">
-                  <strong>Registration is on - get readey for the Open</strong>
+                  <strong>Registration is on - get ready for the Open</strong>
                 </p>
                 {!userInfo ? (
                   <button className="Register" onClick={navigateHandler}>

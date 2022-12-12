@@ -162,32 +162,42 @@ function ProductPage(props) {
         position: "bottom-center",
       });
       return;
-    }
-    try {
-      const { data } = await axios.post(
-        `/api/products/${product._id}/reviews`,
-        { rating, comment, name: userInfo.name },
-        {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        }
-      );
+    } else {
+      if (comment.length < 50) {
+        toast.error("Your review must be at least 50 characters", {
+          position: "bottom-center",
+        });
+      } else {
+        try {
+          const { data } = await axios.post(
+            `/api/products/${product._id}/reviews`,
+            { rating, comment, name: userInfo.name },
+            {
+              headers: { Authorization: `Bearer ${userInfo.token}` },
+            }
+          );
 
-      dispatch({ type: "CREATE_SUCCESS", payload: { seller: data.seller } });
-      toast.success("Review submitted successfully", {
-        position: "bottom-center",
-      });
-      product.reviews.unshift(data.review);
-      product.numReviews = data.numReviews;
-      product.rating = data.rating;
-      dispatch({ type: "REFRESH_PRODUCT", payload: product });
-      window.scrollTo({
-        behavior: "smooth",
-        top: reviewsRef.current.offsetTop,
-      });
-    } catch (err) {
-      toast.error(getError(err), { position: "bottom-center" });
-      dispatch({ type: "CREATE_FAIL" });
-      console.log(err);
+          dispatch({
+            type: "CREATE_SUCCESS",
+            payload: { seller: data.seller },
+          });
+          toast.success("Review submitted successfully", {
+            position: "bottom-center",
+          });
+          product.reviews.unshift(data.review);
+          product.numReviews = data.numReviews;
+          product.rating = data.rating;
+          dispatch({ type: "REFRESH_PRODUCT", payload: product });
+          window.scrollTo({
+            behavior: "smooth",
+            top: reviewsRef.current.offsetTop,
+          });
+        } catch (err) {
+          toast.error(getError(err), { position: "bottom-center" });
+          dispatch({ type: "CREATE_FAIL" });
+          console.log(err);
+        }
+      }
     }
   };
 
@@ -469,7 +479,7 @@ function ProductPage(props) {
                                   <p>
                                     Your review must be at least 50 characters{" "}
                                     <span>
-                                      <Link to="#">
+                                      <Link to="/about-terms-privacy">
                                         {" "}
                                         Full review guidelines
                                       </Link>

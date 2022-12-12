@@ -255,7 +255,7 @@ function User() {
                             placeholder="tunji@gmail.com"
                             className="userUpdateInput"
                             value={email}
-                            disabled={userInfo?.isAdmin}
+                            disabled={user?.isAdmin}
                             onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>
