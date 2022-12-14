@@ -96,7 +96,7 @@ productRouter.post(
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
-      if (product.seller === req.user._id) {
+      if (product.seller === req.user.id) {
         return res
           .status(400)
           .send({ message: "You can't review your product" });

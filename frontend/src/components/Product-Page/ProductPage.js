@@ -448,7 +448,7 @@ function ProductPage(props) {
 
                 <div className="section-3">
                   <div className="submit-implement">
-                    <h2 className={!userInfo ? "review-header" : ""}>
+                    <h2 className= "review-product-header" >
                       Add a review
                     </h2>
                     {userInfo ? (
