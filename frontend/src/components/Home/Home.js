@@ -47,7 +47,7 @@ function Home() {
       });
     } else {
       if (!userInfo.isAccountVerified) {
-        toast.error("Only a verified user have access to 10% discount", {
+        toast.error("Only a verified user have access to this offer", {
           position: "bottom-center",
         });
       } else {

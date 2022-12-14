@@ -1,28 +1,25 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
-import Cart from "../models/cartModel.js";
+import Wish from "../models/wishModel.js";
 import { isAuth } from "../utils.js";
 
-const cartRouter = express.Router();
+const wishRouter = express.Router();
 
 //CREATE
-cartRouter.post(
+wishRouter.post(
   "/",
   // isAuth,
   expressAsyncHandler(async (req, res) => {
     try {
-      const cart = await Cart.create({
+      const wish = await Wish.create({
         name: req.body.name,
         slug: req.body.slug,
-        keygen: req.body.keygen,
         image: req.body.image,
-        color: req.body.color,
-        size: req.body.size,
-        quantity: req.body.quantity,
         price: req.body.price,
-        // user: req.user._id,
+        isWished: req.body.isWished,
+        user: req.user._id,
       });
-      res.send(cart);
+      res.send(wish);
     } catch (error) {
       res.send(error);
     }
@@ -30,12 +27,14 @@ cartRouter.post(
 );
 
 //FETCH ALL
-cartRouter.get(
-  "/",
+wishRouter.get(
+  "/:id/wishlist",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
+    const { id } = req.params.user;
     try {
-      const cartItems = await Cart.find({}).populate("user").sort("-createdAt");
-      res.send(cartItems);
+      const wishList = await Wish.findOne({ id }).sort("-createdAt");
+      res.send(wishList);
     } catch (error) {
       res.send(error);
     }
@@ -43,19 +42,19 @@ cartRouter.get(
 );
 
 //UPADTE
-cartRouter.put(
+wishRouter.put(
   "/:id",
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const cart = await Cart.findOneAndUpdate(
+      const wish = await Wish.findOneAndUpdate(
         id,
         {
           quantity: req.body.quantity,
         },
         { new: true }
       );
-      res.send(cart);
+      res.send(wish);
     } catch (error) {
       res.send(error);
     }
@@ -63,28 +62,18 @@ cartRouter.put(
 );
 
 //DELETE
-cartRouter.delete(
+wishRouter.delete(
   "/:id",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const cart = await Cart.findByIdAndDelete(id);
-      res.send(cart);
+      const wish = await Wish.findByIdAndDelete(id);
+      res.send(wish);
     } catch (error) {
       res.send(error);
     }
   })
 );
 
-//CART CLEAR
-cartRouter.delete(
-  "/",
-  expressAsyncHandler(async (req, res) => {
-    await Cart.remove({});
-    const clearCart = await Cart.deleteMany({});
-
-    res.send(clearCart);
-  })
-);
-
-export default cartRouter;
+export default wishRouter;

@@ -51,8 +51,11 @@ function Cart(props) {
   //CHECKOUT
   const navigate = useNavigate();
   const checkoutHandler = () => {
-    if (userInfo && !userInfo.isAccountVerified) {
-      toast.error("Email address not verified", { position: "bottom-center" });
+    if (!userInfo) {
+      toast.error("You need to login to checkout", {
+        position: "bottom-center",
+      });
+      return navigate("signin?redirect=/shipping");
     } else {
       return navigate("signin?redirect=/shipping");
     }

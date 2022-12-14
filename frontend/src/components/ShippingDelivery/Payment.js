@@ -132,7 +132,7 @@ function Payment(props) {
   //     loadPaypalScript();
   //   }
   // }, []);
-  
+
   useEffect(() => {
     if (!userInfo) {
       return navigate("/login");
@@ -197,8 +197,6 @@ function Payment(props) {
 
         toast.success("Order is paid", { position: "bottom-center" });
         if (!order.isPaid) {
-          // ctxDispatch({ type: "CART_CLEAR" });
-          // localStorage.removeItem("cartItems");
           navigate("/finish");
         }
       } catch (err) {
@@ -232,22 +230,73 @@ function Payment(props) {
   };
 
   //STRIPE SECTION
-  // const KEY = process.env.REACT_APP_STRIPE;
+  // const loadStripe = () => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://js.stripe.com/v3/";
+  //   script.onerror = () => {
+  //     alert("Stripe SDK failed to load. Are you online?");
+  //   };
+  //   script.onload = async () => {
+  //     try {
+  //       const result = await axios.post("/stripe-create", {
+  //         amount: order.grandTotal * 100,
+  //       });
+  //       const { amount, id: order_id, currency } = result.data;
+  //       const {
+  //         data: { key: stripeKey },
+  //       } = await axios.get("/get-stripe-key");
+  //       const options = {
+  //         key: stripeKey,
+  //         amount: amount.toString(),
+  //         currency: currency,
+  //         name: "example name",
+  //         description: "example transaction",
+  //         order_id: order_id,
+  //         handler: async function (details) {
+  //           dispatch({ type: "PAY_REQUEST" });
+  //           const result = await axios.put(`/api/orders/${order._id}/pay`, {
+  //             details,
+  //           });
+  //           dispatch({ type: "PAY_SUCCESS", payload: result.data });
+  //         },
+  //       };
+  //       const paymentObject = new window.Stripe(options);
+  //       paymentObject.open();
+  //     } catch (err) {
+  //       console.log(err);
+  //       dispatch({ type: "PAY_FAIL", payload: getError(err) });
+  //       toast.error(getError(err), { position: "bottom-center" });
+  //     }
+  //   };
+  //   document.body.appendChild(script);
+  //   loadStripe();
+  // };
 
+  const KEY =
+    "pk_test_51LddZCG74SnLVBhQAzsedUUcKxd33HOpAIThNyxKl2l4mxvCj8uywmQFZHNq5EmiIn6jNrAVGrBqT1tWHprcD3XF00xOSuchsE";
   const [stripeToken, setStripeToken] = useState(null);
-
+  const [name, setName] = useState();
+  const [card, setCard] = useState();
+  const [cvv, setCvv] = useState();
+  const [date, setDate] = useState();
   const onToken = (token) => {
     setStripeToken(token);
   };
   console.log(stripeToken);
 
   useEffect(() => {
-    const makeRequest = async () => {
+    const makeRequest = async (details) => {
       try {
-        const res = await axios.post("/api/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: order.grandTotal * 100,
-        });
+        const res = await axios.post(
+          "/api/checkout/payment",
+          {
+            tokenId: stripeToken.id,
+            amount: order.grandTotal * 100,
+          }
+          // {
+          //   headers: { authorization: `Bearer ${userInfo.token}` },
+          // }
+        );
         if (order.isPaid) {
           navigate("/finish?redirect");
         }
@@ -436,23 +485,23 @@ function Payment(props) {
                   <button className="pay" disabled>
                     Pay
                   </button>
-                )}
-                {openStripeModal && (
-                  <StripeCheckout
-                    name="SHOPMATE"
-                    image=""
-                    billingAddress
-                    shippingAddress
-                    description={`Your total is $${order.grandTotal}`}
-                    amount={order.grandTotal * 100}
-                    token={onToken}
-                    stripeKey={KEY}
-                  >
-                    <button type="submit" className="next-step">
-                      Pay
-                    </button>
-                  </StripeCheckout>
                 )} */}
+                  {/* {openStripeModal && (
+                    <StripeCheckout
+                      name="SHOPMATE"
+                      image=""
+                      billingAddress
+                      shippingAddress
+                      description={`Your total is $${order.grandTotal}`}
+                      amount={order.grandTotal * 100}
+                      token={onToken}
+                      stripeKey={KEY}
+                    >
+                      <button type="submit" className="next-step">
+                        Pay
+                      </button>
+                    </StripeCheckout>
+                  )} */}
                 </div>
               </div>
             </div>

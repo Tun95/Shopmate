@@ -1,15 +1,12 @@
 import mongoose from "mongoose";
 
-const cartSchema = new mongoose.Schema(
+const wishSchema = new mongoose.Schema(
   {
     name: { type: String },
     slug: { type: String },
-    keygen: { type: String },
     image: { type: String },
-    color: { type: Array },
-    size: { type: Array },
-    quantity: { type: Number },
     price: { type: Number },
+    isWished: { type: Boolean, default: false },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -19,5 +16,8 @@ const cartSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const Cart = mongoose.model("Cart", cartSchema);
-export default Cart;
+
+
+
+const Wish = mongoose.model("Wish", wishSchema);
+export default Wish;

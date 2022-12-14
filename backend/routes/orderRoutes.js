@@ -6,6 +6,8 @@ import { isAuth, isAdmin, isSellerOrAdmin } from "../utils.js";
 import nodemailer from "nodemailer";
 import Sib from "sib-api-v3-sdk";
 import Product from "../models/productModels.js";
+import Razorpay from "razorpay";
+import Stripe from "stripe";
 
 const orderRouter = express.Router();
 
@@ -230,6 +232,56 @@ orderRouter.put(
     }
   })
 );
+
+//RAZORPAY CREATE ORDER
+orderRouter.post(
+  "/stripe-create",
+  expressAsyncHandler(async (req, res) => {
+    try {
+      const instance = new Stripe({
+        key_id: process.env.STRIPE_PUBLISHABLE_KEY,
+        key_secret: process.env.STRIPE_SECRET_KEY,
+      });
+      const options = {
+        amount: req.body.amount,
+        currency: "GBP",
+      };
+      const order = await instance.orders.create(options);
+      if (!order) return res.status(500).send("Some error occured");
+      res.send(order);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  })
+);
+
+//RAZORPAY
+// orderRouter.put(
+//   "/:id/stripepay",
+//   expressAsyncHandler(async (req, res) => {
+//     try {
+//       // const { amount, razorpayPaymentId, razorpayOrderId, razorpaySignature } =
+//       //   req.body;
+//       const newPayment = Order({
+//         isPaid: true,
+//         paidAt: Date.now(),
+//         paymentResult: {
+//           id: req.body.id,
+//           status: req.body.status,
+//           update_time: req.body.update_time,
+//           email_address: req.body.email_address,
+//         },
+//       });
+//       await newPayment.save();
+//       res.send({
+//         msg: "Payment was successfull",
+//       });
+//     } catch (error) {
+//       console.log(error);
+//       res.status(500).send(error);
+//     }
+//   })
+// );
 
 //PAYMENT
 orderRouter.put(

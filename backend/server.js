@@ -16,7 +16,8 @@ import settingsRoutes from "./routes/settingRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
 import sizeRoutes from "./routes/sizeRoutes.js";
-import cartRouter from "./routes/cartRoutes.js";
+import wishRouter from "./routes/wishRoutes.js";
+
 
 dotenv.config();
 
@@ -51,12 +52,17 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/api/keys/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
+
+app.get("/get-stripe-key", (req, res) => {
+  res.send({ key: process.env.STRIPE_PUBLISHABLE_KEY });
+});
+
 app.use("/api/message", sendEmailRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
-app.use("/api/carts", cartRouter);
+app.use("/api/wishes", wishRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/category", categoryRoutes);
 app.use("/api/brand", brandRoutes);
