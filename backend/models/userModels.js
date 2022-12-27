@@ -14,6 +14,14 @@ const userSchema = new mongoose.Schema(
     passwordChangeAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    wishList: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Wish",
+        },
+      ],
+    },
     isAdmin: { type: Boolean, default: false, required: true },
     isSeller: { type: Boolean, default: false, required: true },
     seller: {
@@ -45,7 +53,7 @@ const userSchema = new mongoose.Schema(
 //Virtual method to populate created post
 userSchema.virtual("products", {
   ref: "Product",
-  foreignField: "user",
+  foreignField: "seller",
   localField: "_id",
 });
 

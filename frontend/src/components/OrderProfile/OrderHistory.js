@@ -82,7 +82,7 @@ function OrderHistory() {
 
                   <div className="order-table-body">
                     <div className="order-table-row">
-                      {orders.reverse().map((order) => (
+                      {orders.map((order) => (
                         <ul className="order-item-list" key={order._id}>
                           <li className="item-id">{order._id}</li>
                           <li className="created">

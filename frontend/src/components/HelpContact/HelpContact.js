@@ -38,8 +38,10 @@ function HelpContact(props) {
   const [subject, setSubject] = useState();
   const [message, setMessage] = useState();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const submitHandler = async (values, actions) => {
+    setTimeout(() => {
+      actions.resetForm();
+    }, 1000);
     if (!name || !email || !subject || !message) {
       toast.error("one or more field is required", {
         position: "bottom-center",
@@ -55,7 +57,6 @@ function HelpContact(props) {
         });
         dispatch({ type: "POST_SUCCESS", payload: data });
         toast.success("Email sent successfully", { position: "bottom-center" });
-        navigate("/");
       } catch (err) {
         dispatch({ type: "POST_FAIL" });
         toast.error(getError(err), { position: "bottom-center" });

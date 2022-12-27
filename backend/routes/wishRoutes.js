@@ -16,7 +16,7 @@ wishRouter.post(
         slug: req.body.slug,
         image: req.body.image,
         price: req.body.price,
-        isWished: req.body.isWished,
+        checked: req.body.checked,
         user: req.user._id,
       });
       res.send(wish);

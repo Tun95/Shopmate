@@ -8,6 +8,11 @@ import React, {
 import { Link, useParams } from "react-router-dom";
 import "../Product-Page/ProductPage.css";
 import Rating from "@mui/material/Rating";
+
+import Favorite from "@mui/icons-material/Favorite";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+
 import { Helmet } from "react-helmet-async";
 import Ratings from "../Ratings/Ratings";
 import LoadingBox from "../Utilities/LoadingBox";
@@ -47,6 +52,9 @@ const reducer = (state, action) => {
   }
 };
 function ProductPage(props) {
+  //Image Selection
+  const [selectedImage, setSelectedImage] = useState("");
+
   //Color Style
   const [color, setColor] = useState(false);
 
@@ -153,9 +161,11 @@ function ProductPage(props) {
   let reviewsRef = useRef();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e, values, actions) => {
+    setTimeout(() => {
+      actions.resetForm();
+    }, 1000);
     e.preventDefault();
     if (!comment && !rating) {
       toast.error("Please enter comment and select rating of your choice", {
@@ -184,10 +194,12 @@ function ProductPage(props) {
           toast.success("Review submitted successfully", {
             position: "bottom-center",
           });
+
           product.reviews.unshift(data.review);
           product.numReviews = data.numReviews;
           product.rating = data.rating;
           dispatch({ type: "REFRESH_PRODUCT", payload: product });
+
           window.scrollTo({
             behavior: "smooth",
             top: reviewsRef.current.offsetTop,
@@ -363,14 +375,18 @@ function ProductPage(props) {
                                 </button>
                               </div>
                             )}
-                            {/* <div className="wish-list">
-                              <span className="material-symbols-sharp">
-                                favorite
-                              </span>
+                            <div className="wish-list">
+                              <Checkbox
+                                className="mui-favorite-checkbox"
+                                icon={<FavoriteBorder />}
+                                checkedIcon={
+                                  <Favorite className="mui-favorite-checkbox" />
+                                }
+                              />
                               <div className="add-wish">
                                 <p>Add to Wish List</p>
                               </div>
-                            </div> */}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -427,12 +443,14 @@ function ProductPage(props) {
                     </div>
                     {product.reviews.length !== 0 && (
                       <div className="page-rev">
-                        {/* <div className="page">
+                        <div className="page">
                           <span className="material-symbols-sharp">
                             favorite
                           </span>
-                          <span className="fav-count">113</span>
-                        </div> */}
+                          <span className="fav-count">
+                            {product.numWishList}
+                          </span>
+                        </div>
                         <div className="page-fav-rev">
                           <div className="page-fava-rev">
                             <i className="fa-regular fa-comment"></i>
@@ -448,9 +466,7 @@ function ProductPage(props) {
 
                 <div className="section-3">
                   <div className="submit-implement">
-                    <h2 className= "review-product-header" >
-                      Add a review
-                    </h2>
+                    <h2 className="review-product-header">Add a review</h2>
                     {userInfo ? (
                       <form action="" onSubmit={submitHandler}>
                         <div className="submit-rev">

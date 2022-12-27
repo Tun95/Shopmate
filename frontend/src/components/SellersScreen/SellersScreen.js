@@ -173,7 +173,7 @@ function SellersScreen() {
                           rating={user?.seller?.rating}
                           // numReviews={user.seller.numReviews}
                         ></Ratings>
-                        {user?.seller?.numReviews} Reviews
+                        {user?.products?.numReviews} Reviews
                       </div>
                       <div>
                         <h4>

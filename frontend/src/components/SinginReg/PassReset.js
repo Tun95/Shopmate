@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../Footer/Footer";
 import { getError } from "../Utilities/Utils";
 import "./passreset.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,7 +21,8 @@ const reducer = (state, action) => {
   }
 };
 
-function PassReset() {
+function PassReset(props) {
+  const { closeModal } = props;
   const [{ loading, error }, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
@@ -55,6 +58,11 @@ function PassReset() {
       <div className="pass-reset">
         <div className="pass-reset-box">
           <div className="pass-reset-content">
+            <div className="close">
+              <Link to="/">
+                <CloseIcon onClick={closeModal} className="close-reg" />
+              </Link>
+            </div>
             <h2 className="pass-reset-header">Password Reset Form</h2>
             <p>Enter email down below to reset your password</p>
             <form action="" onSubmit={submitHandler}>

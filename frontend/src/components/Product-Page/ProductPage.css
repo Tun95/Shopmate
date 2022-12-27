@@ -350,9 +350,7 @@
   height: 50px;
   border-radius: 25px;
 }
-.add-cart-wish .add-cart button:active {
-  background-color: #e01257;
-}
+
 .prod-details .wish-list {
   display: flex;
   justify-content: center;
@@ -363,6 +361,9 @@
   color: #f62f5e;
   cursor: pointer;
   cursor: pointer;
+}
+.mui-favorite-checkbox {
+  color: #e01257;
 }
 
 .wish-list .add-wish {
@@ -557,7 +558,7 @@
 }
 .submit-implement .review-product-header {
   position: relative;
-  right: 250px;
+
 }
 .section-3 .submit-rev {
   display: flex;
@@ -799,9 +800,9 @@
     padding: 20px;
     padding-bottom: 90px;
   }
-  .submit-implement .review-header {
+  .submit-implement .review-product-header {
     position: relative;
-    right: 200px;
+    right: 100px;
   }
   .submit-rev .sub-1 {
     line-height: 30px;
@@ -1160,7 +1161,7 @@
     display: grid;
     flex-direction: column;
   }
-  .section-3 .message-box{
+  .section-3 .message-box {
     position: relative;
     right: 40px;
   }
@@ -1299,7 +1300,7 @@
     left: 55px;
   }
 
-   .section-3 .message-box{
+  .section-3 .message-box {
     position: relative;
     right: 60px;
   }
@@ -1365,7 +1366,7 @@
     position: relative;
     left: 75px;
   }
-  .section-3 .message-box{
+  .section-3 .message-box {
     position: relative;
     right: 75px;
   }
@@ -1499,7 +1500,7 @@
     position: relative;
     left: 98px;
   }
-   .section-3 .message-box{
+  .section-3 .message-box {
     position: relative;
     right: 97px;
   }

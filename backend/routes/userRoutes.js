@@ -25,7 +25,7 @@ userRouter.get(
 userRouter.get(
   "/:id",
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate("products");
     if (user) {
       res.send(user);
     } else {
@@ -78,32 +78,6 @@ userRouter.post(
     res.status(401).send({ message: "Invalid email or password" });
   })
 );
-
-// userRouter.post(
-//   "/signin",
-//   expressAsyncHandler(async (req, res) => {
-//     const { email, password } = req.body;
-//     const user = await User.findOne({ email });
-
-//     //Check if password matches
-//     if (user && (await user.isPasswordMatch(password))) {
-//       res.json({
-//         _id: user?._id,
-//         name: user?.name,
-//         email: user?.email,
-//         isAdmin: user?.isAdmin,
-//         isSeller: user?.isSeller,
-//         isAccountVerified: user?.isAccountVerified,
-//         token: generateToken(user?._id),
-//       });
-
-//       return;
-//     } else {
-//       res.status(401);
-//       throw new Error("Invalid Login credentials");
-//     }
-//   })
-// );
 
 //USER SIGNUP
 userRouter.post(
@@ -241,9 +215,9 @@ userRouter.post(
 
       //HTML message
       const subdomain = process.env.SUB_DOMAIN;
-      const resetURL = `if you were requested to verify your
-      account, verify now within the next 10mins,
-      otherwise ignore this message
+      const resetURL = `<p>if you were requested to verify your
+      account,<br/> verify now within the next 10mins,<br/>
+      otherwise ignore this message</p>
       <a href="https://shopmate-0b17.onrender.com/verify-account/${user.id}/${verificationToken}">Click here to verify</a>`;
       const smtpTransport = nodemailer.createTransport({
         service: process.env.MAIL_SERVICE,
@@ -306,9 +280,9 @@ userRouter.post(
 
       //HTML message
       const subdomain = process.env.SUB_DOMAIN;
-      const resetURL = `if you were requested to reset your 
-		password, resest now within the next 10mins,
-		otherwise ignore this message 
+      const resetURL = `<p>if you were requested to reset your 
+		password,<br/> resest now within the next 10mins,<br/>
+		otherwise ignore this message </p>
 		<a href="https://shopmate-0b17.onrender.com/${user.id}/reset-password/${token}">Click here to reset</a>`;
       const smtpTransport = nodemailer.createTransport({
         service: process.env.MAIL_SERVICE,

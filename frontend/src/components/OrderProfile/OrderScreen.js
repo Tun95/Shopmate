@@ -220,7 +220,7 @@ function OrderScreen() {
                             <MessageBox variant="success">
                               Paid at {order.paidAt}
                             </MessageBox>
-                          ) : (
+                          ) : userInfo._id ? (
                             <div className="not-paid-btn">
                               <MessageBox variant="danger">Not Paid</MessageBox>
                               <button
@@ -230,6 +230,8 @@ function OrderScreen() {
                                 Pay Now
                               </button>
                             </div>
+                          ) : (
+                            ""
                           )}
                         </div>
                       </div>

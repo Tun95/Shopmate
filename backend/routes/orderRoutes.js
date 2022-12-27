@@ -48,7 +48,7 @@ orderRouter.post(
   })
 );
 
-//ADMIN PRODUCT LIST
+//ADMIN ORDER LIST
 const PAGE_SIZE = 10;
 orderRouter.get(
   "/admin",
@@ -197,7 +197,7 @@ orderRouter.get(
   "/mine",
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
+    const orders = await Order.find({ user: req.user._id }).sort("-createdAt");
     res.send(orders);
   })
 );

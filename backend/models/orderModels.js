@@ -47,18 +47,18 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    products: [
-      {
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-        },
-        quantity: {
-          type: Number,
-          default: 1,
-        },
-      },
-    ],
+    // products: [
+    //   {
+    //     productId: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       ref: "Product",
+    //     },
+    //     quantity: {
+    //       type: Number,
+    //       default: 1,
+    //     },
+    //   },
+    // ],
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
     isDelivered: { type: Boolean, default: false },

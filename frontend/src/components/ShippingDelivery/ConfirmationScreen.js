@@ -35,10 +35,10 @@ function ConfirmationScreen() {
     cart: { cartItems, shippingAddress, paymentMethod },
   } = state;
 
-   const itemsPrice = cartItems.reduce(
-     (a, c) => a + (c.price - (c.price * c.discount) / 100) * c.quantity,
-     0
-   );
+  const itemsPrice = cartItems.reduce(
+    (a, c) => a + (c.price - (c.price * c.discount) / 100) * c.quantity,
+    0
+  );
   const taxPrice = itemsPrice * 0.14;
   const shippingPrice = shippingAddress.shipping === Express ? 28 : 0;
   const grandTotal = (
@@ -63,31 +63,37 @@ function ConfirmationScreen() {
   });
   const placeOrderHandler = async () => {
     dispatch({ type: "CREATE_REQUEST" });
-    try {
-      const { data } = await axios.post(
-        "/api/orders",
-        {
-          orderItems: cartItems,
-          shippingAddress,
-           //paymentMethod,
-          itemsPrice,
-          shippingPrice: shippingPrice,
-          taxPrice,
-          grandTotal,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${userInfo.token}`,
+    if (!userInfo.isAccountVerified) {
+      toast.error("Please verify your account to checkout", {
+        position: "bottom-center",
+      });
+    } else {
+      try {
+        const { data } = await axios.post(
+          "/api/orders",
+          {
+            orderItems: cartItems,
+            shippingAddress,
+            //paymentMethod,
+            itemsPrice,
+            shippingPrice: shippingPrice,
+            taxPrice,
+            grandTotal,
           },
-        }
-      );
-      ctxDispatch({ type: "CART_CLEAR" });
-      dispatch({ type: "CREATE_SUCCESS" });
-      localStorage.removeItem("cartItems");
-      navigate(`/payment/${data.order._id}`);
-    } catch (err) {
-      dispatch({ type: "CREATE_FAIL" });
-      toast.error(getError(err), { position: "bottom-center" });
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        ctxDispatch({ type: "CART_CLEAR" });
+        dispatch({ type: "CREATE_SUCCESS" });
+        localStorage.removeItem("cartItems");
+        navigate(`/payment/${data.order._id}`);
+      } catch (err) {
+        dispatch({ type: "CREATE_FAIL" });
+        toast.error(getError(err), { position: "bottom-center" });
+      }
     }
   };
 

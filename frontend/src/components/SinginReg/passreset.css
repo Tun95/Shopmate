@@ -21,6 +21,14 @@
   align-items: center;
   text-align: center;
 }
+.pass-reset .pass-reset-content .close {
+  position: relative;
+  left: 157px;
+  bottom: 105px;
+}
+.pass-reset-content .close .close-reg {
+  font-size: 34px;
+}
 .pass-reset-content .pass-reset-header {
   margin-bottom: 10px;
 }
