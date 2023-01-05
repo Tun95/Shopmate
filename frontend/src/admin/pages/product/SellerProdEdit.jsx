@@ -274,7 +274,10 @@ function SellerProductEdit() {
       summary.income?.map((item) =>
         setSalesStats((prev) => [
           ...prev,
-          { name: MONTHS[item._id - 1], Sales: item.total },
+          {
+            name: MONTHS[item._id - 1],
+            Sales: item.total > 0 ? item.total : item.total === 0,
+          },
         ])
       );
     };
@@ -373,7 +376,7 @@ function SellerProductEdit() {
             <div className="productTop">
               <div className="productTopLeft">
                 <Charts
-                  data={salesStats}
+                  data={salesStats || 0}
                   dataKey="Sales"
                   title="Sales Performance"
                 />

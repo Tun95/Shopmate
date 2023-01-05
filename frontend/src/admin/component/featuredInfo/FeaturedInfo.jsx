@@ -6,21 +6,19 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 function FeaturedInfo(props) {
   const { summary, salesStats } = props;
 
-  
-
   const userPerc = (
-    (summary.users[0]?.numUsers * 100) / summary.users[1].numUsers -
+    (summary.users[0]?.numUsers * 100) / summary.users[1]?.numUsers -
     100
   ).toFixed(0);
-  
 
-  const orderPerc = (
-    (summary.orders[0].numOrders * 100) / summary.orders[1].numOrders -
-    100
-  ).toFixed(0);
+  const orderPerc =
+    (
+      (summary.orders[0]?.numOrders * 100) / summary.orders[1]?.numOrders -
+      100
+    ).toFixed(0) || 0;
 
   const salesPerc = (
-    (summary.orders[0].totalSales * 100) / summary.orders[1].totalSales -
+    (summary.orders[0]?.totalSales * 100) / summary.orders[1]?.totalSales -
     100
   ).toFixed(0);
 
@@ -53,7 +51,7 @@ function FeaturedInfo(props) {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{TotalUsers}</span>
           <span className="featuredMoneyRate">
-            %{Math.abs(userPerc)}{" "}
+            %{userPerc > 0 ? Math.abs(userPerc) : 0}{" "}
             {userPerc > 0 ? (
               <ArrowUpwardIcon className="featuredIcon positive" />
             ) : (
@@ -68,7 +66,7 @@ function FeaturedInfo(props) {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{TotalOrders}</span>
           <span className="featuredMoneyRate">
-            %{Math.abs(orderPerc)}{" "}
+            %{orderPerc > 0 ? Math.abs(orderPerc) : 0}{" "}
             {orderPerc > 0 ? (
               <ArrowUpwardIcon className="featuredIcon positive" />
             ) : (
@@ -83,7 +81,7 @@ function FeaturedInfo(props) {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{TotalSales}</span>
           <span className="featuredMoneyRate">
-            %{Math.abs(salesPerc)}{" "}
+            %{salesPerc > 0 ? Math.abs(salesPerc) : 0}{" "}
             {salesPerc > 0 ? (
               <ArrowUpwardIcon className="featuredIcon positive" />
             ) : (

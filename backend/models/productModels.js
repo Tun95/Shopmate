@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema(
     desc: { type: String },
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
-    numWishList: { type: Number, default: 0 },
+    numWishList: { type: mongoose.Schema.Types.ObjectId, ref: "Wish" },
     reviews: [reviewSchema],
     user: {
       type: mongoose.Schema.Types.ObjectId,
