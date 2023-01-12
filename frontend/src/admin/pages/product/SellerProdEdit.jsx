@@ -358,7 +358,7 @@ function SellerProductEdit() {
             <div className="productTop">
               <div className="productTopLeft">
                 <Charts
-                  data={salesStats || 0}
+                  data={salesStats}
                   dataKey="Sales"
                   title="Sales Performance"
                 />
