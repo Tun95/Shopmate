@@ -252,38 +252,20 @@ function SellerProductEdit() {
   }, [productId, userInfo]);
 
   const [salesStats, setSalesStats] = useState([]);
-  const MONTHS = useMemo(
-    () => [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    []
-  );
+
   useEffect(() => {
     const getStats = async () => {
-      summary.income?.map((item) =>
-        setSalesStats((prev) => [
-          ...prev,
-          {
-            name: MONTHS[item._id - 1],
-            Sales: item.total > 0 ? item.total : item.total === 0,
-          },
-        ])
-      );
+      summary.salePerformance
+        ?.reverse()
+        ?.map((item) =>
+          setSalesStats((prev) => [
+            ...prev,
+            { name: item._id, Sales: item.sales },
+          ])
+        );
     };
     getStats();
-  }, [MONTHS, summary.income]);
-  console.log(salesStats);
+  }, [summary.salePerformance]);
 
   //DELETE IMAGES
   const deleteFileHandler = async (fileName) => {

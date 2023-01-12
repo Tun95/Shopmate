@@ -33,6 +33,14 @@
   align-items: center;
   margin-left: 20px;
 }
+.muiIcon_display {
+  display: flex;
+  justify-content: space-between;
+}
+.muiIcon {
+  font-size: 35px !important;
+  color: #f62f5e;
+}
 .featuredIcon {
   font-size: 14px;
   margin-left: 15px;

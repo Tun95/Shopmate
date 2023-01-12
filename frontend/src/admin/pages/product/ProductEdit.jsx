@@ -244,36 +244,24 @@ function ProductEdit() {
   }, [productId, userInfo]);
 
   const [salesStats, setSalesStats] = useState([]);
-  const MONTHS = useMemo(
-    () => [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    []
-  );
+ 
+
   useEffect(() => {
     const getStats = async () => {
-      summary.income?.map((item) =>
-        setSalesStats((prev) => [
-          ...prev,
-          { name: MONTHS[item._id - 1], Sales: item.total },
-        ])
-      );
+      summary.salePerformance
+        ?.reverse()
+        ?.map((item) =>
+          setSalesStats((prev) => [
+            ...prev,
+            { name: item._id, Sales: item.sales },
+          ])
+        );
     };
     getStats();
-  }, [MONTHS, summary.income]);
-  console.log(salesStats);
+  }, [summary.salePerformance]);
+
   console.log(summary);
+  console.log(salesStats);
 
   //DELETE IMAGES
   const deleteFileHandler = async (fileName) => {
@@ -298,7 +286,6 @@ function ProductEdit() {
     };
     fetchData();
   }, [userInfo]);
-  console.log(categories);
 
   //FETCH ALL BRANDS
   useEffect(() => {
@@ -315,7 +302,6 @@ function ProductEdit() {
     };
     fetchData();
   }, [userInfo]);
-  console.log(brands);
 
   //FETCH ALL SIZE
   useEffect(() => {
@@ -332,7 +318,6 @@ function ProductEdit() {
     };
     fetchData();
   }, [userInfo]);
-  console.log(sizes);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -365,7 +350,7 @@ function ProductEdit() {
                 <div className="productTop">
                   <div className="productTopLeft">
                     <Charts
-                      data={salesStats || 0}
+                      data={salesStats}
                       dataKey="Sales"
                       title="Sales Performance"
                     />

@@ -102,18 +102,10 @@ orderRouter.get(
     console.log(productId);
     //GET MONTLY ORDERS
     const orders = await Order.aggregate([
-      { $match: { createdAt: { $gte: previousMonth } } },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-          sales: "$grandTotal",
-        },
-      },
       {
         $group: {
-          _id: "$month",
+          _id: 1,
           numOrders: { $sum: 1 },
-          totalSales: { $sum: "$sales" },
         },
       },
       { $sort: { _id: -1 } },
@@ -122,15 +114,9 @@ orderRouter.get(
 
     //GET MONTHLY USERS STATS
     const users = await User.aggregate([
-      { $match: { createdAt: { $gte: previousMonth } } },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-        },
-      },
       {
         $group: {
-          _id: "$month",
+          _id: 1,
           numUsers: { $sum: 1 },
         },
       },
@@ -148,35 +134,40 @@ orderRouter.get(
           sales: { $sum: "$grandTotal" },
         },
       },
-      { $sort: { _id: 1 } },
+
+      { $sort: { _id: -1 } },
+      { $limit: 10 },
     ]);
 
-    //GET MONTHLY INCOME
+    //GET DAILY INCOME
     const income = await Order.aggregate([
       {
-        $match: {
-          createdAt: { $gte: previousMonth },
-          ...(productId && {
-            products: { $elemMatch: { productId } },
-          }),
-        },
-      },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-          sales: "$grandTotal",
-        },
-      },
-      {
         $group: {
-          _id: "$month",
-          total: { $sum: "$sales" },
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          orders: { $sum: 1 },
+          numOrders: { $sum: 1 },
+          sales: { $sum: "$grandTotal" },
         },
       },
-      { $sort: { _id: 1 } },
+
+      { $sort: { _id: -1 } },
+      { $limit: 2 },
     ]);
 
-    res.send({ users, orders, income, dailyOrders });
+    //SALE PERFORMANCE
+    const salePerformance = await Order.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          sales: { $sum: "$grandTotal" },
+        },
+      },
+
+      { $sort: { _id: -1 } },
+      { $limit: 2 },
+    ]);
+
+    res.send({ users, orders, income, dailyOrders, salePerformance });
   })
 );
 

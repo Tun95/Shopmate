@@ -61,17 +61,17 @@ function Dashboard() {
 
   useEffect(() => {
     const getStats = async () => {
-      summary.dailyOrders?.map((item) =>
-        setSalesStats((prev) => [
-          ...prev,
-          { name: item._id, "Total Sales": item.sales },
-        ])
-      );
+      summary.dailyOrders
+        ?.reverse()
+        ?.map((item) =>
+          setSalesStats((prev) => [
+            ...prev,
+            { name: item._id, "Total Sales": item.sales },
+          ])
+        );
     };
     getStats();
   }, [summary.dailyOrders]);
-
-  
 
   return (
     <>

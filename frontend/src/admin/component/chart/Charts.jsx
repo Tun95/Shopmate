@@ -11,24 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const CustomTooltip = ({ active, payload, label }) => {
-  let TotalSales = new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(payload[0]?.value);
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip" style={{ padding: "10px" }}>
-        <p className="label">{`${label}`}</p>
-        <p className="" style={{ color: "#5550bd", marginTop: "3px" }}>
-          Total Sales:{` ${TotalSales}`}
-        </p>
-      </div>
-    );
-  }
 
-  return null;
-};
 
 function Charts({ title, data, dataKey, grid }) {
   return (
