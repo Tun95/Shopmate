@@ -90,13 +90,12 @@ function ProductPage(props) {
       error: "",
     });
 
- 
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get(`/api/products/slug/${slug}`);
-      
+
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_FAIL", payload: getError(error) });
@@ -224,7 +223,7 @@ function ProductPage(props) {
 
   //Wish List
 
-   const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
   const handleChange = async (event) => {
     try {
       const { data } = await axios.post(

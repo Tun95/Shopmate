@@ -10,10 +10,6 @@ wishRouter.post(
   "/",
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const alreadyExist = await Wish.findOne({ slug: req.body.slug });
-    if (alreadyExist) {
-      throw new Error("Already added to your wish list");
-    }
     try {
       const wish = await Wish.create({
         name: req.body.name,
