@@ -34,7 +34,7 @@
 }
 
 .wish .product-list {
-  min-width: 210px;
+  width: 210px;
 }
 .wish .deleteBtn {
   color: #f62f5e;
@@ -71,7 +71,7 @@
 	}
 }
 
-@media screen and (max-width: 4040px) {
+@media screen and (max-width: 404px) {
   .wish .box {
     margin-left: -15px;
   }
