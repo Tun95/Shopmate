@@ -29,6 +29,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 function SideBar(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
@@ -148,6 +149,13 @@ function SideBar(props) {
                                 <Link to="/orderhistory">
                                   <HistoryIcon className="sidebar-icons" />
                                   Order History
+                                </Link>
+                              </li>
+                              <li className="inner-list">
+                                <Link to={`/wishlist/${userInfo._id}`}>
+                                  {" "}
+                                  <FavoriteBorderIcon className="sidebar-icons" />
+                                  Wish List
                                 </Link>
                               </li>
                             </div>

@@ -135,6 +135,7 @@ function Store(props) {
         const result = await axios.get(
           `/api/products/store?page=${page}&query=${query}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`
         );
+        window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });

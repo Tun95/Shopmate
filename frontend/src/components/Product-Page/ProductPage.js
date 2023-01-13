@@ -95,7 +95,7 @@ function ProductPage(props) {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get(`/api/products/slug/${slug}`);
-
+        window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_FAIL", payload: getError(error) });
