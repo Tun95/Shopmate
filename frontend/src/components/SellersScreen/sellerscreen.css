@@ -111,7 +111,7 @@
 }
 .seller .product-pagination {
   display: flex;
-  align-items: ;
+ 
   position: relative;
   top: 18px;
   justify-content: center;
@@ -144,9 +144,7 @@
     box-shadow: 1px 3px 3px -2px;
     overflow: hidden;
   }
-  .seller-box .box .box-1 {
-    /* width: 30%; */
-  }
+
 }
 @media screen and (max-width: 800px) {
   .seller .prod-design {
@@ -185,7 +183,7 @@
     height: 450px;
 
     position: relative;
-    margin: ;
+  
     left: 20px;
   }
   .seller .prod-design .product-img {
@@ -204,7 +202,7 @@
     height: 350px;
     width: 280px;
     position: relative;
-    margin: ;
+  
     left: 20px;
   }
   .seller .prod-design .product-img {

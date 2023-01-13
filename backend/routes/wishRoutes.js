@@ -8,8 +8,12 @@ const wishRouter = express.Router();
 //CREATE
 wishRouter.post(
   "/",
-  // isAuth,
+  isAuth,
   expressAsyncHandler(async (req, res) => {
+    const alreadyExist = await Wish.findOne({ slug: req.body.slug });
+    if (alreadyExist) {
+      throw new Error("Already added to your wish list");
+    }
     try {
       const wish = await Wish.create({
         name: req.body.name,
@@ -18,6 +22,7 @@ wishRouter.post(
         price: req.body.price,
         checked: req.body.checked,
         user: req.user._id,
+        product: req.body.product,
       });
       res.send(wish);
     } catch (error) {
@@ -28,33 +33,14 @@ wishRouter.post(
 
 //FETCH ALL
 wishRouter.get(
-  "/:id/wishlist",
-  isAuth,
+  "/",
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
-    const { id } = req.params.user;
     try {
-      const wishList = await Wish.findOne({ id }).sort("-createdAt");
-      res.send(wishList);
-    } catch (error) {
-      res.send(error);
-    }
-  })
-);
-
-//UPADTE
-wishRouter.put(
-  "/:id",
-  expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-    try {
-      const wish = await Wish.findOneAndUpdate(
-        id,
-        {
-          quantity: req.body.quantity,
-        },
-        { new: true }
-      );
-      res.send(wish);
+      const wishLists = await Wish.find({})
+        .sort("-createdAt")
+        .populate("user product");
+      res.send(wishLists);
     } catch (error) {
       res.send(error);
     }

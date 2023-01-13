@@ -63,7 +63,9 @@ function NavBarSR(props) {
                       <li>
                         <Link to="/orderhistory">Orders </Link>
                       </li>
-
+                      <li>
+                        <Link to={`/wishlist/${userInfo._id}`}>Wish List</Link>
+                      </li>
                       <li>
                         <div className="user-signout">
                           <Link to="#signout" onClick={signoutHandler}>

@@ -31,37 +31,24 @@ const productSchema = new mongoose.Schema(
     desc: { type: String },
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
-    numWishList: { type: mongoose.Schema.Types.ObjectId, ref: "Wish" },
+
     reviews: [reviewSchema],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    isWished: {
-      type: Boolean,
-      default: false,
-    },
-    isUnWished: {
-      type: Boolean,
-      default: false,
-    },
-    wished: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    unWished: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
   },
   {
     timestamps: true,
   }
 );
+
+//Virtual method to populate created post
+productSchema.virtual("wish", {
+  ref: "Wish",
+  foreignField: "product",
+  localField: "_id",
+});
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;

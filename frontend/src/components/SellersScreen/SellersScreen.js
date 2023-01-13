@@ -76,7 +76,7 @@ function SellersScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/users/${sellerId}`);
+        const { data } = await axios.get(`/api/users/seller/${sellerId}`);
         dispatch({ type: "FETCH_SELLER_SUCCESS", payload: data });
         console.log(data);
       } catch (err) {
@@ -128,6 +128,8 @@ function SellersScreen() {
     fetchData();
   }, [page, userInfo, seller]);
 
+  console.log(user);
+
   return (
     <>
       {loading ? (
@@ -163,25 +165,28 @@ function SellersScreen() {
                     <div className="seller-details">
                       <div className="seller-name-img">
                         <img
-                          src={user?.seller?.logo || person}
-                          alt={user?.seller?.name}
+                          src={user?.user?.seller?.logo || person}
+                          alt={user?.user?.seller?.name}
                         />
-                        <h2>{user?.seller?.name}</h2>
+                        <h2>{user?.user?.seller?.name}</h2>
                       </div>
                       <div className="ratings-rev">
-                        <Ratings
-                          rating={user?.seller?.rating}
-                          // numReviews={user.seller.numReviews}
-                        ></Ratings>
-                        {user?.products?.numReviews} Reviews
+                        <Ratings rating={user?.seller?.rating}></Ratings>
+                        <span style={{ fontWeight: "bold", margin: "0px 5px" }}>
+                          {" "}
+                          {user?.numReviews[0]?.numReviews}
+                        </span>{" "}
+                        Reviews
                       </div>
                       <div>
                         <h4>
-                          <a href={`mailto:${user?.email}`}>Contact Seller</a>
+                          <a href={`mailto:${user?.user?.email}`}>
+                            Contact Seller
+                          </a>
                         </h4>
                       </div>
                       <div>
-                        <span>{user?.seller?.description}</span>
+                        <span>{user?.user?.seller?.description}</span>
                       </div>
                     </div>
                   </div>
@@ -231,7 +236,7 @@ function SellersScreen() {
                               : "paginationItemStyle active"
                           }`}
                           component={Link}
-                          to={`/sellers-screen/${user?._id}?page=${item.page}`}
+                          to={`/sellers-screen/${sellerId}?page=${item.page}`}
                           {...item}
                         />
                       )}

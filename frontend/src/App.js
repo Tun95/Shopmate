@@ -52,6 +52,7 @@ import Alert from "./components/NavBar/Alert";
 import Verify from "./components/Verify/Verify";
 import PassReset from "./components/SinginReg/PassReset";
 import PassResetForm from "./components/SinginReg/PassResetForm";
+import Wishlist from "./components/Wish/Wishlist";
 
 function App() {
   const { state } = useContext(Context);
@@ -174,6 +175,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/wishlist/:id"
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
                 </ProtectedRoute>
               }
             ></Route>

@@ -34,6 +34,13 @@ const reducer = (state, action) => {
     case "CREATE_FAIL":
       return { ...state, loadingCreateReview: false };
 
+    case "ADD_REQUEST":
+      return { ...state, loadingAddReview: true };
+    case "ADD_SUCCESS":
+      return { ...state, loadingAddReview: false };
+    case "ADD_FAIL":
+      return { ...state, loadingAddReview: false };
+
     case "FETCH_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SUCCESS":
@@ -83,11 +90,13 @@ function ProductPage(props) {
       error: "",
     });
 
+ 
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get(`/api/products/slug/${slug}`);
+      
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_FAIL", payload: getError(error) });
@@ -213,6 +222,41 @@ function ProductPage(props) {
     }
   };
 
+  //Wish List
+
+   const [checked, setChecked] = useState(false);
+  const handleChange = async (event) => {
+    try {
+      const { data } = await axios.post(
+        `/api/wishes`,
+        {
+          name: product.name,
+          slug: product.slug,
+          image: product.image,
+          price: product.price,
+          product: product._id,
+          checked: true,
+        },
+        {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({
+        type: "ADD_SUCCESS",
+        payload: { seller: data.seller },
+      });
+      toast.success("Added to wish list successfully", {
+        position: "bottom-center",
+      });
+
+      dispatch({ type: "REFRESH_PRODUCT", payload: product });
+    } catch (err) {
+      toast.error(getError(err), { position: "bottom-center" });
+      dispatch({ type: "ADD_FAIL" });
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       {loading ? (
@@ -283,7 +327,7 @@ function ProductPage(props) {
                         </div>
 
                         <div className="prod-title">
-                          <h2>{product.name}</h2>
+                          <h2>{product?.name}</h2>
                         </div>
                         {product.seller ? (
                           <div className="seller-name-link">
@@ -377,6 +421,8 @@ function ProductPage(props) {
                             )}
                             <div className="wish-list">
                               <Checkbox
+                                checked={checked}
+                                onChange={handleChange}
                                 className="mui-favorite-checkbox"
                                 icon={<FavoriteBorder />}
                                 checkedIcon={
@@ -443,14 +489,14 @@ function ProductPage(props) {
                     </div>
                     {product.reviews.length !== 0 && (
                       <div className="page-rev">
-                        <div className="page">
+                        {/* <div className="page">
                           <span className="material-symbols-sharp">
                             favorite
                           </span>
                           <span className="fav-count">
                             {product.numWishList}
                           </span>
-                        </div>
+                        </div> */}
                         <div className="page-fav-rev">
                           <div className="page-fava-rev">
                             <i className="fa-regular fa-comment"></i>

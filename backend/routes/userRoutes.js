@@ -25,7 +25,8 @@ userRouter.get(
 userRouter.get(
   "/:id",
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id).populate("products");
+    const user = await User.findById(req.params.id).populate("products wish");
+
     if (user) {
       res.send(user);
     } else {
@@ -36,22 +37,24 @@ userRouter.get(
 
 //TEST
 userRouter.get(
-  "/:id/num",
+  "/seller/:id",
   expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id).populate("products");
     const numReviews = await User.aggregate([
-      // { $match: {} },
-      { $group: { _id: "$seller", numReviews: { $sum: "$numReviews" } } },
-      // { $lookup: { from: "user", localField: "_id", foreignField: "_id", as: "class"}},
-      // {
-      //   $lookup: {
-      //     from: "Product",
-      //     localField: "seller.numReviews",
-      //     foreignField: "numReviews",
-      //     as: "seller",
-      //   },
-      // },
+      // { $match: { products: "numReviews" } },
+      // { $unwind: "$reviews" },
+      {
+        $group: {
+          _id: null,
+          numReviews: { $sum: 1 },
+        },
+      },
     ]);
-    res.send(numReviews);
+    if (user) {
+      res.send({ user, numReviews });
+    } else {
+      res.status(404).send({ message: "User Not Found" });
+    }
   })
 );
 

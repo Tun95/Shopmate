@@ -8,7 +8,7 @@ const productRouter = express.Router();
 productRouter.get("/", async (req, res) => {
   const seller = req.query.seller || "";
   const sellerFilter = seller ? { seller } : {};
-  const products = await Product.find({ ...sellerFilter });
+  const products = await Product.find({ ...sellerFilter }).populate("seller");
   res.send(products);
 });
 
@@ -251,7 +251,7 @@ productRouter.get(
       ...priceFilter,
       ...ratingFilter,
     })
-      .populate("seller")
+      .populate("seller wish")
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
       .limit(pageSize);
@@ -285,10 +285,10 @@ productRouter.get(
   })
 );
 
-//PRODUCT DETAILS
+//PRODUCT DETAILS BY SLUG
 productRouter.get("/slug/:slug", async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug }).populate(
-    "seller"
+    "seller wish"
   );
   if (product) {
     res.send(product);
@@ -315,81 +315,9 @@ productRouter.get("/related/:id", async (req, res) => {
   }
 });
 
-//WISH LIST
-productRouter.put(
-  "/:id/wish",
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const { productId } = req.body;
-    const product = await Product.findById(productId);
-
-    const loginUserId = req?.user?._id;
-    const isWished = product?.isWished;
-
-    const alreadyWished = product?.unWished?.find(
-      (userId) => userId?.toString() === loginUserId.toString()
-    );
-    if (alreadyWished) {
-      const product = await Product.findByIdAndUpdate(
-        productId,
-        {
-          $pull: { unWished: loginUserId },
-          isUnWished: false,
-        },
-        { new: true }
-      );
-      res.send(product);
-    }
-    if (isWished) {
-      const product = await Product.findByIdAndUpdate(
-        productId,
-        {
-          $pull: { wished: loginUserId },
-          isWished: false,
-        },
-        { new: true }
-      );
-      res.send(product);
-    } else {
-      const product = await Product.findByIdAndUpdate(
-        productId,
-        {
-          $push: { wished: loginUserId },
-          isWished: true,
-        },
-        { new: true }
-      );
-      res.send(product);
-    }
-  })
-);
-
-//TEST
-productRouter.get(
-  "/num",
-  expressAsyncHandler(async (req, res) => {
-    const income = await Product.aggregate([
-      // { $match: {} },
-      //{ $group: { _id: "$seller", numReviews: { $sum: "$numReviews" } } },
-      // { $lookup: { from: "user", localField: "_id", foreignField: "_id", as: "class"}},
-      {
-        $lookup: {
-          from: "User",
-          localField: "numReviews",
-          foreignField: "seller.numReviews",
-          as: "seller",
-        },
-      },
-    ]);
-    res.send(income);
-  })
-);
-
+//PRODUCT DETAILS BY ID
 productRouter.get("/:id", async (req, res) => {
-  const product = await Product.findById(req.params.id).populate(
-    "seller",
-    "seller.name seller.logo seller.rating seller.numReviews"
-  );
+  const product = await Product.findById(req.params.id).populate("seller");
   if (product) {
     res.send(product);
   } else {
