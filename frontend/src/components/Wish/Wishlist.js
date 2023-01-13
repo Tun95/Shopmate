@@ -110,9 +110,9 @@ function Wishlist() {
                   <div className="boxStyles">
                     {user?.wish?.map((item, index) => (
                       <div key={index}>
-                        <div className="product-list">
-                          <div className="prod-design">
-                            <div className="top-list-product">
+                        <div className="product-list wish_list">
+                          <div className="prod-design  wish_list">
+                            <div className="top-list-product wish_list">
                               <div className="delete">
                                 <DeleteIcon
                                   className="deleteBtn"

@@ -13,17 +13,17 @@
 }
 .wish .wish_header {
   margin-bottom: 10px;
-	color: #6c6c6c;
+  color: #6c6c6c;
 }
 .wish .wish-box {
   -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
   box-shadow: 0px 0px 7px -1px #b4b4b4;
-	min-height: 310px;
+  min-height: 310px;
   padding: 10px;
 }
 .wish .box {
   display: flex;
-  
+
   margin-left: 8px;
   width: 100%;
 }
@@ -46,4 +46,33 @@
 }
 .wish .deleteBtn:hover {
   color: #fc5179;
+}
+@media screen and (max-width: 590px) {
+  .wish .box {
+    display: flex;
+    justify-content: center;
+    margin-left: -8px;
+  }
+  .wish .boxStyles {
+    justify-content: center;
+  }
+  .wish-contanainer {
+    width: 100%;
+  }
+  .wish .product-list {
+    width: 100%;
+  }
+  .wish .wish_list {
+    width: 100%;
+  }
+	.wish .deleteBtn {
+		left: 120px;
+		font-size: 30px;
+	}
+}
+
+@media screen and (max-width: 4040px) {
+  .wish .box {
+    margin-left: -15px;
+  }
 }
