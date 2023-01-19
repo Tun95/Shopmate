@@ -28,7 +28,9 @@ function reducer(state, action) {
       return state;
   }
 }
-function Dashboard() {
+function Dashboard(props) {
+  const { currency, currencySign } = props;
+
   const navigate = useNavigate();
 
   const { state } = useContext(Context);
@@ -89,7 +91,12 @@ function Dashboard() {
               <div className="dashboard-home">
                 <div className="dashboard-home-view">
                   <div className="dash-feature">
-                    <FeaturedInfo summary={summary} salesStats={salesStats} />
+                    <FeaturedInfo
+                      summary={summary}
+                      salesStats={salesStats}
+                      currency={currency}
+                      currencySign={currencySign}
+                    />
                     {/* <div className="chart">
               <h3 className="chartTitle">Sales</h3>
               <Chart
@@ -106,6 +113,8 @@ function Dashboard() {
                     <div className="dashbaord-chart">
                       <Charts
                         data={salesStats}
+                        currency={currency}
+                        currencySign={currencySign}
                         title="Sales"
                         grid
                         dataKey="Total Sales"
@@ -114,7 +123,7 @@ function Dashboard() {
                   </div>
                   <div className="homeWidgets">
                     <WidgetSm />
-                    <WidgetLg />
+                    <WidgetLg currencySign={currencySign} />
                   </div>
                 </div>
               </div>

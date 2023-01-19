@@ -22,7 +22,16 @@ const reducer = (state, action) => {
   }
 };
 
-function ConfirmationScreen() {
+function ConfirmationScreen(props) {
+  const {
+   
+    express,
+    expressCharges,
+    standardCharges,
+    tax,
+  
+  } = props;
+
   const navigate = useNavigate();
   const {
     state,
@@ -32,6 +41,7 @@ function ConfirmationScreen() {
   } = useContext(Context);
   const {
     userInfo,
+    settings,
     cart: { cartItems, shippingAddress, paymentMethod },
   } = state;
 
@@ -39,8 +49,9 @@ function ConfirmationScreen() {
     (a, c) => a + (c.price - (c.price * c.discount) / 100) * c.quantity,
     0
   );
-  const taxPrice = itemsPrice * 0.14;
-  const shippingPrice = shippingAddress.shipping === Express ? 28 : 0;
+  const taxPrice = itemsPrice * tax;
+  const shippingPrice =
+  shippingAddress.shipping === express ? expressCharges : standardCharges;
   const grandTotal = (
     Number(itemsPrice) +
     Number(taxPrice) +
@@ -132,21 +143,24 @@ function ConfirmationScreen() {
                           <li className="item-list" key={id}>
                             <p className="item-name">{item.name}</p>
                             <span className="qty">{item.quantity}</span>
-                            <span className="price">
-                              {item.discount ? (
-                                <div className="cart-price">
-                                  £
-                                  {(
-                                    item.price -
-                                    (item.price * item.discount) / 100
-                                  ).toFixed(0) * item.quantity}
-                                </div>
-                              ) : (
-                                <div className="cart-price">
-                                  £{item.price.toFixed(0) * item.quantity}
-                                </div>
-                              )}
-                            </span>
+                            {settings?.map((s, index) => (
+                              <span className="price" key={index}>
+                                {item.discount ? (
+                                  <div className="cart-price">
+                                    {s.currencySign}
+                                    {(
+                                      item.price -
+                                      (item.price * item.discount) / 100
+                                    ).toFixed(0) * item.quantity}
+                                  </div>
+                                ) : (
+                                  <div className="cart-price">
+                                    {s.currencySign}
+                                    {item.price.toFixed(0) * item.quantity}
+                                  </div>
+                                )}
+                              </span>
+                            ))}
                           </li>
                         ))}
                       </ul>
@@ -173,33 +187,53 @@ function ConfirmationScreen() {
               </div>
             </div>
             <div className="con-section-3">
-              <div className="con-3">
-                <div>
-                  <button disabled>TAXPRICE 14%</button>
+              {settings?.map((s, index) => (
+                <div className="con-3" key={index}>
+                  <div>
+                    <button disabled>TAXPRICE {s.tax}%</button>
+                  </div>
+                  <div className="list-shipping">
+                    <ul>
+                      <li className="drag">
+                        <h4>Subtotal</h4>
+                        <span>
+                          {s.currencySign}
+                          {itemsPrice.toFixed(0)}
+                        </span>
+                      </li>
+                      <li className="drag">
+                        <h4>Shipping</h4>{" "}
+                        <span>
+                          {shippingAddress.shipping === s.express ? (
+                            <div>
+                              {s.currencySign}
+                              {s.expressCharges}
+                            </div>
+                          ) : (
+                            <span>
+                              {s.standardCharges === "" ? (
+                                "free"
+                              ) : (
+                                <span>
+                                  {s.currencySign}
+                                  {s.standardCharges}
+                                </span>
+                              )}
+                            </span>
+                          )}
+                        </span>
+                      </li>
+                      <li>
+                        <h4>Grandtotal</h4>
+                        <span className="grand-total">
+                          {s.currencySign}
+                          {grandTotal}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div className="list-shipping">
-                  <ul>
-                    <li className="drag">
-                      <h4>Subtotal</h4>
-                      <span>£{itemsPrice.toFixed(0)}</span>
-                    </li>
-                    <li className="drag">
-                      <h4>Shipping</h4>{" "}
-                      <span>
-                        {shippingAddress.shipping === Express ? (
-                          <div>£28</div>
-                        ) : (
-                          "free"
-                        )}
-                      </span>
-                    </li>
-                    <li>
-                      <h4>Grandtotal</h4>
-                      <span className="grand-total">£{grandTotal}</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="lower-btn">

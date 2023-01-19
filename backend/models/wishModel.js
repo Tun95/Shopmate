@@ -6,6 +6,7 @@ const wishSchema = new mongoose.Schema(
     slug: { type: String },
     image: { type: String },
     price: { type: Number },
+    discount: { type: Number },
     checked: { type: Boolean, default: false },
     user: {
       type: mongoose.Schema.Types.ObjectId,

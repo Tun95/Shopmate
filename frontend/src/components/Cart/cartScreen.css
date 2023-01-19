@@ -85,6 +85,10 @@
   display: flex;
   align-items: center;
 }
+.cart-m-stayle-sec .col-2 .item-color .color_image_size {
+  position: relative;
+  top: 4px;
+}
 .cart-m-stayle-sec .col-2 .item-color span {
   margin-left: 10px;
 }

@@ -40,6 +40,8 @@ const reducer = (state, action) => {
 function Payment(props) {
   const navigate = useNavigate();
 
+  const { currency, currencySign } = props;
+
   //ORDER POSTING
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
@@ -92,46 +94,6 @@ function Payment(props) {
       loadingPay: false,
     });
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-  // const [sdkReady, setSdkReady] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchOrder = async () => {
-  //     try {
-  //       dispatch({ type: "FETCH_REQUEST" });
-  //       const { data } = await axios.get(`/api/orders/${orderId}`, {
-  //         headers: { authorization: `Bearer ${userInfo.token}` },
-  //       });
-  //       dispatch({ type: "FETCH_SUCCESS", payload: data });
-  //     } catch (err) {
-  //       dispatch({ type: "FETCH_FAIL", payload: getError(err) });
-  //     }
-  //   };
-  //   if (!userInfo) {
-  //     return navigate("/login");
-  //   }
-  //   if (!order._id || successPay || (order._id && order._id !== orderId)) {
-  //     fetchOrder();
-  //     if (successPay) {
-  //       dispatch({ type: "PAY_RESET" });
-  //     }
-  //   } else {
-  //     const loadPaypalScript = async () => {
-  //       const { data: clientId } = await axios.get("/api/keys/paypal", {
-  //         headers: { authorization: `Bearer ${userInfo.token}` },
-  //       });
-  //       paypalDispatch({
-  //         type: "resetOptions",
-  //         value: {
-  //           "client-id": clientId,
-  //           currency: "GBP",
-  //         },
-  //       });
-  //       paypalDispatch({ type: "setLoadingStatus", value: "pending" });
-  //     };
-
-  //     loadPaypalScript();
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (!userInfo) {
@@ -163,14 +125,22 @@ function Payment(props) {
           type: "resetOptions",
           value: {
             "client-id": clientId,
-            currency: "GBP",
+            currency: currency,
           },
         });
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
     }
-  }, [navigate, order._id, orderId, paypalDispatch, successPay, userInfo]);
+  }, [
+    currency,
+    navigate,
+    order._id,
+    orderId,
+    paypalDispatch,
+    successPay,
+    userInfo,
+  ]);
 
   function createOrder(data, action) {
     return action.order
@@ -229,85 +199,6 @@ function Payment(props) {
     localStorage.setItem("paymentMethod", paymentMethodName);
   };
 
-  //STRIPE SECTION
-  // const loadStripe = () => {
-  //   const script = document.createElement("script");
-  //   script.src = "https://js.stripe.com/v3/";
-  //   script.onerror = () => {
-  //     alert("Stripe SDK failed to load. Are you online?");
-  //   };
-  //   script.onload = async () => {
-  //     try {
-  //       const result = await axios.post("/stripe-create", {
-  //         amount: order.grandTotal * 100,
-  //       });
-  //       const { amount, id: order_id, currency } = result.data;
-  //       const {
-  //         data: { key: stripeKey },
-  //       } = await axios.get("/get-stripe-key");
-  //       const options = {
-  //         key: stripeKey,
-  //         amount: amount.toString(),
-  //         currency: currency,
-  //         name: "example name",
-  //         description: "example transaction",
-  //         order_id: order_id,
-  //         handler: async function (details) {
-  //           dispatch({ type: "PAY_REQUEST" });
-  //           const result = await axios.put(`/api/orders/${order._id}/pay`, {
-  //             details,
-  //           });
-  //           dispatch({ type: "PAY_SUCCESS", payload: result.data });
-  //         },
-  //       };
-  //       const paymentObject = new window.Stripe(options);
-  //       paymentObject.open();
-  //     } catch (err) {
-  //       console.log(err);
-  //       dispatch({ type: "PAY_FAIL", payload: getError(err) });
-  //       toast.error(getError(err), { position: "bottom-center" });
-  //     }
-  //   };
-  //   document.body.appendChild(script);
-  //   loadStripe();
-  // };
-
-  const KEY =
-    "pk_test_51LddZCG74SnLVBhQAzsedUUcKxd33HOpAIThNyxKl2l4mxvCj8uywmQFZHNq5EmiIn6jNrAVGrBqT1tWHprcD3XF00xOSuchsE";
-  const [stripeToken, setStripeToken] = useState(null);
-  const [name, setName] = useState();
-  const [card, setCard] = useState();
-  const [cvv, setCvv] = useState();
-  const [date, setDate] = useState();
-  const onToken = (token) => {
-    setStripeToken(token);
-  };
-  console.log(stripeToken);
-
-  useEffect(() => {
-    const makeRequest = async (details) => {
-      try {
-        const res = await axios.post(
-          "/api/checkout/payment",
-          {
-            tokenId: stripeToken.id,
-            amount: order.grandTotal * 100,
-          }
-          // {
-          //   headers: { authorization: `Bearer ${userInfo.token}` },
-          // }
-        );
-        if (order.isPaid) {
-          navigate("/finish?redirect");
-        }
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    stripeToken && makeRequest();
-  }, [navigate, order, stripeToken]);
-
   return (
     <>
       <div className="payment">
@@ -351,7 +242,8 @@ function Payment(props) {
                     <span>
                       <strong>
                         {" "}
-                        Pay £{order.grandTotal?.toFixed(0)} with credit card
+                        Pay {currencySign}
+                        {order.grandTotal?.toFixed(0)} with credit card
                       </strong>
                     </span>
                   </div>
@@ -378,7 +270,8 @@ function Payment(props) {
                     <span>
                       <strong>
                         {" "}
-                        Pay £{order.grandTotal?.toFixed(0)} with PayPal
+                        Pay {currencySign}
+                        {order.grandTotal?.toFixed(0)} with PayPal
                       </strong>
                     </span>
                   </div>

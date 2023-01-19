@@ -22,6 +22,7 @@ function Cart(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
     userInfo,
+    settings,
     cart: { cartItems },
   } = state;
 
@@ -114,9 +115,11 @@ function Cart(props) {
                                   <div className="gen">
                                     {item.keygen}
                                     {/* CHECK */}{" "}
-                                    <i
-                                      className={item.color ? item.color : ""}
-                                    ></i>
+                                    <img
+                                      src={item.color}
+                                      alt={item.color}
+                                      className="color_image_size"
+                                    />
                                   </div>
                                   <span
                                     onClick={() => removeItemHandler(item)}
@@ -156,21 +159,26 @@ function Cart(props) {
                                   +
                                 </button>
                               </div>
-                              <div className="forth-row">
-                                {item.discount ? (
-                                  <div className="cart-price">
-                                    £
-                                    {(
-                                      item.price -
-                                      (item.price * item.discount) / 100
-                                    ).toFixed(0) * item.quantity}
-                                  </div>
-                                ) : (
-                                  <div className="cart-price">
-                                    £{item.price.toFixed(0) * item.quantity}
-                                  </div>
-                                )}
-                              </div>
+                              {settings?.map((s, index) => (
+                                <div className="forth-row">
+                                  {item.discount ? (
+                                    <>
+                                      <div className="cart-price" key={index}>
+                                        {s.currencySign}
+                                        {(
+                                          item.price -
+                                          (item.price * item.discount) / 100
+                                        ).toFixed(0) * item.quantity}
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <div className="cart-price">
+                                      {s.currencySign}
+                                      {item.price.toFixed(0) * item.quantity}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
                             </div>
                           ))}
                         </div>
@@ -186,18 +194,6 @@ function Cart(props) {
                               </Link>
                             </div>
                             <div className="checkout" onClick={closeModal}>
-                              {/* <StripeCheckout
-                                name="SHOPMATE"
-                                image=""
-                                billingAddress
-                                shippingAddress
-                                description={`Your total is $${total}`}
-                                amount={cart.total * 100}
-                                token={onToken}
-                                stripeKey={KEY}
-                              >
-                                {" "}
-                              </StripeCheckout> */}
                               <button
                                 disabled={cartItems.length === 0}
                                 className="checkout"

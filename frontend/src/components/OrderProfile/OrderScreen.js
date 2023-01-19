@@ -32,7 +32,7 @@ const reducer = (state, action) => {
   }
 };
 
-function OrderScreen() {
+function OrderScreen({ currencySign }) {
   const navigate = useNavigate();
   const { state } = useContext(Context);
   const { userInfo } = state;
@@ -141,7 +141,8 @@ function OrderScreen() {
                                 <div className="suc">
                                   <MessageBox variant="success">
                                     {" "}
-                                    Delivered at {order.deliveredAt}
+                                    Delivered at{" "}
+                                    {order.deliveredAt.substring(0, 10)}
                                   </MessageBox>
                                 </div>
                               ) : (
@@ -181,19 +182,22 @@ function OrderScreen() {
                           <tr>
                             <td className="items-p">Items Price</td>
                             <td className="items-d">
-                              £{order.itemsPrice.toFixed(2)}
+                              {currencySign}
+                              {order.itemsPrice.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
                             <td className="items-p">Shipping Price</td>
                             <td className="items-d">
-                              £{order.shippingPrice.toFixed(2)}
+                              {currencySign}
+                              {order.shippingPrice.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
                             <td className="items-p">Tax Price</td>
                             <td className="items-d">
-                              £{order.taxPrice.toFixed(2)}
+                              {currencySign}
+                              {order.taxPrice.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
@@ -203,7 +207,10 @@ function OrderScreen() {
                               </strong>
                             </td>
                             <td className="items-d grand">
-                              <strong>£{order.grandTotal.toFixed(2)}</strong>
+                              <strong>
+                                {currencySign}
+                                {order.grandTotal.toFixed(2)}
+                              </strong>
                             </td>
                           </tr>
                         </tbody>
@@ -218,7 +225,7 @@ function OrderScreen() {
                         <div>
                           {userInfo._id && order.isPaid ? (
                             <MessageBox variant="success">
-                              Paid at {order.paidAt}
+                              Paid at {order.paidAt.substring(0, 10)}
                             </MessageBox>
                           ) : userInfo._id ? (
                             <div className="not-paid-btn">
@@ -256,7 +263,11 @@ function OrderScreen() {
                                     <div className="gen">
                                       {item.keygen}
                                       {/* CHECK */}{" "}
-                                      <i className={item.color}></i>
+                                      <img
+                                        src={item.color}
+                                        alt={item.color}
+                                        className="color_image_size"
+                                      />
                                     </div>
                                   </div>
                                 </div>
@@ -274,7 +285,7 @@ function OrderScreen() {
                                   <div className="order-cart-price">
                                     {item.discount ? (
                                       <div className="cart-price">
-                                        £
+                                        {currencySign}
                                         {(
                                           item.price -
                                           (item.price * item.discount) / 100
@@ -282,7 +293,8 @@ function OrderScreen() {
                                       </div>
                                     ) : (
                                       <div className="cart-price">
-                                        £{item.price.toFixed(0) * item.quantity}
+                                        {currencySign}
+                                        {item.price.toFixed(0) * item.quantity}
                                       </div>
                                     )}
                                   </div>

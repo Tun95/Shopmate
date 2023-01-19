@@ -7,7 +7,7 @@
 .starField {
   color: #f62f5e;
 }
-#starField{
+#starField {
   font-size: 30px;
   font-weight: 600;
   position: relative;
@@ -176,7 +176,8 @@
   /* padding: 10px 0px; */
 }
 .delivery-container .label {
-  color: #b4b4b4;
+  color: #6c6c6c;
+  font-weight: 600;
 }
 .delivery-container input {
   position: relative;

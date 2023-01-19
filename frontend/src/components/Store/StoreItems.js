@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./StoreItems.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import data from "../../data/data.json";
 import { Context } from "../../Context/Context";
+import { toast } from "react-toastify";
 
 function StoreItems(props) {
-  const { product, onAdd, onRemove, item, removeItem } = props;
-  const { categories } = data;
+  const { product, currencySign } = props;
   //Color Style
   const [color, setColor] = useState(false);
 
@@ -17,22 +16,20 @@ function StoreItems(props) {
   //Product Quantity
   const [quantity, setQuantity] = useState(1);
 
-  const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-
   //ADD TO CART
   const { state, dispatch: ctxDispatch } = useContext(Context);
-  const { cart } = state;
+  const { settings } = state;
   const addToCartHandler = async (item) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert("Sorry, Product is out of stock");
+      toast.error("Sorry, Product stock limit reached or out of stock", {
+        position: "bottom-center",
+      });
       return;
+    } else {
+      toast.success(`${item.name} is successfully added to cart`, {
+        position: "bottom-center",
+      });
     }
     ctxDispatch({
       type: "CART_ADD_ITEM",
@@ -48,11 +45,13 @@ function StoreItems(props) {
   };
 
   return (
-    <div>
-      <div className="product-list">
-        <div className="prod-design">
+    <>
+      <div className="product-list_product">
+        <div className="prod-design_prod">
           <div className="top-list-product">
-            {product.discount > 0 && <div className="item-discount">{product.discount}%</div>}
+            {product.discount > 0 && (
+              <div className="item-discount">{product.discount}%</div>
+            )}
             <Link to={`/product/${product.slug}`}>
               {" "}
               <img
@@ -67,17 +66,27 @@ function StoreItems(props) {
               </Link>
               {product.discount > 0 ? (
                 <>
-                  <div className="price">
-                    £
-                    {(
-                      product.price -
-                      (product.price * product.discount) / 100
-                    )?.toFixed(2)}
-                  </div>
-                  <s className="price-discount">£{product.price}</s>
+                  {settings?.map((s, index) => (
+                    <div key={index}>
+                      <div className="price">
+                        {s.currencySign}
+                        {(
+                          product.price -
+                          (product.price * product.discount) / 100
+                        )?.toFixed(2)}
+                      </div>
+                      <s className="price-discount">
+                        {s.currencySign}
+                        {product.price?.toFixed(2)}
+                      </s>
+                    </div>
+                  ))}
                 </>
               ) : (
-                <div className="price">£{product.price}</div>
+                <div className="price">
+                  {currencySign}
+                  {product.price?.toFixed(2)}
+                </div>
               )}
             </div>
 
@@ -95,14 +104,14 @@ function StoreItems(props) {
                   onClick={() => addToCartHandler(product)}
                   className="buy-btn"
                 >
-                  Buy now
+                  Add To Cart
                 </button>
               </div>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

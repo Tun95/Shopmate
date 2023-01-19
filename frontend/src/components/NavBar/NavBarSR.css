@@ -91,6 +91,11 @@
   color: #fff;
   text-decoration: none;
 }
+.admin-select .nested_link {
+  position: relative;
+  left: 105px;
+  bottom: -75px;
+}
 
 .admin-select ul ul {
   display: none;

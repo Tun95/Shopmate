@@ -61,7 +61,7 @@ const reducer = (state, action) => {
   }
 };
 
-function SellerProduct() {
+function SellerProduct({ currencySign }) {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
@@ -100,6 +100,7 @@ function SellerProduct() {
           payload: data,
           // seller: sellerMode,
         });
+        window.scrollTo(0, 0);
       } catch (err) {
         dispatch({ type: "FETCH_FAIL" });
       }
@@ -256,7 +257,8 @@ function SellerProduct() {
                                 {product.name}
                               </td>
                               <td className="product-item-price">
-                                £{product.price}
+                                {currencySign}
+                                {product.price}
                               </td>
                               <td className="product-item-category">
                                 {product.category?.map((cat, index) => (

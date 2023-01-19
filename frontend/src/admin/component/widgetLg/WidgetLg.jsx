@@ -19,7 +19,8 @@ const reducer = (state, action) => {
   }
 };
 
-function WidgetLg() {
+function WidgetLg(props) {
+  const { currencySign } = props;
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
   };
@@ -71,7 +72,8 @@ function WidgetLg() {
                     </td>
                     <td className="widgetLgAmount">
                       {" "}
-                      £{order.grandTotal.toFixed(0)}
+                      {currencySign}
+                      {order.grandTotal.toFixed(0)}
                     </td>
                     <td className="widgetLgStatus">
                       {order.isDelivered ? (

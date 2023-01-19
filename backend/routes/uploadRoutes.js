@@ -8,17 +8,13 @@ const upload = multer();
 
 const uploadRouter = express.Router();
 
-uploadRouter.post(
-  "/",
-  isAuth,
-  isSellerOrAdmin,
-  upload.single("file"),
-  async (req, res) => {
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
+uploadRouter.post("/", isAuth, upload.single("file"), async (req, res) => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+  try {
     const streamUpload = (req) => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream((error, result) => {
@@ -33,7 +29,9 @@ uploadRouter.post(
     };
     const result = await streamUpload(req);
     res.send(result);
+  } catch (error) {
+    res.send({ message: "Upload failed" });
   }
-);
+});
 
 export default uploadRouter;

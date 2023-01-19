@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer, useRef, useState } from "react";
 import "./product.css";
 import {
   Link,
@@ -8,9 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import Charts from "../../component/chart/Charts";
-
-// import Select from "react-select";
-import AsyncSelect from "react-select/async";
+import JoditEditor from "jodit-react";
 import data from "../../../data/data.json";
 
 import { Context } from "../../../Context/Context";
@@ -21,11 +19,9 @@ import { Helmet } from "react-helmet-async";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import { toast } from "react-toastify";
-import { useMemo } from "react";
 
 import PublishIcon from "@mui/icons-material/Publish";
 import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -92,9 +88,11 @@ function ProductEdit() {
   const params = useParams();
   const { id: productId } = params;
 
-  const { productcolor, genderselect } = data;
+  const editor = useRef(null);
+
+  const { genderselect } = data;
   const { state } = useContext(Context);
-  const { userInfo } = state;
+  const { userInfo, colors } = state;
 
   const [
     {
@@ -226,7 +224,6 @@ function ProductEdit() {
   };
 
   //PRODUCT STATS
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -244,7 +241,6 @@ function ProductEdit() {
   }, [productId, userInfo]);
 
   const [salesStats, setSalesStats] = useState([]);
- 
 
   useEffect(() => {
     const getStats = async () => {
@@ -389,287 +385,287 @@ function ProductEdit() {
                   </div>
                 </div>
                 <div className="productBottom">
-                  <form
-                    action=""
-                    className="productForm"
-                    onSubmit={submitHandler}
-                  >
-                    <div className="productFormLeft-styles">
-                      <div className="productFormLeft productFormLeft-one">
-                        <label htmlFor="name">Name</label>
-                        <input
-                          type="text"
-                          id="name"
-                          value={name}
-                          maxLength="23"
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Novelty TShirt"
-                        />
-                        <label htmlFor="slug">Slug</label>
-                        <input
-                          type="text"
-                          id="slug"
-                          value={slug}
-                          onChange={(e) => setSlug(e.target.value)}
-                          placeholder="Novelty-TShirt"
-                        />
-                        <label htmlFor="keygen">Keygen</label>
-                        <input
-                          type="text"
-                          id="keygen"
-                          value={keygen}
-                          onChange={(e) => setKeygen(e.target.value)}
-                          placeholder="Men BK3569"
-                        />
-                        <label htmlFor="qty">Quantity</label>
-                        <input
-                          type="text"
-                          id="qty"
-                          value={countInStock}
-                          onChange={(e) => setCountInStock(e.target.value)}
-                          placeholder="123"
-                        />
-                        <label htmlFor="">Description</label>
-                        <div className="text-area-desc">
-                          <textarea
-                            placeholder="Your description here..."
-                            className="textarea"
-                            name="comments"
-                            id="comments"
-                            cols="30"
-                            rows="10"
-                            value={desc}
-                            onChange={(e) => setDesc(e.target.value)}
-                          ></textarea>
+                  <form action="" onSubmit={submitHandler}>
+                    <div className="productForm">
+                      <div className="productFormLeft-styles">
+                        <div className="productFormLeft productFormLeft-one">
+                          <label htmlFor="name">Name</label>
+                          <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            maxLength="23"
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Novelty TShirt"
+                          />
+                          <label htmlFor="slug">Slug</label>
+                          <input
+                            type="text"
+                            id="slug"
+                            value={slug}
+                            onChange={(e) => setSlug(e.target.value)}
+                            placeholder="Novelty-TShirt"
+                          />
+                          <label htmlFor="keygen">Keygen</label>
+                          <input
+                            type="text"
+                            id="keygen"
+                            value={keygen}
+                            onChange={(e) => setKeygen(e.target.value)}
+                            placeholder="Men BK3569"
+                          />
+                          <label htmlFor="qty">Quantity</label>
+                          <input
+                            type="text"
+                            id="qty"
+                            value={countInStock}
+                            onChange={(e) => setCountInStock(e.target.value)}
+                            placeholder="123"
+                          />
                         </div>
-                      </div>
-                      <div className="productFormLeft productFormLeft-Two">
-                        <label htmlFor="gender">Gender</label>
-                        <FormControl
-                          variant="filled"
-                          size="small"
-                          id="formControl"
-                        >
-                          <Select
-                            labelId="mui-simple-select-label"
-                            id="mui-simple-select"
-                            value={gender}
-                            label={gender}
-                            SelectDisplayProps={{
-                              style: { paddingTop: 8, paddingBottom: 8 },
-                            }}
-                            MenuProps={MenuProps}
-                            onChange={(e) => setGender(e.target.value)}
+                        <div className="productFormLeft productFormLeft-Two">
+                          <label htmlFor="gender">Gender</label>
+                          <FormControl
+                            variant="filled"
+                            size="small"
+                            id="formControl"
                           >
-                            {genderselect.map((g, index) => (
-                              <MenuItem key={index} value={g.gender}>
-                                {g.gender}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <label htmlFor="category" className="ccatb-des">
-                          Category
-                        </label>
-                        <FormControl
-                          variant="filled"
-                          size="small"
-                          id="formControl"
-                        >
-                          {/* <InputLabel id="mui-simple-select-label">
+                            <Select
+                              labelId="mui-simple-select-label"
+                              id="mui-simple-select"
+                              value={gender}
+                              label={gender}
+                              SelectDisplayProps={{
+                                style: { paddingTop: 8, paddingBottom: 8 },
+                              }}
+                              MenuProps={MenuProps}
+                              onChange={(e) => setGender(e.target.value)}
+                            >
+                              {genderselect.map((g, index) => (
+                                <MenuItem key={index} value={g.gender}>
+                                  {g.gender}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                          <label htmlFor="category" className="ccatb-des">
+                            Category
+                          </label>
+                          <FormControl
+                            variant="filled"
+                            size="small"
+                            id="formControl"
+                          >
+                            {/* <InputLabel id="mui-simple-select-label">
                         Category
                       </InputLabel> */}
-                          <Select
-                            labelId="mui-simple-select-label"
-                            id="mui-simple-select"
-                            multiple
-                            MenuProps={MenuProps}
-                            SelectDisplayProps={{
-                              style: { paddingTop: 8, paddingBottom: 8 },
-                            }}
-                            value={category}
-                            label={category}
-                            onChange={(e) => setCategory(e.target.value)}
+                            <Select
+                              labelId="mui-simple-select-label"
+                              id="mui-simple-select"
+                              multiple
+                              MenuProps={MenuProps}
+                              SelectDisplayProps={{
+                                style: { paddingTop: 8, paddingBottom: 8 },
+                              }}
+                              value={category}
+                              label={category}
+                              onChange={(e) => setCategory(e.target.value)}
+                            >
+                              {categories?.map((c, index) => (
+                                <MenuItem key={index} value={c.category}>
+                                  {c.category}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                          <label htmlFor="color" className="ccatb-des">
+                            Color
+                          </label>
+                          <FormControl
+                            variant="filled"
+                            size="small"
+                            id="formControl"
                           >
-                            {categories?.map((c, index) => (
-                              <MenuItem key={index} value={c.category}>
-                                {c.category}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <label htmlFor="color" className="ccatb-des">
-                          Color
-                        </label>
-                        <FormControl
-                          variant="filled"
-                          size="small"
-                          id="formControl"
-                        >
-                          {/* <InputLabel id="mui-simple-select-label">
+                            {/* <InputLabel id="mui-simple-select-label">
                         Color
                       </InputLabel> */}
-                          <Select
-                            labelId="mui-simple-select-label"
-                            id="mui-simple-select"
-                            multiple
-                            MenuProps={MenuProps}
-                            SelectDisplayProps={{
-                              style: { paddingTop: 8, paddingBottom: 8 },
-                            }}
-                            value={color}
-                            label={color}
-                            onChange={(e) => setColor(e.target.value)}
-                          >
-                            {productcolor.map((c, index) => (
-                              <MenuItem key={index} value={c.color}>
-                                {c.label}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <label htmlFor="img" className="ccatb-des">
-                          Image
-                        </label>
-                        <input
-                          type="text"
-                          id="img"
-                          value={image}
-                          onChange={(e) => setImage(e.target.value)}
-                          placeholder="/imgs/kid1.png"
-                        />
-
-                        <label htmlFor="price">Price</label>
-                        <input
-                          type="text"
-                          id="price"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          placeholder="23"
-                        />
-                        <label htmlFor="discount">Discount</label>
-                        <input
-                          type="text"
-                          id="discount"
-                          value={discount}
-                          onChange={(e) => setDiscount(e.target.value)}
-                          placeholder="10"
-                        />
-                      </div>
-                      <div className="productFormLeft productFormLeft-three">
-                        <label htmlFor="size">Size</label>
-                        <FormControl
-                          variant="filled"
-                          size="small"
-                          id="formControl"
-                        >
-                          {/* <InputLabel id="mui-simple-select-label">Size</InputLabel> */}
-                          <Select
-                            labelId="mui-simple-select-label"
-                            id="mui-simple-select"
-                            multiple
-                            MenuProps={MenuProps}
-                            SelectDisplayProps={{
-                              style: { paddingTop: 8, paddingBottom: 8 },
-                            }}
-                            value={size}
-                            label={size}
-                            onChange={(e) => setSize(e.target.value)}
-                          >
-                            {sizes?.map((s, index) => (
-                              <MenuItem key={index} value={s.size}>
-                                {s.size}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <label htmlFor="brand" className="ccatb-des">
-                          Brand
-                        </label>
-                        <FormControl
-                          variant="filled"
-                          size="small"
-                          id="formControl"
-                        >
-                          {/* <InputLabel id="mui-simple-select-label">
-                        Brand
-                      </InputLabel> */}
-                          <Select
-                            labelId="mui-simple-select-label"
-                            id="mui-simple-select"
-                            multiple
-                            MenuProps={MenuProps}
-                            SelectDisplayProps={{
-                              style: { paddingTop: 8, paddingBottom: 8 },
-                            }}
-                            value={brand}
-                            label={brand}
-                            onChange={(e) => setBrand(e.target.value)}
-                          >
-                            {brands?.map((b, index) => (
-                              <MenuItem key={index} value={b.brand}>
-                                {b.brand}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </div>
-                    </div>
-                    <div className="productFormRight">
-                      <div className="productUpload">
-                        <img src={image} alt="" className="productUploadImg" />
-                        {image === loadingUpload && <LoadingBox></LoadingBox>}
-                        <label htmlFor="file">
-                          <PublishIcon
-                            className="upload-btn"
-                            onChange={uploadFileHandler}
+                            <Select
+                              labelId="mui-simple-select-label"
+                              id="mui-simple-select"
+                              multiple
+                              MenuProps={MenuProps}
+                              SelectDisplayProps={{
+                                style: { paddingTop: 8, paddingBottom: 8 },
+                              }}
+                              value={color}
+                              label={color}
+                              onChange={(e) => setColor(e.target.value)}
+                            >
+                              {colors?.map((c, index) => (
+                                <MenuItem key={index} value={c.color}>
+                                  <img src={c.color} alt={c.color} className="color_image_size"/>
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                          <label htmlFor="img" className="ccatb-des">
+                            Image
+                          </label>
+                          <input
+                            type="text"
+                            id="img"
+                            value={image}
+                            onChange={(e) => setImage(e.target.value)}
+                            placeholder="/imgs/kid1.png"
                           />
-                        </label>
-                        <input
-                          onChange={uploadFileHandler}
-                          type="file"
-                          id="file"
-                          style={{ display: "none" }}
-                        />
-                      </div>
-                      <div className="productUpload">
-                        <div className="productUploadImg-delete">
-                          {images.map((x) => (
-                            <div key={x}>
-                              <img
-                                src={x}
-                                alt=""
-                                className="productUploadImg wtdh-imgs"
-                              />
-                              <DeleteIcon
-                                onClick={() => deleteFileHandler(x)}
-                                className="deleteImages"
-                              />
-                            </div>
-                          ))}
                         </div>
-                        <label
-                          htmlFor="files"
-                          className="products-images-upload"
-                        >
-                          {images.length === 0 && (
-                            <MessageBox>No Image</MessageBox>
-                          )}
-                          {images && loadingUpload && <LoadingBox></LoadingBox>}
-                          <PublishIcon
-                            className="upload-btn images-list-l"
+                        <div className="productFormLeft productFormLeft-three">
+                          <label htmlFor="size">Size</label>
+                          <FormControl
+                            variant="filled"
+                            size="small"
+                            id="formControl"
+                          >
+                            {/* <InputLabel id="mui-simple-select-label">Size</InputLabel> */}
+                            <Select
+                              labelId="mui-simple-select-label"
+                              id="mui-simple-select"
+                              multiple
+                              MenuProps={MenuProps}
+                              SelectDisplayProps={{
+                                style: { paddingTop: 8, paddingBottom: 8 },
+                              }}
+                              value={size}
+                              label={size}
+                              onChange={(e) => setSize(e.target.value)}
+                            >
+                              {sizes?.map((s, index) => (
+                                <MenuItem key={index} value={s.size}>
+                                  {s.size}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                          <label htmlFor="brand" className="ccatb-des">
+                            Brand
+                          </label>
+                          <FormControl
+                            variant="filled"
+                            size="small"
+                            id="formControl"
+                          >
+                            <Select
+                              labelId="mui-simple-select-label"
+                              id="mui-simple-select"
+                              multiple
+                              MenuProps={MenuProps}
+                              SelectDisplayProps={{
+                                style: { paddingTop: 8, paddingBottom: 8 },
+                              }}
+                              value={brand}
+                              label={brand}
+                              onChange={(e) => setBrand(e.target.value)}
+                            >
+                              {brands?.map((b, index) => (
+                                <MenuItem key={index} value={b.brand}>
+                                  {b.brand}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                          <label htmlFor="price">Price</label>
+                          <input
+                            type="text"
+                            id="price"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            placeholder="23"
+                          />
+                          <label htmlFor="discount">Discount</label>
+                          <input
+                            type="text"
+                            id="discount"
+                            value={discount}
+                            onChange={(e) => setDiscount(e.target.value)}
+                            placeholder="10"
+                          />
+                        </div>
+                      </div>
+                      <div className="productFormRight">
+                        <div className="productUpload">
+                          <img
+                            src={image}
+                            alt=""
+                            className="productUploadImg"
+                          />
+                          {image === loadingUpload && <LoadingBox></LoadingBox>}
+                          <label htmlFor="file">
+                            <PublishIcon
+                              className="upload-btn"
+                              onChange={uploadFileHandler}
+                            />
+                          </label>
+                          <input
+                            onChange={uploadFileHandler}
+                            type="file"
+                            id="file"
+                            style={{ display: "none" }}
+                          />
+                        </div>
+                        <div className="productUpload">
+                          <div className="productUploadImg-delete">
+                            {images.map((x) => (
+                              <div key={x}>
+                                <img
+                                  src={x}
+                                  alt=""
+                                  className="productUploadImg wtdh-imgs"
+                                />
+                                <DeleteIcon
+                                  onClick={() => deleteFileHandler(x)}
+                                  className="deleteImages"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                          <label
+                            htmlFor="files"
+                            className="products-images-upload"
+                          >
+                            {images.length === 0 && (
+                              <MessageBox>No Image</MessageBox>
+                            )}
+                            {images && loadingUpload && (
+                              <LoadingBox></LoadingBox>
+                            )}
+                            <PublishIcon
+                              className="upload-btn images-list-l"
+                              onChange={(e) => uploadFileHandler(e, true)}
+                            />
+                          </label>
+                          <input
+                            style={{ display: "none" }}
+                            type="file"
+                            id="files"
                             onChange={(e) => uploadFileHandler(e, true)}
                           />
-                        </label>
-                        <input
-                          style={{ display: "none" }}
-                          type="file"
-                          id="files"
-                          onChange={(e) => uploadFileHandler(e, true)}
-                        />
+                        </div>
                       </div>
-                      <button className="productButton">Update</button>
                     </div>
+                    <div className="lower_test">
+                      <label htmlFor="">Description</label>
+                      <JoditEditor
+                        className="editor"
+                        id="desc"
+                        ref={editor}
+                        value={desc}
+                        // config={config}
+                        tabIndex={1} // tabIndex of textarea
+                        onBlur={(newContent) => setDesc(newContent)} // preferred to use only this option to update the content for performance reasons
+                        onChange={(newContent) => {}}
+                      />
+                    </div>
+                    <button className="productButton">Update All</button>
                   </form>
                 </div>
               </div>

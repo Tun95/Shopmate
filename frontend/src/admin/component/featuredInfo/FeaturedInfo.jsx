@@ -6,11 +6,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 
 function FeaturedInfo(props) {
-  const { summary } = props;
+  const { summary, currency, currencySign } = props;
 
   const salesPerc = (
-    ((summary.income[1]?.sales - summary.income[0]?.sales) /
-      summary.income[0]?.sales) *
+    ((summary.income[0]?.sales - summary.income[1]?.sales) /
+      summary.income[1]?.sales) *
     100
   ).toFixed(0);
 
@@ -28,7 +28,7 @@ function FeaturedInfo(props) {
     : 0;
   let TotalSales = new Intl.NumberFormat("en-GB", {
     style: "currency",
-    currency: "GBP",
+    currency: currency,
   }).format(salesTotal);
 
   console.log(summary);
@@ -62,9 +62,9 @@ function FeaturedInfo(props) {
           <span className="featuredMoneyRate">
             %{Math.abs(salesPerc) || 0}{" "}
             {salesPerc > 0 ? (
-              <ArrowDownwardIcon className="featuredIcon negative" />
-            ) : (
               <ArrowUpwardIcon className="featuredIcon positive" />
+            ) : (
+              <ArrowDownwardIcon className="featuredIcon negative" />
             )}
           </span>
         </div>

@@ -1,0 +1,28 @@
+.slick-slide div {
+  outline: none;
+  height: 350px;
+  position: relative;
+}
+.slick-slide .box .btn-primary {
+  background-color: #fff;
+  outline: none;
+  border: none;
+  padding: 10px 30px 10px 30px;
+  border-radius: 20px;
+  color: #f62f5e;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  left: 80px;
+  top: 330px;
+}
+.slick-slide .left img {
+
+  width: 900px;
+  height: 336px;
+}
+.slick-slide .content {
+  position: absolute;
+  bottom: -40px;
+  left: 150px;
+}

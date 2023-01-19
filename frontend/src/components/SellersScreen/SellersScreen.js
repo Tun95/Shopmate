@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import "./sellerscreen.css";
+import "./sellerscreen.scss";
 import Footer from "../Footer/Footer";
 import Ratings from "../Ratings/Ratings";
 import axios from "axios";
@@ -9,10 +9,13 @@ import LoadingBox from "../Utilities/LoadingBox";
 import MessageBox from "../Utilities/MessageBox";
 import { getError } from "../Utilities/Utils";
 import person from "../images/person.png";
+import dateFormat, { masks } from "dateformat";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { Pagination, PaginationItem } from "@mui/material";
+
+masks.longDate = 'mmmm d, yyyy! "Can\'t touch this!"';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,7 +51,9 @@ const reducer = (state, action) => {
   }
 };
 
-function SellersScreen() {
+function SellersScreen({ currencySign }) {
+  const now = new Date();
+
   const { state } = useContext(Context);
   const { userInfo } = state;
   const params = useParams();
@@ -130,6 +135,8 @@ function SellersScreen() {
 
   console.log(user);
 
+  dateFormat(now, `mmmm d, yyyy`);
+
   return (
     <>
       {loading ? (
@@ -162,41 +169,73 @@ function SellersScreen() {
               <div className="seller-box">
                 <div className="box">
                   <div className="box-1">
-                    <div className="seller-details">
-                      <div className="seller-name-img">
+                    <div className="seller_details">
+                      <div className="seller_img">
                         <img
                           src={user?.user?.seller?.logo || person}
                           alt={user?.user?.seller?.name}
                         />
-                        <h2>{user?.user?.seller?.name}</h2>
                       </div>
-                      <div className="ratings-rev">
-                        <Ratings rating={user?.seller?.rating}></Ratings>
-                        <span style={{ fontWeight: "bold", margin: "0px 5px" }}>
-                          {" "}
-                          {user?.numReviews[0]?.numReviews}
-                        </span>{" "}
-                        Reviews
-                      </div>
-                      <div>
-                        <h4>
-                          <a href={`mailto:${user?.user?.email}`}>
-                            Contact Seller
-                          </a>
-                        </h4>
-                      </div>
-                      <div>
-                        <span>{user?.user?.seller?.description}</span>
-                      </div>
+                      <span>
+                        <div className="seller_name">
+                          <h3>Seller:</h3>
+                          <h4>{user?.user?.seller?.name}</h4>
+                        </div>
+                        <div className="seller_member_country">
+                          <span>{user?.user?.country}, </span>
+                          <p>
+                            Member since
+                            <small className="membership">
+                              {dateFormat(user?.user?.createdAt)}
+                            </small>
+                          </p>
+                        </div>
+                        <div className="ratings-rev">
+                          {/* <Ratings rating={user?.seller?.rating}></Ratings> */}
+                          {/* <span
+                            style={{ fontWeight: "bold", margin: "0px 5px" }}
+                          >
+                            {" "}
+                            ({user?.numReviews[0]?.numReviews})
+                          </span>{" "}
+                          Reviews */}
+                        </div>
+                        <div>
+                          <h4>
+                            <a href={`mailto:${user?.user?.email}`}>
+                              Contact Seller
+                            </a>
+                          </h4>
+                        </div>
+                        <div className="account_status">
+                          <label>Status:</label>
+                          {!user?.isAccountVerified ? (
+                            <span className="unverified-account">
+                              unverified account
+                            </span>
+                          ) : (
+                            <span className="verified-account">
+                              verified account
+                            </span>
+                          )}
+                        </div>
+                      </span>
+                    </div>
+                    <div className="seller_bio">
+                      <h3>Bio:</h3>
+                      <span>{user?.user?.seller?.description}</span>
                     </div>
                   </div>
+                </div>
+                <div className="list_header">
+                  <h2>Product List</h2>
                 </div>
                 <div className="box">
                   <div className="box-2">
                     {products?.map((item, index) => (
                       <div key={index}>
-                        <div className="product-list">
-                          <div className="prod-design">
+                        <div className="product_list">
+                          <div className="prod_design">
                             <div className="top-list-product">
                               <Link to={`/product/${item.slug}`}>
                                 {" "}
@@ -207,16 +246,39 @@ function SellersScreen() {
                                 />
                               </Link>
                               <div className="seller-prod-rev">
-                                <Ratings
-                                  rating={item.rating}
-                                  numReviews={item.numReviews}
-                                ></Ratings>
+                                <span>
+                                  <strong>({item.numReviews})</strong> Reviews
+                                </span>
+                                <Ratings rating={item.rating}></Ratings>
                               </div>
                               <div className="p-name">
                                 <Link to={`/product/${item.slug}`}>
                                   <h4>{item.name}</h4>
                                 </Link>
-                                <div className="price">£{item.price}</div>
+                                <div className="price">
+                                  {item.discount > 0 ? (
+                                    <>
+                                      <div>
+                                        <div className="price">
+                                          {currencySign}
+                                          {(
+                                            item.price -
+                                            (item.price * item.discount) / 100
+                                          )?.toFixed(2)}
+                                        </div>
+                                        <s className="discount">
+                                          {currencySign}
+                                          {item.price?.toFixed(2)}
+                                        </s>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <div className="price">
+                                      {currencySign}
+                                      {item.price?.toFixed(2)}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -224,23 +286,25 @@ function SellersScreen() {
                       </div>
                     ))}
                   </div>
-                  <div className="product-pagination">
-                    <Pagination
-                      page={page}
-                      count={pages}
-                      renderItem={(item) => (
-                        <PaginationItem
-                          className={`${
-                            item.page !== page
-                              ? "paginationItemStyle"
-                              : "paginationItemStyle active"
-                          }`}
-                          component={Link}
-                          to={`/sellers-screen/${sellerId}?page=${item.page}`}
-                          {...item}
-                        />
-                      )}
-                    />
+                  <div className="product_pagination">
+                    <span className="pagination_span">
+                      <Pagination
+                        page={page}
+                        count={pages}
+                        renderItem={(item) => (
+                          <PaginationItem
+                            className={`${
+                              item.page !== page
+                                ? "paginationItemStyle"
+                                : "paginationItemStyle active"
+                            }`}
+                            component={Link}
+                            to={`/sellers-screen/${sellerId}?page=${item.page}`}
+                            {...item}
+                          />
+                        )}
+                      />
+                    </span>
                   </div>
                 </div>
               </div>

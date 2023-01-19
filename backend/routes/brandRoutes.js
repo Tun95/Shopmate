@@ -28,8 +28,9 @@ brandRoutes.post(
 brandRoutes.get(
   "/",
   expressAsyncHandler(async (req, res) => {
+    const mysort = { brand: 1 };
     try {
-      const brands = await Brand.find({}).populate("user").sort("-createdAt");
+      const brands = await Brand.find({}).sort(mysort).populate("user");
       res.send(brands);
     } catch (error) {
       res.send(error);

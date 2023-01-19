@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from "react";
 import { Link, useParams } from "react-router-dom";
-import "../Product-Page/ProductPage.css";
+import "../Product-Page/ProductPage.scss";
 import Rating from "@mui/material/Rating";
 
 import Favorite from "@mui/icons-material/Favorite";
@@ -22,6 +22,9 @@ import { getError } from "../Utilities/Utils";
 import { Context } from "../../Context/Context";
 import { toast } from "react-toastify";
 import Footer from "../Footer/Footer";
+import Slider from "react-slick";
+import parse from "html-react-parser";
+import ReactTimeAgo from "react-time-ago";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -58,7 +61,66 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
+const NextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className="control-btn" onClick={onClick}>
+      <button className="next">
+        <i className="fa-solid fa-angle-right"></i>
+      </button>
+    </div>
+  );
+};
+
+const PrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className="control-btn" onClick={onClick}>
+      <button className="prev">
+        <i className="fa-solid fa-angle-left"></i>
+      </button>
+    </div>
+  );
+};
 function ProductPage(props) {
+  //SLIDER SETTINGS
+  const setting = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    // autoplay: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 880,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 665,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 414,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   //Image Selection
   const [selectedImage, setSelectedImage] = useState("");
 
@@ -89,7 +151,6 @@ function ProductPage(props) {
       loading: true,
       error: "",
     });
-
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -124,6 +185,7 @@ function ProductPage(props) {
   const {
     cart: { cartItems },
     userInfo,
+    settings,
   } = state;
   const addToCartHandler = async () => {
     const { data } = await axios.get(`/api/products/${product._id}`);
@@ -164,6 +226,7 @@ function ProductPage(props) {
     localStorage.setItem("cartItems", JSON.stringify(state.cart.cartItems));
     // }
   };
+  console.log(product);
 
   //PRODUCT REVIEWS
   let reviewsRef = useRef();
@@ -233,6 +296,7 @@ function ProductPage(props) {
           slug: product.slug,
           image: product.image,
           price: product.price,
+          discount: product.discount,
           product: product._id,
           checked: true,
         },
@@ -263,16 +327,16 @@ function ProductPage(props) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <div className="section-footer">
-          <div className="sections-blocks">
-            <Helmet>
-              <title>{product.name}</title>
-            </Helmet>
-            <div className="sections-blocks-de">
-              <div className="sections">
-                <div className="section-1-style">
+        <>
+          <div className=" product_details">
+            <div className="sections-blocks">
+              <Helmet>
+                <title>{product.name}</title>
+              </Helmet>
+              <div className="sections_blocks">
+                <div className="sections front_container">
                   <div className="section-1">
-                    <div className="image-sec">
+                    <div className="left_side">
                       <div className="img">
                         <div className="img-large">
                           <img src={selectedImage || product.image} alt="" />
@@ -294,42 +358,42 @@ function ProductPage(props) {
                         </div>
                       </div>
                     </div>
-                    <div className="prod-details">
-                      <div className="prod-details-align">
-                        <div className="prod-top">
-                          <ul>
-                            <div className="home">
-                              <Link to="/">
-                                <li>Home</li>
-                              </Link>
-                            </div>
-                            <Link to="/store">
-                              <li>All Categories</li>
-                            </Link>
+                    <div className="right_side">
+                      <div className="top_list">
+                        <ul>
+                          <li>
+                            <Link to="/">Home </Link>
+                          </li>
+                          <li>
+                            <Link to="/store">All Categories</Link>
+                          </li>
+                          <li>
                             <Link
                               to="/store?category=Men"
                               className="last-child"
                             >
-                              <li>Men's Clothing &amp; Accessories</li>
+                              Men's Clothing &amp; Accessories{" "}
                             </Link>
-                          </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="prod-rating">
+                        <Ratings rating={product.rating}></Ratings>
+                        <div className="count_in_stock">
+                          {product.countInStock === 0 ? (
+                            <span className="danger">Unavailable</span>
+                          ) : (
+                            <span className="success">In Stock</span>
+                          )}
                         </div>
-                        <div className="prod-rating">
-                          <Ratings rating={product.rating}></Ratings>
-                          <div className="count-stock">
-                            {product.countInStock === 0 ? (
-                              <span className="danger">Unavailable</span>
-                            ) : (
-                              <span className="success">In Stock</span>
-                            )}
-                          </div>
-                        </div>
+                      </div>
 
-                        <div className="prod-title">
-                          <h2>{product?.name}</h2>
-                        </div>
+                      <div className="prod-title">
+                        <h2>{product?.name}</h2>
+                      </div>
+                      <span>
                         {product.seller ? (
-                          <div className="seller-name-link">
+                          <div className="seller_name_link">
                             <h4>Seller: </h4>
                             <Link to={`/sellers-screen/${product.seller._id}`}>
                               {product.seller.seller.name}
@@ -338,157 +402,187 @@ function ProductPage(props) {
                         ) : (
                           ""
                         )}
+                      </span>
+                      <span className="product_price">
                         {product.discount > 0 ? (
-                          <div className="price-discount-style">
-                            <div className="price">
-                              £
-                              {(
-                                product.price -
-                                (product.price * product.discount) / 100
-                              )?.toFixed(2)}
-                            </div>
-                            <s className="price-discount">£{product.price}</s>
-                          </div>
+                          <>
+                            {settings?.map((s, index) => (
+                              <div className="price_discount" key={index}>
+                                <div className="price">
+                                  {s.currencySign}
+                                  {(
+                                    product.price -
+                                    (product.price * product.discount) / 100
+                                  )?.toFixed(2)}
+                                </div>
+                                <s className="discount">
+                                  {s.currencySign}
+                                  {product.price?.toFixed(2)}
+                                </s>
+                              </div>
+                            ))}
+                          </>
                         ) : (
-                          <div className="price">£{product.price}</div>
+                          <>
+                            {settings?.map((s, index) => (
+                              <div className="price" key={index}>
+                                {s.currencySign}
+                                {product.price?.toFixed(2)}
+                              </div>
+                            ))}
+                          </>
                         )}
-                        {/* <div className="price">£{product.price}</div> */}
-                        <div className="product-color">
-                          <h4>Color</h4>
-                          <ul className="ul-color-prod">
-                            {product.color?.map((c, index) => (
-                              <li
-                                key={index}
-                                onClick={() => setColor(c)}
-                                className={`${color === c ? "active" : ""}`}
-                              >
-                                <i className={c}></i>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="product-size-p">
-                          <div className="size-header">
-                            <h4>Size</h4>
-                            <h3>Size guide</h3>
-                          </div>
+                      </span>
 
-                          <div className="product-size-btn">
-                            {product.size?.map((s, index) => (
-                              <button
-                                key={index}
-                                onClick={() => setSize(s)}
-                                className={`${size === s ? "size" : ""}`}
-                              >
-                                {s}&nbsp;
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="third-row">
-                            <button
-                              disabled={quantity === 1}
-                              onClick={() => handleQuantity("dec")}
-                              className="remove-from"
+                      <div className="product-color">
+                        <h4>Color</h4>
+                        <ul>
+                          {product.color?.map((c, index) => (
+                            <li
+                              key={index}
+                              onClick={() => setColor(c)}
+                              className={`${color === c ? "active" : ""}`}
                             >
-                              -
-                            </button>
-                            <div className="quantity">
-                              <span>{quantity}</span>
-                            </div>
-                            <button
-                              disabled={product.countInStock === 0}
-                              onClick={() => handleQuantity("inc")}
-                              className="add-to"
-                            >
-                              +
-                            </button>
-                          </div>
-
-                          <div className="add-cart-wish">
-                            {product.countInStock === 0 ? (
-                              <button disabled className="out-o-stock">
-                                Out of Stock
-                              </button>
-                            ) : (
-                              <div className="add-cart">
-                                <button onClick={addToCartHandler}>
-                                  Add to cart
-                                </button>
-                              </div>
-                            )}
-                            <div className="wish-list">
-                              <Checkbox
-                                checked={checked}
-                                onChange={handleChange}
-                                className="mui-favorite-checkbox"
-                                icon={<FavoriteBorder />}
-                                checkedIcon={
-                                  <Favorite className="mui-favorite-checkbox" />
-                                }
+                              <img
+                                src={c}
+                                alt={c}
+                                className="color_image_size"
                               />
-                              <div className="add-wish">
-                                <p>Add to Wish List</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="product_size">
+                        <div className="size-header">
+                          <h4>Size</h4>
+                          <h3>
+                            <Link to="/size-guidelines">Size guide</Link>
+                          </h3>
+                        </div>
+
+                        <div className="product-size-btn">
+                          {product.size?.map((s, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setSize(s)}
+                              className={`${size === s ? "size" : ""}`}
+                            >
+                              {s}&nbsp;
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="product_quantity">
+                        <h4>Quantity</h4>
+                        <div className="product_quantity_content">
+                          <button
+                            disabled={quantity === 1}
+                            onClick={() => handleQuantity("dec")}
+                            className="remove-from"
+                          >
+                            <i className="fa-solid fa-minus"></i>
+                          </button>
+                          <div className="quantity">
+                            <span>{quantity}</span>
+                          </div>
+                          <button
+                            disabled={product.countInStock === 0}
+                            onClick={() => handleQuantity("inc")}
+                            className="add-to"
+                          >
+                            <i className="fa-solid fa-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="product_wish_btn">
+                        <div className="button">
+                          {product.countInStock === 0 ? (
+                            <button disabled className="out-o-stock">
+                              Out of Stock
+                            </button>
+                          ) : (
+                            <button
+                              className="add-to-cart"
+                              onClick={addToCartHandler}
+                            >
+                              Add to cart
+                            </button>
+                          )}
+                        </div>
+                        <div className="wish-list">
+                          <Checkbox
+                            checked={checked}
+                            onChange={handleChange}
+                            className="mui-favorite-checkbox"
+                            icon={<FavoriteBorder />}
+                            checkedIcon={
+                              <Favorite className="mui-favorite-checkbox" />
+                            }
+                          />
+                          <div className="add-wish">
+                            <small>Add to Wish List</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* </div> */}
+                  <div className="section_2">
+                    <div className="section_width">
+                      <div className="section-desc">
+                        <div className="description">
+                          <h2>Description</h2>
+                          <span className="product-description">
+                            {parse(`<p>${product.desc}</p>`)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="section_3">
+                    <div className="section_width">
+                      <div className="review_header">
+                        <h2 ref={reviewsRef}>Product reviews</h2>
+                      </div>
+                      <div className="noreviews">
+                        {product.reviews.length === 0 && (
+                          <MessageBox>There is no review</MessageBox>
+                        )}
+                      </div>
+                      <div className="prod-scroll">
+                        {product.reviews?.map((review, index) => (
+                          <div className="prod-review" key={index}>
+                            <div className="prod-1">
+                              <div className="reviewer">
+                                <h4>{review.name}</h4>
+                              </div>
+                              <div className="rating">
+                                <Ratings
+                                  rating={review.rating}
+                                  caption=""
+                                  name="rating"
+                                ></Ratings>
+                              </div>
+                              <div className="time-review">
+                                <ReactTimeAgo
+                                  date={Date.parse(review.createdAt)}
+                                  locale="en-US"
+                                />
+                              </div>
+                            </div>
+                            <div className="prod-2">
+                              <div className="desc">
+                                <p>{review.comment}</p>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        ))}
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="section-product-desc">
-                  <div className="section-prod-desc">
-                    <div className="section-desc">
-                      <div className="description">
-                        <h2>Description</h2>
-                        <span className="product-description">
-                          {product.desc}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="section-2">
-                  <div className="section-2-design">
-                    <div>
-                      <h2 ref={reviewsRef}>Product reviews</h2>
-                    </div>
-                    <div className="noreviews">
-                      {product.reviews.length === 0 && (
-                        <MessageBox>There is no review</MessageBox>
-                      )}
-                    </div>
-                    <div className="prod-scroll">
-                      {product.reviews?.map((review, id) => (
-                        <div className="prod-review" key={id}>
-                          <div className="prod-1">
-                            <div className="rating">
-                              <Ratings
-                                rating={review.rating}
-                                caption=""
-                                name="rating"
-                              ></Ratings>
-                            </div>
-                            <div className="reviewer">
-                              <h4>{review.name}</h4>
-                            </div>
-                            <div className="time-review">
-                              <p>{review.createdAt.substring(0, 10)}</p>
-                            </div>
-                          </div>
-                          <div className="prod-2">
-                            <div className="desc">
-                              <p>{review.comment}</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    {product.reviews.length !== 0 && (
-                      <div className="page-rev">
-                        {/* <div className="page">
+                      {product.reviews.length !== 0 && (
+                        <div className="page-rev">
+                          {/* <div className="page">
                           <span className="material-symbols-sharp">
                             favorite
                           </span>
@@ -496,60 +590,51 @@ function ProductPage(props) {
                             {product.numWishList}
                           </span>
                         </div> */}
-                        <div className="page-fav-rev">
-                          <div className="page-fava-rev">
-                            <i className="fa-regular fa-comment"></i>
-                            <span className="rev-count">
-                              {product.numReviews}
-                            </span>
+                          <div className="page-fav-rev">
+                            <div className="page-fava-rev">
+                              <i className="fa-regular fa-comment"></i>
+                              <span className="rev-count">
+                                {product.numReviews}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <div className="section-3">
-                  <div className="submit-implement">
-                    <h2 className="review-product-header">Add a review</h2>
-                    {userInfo ? (
-                      <form action="" onSubmit={submitHandler}>
-                        <div className="submit-rev">
-                          <div className="sub-1">
-                            <div className="your-rev">
+                  <div className="section_4">
+                    <div className="section_width">
+                      <h2 className="review-product-header">Add a review</h2>
+                      {userInfo ? (
+                        <form action="" onSubmit={submitHandler}>
+                          <div className="submit-rev">
+                            <div className="rev-text-small">
                               <h4>Your review</h4>
-                            </div>
-                            <div className="over-all">
-                              <h4>Overall rating</h4>
-                            </div>
-                          </div>
-                          <div className="sub-2">
-                            <div className="your-rev-text">
-                              <div className="rev-text-small">
-                                <textarea
-                                  placeholder="Your review here..."
-                                  className="textarea"
-                                  name="comments"
-                                  id="comments"
-                                  cols="30"
-                                  value={comment}
-                                  onChange={(e) => setComment(e.target.value)}
-                                  rows="10"
-                                ></textarea>
-                                <div className="small-text">
-                                  <p>
-                                    Your review must be at least 50 characters{" "}
-                                    <span>
-                                      <Link to="/about-terms-privacy">
-                                        {" "}
-                                        Full review guidelines
-                                      </Link>
-                                    </span>
-                                  </p>
-                                </div>
+                              <textarea
+                                placeholder="Your review here..."
+                                className="textarea"
+                                name="comments"
+                                id="comments"
+                                cols="30"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                rows="10"
+                              ></textarea>
+                              <div className="small-text">
+                                <small>
+                                  Your review must be at least 50 characters{" "}
+                                  <span>
+                                    <Link to="/review-guidelines">
+                                      {" "}
+                                      Full review guidelines
+                                    </Link>
+                                  </span>
+                                </small>
                               </div>
                             </div>
                             <div className="rating-star">
+                              <h4>Overall rating</h4>
                               <Rating
                                 name="rating"
                                 onChange={(e) => setRating(e.target.value)}
@@ -562,61 +647,79 @@ function ProductPage(props) {
                               {loadingCreateReview && <LoadingBox></LoadingBox>}
                             </div>
                           </div>
+                        </form>
+                      ) : (
+                        <div className="message-box">
+                          <MessageBox>
+                            Please{" "}
+                            <Link
+                              to={`/signin?redirect=/product/${product.slug}`}
+                            >
+                              Sign In
+                            </Link>{" "}
+                            to write a review
+                          </MessageBox>
                         </div>
-                      </form>
-                    ) : (
-                      <div className="message-box">
-                        <MessageBox>
-                          Please{" "}
-                          <Link
-                            to={`/signin?redirect=/product/${product.slug}`}
-                          >
-                            Sign In
-                          </Link>{" "}
-                          to write a review
-                        </MessageBox>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="section-4">
-                  <div className="slider-prod">
-                    <div className="header-tag">
-                      <h2>You may also like</h2>
+                      )}
                     </div>
-                    <div className="related-product">
-                      <div className="prod-list">
-                        {products?.map((product, index) => (
-                          <div className="sim-shirt" key={index}>
-                            {product.discount > 0 && (
-                              <div className="item-discount">
-                                {product.discount}%
-                              </div>
-                            )}
-                            <Link to={`/product/${product.slug}`}>
-                              <img src={product.image} alt="" />
-                            </Link>
-                            <Link to={`/product/${product.slug}`}>
-                              <h4 className="sim-name">{product.name}</h4>
-                            </Link>
-                            {product.discount > 0 ? (
-                              <>
-                                <div className="price">
-                                  £
-                                  {(
-                                    product.price -
-                                    (product.price * product.discount) / 100
-                                  )?.toFixed(2)}
+                  </div>
+                  <div className="section_5">
+                    <div className="slider-prod">
+                      <div className="header-tag">
+                        <h2>You may also like</h2>
+                      </div>
+                      <div className="related-product">
+                        <div className="prod-list">
+                          <Slider {...setting} className="slick-slider">
+                            {products?.map((product, index) => (
+                              <div className="related_card" key={index}>
+                                <div className="sim-shirt">
+                                  {product.discount > 0 && (
+                                    <div className="item-discount">
+                                      {product.discount}%
+                                    </div>
+                                  )}
+                                  <Link to={`/product/${product.slug}`}>
+                                    <img src={product.image} alt="" />
+                                  </Link>
+                                  <Link to={`/product/${product.slug}`}>
+                                    <h4 className="sim-name">{product.name}</h4>
+                                  </Link>
+                                  {product.discount > 0 ? (
+                                    <>
+                                      {settings?.map((s, index) => (
+                                        <>
+                                          <div className="price" key={index}>
+                                            {s.currencySign}
+                                            {(
+                                              product.price -
+                                              (product.price *
+                                                product.discount) /
+                                                100
+                                            )?.toFixed(2)}
+                                          </div>
+                                          <s className="discount">
+                                            {s.currencySign}
+                                            {product.price}
+                                          </s>
+                                        </>
+                                      ))}
+                                    </>
+                                  ) : (
+                                    <>
+                                      {settings?.map((s, index) => (
+                                        <div className="price" key={index}>
+                                          {s.currencySign}
+                                          {product.price}
+                                        </div>
+                                      ))}
+                                    </>
+                                  )}
                                 </div>
-                                <s className="price-discount">
-                                  £{product.price}
-                                </s>
-                              </>
-                            ) : (
-                              <div className="price">£{product.price}</div>
-                            )}
-                          </div>
-                        ))}
+                              </div>
+                            ))}
+                          </Slider>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -627,7 +730,7 @@ function ProductPage(props) {
           <div className="product-footer">
             <Footer />
           </div>
-        </div>
+        </>
       )}
     </div>
   );

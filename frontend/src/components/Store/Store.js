@@ -22,8 +22,9 @@ import LoadingBox from "../Utilities/LoadingBox";
 import { getError } from "../Utilities/Utils";
 import { toast } from "react-toastify";
 import Footer from "../Footer/Footer";
-import { Slider } from "@mui/material";
 import { Context } from "../../Context/Context";
+import Slider from "../Slider/Slider";
+import FlashDeal from "../flash deals/FlashDeal";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -75,10 +76,12 @@ const reducer = (state, action) => {
 };
 
 function Store(props) {
-  const { state } = useContext(Context);
-  const { userInfo } = state;
+  const { currencySign } = props;
 
-  const { genderselect, productcolor, productsize, prices } = data;
+  const { state } = useContext(Context);
+  const { userInfo, prices, colors } = state;
+
+  const { genderselect, productsize } = data;
 
   const [activeSize, setActiveSize] = useState("");
 
@@ -99,6 +102,7 @@ function Store(props) {
   const size = sp.get("size") || "all";
   const price = sp.get("price") || "all";
   const brand = sp.get("brand") || "all";
+  const order = sp.get("order") || "all";
   const page = parseInt(sp.get("page") || 1);
 
   // //PRICE RANGE
@@ -115,6 +119,7 @@ function Store(props) {
       products,
       simProducts,
       brands,
+
       sizes,
       categories,
       pages,
@@ -133,7 +138,7 @@ function Store(props) {
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `/api/products/store?page=${page}&query=${query}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`
+          `/api/products/store?page=${page}&query=${query}&order=${order}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`
         );
         window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
@@ -142,7 +147,7 @@ function Store(props) {
       }
     };
     fetchData();
-  }, [category, brand, color, size, gender, page, price, query]);
+  }, [category, brand, color, size, gender, page, price, query, order]);
 
   //&price=${filterPrice}
   const getFilterUrl = (filter) => {
@@ -152,8 +157,9 @@ function Store(props) {
     const filterColor = filter.color || color;
     const filterSize = filter.size || size;
     const filterPrice = filter.price || price;
+    const sortOrder = filter.order || order;
     const filterBrand = filter.brand || brand;
-    return `/store?query=${filterQuery}&category=${filterCategory}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
+    return `/store?query=${filterQuery}&category=${filterCategory}&order=${sortOrder}&gender=${filterGender}&color=${filterColor}&size=${filterSize}&price=${filterPrice}&brand=${filterBrand}`;
   };
   console.log(products);
 
@@ -246,79 +252,14 @@ function Store(props) {
   return (
     <div className="content-cloth">
       <Helmet>
-        <title>Shopmore Store</title>
+        <title>Store</title>
       </Helmet>
 
       <div className="container">
         <div className="banner-container">
-          {/* <img src={banner2} /> */}
-          <h1>Mens wear</h1>
-          <div className="banner-list">
-            <div className="list-1">
-              <ul>
-                <Link to="">
-                  <li>Accessories</li>
-                </Link>
-                <Link to="">
-                  <li>ASOS Basic Tops</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Bags</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Caps &amp; Hats</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Gifts</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Grooming</li>
-                </Link>
-              </ul>
-            </div>
-            <div className="list-2">
-              <ul>
-                <Link to="">
-                  <li>Hoodies &amp; Sweatshirts</li>
-                </Link>
-                <Link to="">
-                  <li>Jackets &amp; Coats</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Jeans</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Jewellery</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Joggers</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Jumpers &amp; Cardigans</li>
-                </Link>
-              </ul>
-            </div>
-            <div className="list-3">
-              <ul>
-                <Link to="">
-                  <li>Leather Jackets</li>
-                </Link>
-                <Link to="">
-                  <li>Long Sleeve T-Shirts</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Loungewear</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Oversized &amp; Longline</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Polo Shirts</li>
-                </Link>{" "}
-                <Link to="">
-                  <li>Shirts</li>
-                </Link>
-              </ul>
+          <div className="banner">
+            <div className="slider">
+              <Slider />
             </div>
           </div>
         </div>
@@ -375,18 +316,21 @@ function Store(props) {
                     <div className="product-color">
                       <h4>Color</h4>
                       <ul className="ul-color">
-                        {productcolor.map((c, index) => (
+                        {colors?.slice(0, 7)?.map((c, index) => (
                           <span
                             key={index}
                             value={color}
                             onClick={() => navigate(getFilterUrl(c))}
                           >
                             <li
-                              key={c}
                               onClick={() => setActiveColor(c)}
                               className={`${activeColor === c ? "active" : ""}`}
                             >
-                              <i className={c.color}></i>
+                              <img
+                                src={c.color}
+                                alt={c.color}
+                                className="color_image_size"
+                              />
                             </li>
                           </span>
                         ))}
@@ -442,13 +386,14 @@ function Store(props) {
                               navigate(getFilterUrl({ price: e.target.value }))
                             }
                           >
-                            {prices.map((p) => (
+                            {prices?.map((p, index) => (
                               <MenuItem
-                                value={p.value}
+                                key={index}
+                                id="MuiMenuItem-root"
+                                value={p.price}
                                 disabled={p.disabled}
-                                selected={p.label[1]}
                               >
-                                {p.label}
+                                {p.priceSpan}
                               </MenuItem>
                             ))}
                           </Select>
@@ -510,28 +455,9 @@ function Store(props) {
                     </div>
                   </div>
                   <div className="apply-btn-clear">
-                    <button>Apply</button>
-
-                    {query !== "all" ||
-                    category !== "all" ||
-                    gender !== "all" ||
-                    size !== "all" ||
-                    color !== "all" ||
-                    price !== "all" ||
-                    brand !== "all" ? (
-                      <div
-                        className="close-btn-clear"
-                        onClick={() => navigate("/store")}
-                      >
-                        <CloseIcon id="sharp " className="close-sharp" />
-                        <div className="clear-all">Clear All</div>
-                      </div>
-                    ) : (
-                      <div className="close-btn-clear">
-                        <CloseIcon id="sharp " className="close-sharp" />
-                        <div className="clear-all">Clear All</div>
-                      </div>
-                    )}
+                    <button onClick={() => navigate("/store")}>
+                      Clear All
+                    </button>
                   </div>
                 </div>
               </div>
@@ -551,7 +477,10 @@ function Store(props) {
                     )}
                     {products?.map((product, index) => (
                       <div key={index}>
-                        <StoreItems product={product}></StoreItems>
+                        <StoreItems
+                          product={product}
+                          currencySign={currencySign}
+                        ></StoreItems>
                       </div>
                     ))}
                   </div>
@@ -580,14 +509,8 @@ function Store(props) {
             </div>
           </div>
         </div>
-        <div className="similar-prod-store">
-          <div className="end-list">
-            {simProducts.slice(0, 10).map((sim, index) => (
-              <div key={index} className="endlist">
-                <SimilarProduct sim={sim} />
-              </div>
-            ))}
-          </div>
+        <div>
+          <FlashDeal simProducts={simProducts} currencySign={currencySign} />
         </div>
 
         <div className="lower-banner">

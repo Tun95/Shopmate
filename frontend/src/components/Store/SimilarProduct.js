@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../../Context/Context";
 
 import "./SimilarProduct.css";
 function SimilarProduct(props) {
   const { sim } = props;
+
+  const { state, dispatch: ctxDispatch } = useContext(Context);
+  const {  settings } = state;
   return (
     <div className="similar-prod">
       <div className="dress">
@@ -21,10 +25,18 @@ function SimilarProduct(props) {
           </div>
           {sim.discount > 0 ? (
             <>
-              <div className="price">
-                £{(sim.price - (sim.price * sim.discount) / 100)?.toFixed(2)}
-              </div>
-              <s className="price-discount">£{sim.price}</s>
+              {settings?.map((s, index) => (
+                <>
+                  <div className="price" key={index}>
+                    {s.currencySign}
+                    {(sim.price - (sim.price * sim.discount) / 100)?.toFixed(2)}
+                  </div>
+                  <s className="price-discount">
+                    {s.currencySign}
+                    {sim.price}
+                  </s>
+                </>
+              ))}
             </>
           ) : (
             <div className="price">£{sim.price}</div>

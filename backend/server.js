@@ -17,6 +17,9 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
 import sizeRoutes from "./routes/sizeRoutes.js";
 import wishRouter from "./routes/wishRoutes.js";
+import priceRoutes from "./routes/priceRoutes.js";
+import bannerRoutes from "./routes/bannerRoutes.js";
+import colorRoutes from "./routes/colorRoutes.js";
 
 
 dotenv.config();
@@ -67,6 +70,9 @@ app.use("/api/orders", orderRouter);
 app.use("/api/category", categoryRoutes);
 app.use("/api/brand", brandRoutes);
 app.use("/api/size", sizeRoutes);
+app.use("/api/color", colorRoutes);
+app.use("/api/price", priceRoutes);
+app.use("/api/banner", bannerRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/checkout", stripeRouter);
 

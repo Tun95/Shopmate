@@ -32,7 +32,7 @@ const reducer = (state, action) => {
   }
 };
 
-function SellerOrders() {
+function SellerOrders({ currencySign }) {
   const { state } = useContext(Context);
   const { userInfo } = state;
   const navigate = useNavigate();
@@ -141,7 +141,8 @@ function SellerOrders() {
                             {order.createdAt.substring(0, 10)}
                           </li>
                           <li className="admin-total-paid">
-                            £{order.grandTotal.toFixed(2)}
+                            {currencySign}
+                            {order.grandTotal.toFixed(2)}
                           </li>
                           <li className="admin-paid">
                             {order.isPaid ? (

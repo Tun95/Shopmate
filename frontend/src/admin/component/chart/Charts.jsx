@@ -10,27 +10,31 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import numeral from "numeral";
 
-const CustomTooltip = ({ active, payload, label }) => {
-  let TotalSales = new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(payload[0]?.value);
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip" style={{ padding: "10px" }}>
-        <p className="label">{`${label}`}</p>
-        <p className="" style={{ color: "#5550bd", marginTop: "3px" }}>
-          Total Sales:{` ${TotalSales}`}
-        </p>
-      </div>
-    );
-  }
+function Charts({ title, data, dataKey, grid, currencySign, currency }) {
+  const CustomTooltip = ({ active, payload, label }) => {
+    let TotalSales = new Intl.NumberFormat("en-GB", {
+      style: "currency",
+      currency: currency,
+    }).format(payload[0]?.value);
 
-  return null;
-};
+    //let TotalSales = numeral(payload[0]?.value).format("0,0a");
 
-function Charts({ title, data, dataKey, grid }) {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip" style={{ padding: "10px" }}>
+          <p className="label">{`${label}`}</p>
+          <p className="" style={{ color: "#5550bd", marginTop: "3px" }}>
+            Total Sales: {`${TotalSales}`}
+          </p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="chart">
       <h3 className="chartTitle">{title}</h3>
@@ -39,7 +43,7 @@ function Charts({ title, data, dataKey, grid }) {
           <YAxis />
           <XAxis dataKey="name" stroke="#5550bd" />
           <Line type="monotone" dataKey={dataKey} stroke="#5550bd" />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip />
           {grid && <CartesianGrid stroke="#e0dfdf" strokeDasharray="5 5" />}
           <Legend />
         </LineChart>

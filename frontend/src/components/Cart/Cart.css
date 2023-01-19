@@ -116,23 +116,8 @@
 .cl-2 {
   color: #00d3ca;
 }
-.cl-3 {
-  color: #f62f5e;
-}
-.cl-4 {
-  color: #f35e3d;
-}
-.cl-5 {
-  color: #effc90;
-}
-.cl-6 {
-  color: #5bca05;
-}
-.cl-7 {
-  color: #a020f0;
-}
 
-.table-body .first-row img {
+.table-body .first-row .small {
   width: 50px;
   border: 2px solid #b4b4b4;
   padding: 10px;
@@ -153,6 +138,8 @@
   color: #6c6c6c;
   position: relative;
   top: 3px;
+  display: flex;
+  align-items: center;
 }
 .first-row .name-gen .remove-item {
   display: flex;

@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "../NavBar/NavBarSR.css";
 import gb from "../images/gb.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 
 function NavBarSR(props) {
-  const { showModal, showSModal } = props;
+  const { showModal, showSModal, currency } = props;
 
-  const { state, dispatch } = useContext(Context);
-  const { cart, userInfo } = state;
+  const { state, dispatch: ctxDispatch } = useContext(Context);
+  const { cart, settings, userInfo } = state;
 
   const totalPrice = cart.cartItems.reduce(
     (a, c) => a + (c.price - (c.price * c.discount) / 100) * c.quantity,
@@ -18,16 +18,16 @@ function NavBarSR(props) {
   //TOTAL SALES
   let TotalItemPrice = new Intl.NumberFormat("en-GB", {
     style: "currency",
-    currency: "GBP",
+    currency: currency,
   }).format(totalPrice);
 
   //SELLER BOX
   const navigate = useNavigate();
 
   const signoutHandler = () => {
-    dispatch({ type: "USER_SIGNOUT" });
+    ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
-     localStorage.removeItem("!userInfo" && "cartItems");
+    localStorage.removeItem("!userInfo" && "cartItems");
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("paymentMethod");
     window.location.href = "/signin";
@@ -116,7 +116,32 @@ function NavBarSR(props) {
                       <Link to="/admin/support">Support</Link>
                     </li>
                     <li>
-                      <Link to="/admin/settings">Settings</Link>
+                      <Link to="">
+                        Manage{" "}
+                        <i
+                          style={{ position: "relative", top: "2px" }}
+                          className="fa-solid fa-caret-right"
+                        ></i>
+                      </Link>
+                      <ul className="nested_link">
+                        {settings?.map((s, index) => (
+                          <Link key={index} to={`/admin/settings/${s._id}`}>
+                            <li>Settings</li>
+                          </Link>
+                        ))}
+                        <Link to={`/admin/filters`}>
+                          <li>Filters</li>
+                        </Link>
+                        <Link to={`/admin/banners`}>
+                          <li>Banner</li>
+                        </Link>
+                        <Link to={`/admin/subscribers`}>
+                          <li>Subscribers</li>
+                        </Link>
+                        {/* <Link to={`/admin/pages`}>
+                          <li>Pages</li>
+                        </Link> */}
+                      </ul>
                     </li>
                   </ul>
                 </li>
@@ -126,8 +151,8 @@ function NavBarSR(props) {
         </div>
         <div className="list">
           <ul className="k-list">
-            <Link to="/store">
-              <li>Daily Deals</li>
+            <Link to="/store?order=toprated">
+              <li>Top Rated</li>
             </Link>
             <li>
               {userInfo && userInfo?.isSeller ? (
@@ -160,7 +185,11 @@ function NavBarSR(props) {
         <div className="currency-cart">
           <div className="currency">
             <img src={gb} alt="" width="20px" />
-            <strong> £ GBP</strong>
+            {settings?.map((s, index) => (
+              <strong key={index}>
+                {s.currencySign} {s.currency}
+              </strong>
+            ))}
           </div>
           <div className="cart" id="cart">
             <Link to="#" onClick={showModal}>

@@ -1,0 +1,175 @@
+.seller {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  .seller-contanainer {
+    width: 900px;
+    background-color: #f7f7f7;
+    margin: 10px 0px;
+    padding: 20px;
+
+    .price {
+      font-weight: 800;
+      font-size: 16px;
+      color: #f1135d;
+    }
+    .discount {
+      font-weight: 600;
+      font-size: 15px;
+      color: #6c6c6c;
+    }
+    .seller-box {
+      .box {
+        .box-1 {
+          padding: 20px;
+          -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+          box-shadow: 0px 0px 7px -1px #b4b4b4;
+          .seller_details {
+            display: flex;
+            align-items: center;
+            line-height: 30px;
+            .account_status {
+              display: flex;
+              align-items: center;
+              .unverified-account,
+              .verified-account {
+                height: 20px;
+                width: 150px;
+                display: flex;
+                align-items: center;
+              }
+            }
+            img {
+              width: 160px;
+              height: 160px;
+              border-radius: 10px;
+              object-fit: cover;
+              margin-right: 10px;
+            }
+            .seller_name {
+              display: flex;
+              align-items: center;
+              h4 {
+                margin-left: 5px;
+                text-transform: uppercase;
+                color: #6c6c6c;
+              }
+            }
+            .seller_member_country {
+              display: flex;
+              align-items: center;
+              p {
+                margin-left: 5px;
+                .membership {
+                  color: #6c6c6c;
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+          .seller_bio {
+            margin-top: 20px;
+          }
+        }
+        .box-2 {
+          padding: 20px;
+          -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+          box-shadow: 0px 0px 7px -1px #b4b4b4;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+          .product_list:hover {
+            box-shadow: 1px 10px 40px -5px #6c6c6c;
+          }
+          .product_list {
+            width: 210px;
+            background-color: #fff;
+            height: 100%;
+            margin-bottom: 10px;
+            box-shadow: 1px 3px 3px -2px;
+            img {
+              width: 100%;
+              height: px;
+            }
+            .seller-prod-rev {
+              display: flex;
+              justify-content: space-between;
+              padding: 0px 5px;
+            }
+            .p-name {
+              text-align: center;
+              a {
+                color: #2e2e2e;
+              }
+            }
+          }
+        }
+        .product_pagination {
+          padding: 20px;
+          -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+          box-shadow: 0px 0px 7px -1px #b4b4b4;
+          font-weight: 600;
+          a {
+            font-weight: 600;
+          }
+          .paginationItemStyle.active {
+            background-color: #f62f5e;
+            color: #fff;
+          }
+          .pagination_span {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+        }
+      }
+      .list_header {
+        padding: 20px;
+        -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
+        box-shadow: 0px 0px 7px -1px #b4b4b4;
+        margin-top: 20px;
+        h2 {
+          text-transform: uppercase;
+          color: #6c6c6c;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 509px) {
+  .seller {
+    .seller-contanainer {
+      .seller-box {
+        .box {
+          .box-2 {
+            .product_list {
+              width: 310px;
+              height: 100%;
+              margin-bottom: 10px;
+              .seller-prod-rev {
+                margin-bottom: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 392px) {
+  .seller {
+    .seller-contanainer {
+      .seller-box {
+        .box {
+          .box-2 {
+            .product_list {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

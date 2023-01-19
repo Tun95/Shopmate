@@ -26,7 +26,7 @@ productRouter.post(
       gender: "Male",
       category: ["Brands", "Men"],
       size: ["XS", "S", "24", "32"],
-      color: ["fa-solid fa-circle  cl-1", "fa-solid fa-circle  cl-2"],
+      color: [""],
       brand: ["Abercrombie"],
       image: "/imgs/shirt1.png",
       desc: "Sample Description",

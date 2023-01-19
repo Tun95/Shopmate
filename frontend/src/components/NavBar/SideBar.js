@@ -34,14 +34,15 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 function SideBar(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
 
-  const { cart, userInfo } = state;
+  const { cart, settings, userInfo } = state;
 
-  const { closeSideBar, openSideBar } = props;
+  const { closeSideBar, openSideBar, currency } = props;
 
   const [openAccount, setOpenAccount] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
   const [openSeller, setOpenSeller] = useState(false);
+  const [openManage, setOpenManage] = useState(false);
 
   //SIGNOUT HANDLER
   const signoutHandler = () => {
@@ -69,7 +70,7 @@ function SideBar(props) {
   //TOTAL SALES
   let TotalItemPrice = new Intl.NumberFormat("en-GB", {
     style: "currency",
-    currency: "GBP",
+    currency: currency,
   }).format(totalPrice);
 
   return (
@@ -211,36 +212,35 @@ function SideBar(props) {
                             : "side-account-list"
                         }
                       >
-                        <li className="inner-list">
-                          <Link to="/store?category=Women">
-                            <WomanIcon className="sidebar-icons" />
-                            Women
-                          </Link>
-                        </li>
-                        <li className="inner-list">
-                          <Link to="/store?category=Men">
-                            <ManIcon className="sidebar-icons" />
-                            Men
-                          </Link>
-                        </li>
-                        <li className="inner-list">
-                          <Link to="/store?category=Kids">
-                            <ChildCareIcon className="sidebar-icons" />
-                            Kids
-                          </Link>
-                        </li>
-                        <li className="inner-list">
-                          <Link to="/store?category=Shoes">
-                            <DoNotStepIcon className="sidebar-icons" />
-                            Shoes
-                          </Link>
-                        </li>
-                        <li className="inner-list">
-                          <Link to="/store?category=Brands">
-                            <BrandingWatermarkIcon className="sidebar-icons" />
-                            Brands
-                          </Link>
-                        </li>
+                        {settings?.map((s, index) => (
+                          <>
+                            <li className="inner-list" key={index}>
+                              <Link to={`/store?category=${s.navOne}`}>
+                                {s.navOne}
+                              </Link>
+                            </li>
+                            <li className="inner-list">
+                              <Link to={`/store?category=${s.navTwo}`}>
+                                {s.navTwo}
+                              </Link>
+                            </li>
+                            <li className="inner-list">
+                              <Link to={`/store?category=${s.navThree}`}>
+                                {s.navThree}
+                              </Link>
+                            </li>
+                            <li className="inner-list">
+                              <Link to={`/store?category=${s.navFour}`}>
+                                {s.navFour}
+                              </Link>
+                            </li>
+                            <li className="inner-list">
+                              <Link to={`/store?category=${s.navFive}`}>
+                                {s.navFive}
+                              </Link>
+                            </li>
+                          </>
+                        ))}
                       </ul>
                     </li>
                     {userInfo?.isAdmin ? (
@@ -305,10 +305,62 @@ function SideBar(props) {
                             </Link>
                           </li>
                           <li className="inner-list">
-                            <Link to="/admin/settings">
-                              <SettingsIcon className="sidebar-icons" />
-                              Settings
-                            </Link>
+                            <span
+                              className="sidebar-main"
+                              onClick={() => setOpenManage(!openManage)}
+                            >
+                              <Link
+                                to=""
+                                style={{ position: "relative", right: "10px" }}
+                              >
+                                <SettingsIcon className="sidebar-icons" />
+                                Manage
+                              </Link>
+                              <ExpandMoreIcon
+                                className={
+                                  openManage
+                                    ? "drop-down-menu-btn open"
+                                    : "drop-down-menu-btn"
+                                }
+                              />
+                            </span>
+                            <ul
+                              className={
+                                openManage
+                                  ? "side-account-list open"
+                                  : "side-account-list"
+                              }
+                            >
+                              <li className="inner-list">
+                                {settings?.map((s, index) => (
+                                  <Link
+                                    key={index}
+                                    to={`/admin/settings/${s._id}`}
+                                  >
+                                    <i className="fa-solid fa-gears sidebar-icons"></i>
+                                    Settings
+                                  </Link>
+                                ))}
+                              </li>
+                              <li className="inner-list">
+                                <Link to="/admin/filters">
+                                  <i className="fa-solid fa-filter"></i>
+                                  Filters
+                                </Link>
+                              </li>
+                              <li className="inner-list">
+                                <Link to="/admin/banners">
+                                  <i className="fa-solid fa-rectangle-ad sidebar-icons"></i>
+                                  Banner
+                                </Link>
+                              </li>
+                              <li className="inner-list">
+                                <Link to="/admin/subscribers">
+                                  <i className="fa-solid fa-users sidebar-icons"></i>
+                                  Subscriber
+                                </Link>
+                              </li>
+                            </ul>
                           </li>
                         </ul>
                       </li>

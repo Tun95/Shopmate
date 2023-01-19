@@ -1,0 +1,152 @@
+.flash_card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  left: 8px;
+}
+.flash_container {
+  margin-top: -5px;
+  height: 310px;
+  margin-bottom: 15px;
+}
+
+.flash_card .dress {
+  background-color: #fff;
+  overflow: hidden;
+  width: 285px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  line-height: 25px;
+
+  height: 310px;
+  box-shadow: 1px 3px 3px -2px;
+}
+
+.flash_card .dress .dress_box {
+  position: relative;
+  top: 30px;
+}
+
+.flash_card .item-discount {
+  background-color: #f62f5e;
+  position: absolute;
+  left: 0;
+  width: 40px;
+  top: -15px;
+  margin-left: -35px;
+  font-size: 15px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+}
+.flash_card a {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+
+/*----- control btn -------*/
+.control-btn .next,
+.control-btn .prev {
+  position: absolute;
+  outline: none;
+  border: none;
+  top: 40%;
+  width: 30px;
+  height: 50px;
+  line-height: 60px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  transition: 0.3s ease-in;
+  transform: 0.5s;
+  z-index: 5;
+}
+.control-btn .prev {
+  left: 1px;
+}
+.control-btn .next {
+  right: -2px;
+}
+.control-btn .prev i,
+.control-btn .next i {
+  font-size: 20px;
+  transition: 0.5s;
+  color: #fff;
+}
+.control-btn .prev:hover,
+.control-btn .next:hover {
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  cursor: pointer;
+}
+/*----- control btn -------*/
+
+.flash_card .price-discount {
+  font-weight: 600;
+  font-size: 15px;
+  color: #6c6c6c;
+}
+.flash_card .price {
+  font-weight: 800;
+  color: #f62f5e;
+}
+.flash_card .dress h4 {
+  font-weight: 800;
+}
+.flash_card .dress .img {
+  width: 189px;
+  height: 190px;
+  object-fit: contain;
+}
+.dress:hover {
+  box-shadow: 1px 10px 40px -5px #6c6c6c;
+  height: 310px;
+}
+.flash_card .sim-p-name {
+  display: inline-block;
+  position: relative;
+}
+@media screen and (max-width: 880px) {
+  .flash_card .dress {
+    width: 95%;
+  }
+  .flash_card .item-discount {
+    margin-left: -20px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .flash_card .item-discount {
+    margin-left: 0px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .flash_card .item-discount {
+    left: -30px;
+  }
+}
+@media screen and (max-width: 590px) {
+  .flash_card {
+    position: relative;
+    right: 30px;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .flash_card .item-discount {
+    left: -10px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .flash_card .item-discount {
+    left: -65px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .flash_card .dress {
+    width: 265px;
+  }
+}

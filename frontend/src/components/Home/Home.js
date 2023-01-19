@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { getError } from "../Utilities/Utils";
 
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import Slider from "../Slider/Slider";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -35,38 +36,26 @@ function Home() {
     error: "",
   });
 
-  const { state } = useContext(Context);
-  const { userInfo } = state;
+  const { state, dispatch: ctxDispatch } = useContext(Context);
+  const { settings, userInfo } = state;
 
   const [email, setEmail] = useState();
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!userInfo) {
-      toast.error("You need to login and be a verified user", {
-        position: "bottom-center",
-      });
+    if (!email) {
+      toast.error("email field is required", { position: "bottom-center" });
     } else {
-      if (!userInfo.isAccountVerified) {
-        toast.error("Only a verified user have access to this offer", {
+      try {
+        const { data } = await axios.post("/api/message/subscribe", {
+          email,
+        });
+        dispatch({ type: "POST_SUCCESS", payload: data });
+        toast.success("You have successfully subscribe to our newsletter", {
           position: "bottom-center",
         });
-      } else {
-        if (!email) {
-          toast.error("email field is required", { position: "bottom-center" });
-        } else {
-          try {
-            const { data } = await axios.post("/api/message/subscribe", {
-              email,
-            });
-            dispatch({ type: "POST_SUCCESS", payload: data });
-            toast.success("You have successfully subscribe to our newsletter", {
-              position: "bottom-center",
-            });
-          } catch (err) {
-            toast.error(getError(err), { position: "bottom-center" });
-            dispatch({ type: "POST_FAIL" });
-          }
-        }
+      } catch (err) {
+        toast.error(getError(err), { position: "bottom-center" });
+        dispatch({ type: "POST_FAIL" });
       }
     }
   };
@@ -74,13 +63,13 @@ function Home() {
   return (
     <div className="home-main">
       <Helmet>
-        <title>Shopmore Home</title>
+        <title>Home</title>
       </Helmet>
       <div className="home">
         <div className="banner">
-          <Link to="./store">
-            <button className="btn">View All</button>
-          </Link>
+          <div className="slider">
+            <Slider />
+          </div>
         </div>
 
         <div className="spec">
@@ -143,12 +132,12 @@ function Home() {
         <div className="subscribe">
           <div className="content-design">
             <div className="content-sub">
-              <h3>10% Discount for your subscription</h3>
+              <h3>Don't miss out on any of our products and offers!!!</h3>
               <p>
-                Carry the day in style with this extra-large tote crafted in our
-                chic B.B. Collection <br />
-                textured PVC. Featuring colorful faux leather trim,
-                <br /> this tote offers a roomy interior.
+                Subscribe for shop news, updates, offers and receive
+                notification
+                <br />
+                of new product uploaded daily
               </p>
               <div className="sub-con-e">
                 <form action="" onSubmit={submitHandler}>
@@ -180,7 +169,7 @@ function Home() {
               <Link to="/orderhistory">
                 <li>Track Order</li>
               </Link>
-              <Link to="/about-terms-privacy">
+              <Link to="/returns">
                 <li>Returns</li>
               </Link>
             </ul>
@@ -188,12 +177,16 @@ function Home() {
           <div className="store-foot">
             <h4>WHAT'S IN STORE</h4>
             <ul>
-              <Link to="/store?category=Women">
-                <li>Women</li>
-              </Link>
-              <Link to="/store?category=Men">
-                <li>Men</li>
-              </Link>
+              {settings?.map((s, index) => (
+                <div key={index}>
+                  <Link to={`/store?category=${s.navOne}`}>
+                    <li>{s.navOne}</li>
+                  </Link>
+                  <Link to={`/store?category=${s.navTwo}`}>
+                    <li>{s.navTwo}</li>
+                  </Link>
+                </div>
+              ))}
               <Link to="/store">
                 <li>Product A-Z</li>
               </Link>
@@ -204,29 +197,31 @@ function Home() {
           </div>
           <div className="follow">
             <h4>FOLLOW US</h4>
-            <ul>
-              <a
-                href="https://web.facebook.com/?_rdc=1&_rdr"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <li>Facebook</li>
-              </a>
-              <a
-                href="https://twitter.com/home"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <li>Twitter</li>
-              </a>
-              <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <li>YouTube</li>
-              </a>
-            </ul>
+            {settings?.map((s, index) => (
+              <ul key={index}>
+                <a
+                  href={`${s.facebook}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <li>Facebook</li>
+                </a>
+                <a
+                  href={`${s.twitter}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <li>Twitter</li>
+                </a>
+                <a
+                  href={`${s.youtube}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <li>YouTube</li>
+                </a>
+              </ul>
+            ))}
           </div>
           <div className="ltd">©2022 shopping Ltd</div>
         </div>

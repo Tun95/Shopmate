@@ -61,7 +61,7 @@
   display: inline-block;
   box-shadow: 1px 2px 2px -2px;
   border-radius: 0.5rem;
-  margin: ;
+ 
   background-color: lightgreen;
   color: green;
 }
@@ -170,7 +170,7 @@
   position: relative;
   left: 10px;
 }
-.order-screen .box-list .order-first-row img {
+.order-screen .box-list .order-first-row .order-small {
   width: 50px;
   border: 2px solid #b4b4b4;
   padding: 10px;
@@ -190,6 +190,8 @@
 .order-screen .box-list .order-first-row .order-name-gen .gen {
   color: #6c6c6c;
   position: relative;
+  display: flex;
+  align-items: center;
   top: 3px;
 }
 .order-screen .box-list .table-order:nth-child(odd) {

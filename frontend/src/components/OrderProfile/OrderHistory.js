@@ -22,7 +22,7 @@ const reducer = (state, action) => {
   }
 };
 
-function OrderHistory() {
+function OrderHistory({ currencySign }) {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
@@ -89,7 +89,8 @@ function OrderHistory() {
                             {order.createdAt.substring(0, 10)}
                           </li>
                           <li className="total-paid">
-                            £{order.grandTotal.toFixed(2)}
+                            {currencySign}
+                            {order.grandTotal.toFixed(2)}
                           </li>
                           <li className="paid">
                             {order.isPaid ? (

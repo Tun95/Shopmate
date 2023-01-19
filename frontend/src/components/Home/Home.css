@@ -10,26 +10,13 @@
   overflow: hidden;
 }
 .banner {
-  height: 450px;
-  background-image: url(../images/banner1.png);
+  height: 335px;
+  margin-top: 5px;
+  
 }
-.banner button {
-  background-color: #fff;
-  outline: none;
-  border: none;
-  padding: 10px 30px 10px 30px;
-  border-radius: 20px;
-  color: #f62f5e;
-  font-weight: 800;
-  cursor: pointer;
-  position: relative;
-  left: 80px;
-  top: 330px;
-}
+
 .banner button:hover {
   background-color: rgb(238, 236, 236);
-}
-.header-desc {
 }
 .header {
   margin-top: 10px;

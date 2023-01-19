@@ -1,6 +1,6 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
-import  Settings  from "../models/settings.js";
+import Settings from "../models/settings.js";
 import { isAuth } from "../utils.js";
 
 const settingsRoutes = express.Router();
@@ -11,12 +11,11 @@ settingsRoutes.post(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     try {
-      const other = await Settings.create({
-        title: req.body.title,
+      const settings = await Settings.create({
+        ...req.body,
         user: req.user._id,
-        description: req.body.description,
       });
-      res.send(other);
+      res.send(settings);
     } catch (error) {
       res.send(error);
     }
@@ -28,8 +27,10 @@ settingsRoutes.get(
   "/",
   expressAsyncHandler(async (req, res) => {
     try {
-      const other = await Settings.find({}).populate("user").sort("-createdAt");
-      res.send(other);
+      const settings = await Settings.find({})
+        .populate("user")
+        .sort("-createdAt");
+      res.send(settings);
     } catch (error) {
       res.send(error);
     }
@@ -43,8 +44,8 @@ settingsRoutes.get(
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findById(id);
-      res.send(other);
+      const setting = await Settings.findById(id);
+      res.send(setting);
     } catch (error) {
       res.send(error);
     }
@@ -58,29 +59,14 @@ settingsRoutes.put(
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     try {
-      const other = await Settings.findByIdAndUpdate(
+      const setting = await Settings.findByIdAndUpdate(
         id,
         {
           ...req.body,
         },
         { new: true }
       );
-      res.send(other);
-    } catch (error) {
-      res.send(error);
-    }
-  })
-);
-
-//Fetch single
-settingsRoutes.delete(
-  "/:id",
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-    try {
-      const other = await Settings.findByIdAndDelete(id);
-      res.send(other);
+      res.send(setting);
     } catch (error) {
       res.send(error);
     }

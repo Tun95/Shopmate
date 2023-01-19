@@ -1,0 +1,23 @@
+.BannerForm {
+  width: 100%;
+}
+.BannerForm .background_image {
+  margin-top: 10px;
+  width: 215px;
+  
+}
+
+.BannerForm .background_image input {
+  padding: 8px;
+  outline: none;
+  border: 1px solid #b4b4b4;
+  border-radius: 5px;
+}
+.BannerForm .background_image strong {
+  color: #6c6c6c;
+}
+.BannerForm .background_image .fa-solid {
+  color: #6c6c6c;
+  font-size: 20px;
+  cursor: pointer;
+}

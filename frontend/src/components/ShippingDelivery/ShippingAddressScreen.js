@@ -15,10 +15,12 @@ export default function ShippingAddressScreen() {
     state,
     dispatch: ctxDispatch,
     Express,
+
     Standard,
   } = useContext(Context);
   const {
     userInfo,
+    settings,
     cart: { cartItems, shippingAddress },
   } = state;
 
@@ -39,7 +41,11 @@ export default function ShippingAddressScreen() {
 
   const Msg = ({ closeToast, toastProps }) => (
     <div>
-      The following fields <span className="starField">" <span id="starField">*</span> "</span> are required
+      The following fields{" "}
+      <span className="starField">
+        " <span id="starField">*</span> "
+      </span>{" "}
+      are required
     </div>
   );
 
@@ -245,39 +251,35 @@ export default function ShippingAddressScreen() {
                     </div>
                     <div className="delivery-opt">
                       <h2>Delivery options*</h2>
-                      <div className="delivery-container">
-                        <input
-                          type="radio"
-                          id="standard"
-                          name="shipping"
-                          value={Standard}
-                          onChange={(e) => setShipping(e.target.value)}
-                        />
-                        <label htmlFor="standard">
-                          <span>
-                            <strong>Standard shipping:</strong>
-                            <div className="label">
-                              (free, 2-3 business days)
-                            </div>
-                          </span>
-                        </label>
+                      {settings?.map((s, index) => (
+                        <div className="delivery-container" key={index}>
+                          <input
+                            type="radio"
+                            id="standard"
+                            name="shipping"
+                            value={s.standard}
+                            onChange={(e) => setShipping(e.target.value)}
+                          />
+                          <label htmlFor="standard">
+                            <span>
+                              <div className="label">{s.standard}</div>
+                            </span>
+                          </label>
 
-                        <input
-                          type="radio"
-                          id="express"
-                          value={Express}
-                          name="shipping"
-                          onChange={(e) => setShipping(e.target.value)}
-                        />
-                        <label htmlFor="express">
-                          <span>
-                            <strong>Express shipping:</strong>
-                            <div className="label">
-                              (£28, 1-2 business days)
-                            </div>
-                          </span>
-                        </label>
-                      </div>
+                          <input
+                            type="radio"
+                            id="express"
+                            value={s.express}
+                            name="shipping"
+                            onChange={(e) => setShipping(e.target.value)}
+                          />
+                          <label htmlFor="express">
+                            <span>
+                              <div className="label">{s.express}</div>
+                            </span>
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

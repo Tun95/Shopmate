@@ -1,0 +1,49 @@
+.new-settings-edit .newsStyle {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.subscribers .admin-settings-table-header ul {
+  width: 885px;
+
+}
+.subscribers .admin-settings-table-body .admin-settings-table-row {
+  width: 885px;
+	overflow-y: scroll;
+}
+.subscribers .admin-settings-table-body .newsLetterDelete {
+	position: relative;
+	right: 20px;
+}
+
+.subscribers  .admin-settings-table {
+  overflow-x: scroll;
+}
+
+.subscribers  .admin-settings-table::-webkit-scrollbar {
+  cursor: pointer;
+  width: 5px;
+  height: 7px;
+}
+.subscribers  .admin-settings-table::-webkit-scrollbar-track {
+  width: 5px;
+  height: 7px;
+  background-color: #b4b4b4;
+  border-left: 0 solid #fff;
+  border-right: 0 solid #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.subscribers .admin-settings-table::-webkit-scrollbar-thumb {
+  background-color: #6c6c6c;
+  width: 5px;
+
+  height: 15% !important;
+  transition: 0.5s ease;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.subscribers .filter-settings-table::-webkit-scrollbar-track {
+  display: none;
+}

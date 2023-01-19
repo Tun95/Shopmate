@@ -1,6 +1,12 @@
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { Helmet } from "react-helmet-async";
-import "./Profile.css";
+import "./Profile.scss";
 import { Context } from "../../Context/Context";
 import { toast } from "react-toastify";
 import { getError } from "../Utilities/Utils";
@@ -11,6 +17,7 @@ import Footer from "../Footer/Footer";
 import person from "../images/person.png";
 import MessageBox from "../Utilities/MessageBox";
 import PublishIcon from "@mui/icons-material/Publish";
+import JoditEditor from "jodit-react";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -34,6 +41,8 @@ const reducer = (state, action) => {
 };
 
 function Profile() {
+  const editor = useRef(null);
+
   const params = useParams();
   const { id: userId } = params;
   const { state, dispatch: ctxDispatch } = useContext(Context);
@@ -60,11 +69,38 @@ function Profile() {
   const [sellerLogo, setSellerLogo] = useState("");
   const [sellerDescription, setSellerDescription] = useState("");
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       dispatch({ type: "FETCH_REQUEST" });
+  //       const { data } = await axios.get(`/api/users/${userId}`);
+  //       setName(data.name);
+  //       setEmail(data.email);
+  //       setPhone(data.phone);
+  //       setAddress(data.address);
+  //       setCountry(data.country);
+  //       setImage(data.image);
+
+  //       setSellerName(data?.seller?.name);
+  //       setSellerLogo(data?.seller?.logo);
+  //       setSellerDescription(data?.seller?.description);
+
+  //       dispatch({ type: "FETCH_SUCCESS" });
+  //     } catch (err) {
+  //       dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+  //     }
+  //   };
+  //   fetchData();
+  //   console.log(user);
+  // }, [user, userId, userInfo]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/users/${userId}`);
+        const { data } = await axios.get(`/api/users/${userId}`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
         setName(data.name);
         setEmail(data.email);
         setPhone(data.phone);
@@ -75,15 +111,14 @@ function Profile() {
         setSellerName(data?.seller?.name);
         setSellerLogo(data?.seller?.logo);
         setSellerDescription(data?.seller?.description);
-
-        dispatch({ type: "FETCH_SUCCESS" });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
     fetchData();
-    console.log(user);
-  }, [user, userId, userInfo]);
+    console.log(userId);
+  }, [userId, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -178,132 +213,189 @@ function Profile() {
         <>
           <div className="profile">
             <Helmet>
-              <title>User Profile</title>
+              <title>Profile</title>
             </Helmet>
             <div className="profile-styles">
-              <div className="profile-seller">
-                <div className="profile-in">
-                  <div className="profile-header">
-                    <form onSubmit={submitHandler}>
+              <div className="profile_seller">
+                <div className="profile_box">
+                  <div className="profile-box">
+                    <form onSubmit={submitHandler} className="profile_form">
                       <div className="profile-form-header">
-                        <h1>User Profile</h1>
-                        <img src={image ? image : person} alt="" />
-
-                        <input
-                          className="profile-input-box"
-                          id="file"
-                          type="file"
-                          onChange={uploadFileHandler}
-                          style={{ display: "none" }}
-                        />
-                        <label htmlFor="file">
-                          <PublishIcon
-                            className="userUpdateIcon"
-                            onChange={uploadFileHandler}
-                          />
-                        </label>
-                        <span>
-                          {!userInfo.isAccountVerified ? (
-                            <span className="unverified-account">
-                              unverified account
-                            </span>
-                          ) : (
-                            <span className="verified-account">
-                              verified account
-                            </span>
-                          )}
-                        </span>
+                        <h1>Profile</h1>
+                        <div className="form_header">
+                          <div className="user_image">
+                            <img src={image ? image : person} alt="" />
+                            <input
+                              className="profile-input-box"
+                              id="file"
+                              type="file"
+                              onChange={uploadFileHandler}
+                              style={{ display: "none" }}
+                            />
+                            <label htmlFor="file">
+                              <PublishIcon
+                                className="userUpdateIcon"
+                                onChange={uploadFileHandler}
+                              />
+                            </label>
+                          </div>
+                          <div className="user_details">
+                            <div className="user_detail_list">
+                              <label>Name:</label>
+                              <h4>{user?.name}</h4>
+                            </div>
+                            <div className="user_detail_list">
+                              <label>Email:</label>
+                              <h4>{user?.email}</h4>
+                            </div>
+                            <div className="user_detail_list">
+                              <label>Address:</label>
+                              <h4>{user?.address}</h4>
+                            </div>
+                            <div className="user_detail_list">
+                              <label>Country:</label>
+                              <h4>{user?.country}</h4>
+                            </div>
+                            <div className="user_detail_list">
+                              <label>Status:</label>
+                              {!userInfo.isAccountVerified ? (
+                                <span className="unverified-account">
+                                  unverified account
+                                </span>
+                              ) : (
+                                <span className="verified-account">
+                                  verified account
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="profile-inner-form">
-                        <div className="profile-form-group">
-                          <label htmlFor="name">Name </label>
-                          <input
-                            className="profile-input-box"
-                            id="name"
-                            type="name"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                          />
-                        </div>
-                        <div className="profile-form-group">
-                          <label htmlFor="email">Email </label>
-                          <input
-                            className="profile-input-box"
-                            id="email"
-                            type="email"
-                            value={email}
-                            disabled={userInfo?.isAdmin}
-                            placeholder="Email"
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-                        <div className="profile-form-group">
-                          <label htmlFor="phone">Phone </label>
-                          <input
-                            className="profile-input-box"
-                            id="phone"
-                            type="phone"
-                            value={phone}
-                            placeholder="phone"
-                            onChange={(e) => setPhone(e.target.value)}
-                          />
-                        </div>
-                        <div className="profile-form-group">
-                          <label htmlFor="address">Address </label>
-                          <input
-                            className="profile-input-box"
-                            id="address"
-                            type="address"
-                            value={address}
-                            placeholder="address"
-                            onChange={(e) => setAddress(e.target.value)}
-                          />
-                        </div>
-                        <div className="profile-form-group">
-                          <label htmlFor="country">Country </label>
-                          <input
-                            className="profile-input-box"
-                            id="country"
-                            type="country"
-                            value={country}
-                            placeholder="country"
-                            onChange={(e) => setCountry(e.target.value)}
-                          />
-                        </div>
+                      <div className="profile_inner_form">
+                        <div className="profile_user_form">
+                          <div className="profile_form_group">
+                            <label htmlFor="name">Name </label>
+                            <input
+                              className="profile-input-box"
+                              id="name"
+                              type="name"
+                              placeholder="Name"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
+                            />
+                          </div>
+                          <div className="profile_form_group">
+                            <label htmlFor="email">Email </label>
+                            <input
+                              className="profile-input-box"
+                              id="email"
+                              type="email"
+                              value={email}
+                              // disabled={userInfo?.isAdmin}
+                              placeholder="Email"
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                          </div>
+                          <div className="profile_form_group">
+                            <label htmlFor="phone">Phone </label>
+                            <input
+                              className="profile-input-box"
+                              id="phone"
+                              type="phone"
+                              value={phone}
+                              placeholder="phone"
+                              onChange={(e) => setPhone(e.target.value)}
+                            />
+                          </div>
+                          <div className="profile_form_group">
+                            <label htmlFor="address">Address </label>
+                            <input
+                              className="profile-input-box"
+                              id="address"
+                              type="address"
+                              value={address}
+                              placeholder="address"
+                              onChange={(e) => setAddress(e.target.value)}
+                            />
+                          </div>
+                          <div className="profile_form_group">
+                            <label htmlFor="country">Country </label>
+                            <input
+                              className="profile-input-box"
+                              id="country"
+                              type="country"
+                              value={country}
+                              placeholder="country"
+                              onChange={(e) => setCountry(e.target.value)}
+                            />
+                          </div>
 
-                        <div className="profile-form-group">
-                          <label htmlFor="password">Password </label>
-                          <input
-                            className="profile-input-box"
-                            id="password"
-                            type="password"
-                            value={password}
-                            disabled={userInfo?.isAdmin}
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                          />
-                        </div>
-                        <div className="profile-form-group">
-                          <label htmlFor="c-password">Confirm password </label>
-                          <input
-                            className="profile-input-box"
-                            id="c-password"
-                            type="password"
-                            value={confirmPassword}
-                            disabled={userInfo?.isAdmin}
-                            placeholder="Confirm password"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                          />
+                          <div className="profile_form_group">
+                            <label htmlFor="password">Password </label>
+                            <input
+                              className="profile-input-box"
+                              id="password"
+                              type="password"
+                              value={password}
+                              // disabled={userInfo?.isAdmin}
+                              placeholder="Password"
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                          </div>
+                          <div className="profile_form_group">
+                            <label htmlFor="c-password">
+                              Confirm password{" "}
+                            </label>
+                            <input
+                              className="profile-input-box"
+                              id="c-password"
+                              type="password"
+                              value={confirmPassword}
+                              // disabled={userInfo?.isAdmin}
+                              placeholder="Confirm password"
+                              onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                              }
+                            />
+                          </div>
                         </div>
                         {userInfo.isSeller && (
                           <>
-                            <h1 className="seller-header">Seller Profile</h1>
-
-                            <div className="seller-component">
-                              <div className="profile-form-group">
-                                <label htmlFor="sellername">Seller Name </label>
+                            <div className="seller_component">
+                              <h3 className="seller_header">
+                                Seller Profile Info:
+                              </h3>
+                              <div className="prof-seller-logo">
+                                <div className="profile-form-group">
+                                  <label htmlFor="sellerlogo">
+                                    Seller Logo:{" "}
+                                  </label>
+                                  <input
+                                    className="profile-input-box"
+                                    id="sellerlogo"
+                                    type="file"
+                                    onChange={uploadSellerFileHandler}
+                                    style={{ display: "none" }}
+                                  />
+                                  <div className="seller-flex">
+                                    <img
+                                      src={sellerLogo ? sellerLogo : person}
+                                      alt=""
+                                    />
+                                    <label htmlFor="sellerlogo">
+                                      <PublishIcon
+                                        className="userUpdateIcon"
+                                        onChange={uploadSellerFileHandler}
+                                      />
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="profile-form-group seller_name">
+                                <label htmlFor="sellername">
+                                  Seller Name:{" "}
+                                </label>
                                 <input
                                   className="profile-input-box"
                                   id="sellername"
@@ -315,58 +407,27 @@ function Profile() {
                                   }
                                 />
                               </div>
-
-                              <div className="prof-seller-logo">
-                                <div className="profile-form-group">
-                                  <label htmlFor="sellerlogo">
-                                    Seller Logo{" "}
-                                  </label>
-                                  <input
-                                    className="profile-input-box"
-                                    id="sellerlogo"
-                                    type="file"
-                                    onChange={uploadSellerFileHandler}
-                                    style={{ display: "none" }}
-                                  />
-                                </div>
-                                <div className="seller-flex">
-                                  <img
-                                    src={sellerLogo ? sellerLogo : person}
-                                    alt=""
-                                  />
-                                  <label htmlFor="sellerlogo">
-                                    <PublishIcon
-                                      className="userUpdateIcon"
-                                      onChange={uploadSellerFileHandler}
-                                    />
-                                  </label>
-                                </div>
-                              </div>
                               <div className="profile-form-group">
-                                <label htmlFor="sellerdesc">
-                                  Seller Description{" "}
-                                </label>
-                                <textarea
-                                  name="message"
-                                  id="sellerdesc"
-                                  cols="30"
-                                  rows="10"
-                                  className="textarea"
-                                  value={sellerDescription || ""}
-                                  onChange={(e) =>
-                                    setSellerDescription(e.target.value)
-                                  }
-                                  placeholder="Enter Your Description"
-                                ></textarea>
+                                <label htmlFor="sellerdesc">Bio:</label>
+                                <div className="form_box">
+                                  <JoditEditor
+                                    className="editor"
+                                    id="desc"
+                                    ref={editor}
+                                    value={sellerDescription}
+                                    tabIndex={1}
+                                    onBlur={(newContent) =>
+                                      setSellerDescription(newContent)
+                                    }
+                                    onChange={(newContent) => {}}
+                                  />
+                                </div>
                               </div>
                             </div>
                           </>
                         )}
-                        {loadingUpdate && <LoadingBox></LoadingBox>}
-                        <div className="profile-check-sign">
-                          <div className="profile-form-button">
-                            <button>Update</button>
-                          </div>
+                        <div className="profile_form_button">
+                          <button>Update Profile</button>
                         </div>
                       </div>
                     </form>

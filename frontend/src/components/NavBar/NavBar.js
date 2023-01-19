@@ -24,8 +24,9 @@ const reducer = (state, action) => {
 
 function NavBar(props) {
   const { showModal, showSideBar } = props;
-  const { state } = useContext(Context);
-  const { cart, userInfo } = state;
+
+  const { state, dispatch: ctxDispatch } = useContext(Context);
+  const { settings, cart, userInfo } = state;
 
   const [{ loading, error, categories }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -59,14 +60,32 @@ function NavBar(props) {
       <nav>
         <div className="nav-bar">
           <div className="logo">
-            <Link to="/">Shopmate</Link>
+            {settings?.map((s, index) => (
+              <Link key={index} to="/">
+                {s.webname}
+              </Link>
+            ))}
           </div>
           <div className="list">
             <ul>
-              {categories?.slice(0, 5)?.map((c, index) => (
-                <Link key={index} to={`/store?category=${c.category}`}>
-                  <li>{c.category}</li>
-                </Link>
+              {settings?.map((s, index) => (
+                <div key={index}>
+                  <Link to={`/store?category=${s.navOne}`}>
+                    <li>{s.navOne}</li>
+                  </Link>
+                  <Link to={`/store?category=${s.navTwo}`}>
+                    <li>{s.navTwo}</li>
+                  </Link>
+                  <Link to={`/store?category=${s.navThree}`}>
+                    <li>{s.navThree}</li>
+                  </Link>
+                  <Link to={`/store?category=${s.navFour}`}>
+                    <li>{s.navFour}</li>
+                  </Link>
+                  <Link to={`/store?category=${s.navFive}`}>
+                    <li>{s.navFive}</li>
+                  </Link>
+                </div>
               ))}
             </ul>
           </div>

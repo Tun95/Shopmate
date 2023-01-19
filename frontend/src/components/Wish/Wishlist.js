@@ -6,9 +6,10 @@ import { Context } from "../../Context/Context";
 import LoadingBox from "../Utilities/LoadingBox";
 import MessageBox from "../Utilities/MessageBox";
 import { getError } from "../Utilities/Utils";
-import "./wishlist.css";
+import "./wishlist.scss";
 import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,7 +42,7 @@ const reducer = (state, action) => {
   }
 };
 
-function Wishlist() {
+function Wishlist({ currencySign }) {
   const { state } = useContext(Context);
   const { userInfo } = state;
   const params = useParams();
@@ -101,45 +102,67 @@ function Wishlist() {
       ) : (
         <>
           <div className="wish">
+            <Helmet>
+              <title>Wish List</title>
+            </Helmet>
             <div className="wish-contanainer">
               <div className="wish_header">
                 <h2>My Wish List</h2>
               </div>
               <div className="wish-box">
                 <div className="box">
-                  <div className="boxStyles">
-                    {user?.wish?.map((item, index) => (
-                      <div key={index}>
-                        <div className="product-list wish_list">
-                          <div className="prod-design  wish_list">
-                            <div className="top-list-product wish_list">
-                              <div className="delete">
-                                <DeleteIcon
-                                  className="deleteBtn"
-                                  onClick={() => deleteHandler(item)}
-                                />
-                              </div>
-                              <Link to={`/product/${item.slug}`}>
-                                {" "}
-                                <img
-                                  src={item.image}
-                                  className="product-img"
-                                  alt={item.name}
-                                />
-                              </Link>
+                  {user?.wish?.map((product, index) => (
+                    <div key={index}>
+                      <div className=" wish_product_list">
+                        <div className=" wish_list_design">
+                          <div className="delete">
+                            <DeleteIcon
+                              className="deleteBtn"
+                              onClick={() => deleteHandler(product)}
+                            />
+                          </div>
+                          <Link to={`/product/${product.slug}`}>
+                            {" "}
+                            <img
+                              src={product.image}
+                              className="product-img"
+                              alt={product.name}
+                            />
+                          </Link>
 
-                              <div className="p-name">
-                                <Link to={`/product/${item.slug}`}>
-                                  <h4>{item.name}</h4>
-                                </Link>
-                                <div className="price">£{item.price}</div>
-                              </div>
+                          <div className="p-name">
+                            <Link to={`/product/${product.slug}`}>
+                              <h4>{product.name}</h4>
+                            </Link>
+                            <div className="price">
+                              {product.discount > 0 ? (
+                                <>
+                                  <div>
+                                    <div className="price">
+                                      {currencySign}
+                                      {(
+                                        product.price -
+                                        (product.price * product.discount) / 100
+                                      )?.toFixed(2)}
+                                    </div>
+                                    <s className="discount">
+                                      {currencySign}
+                                      {product.price?.toFixed(2)}
+                                    </s>
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="price">
+                                  {currencySign}
+                                  {product.price?.toFixed(2)}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

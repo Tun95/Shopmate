@@ -3,23 +3,25 @@
   color: #fff;
   text-align: center;
   position: relative;
-  bottom: ;
+ 
 }
 .footer-social a {
   text-decoration: none;
 }
 .footer-social .footer-list a {
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   list-style: none;
   padding: 20px;
   font-size: 28px;
   position: relative;
   color: #fff;
+  top: 20px;
+
 }
 
-.footer-social .footer-list ul {
-  display: flex;
+.footer-social .footer-list ul li {
+  display: inline-flex;
   justify-content: center;
   font-weight: 600;
 
@@ -31,6 +33,7 @@
   justify-content: center;
   gap: 60px;
   padding: 20px 0px;
+  margin-top: 20px;
 }
 
 .footer-social .social-icon i {

@@ -10,6 +10,7 @@ function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
     userInfo,
+    settings,
     cart: { cartItems },
   } = state;
 
@@ -83,25 +84,32 @@ function CartScreen() {
                     <div className="keygen-col">
                       <span>{item.keygen}</span>
                     </div>
-                    <div className="item-price">
-                      {item.discount ? (
-                        <div className="cart-price">
-                          £
-                          {(
-                            item.price -
-                            (item.price * item.discount) / 100
-                          ).toFixed(0) * item.quantity}
-                        </div>
-                      ) : (
-                        <div className="cart-price">
-                          £{item.price.toFixed(0) * item.quantity}
-                        </div>
-                      )}
-                    </div>
+                    {settings?.map((s, index) => (
+                      <div className="item-price">
+                        {item.discount ? (
+                          <div className="cart-price">
+                            {s.currencySign}
+                            {(
+                              item.price -
+                              (item.price * item.discount) / 100
+                            ).toFixed(0) * item.quantity}
+                          </div>
+                        ) : (
+                          <div className="cart-price">
+                            {s.currencySign}
+                            {item.price.toFixed(0) * item.quantity}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                     <div className="item-color">
                       <label htmlFor="color">Color: </label>
                       <span>
-                        <i className={item.color ? item.color : ""}></i>
+                        <img
+                          src={item.color}
+                          alt={item.color}
+                          className="color_image_size"
+                        />
                       </span>
                     </div>
                     <div className="item-size">

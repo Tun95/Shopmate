@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
     address: { type: String },
     country: { type: String },
     image: { type: String },
+    isBlocked: { type: Boolean, default: false },
     password: { type: String, required: true },
     passwordChangeAt: Date,
     passwordResetToken: String,
