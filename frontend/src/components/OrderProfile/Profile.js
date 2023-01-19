@@ -48,7 +48,7 @@ function Profile() {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { userInfo } = state;
 
-  const [{ loading, error, loadingUpdate, user }, dispatch] = useReducer(
+  const [{ loading, error,  user }, dispatch] = useReducer(
     reducer,
     {
       loading: true,
