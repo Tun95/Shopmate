@@ -343,17 +343,19 @@ function ProductPage(props) {
                         </div>
                         <div className="img-small-l">
                           <div className="image-selected-preview-prod">
-                            {[product.image, ...product.images].map((x) => (
-                              <span
-                                key={x}
-                                onClick={() => setSelectedImage(x)}
-                                className={`${
-                                  x === selectedImage ? "selected-image" : ""
-                                }`}
-                              >
-                                <img src={x} alt="" />
-                              </span>
-                            ))}
+                            <Slider {...setting} className="slick-slider">
+                              {[product.image, ...product.images].map((x) => (
+                                <span
+                                  key={x}
+                                  onClick={() => setSelectedImage(x)}
+                                  className={`${
+                                    x === selectedImage ? "selected-image" : ""
+                                  }`}
+                                >
+                                  <img src={x} alt="" />
+                                </span>
+                              ))}
+                            </Slider>
                           </div>
                         </div>
                       </div>
