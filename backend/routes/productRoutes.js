@@ -24,7 +24,7 @@ productRouter.post(
       slug: "sample-name-" + Date.now(),
       keygen: "Men BK3569",
       gender: "Male",
-      category: ["Brands", "Men"],
+      category: [""],
       size: ["XS", "S", "24", "32"],
       color: [""],
       brand: ["Abercrombie"],
