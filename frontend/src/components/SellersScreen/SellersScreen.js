@@ -14,6 +14,7 @@ import dateFormat, { masks } from "dateformat";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { Pagination, PaginationItem } from "@mui/material";
+import { Helmet } from "react-helmet-async";
 
 masks.longDate = 'mmmm d, yyyy! "Can\'t touch this!"';
 
@@ -146,6 +147,9 @@ function SellersScreen({ currencySign }) {
       ) : (
         <>
           <div className="seller">
+            <Helmet>
+              <title>Seller's Page</title>
+            </Helmet>
             <div className="seller-contanainer">
               {/* <Carousel
                 showArrows
@@ -209,13 +213,13 @@ function SellersScreen({ currencySign }) {
                         </div>
                         <div className="account_status">
                           <label>Status:</label>
-                          {!user?.isAccountVerified ? (
+                          {!user?.user?.isAccountVerified ? (
                             <span className="unverified-account">
-                              unverified account
+                              unverified seller
                             </span>
                           ) : (
                             <span className="verified-account">
-                              verified account
+                              verified seller
                             </span>
                           )}
                         </div>
