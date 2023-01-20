@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 function Alert() {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { userInfo } = state;
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
+  const [{ loading }, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
     error: "",
