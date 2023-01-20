@@ -83,6 +83,7 @@ const PrevArrow = (props) => {
     </div>
   );
 };
+
 function ProductPage(props) {
   //SLIDER SETTINGS
   const setting = {
@@ -119,6 +120,14 @@ function ProductPage(props) {
         },
       },
     ],
+  };
+  const smallSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
   };
 
   //Image Selection
@@ -343,17 +352,21 @@ function ProductPage(props) {
                         </div>
                         <div className="img-small-l">
                           <div className="image-selected-preview-prod">
-                            <Slider {...setting} className="slick-slider">
+                            <Slider {...smallSettings} className="">
                               {[product.image, ...product.images].map((x) => (
-                                <span
-                                  key={x}
-                                  onClick={() => setSelectedImage(x)}
-                                  className={`${
-                                    x === selectedImage ? "selected-image" : ""
-                                  }`}
-                                >
-                                  <img src={x} alt="" />
-                                </span>
+                                <div className="small_img_slide">
+                                  <span
+                                    key={x}
+                                    onClick={() => setSelectedImage(x)}
+                                    className={`${
+                                      x === selectedImage
+                                        ? "selected_image"
+                                        : ""
+                                    }`}
+                                  >
+                                    <img src={x} alt="" />
+                                  </span>
+                                </div>
                               ))}
                             </Slider>
                           </div>

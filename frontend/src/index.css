@@ -22,6 +22,22 @@ body a {
 .color_image_size {
   width: 25px;
 }
+
+/* SMALL SLIDER */
+
+.slider_control_btn .slider_next {
+  /* right: 120px; */
+}
+.slider_control_btn .slider_next i {
+  position: absolute;
+  right: 30px;
+}
+.slider_control_btn .slider_prev {
+  position: relative;
+  left: 70px;
+}
+/* SMALL SLIDER */
+
 .sections_blocks {
   height: 100%;
   display: flex;

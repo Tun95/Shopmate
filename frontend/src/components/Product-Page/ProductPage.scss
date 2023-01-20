@@ -58,7 +58,7 @@
           justify-content: center;
           margin-top: -20px;
           img {
-            max-height: 400px;
+            height: 360px;
             max-width: 300px;
             border-radius: 10px;
             margin-top: 10px;
@@ -67,10 +67,24 @@
         .img-small-l {
           display: flex;
           justify-content: center;
-          img {
-            width: 80px;
-            height: 100px;
-            cursor: pointer;
+          .selected_image {
+            border: 1px solid #f62f5e;
+            position: absolute;
+          }
+          .image-selected-preview-prod {
+            height: 110px;
+            width: 300px;
+            overflow: hidden;
+            .small_img_slide {
+              // display: flex;
+              // align-items: center;
+
+              img {
+                width: 80px;
+                height: 100px;
+                cursor: pointer;
+              }
+            }
           }
         }
       }
@@ -396,6 +410,7 @@
                 width: 200px;
                 height: 200px;
                 border-radius: 10px;
+                margin-top: 10px;
               }
               .price {
                 font-size: 16px;
