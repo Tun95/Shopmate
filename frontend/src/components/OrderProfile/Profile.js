@@ -69,31 +69,6 @@ function Profile() {
   const [sellerLogo, setSellerLogo] = useState("");
   const [sellerDescription, setSellerDescription] = useState("");
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       dispatch({ type: "FETCH_REQUEST" });
-  //       const { data } = await axios.get(`/api/users/${userId}`);
-  //       setName(data.name);
-  //       setEmail(data.email);
-  //       setPhone(data.phone);
-  //       setAddress(data.address);
-  //       setCountry(data.country);
-  //       setImage(data.image);
-
-  //       setSellerName(data?.seller?.name);
-  //       setSellerLogo(data?.seller?.logo);
-  //       setSellerDescription(data?.seller?.description);
-
-  //       dispatch({ type: "FETCH_SUCCESS" });
-  //     } catch (err) {
-  //       dispatch({ type: "FETCH_FAIL", payload: getError(err) });
-  //     }
-  //   };
-  //   fetchData();
-  //   console.log(user);
-  // }, [user, userId, userInfo]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
