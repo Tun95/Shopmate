@@ -1,13 +1,11 @@
-import axios from "axios";
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../Context/Context";
-import { getError } from "../Utilities/Utils";
 import "./footer.css";
 
 function Footer() {
   const { state, dispatch } = useContext(Context);
-  const { settings, userInfo } = state;
+  const { settings } = state;
 
   return (
     <div>
