@@ -69,8 +69,15 @@
         .box {
           .wish_product_list {
             width: 310px;
+
             height: 100%;
             margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            img {
+              width: 210px;
+              height: 220px;
+            }
           }
         }
       }
