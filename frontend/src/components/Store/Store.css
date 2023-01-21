@@ -378,15 +378,9 @@
 
   grid-template-columns: repeat(3, 1fr);
   align-items: start;
-  /* flex-wrap: wrap; */
-
   gap: 10px;
   padding-left: 15px;
-  /* justify-content: center; */
-
-  /* overflow-y: scroll; */
   overflow: hidden;
-
   padding-bottom: 20px;
   margin-bottom: -10px;
   padding-right: 10px;
@@ -653,7 +647,7 @@
   }
   .main-content .filter {
     width: 100%;
-    left: 0px;
+    left: 4px;
   }
   .page-main-product {
     width: 100%;
