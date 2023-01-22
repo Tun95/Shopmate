@@ -121,6 +121,7 @@ function ProductPage(props) {
       },
     ],
   };
+  
   const smallSettings = {
     dots: false,
     infinite: true,
