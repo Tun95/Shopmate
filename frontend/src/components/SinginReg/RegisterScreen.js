@@ -7,7 +7,6 @@ import { Context } from "../../Context/Context";
 import { getError } from "../Utilities/Utils";
 import "./RegisterScreen.css";
 import CloseIcon from "@mui/icons-material/Close";
-
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";

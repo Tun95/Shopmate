@@ -7,7 +7,7 @@
 /* Starting Point for Container */
 .container {
   max-width: 900px;
-  margin: 0.1% auto;
+  margin: 5px auto;
 }
 .container .banner-container {
   height: 335px;
@@ -150,7 +150,6 @@
   border-radius: 100%;
   bottom: 30px;
   right: 1px;
- 
 }
 
 .filter .product-size {
@@ -647,7 +646,7 @@
   }
   .main-content .filter {
     width: 100%;
-    left: 4px;
+    left: 5px;
   }
   .page-main-product {
     width: 100%;

@@ -377,26 +377,23 @@
         .prod-list {
           height: 310px;
           .related_card {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            position: relative;
             .sim-shirt {
-              width: 210px;
+              width: 212px;
+
               height: 300px;
               background-color: #fff;
-              display: flex;
-              flex-direction: column;
+              display: grid;
               text-align: center;
               justify-content: center;
+
               box-shadow: 1px 3px 3px -2px;
-              position: relative;
+
               .item-discount {
                 margin-bottom: -20px;
                 background-color: #f62f5e;
                 position: relative;
                 top: 10px;
-                left: 10px;
+                right: 15px;
                 width: 45px;
                 height: 25px;
                 display: flex;
@@ -407,7 +404,6 @@
                 font-weight: 600;
               }
               img {
-                width: 200px;
                 height: 200px;
                 border-radius: 10px;
                 margin-top: 10px;
@@ -451,10 +447,13 @@
   .product_details {
     .sections {
       .section_5 {
-        .prod-list {
-          .related_card {
-            .sim-shirt {
-              width: 95%;
+        .related-product {
+          .prod-list {
+            .related_card {
+              .sim-shirt {
+                width: 95%;
+                justify-content: center;
+              }
             }
           }
         }
@@ -471,6 +470,27 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 665px) {
+  .product_details {
+    .sections {
+      .section_5 {
+        .related-product {
+          .prod-list {
+            .related_card {
+              .sim-shirt {
+                width: 95%;
+                justify-content: center;
+                .item-discount {
+                  left: -45px;
+                }
+              }
+            }
           }
         }
       }
