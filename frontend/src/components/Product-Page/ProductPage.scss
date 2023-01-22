@@ -487,7 +487,6 @@
               .sim-shirt {
                 width: 95%;
                 justify-content: center;
-               
               }
             }
           }
@@ -551,10 +550,10 @@
               .sim-shirt {
                 width: auto;
                 .item-discount {
-                  // left: -60px;
+                  right: 20px;
                 }
                 img {
-                  width: 240px;
+                  width: auto;
                 }
               }
             }
