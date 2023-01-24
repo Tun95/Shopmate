@@ -227,7 +227,8 @@ function ProductPage({ currencySign }) {
       type: "CART_ADD_ITEM",
       payload: {
         ...product,
-        seller: product?.seller?.seller?.name,
+        seller: data.seller,
+        sellerName: product?.seller?.seller?.name,
         quantity,
         size,
         color,

@@ -298,10 +298,9 @@ function OrderScreen({ currencySign, webname }) {
                                           </Link>
                                           <div className="gen">
                                             {item.keygen}
-
                                             <img
                                               src={item.color}
-                                              alt={item.color}
+                                              alt=""
                                               className="color_image_size"
                                             />
                                           </div>
@@ -313,7 +312,7 @@ function OrderScreen({ currencySign, webname }) {
                                     </TableCell>
                                     <TableCell className="tableCell">
                                       <span className="seller_name">
-                                        {item.seller || webname}
+                                        {item.sellerName || webname}
                                       </span>
                                     </TableCell>
                                     <TableCell className="tableCell">
