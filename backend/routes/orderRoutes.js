@@ -331,7 +331,7 @@ orderRouter.put(
           <td>${item.name}</td>
           <td align="left">${item.keygen}</td>
           <td align="left">${item.size || ""}</td>
-          <td align="center"><img src=${item.color} alt=${item.color}/></td>
+          <td align="center"><img src=${item.color} alt=""/></td>
           <td align="center">${item.quantity}</td>
           <td align="right"> ${s.currencySign}${item.price.toFixed(2)}</td>
           </tr>
