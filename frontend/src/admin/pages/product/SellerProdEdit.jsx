@@ -1,9 +1,7 @@
 import React, { useContext, useReducer, useRef, useState } from "react";
 import "./product.css";
 import {
-  Link,
-  Navigate,
-  useLocation,
+  
   useNavigate,
   useParams,
 } from "react-router-dom";

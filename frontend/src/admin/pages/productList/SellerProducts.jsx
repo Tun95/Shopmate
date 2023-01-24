@@ -260,7 +260,7 @@ function SellerProduct({ currencySign, webname }) {
                                   className="product-btn"
                                   onClick={() =>
                                     navigate(
-                                      `/admin/productedit/${product._id}`
+                                      `/seller/productedit/${product._id}`
                                     )
                                   }
                                 >
@@ -294,7 +294,7 @@ function SellerProduct({ currencySign, webname }) {
                             : "paginationItemStyle active"
                         }`}
                         component={Link}
-                        to={`/admin/products?page=${item.page}`}
+                        to={`/seller/products?page=${item.page}`}
                         {...item}
                       />
                     )}
