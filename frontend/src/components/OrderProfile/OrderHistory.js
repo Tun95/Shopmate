@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Context } from "../../Context/Context";
 import LoadingBox from "../Utilities/LoadingBox";
 import MessageBox from "../Utilities/MessageBox";
@@ -8,13 +8,23 @@ import "./OrderHistory.css";
 import axios from "axios";
 import { getError } from "../Utilities/Utils";
 import Footer from "../Footer/Footer";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
       return { ...state, loading: true, error: "" };
     case "FETCH_SUCCESS":
-      return { ...state, loading: false, orders: action.payload, error: "" };
+      return {
+        ...state,
+        loading: false,
+        orders: action.payload.orders,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        countProducts: action.payload.countProducts,
+        error: "",
+      };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
@@ -28,19 +38,23 @@ function OrderHistory({ currencySign }) {
 
   const navigate = useNavigate();
 
-  const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, orders, pages }, dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
   });
 
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const page = parseInt(sp.get("page") || 1);
+
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
       try {
-        const { data } = await axios.get("/api/orders/mine", {
+        const { data } = await axios.get(`/api/orders/mine?page=${page}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
+        window.scrollTo(0, 0);
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
@@ -49,7 +63,7 @@ function OrderHistory({ currencySign }) {
       return navigate("/signin");
     }
     fetchData();
-  }, [userInfo, navigate]);
+  }, [userInfo, navigate, page]);
 
   return (
     <>
@@ -124,6 +138,24 @@ function OrderHistory({ currencySign }) {
                       ))}
                     </div>
                   </div>
+                </div>
+                <div className="product-pagination seller_pagination">
+                  <Pagination
+                    page={page}
+                    count={pages}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        className={`${
+                          item.page !== page
+                            ? "paginationItemStyle"
+                            : "paginationItemStyle active"
+                        }`}
+                        component={Link}
+                        to={`/orderhistory?page=${item.page}`}
+                        {...item}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>

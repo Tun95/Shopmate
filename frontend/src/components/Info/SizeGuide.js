@@ -9,7 +9,7 @@ import { Context } from "../../Context/Context";
 function SizeGuide() {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { loading, error, settings } = state;
-
+  window.scrollTo(0, 0);
   return (
     <>
       {loading ? (

@@ -36,7 +36,7 @@ function StoreItems(props) {
       payload: {
         ...item,
         discount: data.discount,
-        seller: data.seller,
+        seller: item?.seller?.seller?.name,
         quantity,
         size,
         color,

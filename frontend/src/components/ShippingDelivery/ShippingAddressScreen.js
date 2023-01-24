@@ -4,20 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 import CheckoutSteps from "./CheckoutSteps";
 import "./ShippingAddressScreen.css";
-import data from "../../data/data.json";
 import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
+import {
+  CountryDropdown,
+  RegionDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
 
 export default function ShippingAddressScreen() {
-  const { countryList } = data;
   const navigate = useNavigate();
-  const {
-    state,
-    dispatch: ctxDispatch,
-    Express,
-
-    Standard,
-  } = useContext(Context);
+  const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
     userInfo,
     settings,
@@ -159,10 +156,16 @@ export default function ShippingAddressScreen() {
                     </div>
                     <div className="form-group">
                       <label htmlFor="state">State*</label>
-                      <input
+                      {/* <input
                         type="text"
                         value={cState}
                         onChange={(e) => setcState(e.target.value)}
+                      /> */}
+                      <RegionDropdown
+                        className="select_styles"
+                        country={country}
+                        value={cState}
+                        onChange={(val) => setcState(val)}
                       />
                     </div>
                     <div className="form-group">
@@ -174,11 +177,16 @@ export default function ShippingAddressScreen() {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="z-code">Country*</label>
-                      <input
+                      <label htmlFor="country">Country*</label>
+                      {/* <input
                         type="text"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
+                      /> */}
+                      <CountryDropdown
+                        className="select_styles"
+                        value={country}
+                        onChange={(val) => setCountry(val)}
                       />
                     </div>
                   </div>

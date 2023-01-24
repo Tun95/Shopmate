@@ -84,7 +84,7 @@ const PrevArrow = (props) => {
   );
 };
 
-function ProductPage(props) {
+function ProductPage({ currencySign }) {
   //SLIDER SETTINGS
   const setting = {
     dots: false,
@@ -121,7 +121,7 @@ function ProductPage(props) {
       },
     ],
   };
-  
+
   const smallSettings = {
     dots: false,
     infinite: true,
@@ -227,7 +227,7 @@ function ProductPage(props) {
       type: "CART_ADD_ITEM",
       payload: {
         ...product,
-        seller: data.seller,
+        seller: product?.seller?.seller?.name,
         quantity,
         size,
         color,
@@ -355,9 +355,8 @@ function ProductPage(props) {
                           <div className="image-selected-preview-prod">
                             <Slider {...smallSettings} className="">
                               {[product.image, ...product.images].map((x) => (
-                                <div className="small_img_slide">
+                                <div className="small_img_slide" key={x}>
                                   <span
-                                    key={x}
                                     onClick={() => setSelectedImage(x)}
                                     className={`${
                                       x === selectedImage
@@ -701,36 +700,34 @@ function ProductPage(props) {
                                   <Link to={`/product/${product.slug}`}>
                                     <h4 className="sim-name">{product.name}</h4>
                                   </Link>
-                                  {product.discount > 0 ? (
-                                    <>
-                                      {settings?.map((s, index) => (
-                                        <>
-                                          <div className="price" key={index}>
-                                            {s.currencySign}
+
+                                  <div className="">
+                                    {product.discount > 0 ? (
+                                      <>
+                                        <span className="display_block">
+                                          <span className="price">
+                                            {currencySign}
                                             {(
                                               product.price -
                                               (product.price *
                                                 product.discount) /
                                                 100
                                             )?.toFixed(2)}
-                                          </div>
+                                          </span>
+                                          <br />
                                           <s className="discount">
-                                            {s.currencySign}
-                                            {product.price}
+                                            {currencySign}
+                                            {product.price?.toFixed(2)}
                                           </s>
-                                        </>
-                                      ))}
-                                    </>
-                                  ) : (
-                                    <>
-                                      {settings?.map((s, index) => (
-                                        <div className="price" key={index}>
-                                          {s.currencySign}
-                                          {product.price}
-                                        </div>
-                                      ))}
-                                    </>
-                                  )}
+                                        </span>
+                                      </>
+                                    ) : (
+                                      <div className="price">
+                                        {currencySign}
+                                        {product.price?.toFixed(2)}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
                               </div>
                             ))}

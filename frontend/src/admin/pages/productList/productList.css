@@ -54,7 +54,7 @@
   box-shadow: 0px 0px 7px -1px #b4b4b4;
   padding: 20px;
   padding-bottom: 20px;
-  height: 820px;
+  height: 870px;
 
   overflow: hidden;
   display: flex;
@@ -112,28 +112,24 @@
 }
 .product-table-header .product-name {
   position: relative;
-  left: 140px;
+  left: 50px;
 }
 .product-table-header .product-price {
   position: relative;
-  left: 130px;
+  left: 50px;
 }
 .product-table-header .product-category {
   position: relative;
-  left: 70px;
+  left: 10px;
 }
 
-.product-table-header .product-brand {
-  position: relative;
-  left: 45px;
-}
 .product-table-header .product-size {
   position: relative;
-  left: 15px;
+  left: -20px;
 }
 .product-table-header .product-actions {
   position: relative;
-  right: 20px;
+  right: 40px;
 }
 .product-table-row tr {
   display: flex;
@@ -142,19 +138,22 @@
 .admin-product .product-table-column {
   overflow-y: scroll;
 
-  height: 730px;
+  height: 760px;
   margin-top: 10px;
 }
 
 .product-table-row .product-item-list:nth-child(odd) {
   background-color: #f7f7f7;
-  min-height: 120px;
+  min-height: 50px;
 }
 .product-table-row .product-item-list:nth-child(even) {
-  min-height: 120px;
+  min-height: 50px;
 }
 .admin-product .product-item-id {
-  width: 200px;
+  width: 120px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6c6c6c;
 }
 .admin-product .product-item-name {
   width: 150px;
@@ -170,7 +169,7 @@
   position: relative;
   display: flex;
   justify-content: start;
-  left: 80px;
+  left: 110px;
   width: 60px;
 }
 .admin-product .product-item-category {
@@ -179,7 +178,7 @@
   display: grid;
   grid-template-columns: 1fr;
   justify-content: start;
-  left: 150px;
+  left: 190px;
 }
 .admin-product .product-item-size {
   width: 80px;
@@ -187,7 +186,7 @@
   grid-template-columns: repeat(3, 1fr);
   justify-content: start;
   position: relative;
-  left: 200px;
+  left: 260px;
 }
 
 .admin-product .product-btn-view {
@@ -198,7 +197,7 @@
   justify-content: start;
   align-items: center;
   position: relative;
-  left: 0px;
+  left: 30px;
 }
 .admin-product .product-btn {
   background: #b4b4b4;
@@ -211,7 +210,8 @@
   cursor: pointer;
 }
 .admin-product .product-delete {
-  color: #f62f5e;
+  background-color: #f62f5e;
+
   cursor: pointer;
 }
 

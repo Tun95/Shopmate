@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../../../components/Footer/Footer";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
@@ -9,13 +9,22 @@ import MessageBox from "../../../components/Utilities/MessageBox";
 import { getError } from "../../../components/Utilities/Utils";
 import { Context } from "../../../Context/Context";
 import "./orderList.css";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SUCCESS":
-      return { ...state, loading: false, orders: action.payload.orders };
+      return {
+        ...state,
+        loading: false,
+        orders: action.payload.orders,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        countProducts: action.payload.countProducts,
+      };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
 
@@ -37,11 +46,13 @@ function SellerOrders({ currencySign }) {
   const { userInfo } = state;
   const navigate = useNavigate();
 
-  const [{ loading, error, orders, loadingDelete, successDelete }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      error: "",
-    });
+  const [
+    { loading, error, orders, pages, loadingDelete, successDelete },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    error: "",
+  });
 
   const { search } = useLocation();
   // const { pathname } = useLocation();
@@ -51,7 +62,6 @@ function SellerOrders({ currencySign }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
       try {
         const { data } = await axios.get(
           `/api/orders/admin?page=${page}&seller=${seller}`,
@@ -60,6 +70,7 @@ function SellerOrders({ currencySign }) {
           }
         );
         dispatch({ type: "FETCH_SUCCESS", payload: data });
+        window.scrollTo(0, 0);
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
@@ -71,33 +82,25 @@ function SellerOrders({ currencySign }) {
     }
   }, [page, seller, successDelete, userInfo]);
 
-  //OPENING DELETE MODALS
-  const [openDeleteModal, isOpenDeleteModal] = useState(false);
-  const closeDeleteModal = () => {
-    isOpenDeleteModal(false);
-    document.body.style.overflow = "unset";
-  };
-  const showDeleteModal = () => {
-    isOpenDeleteModal(true);
-  };
-
   //DELETE
   const deleteHandler = async (order) => {
-    try {
-      dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/orders/${order._id}`, {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
-      toast.success("Order deleted successfully", {
-        position: "bottom-center",
-      });
-      dispatch({ type: "DELETE_SUCCESS" });
-    } catch (err) {
-      toast.error(getError(err), { position: "bottom-center" });
-      dispatch({ type: "DELETE_FAIL" });
+    if (window.confirm("Are you sure to delete this product?")) {
+      try {
+        dispatch({ type: "DELETE_REQUEST" });
+        await axios.delete(`/api/orders/${order._id}`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        toast.success("Order deleted successfully", {
+          position: "bottom-center",
+        });
+        dispatch({ type: "DELETE_SUCCESS" });
+      } catch (err) {
+        toast.error(getError(err), { position: "bottom-center" });
+        dispatch({ type: "DELETE_FAIL" });
+      }
     }
   };
-
+  console.log(orders);
   return (
     <>
       {" "}
@@ -180,38 +183,28 @@ function SellerOrders({ currencySign }) {
                               Delete
                             </button>
                           </li>
-                          {/* {openDeleteModal ? (
-                            <div className="delete-modal">
-                              <div className="delete-modal-box">
-                                <div className="delete-modal-content">
-                                  <p className="delete-modal-content-p">
-                                    Are you sure you want to delete this order?
-                                  </p>
-                                  <div className="delete-modal-btn">
-                                    <button
-                                      onClick={closeDeleteModal}
-                                      className="delete-modal-btn-close"
-                                    >
-                                      Close
-                                    </button>
-                                    <button
-                                      onClick={() => deleteHandler(order)}
-                                      className="delete-modal-btn-yes"
-                                    >
-                                      {" "}
-                                      Yes
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ) : (
-                            ""
-                          )} */}
                         </ul>
                       ))}
                     </div>
                   </div>
+                </div>
+                <div className="product-pagination seller_pagination">
+                  <Pagination
+                    page={page}
+                    count={pages}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        className={`${
+                          item.page !== page
+                            ? "paginationItemStyle"
+                            : "paginationItemStyle active"
+                        }`}
+                        component={Link}
+                        to={`/seller/orderlist?page=${item.page}`}
+                        {...item}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>

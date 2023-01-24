@@ -63,6 +63,9 @@ userRouter.post(
   "/signin",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
+    if (user.isBlocked === true) {
+      throw new Error("😲It appears this account have been blocked by Admin");
+    }
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
@@ -71,6 +74,7 @@ userRouter.post(
           email: user.email,
           isAdmin: user.isAdmin,
           isSeller: user.isSeller,
+          isBlocked: user.isBlocked,
           isAccountVerified: user.isAccountVerified,
           token: generateToken(user),
         });
@@ -102,6 +106,7 @@ userRouter.post(
       email: user.email,
       isAdmin: user.isAdmin,
       isSeller: user.isSeller,
+      isBlocked: user.isBlocked,
       isAccountVerified: user.isAccountVerified,
       token: generateToken(user),
     });
@@ -140,7 +145,8 @@ userRouter.put(
         address: updatedUser.address,
         country: updatedUser.country,
         isAdmin: updatedUser.isAdmin,
-        isSeller: user.isSeller,
+        isSeller: updatedUser.isSeller,
+        isBlocked: updatedUser.isBlocked,
         token: generateToken(updatedUser),
       });
     }
@@ -166,7 +172,7 @@ userRouter.delete(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
-      if (user.email === "admin@example.com") {
+      if (user.email === process.env.EMAIL_ADDRESS) {
         res.status(400).send({ message: "Can Not Delete Admin User" });
         return;
       }
@@ -174,6 +180,61 @@ userRouter.delete(
       res.send({ message: "User Deleted Successfuly" });
     } else {
       res.status(404).send({ message: "User Not Found" });
+    }
+  })
+);
+
+//ADMIN BLOCK USER
+userRouter.put(
+  "/block/:id",
+  // isAuth,
+  // isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(req.params.id);
+    if (user.email === process.env.EMAIL_ADDRESS) {
+      throw new Error("Can Not Block This Admin User");
+    } else {
+      try {
+        const user = await User.findByIdAndUpdate(
+          id,
+          {
+            isBlocked: true,
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        res.send(user);
+      } catch {
+        res.send({ message: "Fail to block user" });
+      }
+    }
+  })
+);
+
+//ADMIN UNBLOCK USER
+userRouter.put(
+  "/unblock/:id",
+  // isAuth,
+  // isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const id = req.params.id;
+    try {
+      const user = await User.findByIdAndUpdate(
+        id,
+        {
+          isBlocked: false,
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      res.send(user);
+    } catch {
+      res.send({ message: "Fail to unblock user" });
     }
   })
 );
@@ -194,6 +255,7 @@ userRouter.put(
       user.image = req.body.image || user.image;
       user.isAdmin = Boolean(req.body.isAdmin);
       user.isSeller = Boolean(req.body.isSeller);
+      user.isBlocked = Boolean(req.body.isBlocked);
       const updatedUser = await user.save();
       res.send({ message: "User Updated Successfully", user: updatedUser });
     } else {

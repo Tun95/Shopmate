@@ -151,7 +151,10 @@ function App() {
                   path="/store"
                   element={<Store currencySign={s.currencySign} />}
                 ></Route>
-                <Route path="/product/:slug" element={<ProductPage />}></Route>
+                <Route
+                  path="/product/:slug"
+                  element={<ProductPage currencySign={s.currencySign} />}
+                ></Route>
                 <Route path="/signin" element={<SigninScreen />}></Route>
                 <Route path="/signup" element={<RegisterScreen />}></Route>
                 <Route path="/cartscreen" element={<CartScreen />}></Route>
@@ -223,7 +226,12 @@ function App() {
                 ></Route>
                 <Route
                   path="/order/:id"
-                  element={<OrderScreen currencySign={s.currencySign} />}
+                  element={
+                    <OrderScreen
+                      webname={s.webname}
+                      currencySign={s.currencySign}
+                    />
+                  }
                 ></Route>
                 <Route
                   path="/profile/:id"
@@ -259,7 +267,10 @@ function App() {
                   path="/admin/products"
                   element={
                     <AdminRoute>
-                      <ProductList currencySign={s.currencySign} />
+                      <ProductList
+                        webname={s.webname}
+                        currencySign={s.currencySign}
+                      />
                     </AdminRoute>
                   }
                 ></Route>
@@ -459,7 +470,10 @@ function App() {
                   path="/seller/products"
                   element={
                     <SellerRoute>
-                      <SellerProduct currencySign={s.currencySign} />
+                      <SellerProduct
+                        webname={s.webname}
+                        currencySign={s.currencySign}
+                      />
                     </SellerRoute>
                   }
                 ></Route>

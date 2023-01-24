@@ -65,6 +65,7 @@
 .chatbox .card-body .reguler-chat {
   background-color: #f7f7f7;
   max-width: 70%;
+  overflow: hidden;
   padding: 10px;
   margin-top: 10px;
   height: inherit;
@@ -76,6 +77,7 @@
   background-color: #8da4f1;
   color: #fff;
   padding: 10px;
+  overflow: hidden;
   height: inherit;
   max-width: 70%;
   margin-top: 10px;

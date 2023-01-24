@@ -193,6 +193,13 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.seller_pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 15px;
+}
 @media screen and (max-width: 375px) {
   .admin-order-box .order-admin-header {
     font-size: 28px;

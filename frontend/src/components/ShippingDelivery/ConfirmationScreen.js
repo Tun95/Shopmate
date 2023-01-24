@@ -23,22 +23,10 @@ const reducer = (state, action) => {
 };
 
 function ConfirmationScreen(props) {
-  const {
-   
-    express,
-    expressCharges,
-    standardCharges,
-    tax,
-  
-  } = props;
+  const { express, expressCharges, standardCharges, tax } = props;
 
   const navigate = useNavigate();
-  const {
-    state,
-    dispatch: ctxDispatch,
-    Express,
-    Standard,
-  } = useContext(Context);
+  const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
     userInfo,
     settings,
@@ -51,7 +39,7 @@ function ConfirmationScreen(props) {
   );
   const taxPrice = itemsPrice * tax;
   const shippingPrice =
-  shippingAddress.shipping === express ? expressCharges : standardCharges;
+    shippingAddress.shipping === express ? expressCharges : standardCharges;
   const grandTotal = (
     Number(itemsPrice) +
     Number(taxPrice) +
@@ -108,6 +96,7 @@ function ConfirmationScreen(props) {
     }
   };
 
+  console.log(cartItems?.seller);
   return (
     <>
       <div className="con-confirmation">

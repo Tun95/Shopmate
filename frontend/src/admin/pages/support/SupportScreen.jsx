@@ -124,7 +124,7 @@ function SupportScreen() {
       <div className="support">
         <div className="support-screen">
           <Helmet>
-            <title>Products</title>
+            <title>Supports</title>
           </Helmet>
           <div className="support-box">
             <div className="users-box">

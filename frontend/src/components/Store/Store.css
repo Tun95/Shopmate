@@ -16,36 +16,6 @@
   top: 5px;
 }
 /* Always Check on this for Banners */
-.container .banner-container h1 {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  top: 60px;
-  left: -208px;
-  font-size: 40px;
-  font-family: "Old Standard TT", serif;
-  padding-bottom: 10px;
-}
-.container .banner-container .banner-list {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  top: 60px;
-}
-.container .banner-container .banner-list ul li {
-  list-style: none;
-  line-height: 30px;
-}
-.banner-list .list-2 {
-  padding-left: 80px;
-}
-.banner-list .list-3 {
-  padding-left: 80px;
-}
-.container .banner-container .banner-list a {
-  text-decoration: none;
-  color: #fff;
-}
 
 .main-con-prod {
   width: 905px;
@@ -647,6 +617,10 @@
   .main-content .filter {
     width: 100%;
     left: 5px;
+  }
+  .main-product .product-not {
+    position: relative;
+    left: 0px;
   }
   .page-main-product {
     width: 100%;

@@ -1,0 +1,39 @@
+.items-box {
+  .tableCell {
+    .item_details {
+      display: flex;
+      align-items: center;
+      .order_small {
+        width: 50px;
+        border: 2px solid #b4b4b4;
+        padding: 10px;
+        height: 50px;
+        margin-right: 5px;
+      }
+      .order_name_gen {
+        .gen {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    .seller_name {
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #6c6c6c;
+    }
+    .quantity {
+      font-weight: 600;
+      border: 1px solid #b4b4b4;
+      border-radius: 15px;
+      padding: 3px 15px;
+
+      width: 10px;
+      margin: 0px 3px;
+    }
+    .order_cart_price {
+      font-weight: 800;
+      font-size: 23px;
+    }
+  }
+}

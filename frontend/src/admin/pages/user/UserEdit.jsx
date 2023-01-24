@@ -301,6 +301,7 @@ function User() {
                                 checked={isAdmin}
                                 id="isAdmin"
                                 name="action"
+                                disabled={user?.isAdmin}
                                 onChange={(e) => setIsAdmin(e.target.checked)}
                               />
                               <label htmlFor="isAdmin">Admin</label>

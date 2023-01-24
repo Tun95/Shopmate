@@ -9,6 +9,15 @@ import LoadingBox from "../Utilities/LoadingBox";
 import MessageBox from "../Utilities/MessageBox";
 import { getError } from "../Utilities/Utils";
 import "./OrderScreen.css";
+import "./orderScreen.scss";
+import dateFormat, { masks } from "dateformat";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -32,7 +41,9 @@ const reducer = (state, action) => {
   }
 };
 
-function OrderScreen({ currencySign }) {
+function OrderScreen({ currencySign, webname }) {
+  const now = new Date();
+
   const navigate = useNavigate();
   const { state } = useContext(Context);
   const { userInfo } = state;
@@ -95,6 +106,8 @@ function OrderScreen({ currencySign }) {
     navigate(`/payment/${orderId}`);
   };
 
+  dateFormat(now, `mmmm d, yyyy`);
+
   return (
     <>
       {loading ? (
@@ -140,9 +153,7 @@ function OrderScreen({ currencySign }) {
                               {order.isDelivered ? (
                                 <div className="suc">
                                   <MessageBox variant="success">
-                                    {" "}
-                                    Delivered at{" "}
-                                    {order.deliveredAt.substring(0, 10)}
+                                    Delivered on {dateFormat(order.deliveredAt)}
                                   </MessageBox>
                                 </div>
                               ) : (
@@ -225,7 +236,7 @@ function OrderScreen({ currencySign }) {
                         <div>
                           {userInfo._id && order.isPaid ? (
                             <MessageBox variant="success">
-                              Paid at {order.paidAt.substring(0, 10)}
+                              Paid on {dateFormat(order.paidAt)}
                             </MessageBox>
                           ) : userInfo._id ? (
                             <div className="not-paid-btn">
@@ -247,61 +258,93 @@ function OrderScreen({ currencySign }) {
                       <h2>Items</h2>
                       <div className="items-box">
                         <div className="items-box">
-                          <div className="box-list">
-                            {order.orderItems.map((item, index) => (
-                              <div className="table-order" key={index}>
-                                <div className="order-first-row">
-                                  <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="order-small"
-                                  />
-                                  <div className="order-name-gen">
-                                    <Link to={`/product/${item.slug}`}>
-                                      <h3>{item.name}</h3>
-                                    </Link>
-                                    <div className="gen">
-                                      {item.keygen}
-                                      {/* CHECK */}{" "}
-                                      <img
-                                        src={item.color}
-                                        alt={item.color}
-                                        className="color_image_size"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="order-second-row">
-                                  <div className="order-clothe-size">
-                                    {item.size}
-                                  </div>
-                                </div>
-                                <div className="order-third-row">
-                                  <div className="order-quantity">
-                                    <span>{item.quantity}</span>
-                                  </div>
-                                </div>
-                                <div className="order-forth-row">
-                                  <div className="order-cart-price">
-                                    {item.discount ? (
-                                      <div className="cart-price">
-                                        {currencySign}
-                                        {(
-                                          item.price -
-                                          (item.price * item.discount) / 100
-                                        ).toFixed(0) * item.quantity}
+                          <TableContainer component={Paper} className="table">
+                            <Table
+                              sx={{ minWidth: 650 }}
+                              aria-label="simple table"
+                            >
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell className="tableCell">
+                                    Item Detail
+                                  </TableCell>
+                                  <TableCell className="tableCell">
+                                    Size
+                                  </TableCell>
+                                  <TableCell className="tableCell">
+                                    Seller
+                                  </TableCell>
+                                  <TableCell className="tableCell">
+                                    Quantity
+                                  </TableCell>
+                                  <TableCell className="tableCell">
+                                    Price
+                                  </TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {order.orderItems?.map((item, index) => (
+                                  <TableRow key={index}>
+                                    <TableCell className="tableCell">
+                                      <span className="item_details">
+                                        <img
+                                          src={item.image}
+                                          alt={item.name}
+                                          className="order_small"
+                                        />
+                                        <div className="order_name_gen">
+                                          <Link to={`/product/${item.slug}`}>
+                                            <h3>{item.name}</h3>
+                                          </Link>
+                                          <div className="gen">
+                                            {item.keygen}
+
+                                            <img
+                                              src={item.color}
+                                              alt={item.color}
+                                              className="color_image_size"
+                                            />
+                                          </div>
+                                        </div>
+                                      </span>
+                                    </TableCell>
+                                    <TableCell className="tableCell">
+                                      {item.size}
+                                    </TableCell>
+                                    <TableCell className="tableCell">
+                                      <span className="seller_name">
+                                        {item.seller || webname}
+                                      </span>
+                                    </TableCell>
+                                    <TableCell className="tableCell">
+                                      <span className="quantity">
+                                        {item.quantity}
+                                      </span>
+                                    </TableCell>
+                                    <TableCell className="tableCell">
+                                      <div className="order_cart_price">
+                                        {item.discount ? (
+                                          <div className="cart-price">
+                                            {currencySign}
+                                            {(
+                                              item.price -
+                                              (item.price * item.discount) / 100
+                                            ).toFixed(0) * item.quantity}
+                                          </div>
+                                        ) : (
+                                          <div className="cart-price">
+                                            {currencySign}
+                                            {item.price.toFixed(0) *
+                                              item.quantity}
+                                          </div>
+                                        )}
                                       </div>
-                                    ) : (
-                                      <div className="cart-price">
-                                        {currencySign}
-                                        {item.price.toFixed(0) * item.quantity}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
                         </div>
                       </div>
                     </div>

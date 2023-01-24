@@ -39,6 +39,7 @@
       font-weight: 600;
       font-size: 15px;
       color: #6c6c6c;
+      // position: absolute;
     }
     .section_width {
       width: 85%;
@@ -409,12 +410,9 @@
                 border-radius: 10px;
                 margin-top: 10px;
               }
+
               .price {
                 font-size: 16px;
-              }
-              .discount {
-                position: relative;
-                bottom: 30px;
               }
             }
           }
@@ -487,6 +485,8 @@
               .sim-shirt {
                 width: 95%;
                 justify-content: center;
+                position: relative;
+                left: 6px;
               }
             }
           }
@@ -548,7 +548,8 @@
           .prod-list {
             .related_card {
               .sim-shirt {
-                width: auto;
+                // width: auto;
+                left: 8px;
                 .item-discount {
                   right: 20px;
                 }

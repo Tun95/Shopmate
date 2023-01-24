@@ -8,21 +8,36 @@ import Sib from "sib-api-v3-sdk";
 import Product from "../models/productModels.js";
 import Razorpay from "razorpay";
 import Stripe from "stripe";
+import Settings from "../models/settings.js";
 
 const orderRouter = express.Router();
 
+const ADMIN_PAGE_SIZE = 25;
 orderRouter.get(
   "/",
   isAuth,
   isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
+    const { query } = req;
+    const page = query.page || 1;
     const seller = req.query.seller || "";
+    const pageSize = query.pageSize || ADMIN_PAGE_SIZE;
     // const sellerFilter = seller ? { seller } : {};
     const sellerFilter = seller && seller !== "all" ? { seller } : {};
     const orders = await Order.find({ ...sellerFilter })
-      .populate("user", "name")
-      .sort("-createdAt");
-    res.send(orders);
+      .populate("user orderItems.seller", "name")
+      .sort("-createdAt")
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+
+    const countOrders = await Order.countDocuments({});
+
+    res.send({
+      orders,
+      countOrders,
+      page,
+      pages: Math.ceil(countOrders / pageSize),
+    });
   })
 );
 
@@ -49,7 +64,7 @@ orderRouter.post(
 );
 
 //ADMIN ORDER LIST
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 15;
 orderRouter.get(
   "/admin",
   isAuth,
@@ -184,12 +199,25 @@ orderRouter.get(
 );
 
 //FETCH ALL INDIV. ORDER
+const USER_PAGE_SIZE = 25;
 orderRouter.get(
   "/mine",
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id }).sort("-createdAt");
-    res.send(orders);
+    const { query } = req;
+    const page = query.page || 1;
+    const pageSize = query.pageSize || USER_PAGE_SIZE;
+    const orders = await Order.find({ user: req.user._id })
+      .sort("-createdAt")
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+    const countOrders = await Order.countDocuments({ user: req.user._id });
+    res.send({
+      orders,
+      countOrders,
+      page,
+      pages: Math.ceil(countOrders / pageSize),
+    });
   })
 );
 
@@ -246,39 +274,12 @@ orderRouter.post(
   })
 );
 
-//RAZORPAY
-// orderRouter.put(
-//   "/:id/stripepay",
-//   expressAsyncHandler(async (req, res) => {
-//     try {
-//       // const { amount, razorpayPaymentId, razorpayOrderId, razorpaySignature } =
-//       //   req.body;
-//       const newPayment = Order({
-//         isPaid: true,
-//         paidAt: Date.now(),
-//         paymentResult: {
-//           id: req.body.id,
-//           status: req.body.status,
-//           update_time: req.body.update_time,
-//           email_address: req.body.email_address,
-//         },
-//       });
-//       await newPayment.save();
-//       res.send({
-//         msg: "Payment was successfull",
-//       });
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send(error);
-//     }
-//   })
-// );
-
 //PAYMENT
 orderRouter.put(
   "/:id/pay",
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    const settings = await Settings.find({});
     const order = await Order.findById(req.params.id).populate(
       "user",
       "email name"
@@ -310,7 +311,9 @@ orderRouter.put(
         <h2>[Order ${order._id}] (${order.createdAt
         .toString()
         .substring(0, 10)})</h2>
-        <table>
+        ${settings?.map(
+          (s) =>
+            `<table>
         <thead>
         <tr>
         <td><strong>Product</strong></td>
@@ -330,7 +333,7 @@ orderRouter.put(
           <td align="left">${item.size || ""}</td>
           <td align="center"><img src=${item.color} alt=${item.color}/></td>
           <td align="center">${item.quantity}</td>
-          <td align="right"> £${item.price.toFixed(2)}</td>
+          <td align="right"> ${s.currencySign}${item.price.toFixed(2)}</td>
           </tr>
         `
           )
@@ -339,21 +342,26 @@ orderRouter.put(
         <tfoot>
         <tr>
         <td colspan="2">Items Price:</td>
-        <td align="right"> £${order.itemsPrice.toFixed(2)}</td>
+        <td align="right"> ${s.currencySign}${order.itemsPrice.toFixed(2)}</td>
         </tr>
         <tr>
         <td colspan="2">Tax Price:</td>
-        <td align="right"> £${order.taxPrice.toFixed(2)}</td>
+        <td align="right"> ${s.currencySign}${order.taxPrice.toFixed(2)}</td>
         </tr>
         <tr>
         <td colspan="2">Shipping Price:</td>
-        <td align="right"> £${order.shippingPrice.toFixed(2)}</td>
+        <td align="right"> ${s.currencySign}${order.shippingPrice.toFixed(
+              2
+            )}</td>
         </tr>
         <tr>
         <td colspan="2"><strong>Total Price:</strong></td>
-        <td align="right"><strong> £${order.grandTotal.toFixed(2)}</strong></td>
+        <td align="right"><strong> ${s.currencySign}${order.grandTotal.toFixed(
+              2
+            )}</strong></td>
         </tr>
-        </table>
+        </table>`
+        )}
         <h2>Shipping address</h2>
         <p>
         ${order.shippingAddress.firstName},<br/>

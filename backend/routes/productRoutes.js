@@ -131,7 +131,7 @@ productRouter.post(
 );
 
 //ADMIN PRODUCT LIST
-const PAGE_SIZE = 6;
+const ADMIN_PAGE_SIZE = 15;
 productRouter.get(
   "/admin",
   // isAuth,
@@ -140,7 +140,7 @@ productRouter.get(
     const { query } = req;
     const page = query.page || 1;
     const seller = query.seller || "";
-    const pageSize = query.pageSize || PAGE_SIZE;
+    const pageSize = query.pageSize || ADMIN_PAGE_SIZE;
 
     //const sellerFilter = seller ? { seller } : {};
     const sellerFilter = seller && seller !== "all" ? { seller } : {};
@@ -170,6 +170,7 @@ productRouter.get(
 
 // CROSS CHECK PRODUCT FILTER
 //PRODUCT FILTER
+const PAGE_SIZE = 6;
 productRouter.get(
   "/store",
   expressAsyncHandler(async (req, res) => {

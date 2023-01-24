@@ -3,19 +3,11 @@ import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useReducer } from "react";
 import { Helmet } from "react-helmet-async";
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import { Context } from "../../../Context/Context";
 import "./productList.css";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-
 import { toast } from "react-toastify";
 import { getError } from "../../../components/Utilities/Utils";
 import Pagination from "@mui/material/Pagination";
@@ -60,7 +52,7 @@ const reducer = (state, action) => {
   }
 };
 
-function ProductList({ currencySign }) {
+function ProductList({ currencySign, webname }) {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
@@ -70,9 +62,8 @@ function ProductList({ currencySign }) {
       error,
       products,
       pages,
-      loadingDelete,
+
       successDelete,
-      errorDelete,
     },
     dispatch,
   ] = useReducer(reducer, {
@@ -129,40 +120,22 @@ function ProductList({ currencySign }) {
     }
   };
 
-  //OPEN DELETE MODALS
-  const [openDeleteModal, isOpenDeleteModal] = useState({
-    show: false, // initial values set to false and null
-    _id: null,
-  });
-  const closeDeleteModal = () => {
-    isOpenDeleteModal({
-      show: false,
-      _id: null,
-    });
-    document.body.style.overflow = "unset";
-  };
-  const showDeleteModal = (_id) => {
-    isOpenDeleteModal({ show: true, _id });
-  };
-
   //DELETE PRODUCT
   const deleteHandler = async (product) => {
-    try {
-      await axios.delete(`/api/products/${product._id}`, {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
+    if (window.confirm("Are you sure to delete this product?")) {
+      try {
+        await axios.delete(`/api/products/${product._id}`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
 
-      toast.success("product deleted successfully", {
-        position: "bottom-center",
-      });
-      dispatch({ type: "DELETE_SUCCESS", _id: product._id });
-      isOpenDeleteModal({
-        show: false,
-        _id: null,
-      });
-    } catch (err) {
-      toast.error(getError(err), { position: "bottom-center" });
-      dispatch({ type: "DELETE_FAIL" });
+        toast.success("product deleted successfully", {
+          position: "bottom-center",
+        });
+        dispatch({ type: "DELETE_SUCCESS", _id: product._id });
+      } catch (err) {
+        toast.error(getError(err), { position: "bottom-center" });
+        dispatch({ type: "DELETE_FAIL" });
+      }
     }
   };
 
@@ -175,6 +148,8 @@ function ProductList({ currencySign }) {
   const showCreateModal = () => {
     isOpenCreateModal(true);
   };
+
+ 
 
   return (
     <>
@@ -237,11 +212,10 @@ function ProductList({ currencySign }) {
                   <div className="product-table-scroll">
                     <div className="product-table-header">
                       <ul>
-                        <li className="product-id">ID</li>
+                        <li className="product-id">SELLER</li>
                         <li className="product-name">NAME</li>
                         <li className="product-price">PRICE</li>
                         <li className="product-category">CATEGORY</li>
-
                         <li className="product-size">SIZE</li>
                         <li className="product-actions">ACTIONS</li>
                       </ul>
@@ -251,7 +225,9 @@ function ProductList({ currencySign }) {
                         {products?.map((product, index, _id) => (
                           <tr className="product-item-list" key={index}>
                             <tr>
-                              <td className="product-item-id">{product._id}</td>
+                              <td className="product-item-id">
+                                {product?.seller?.seller?.name || webname}
+                              </td>
                               <td className="product-item-name">
                                 {product.name}
                               </td>
@@ -282,40 +258,12 @@ function ProductList({ currencySign }) {
                                   Edit
                                 </button>
                                 &nbsp;
-                                <DeleteOutlineIcon
-                                  className="product-delete"
+                                <button
+                                  className="product-delete product-btn"
                                   onClick={() => deleteHandler(product)}
-                                />
-                                {/* MODAL */}
-                                {/* {openDeleteModal.show && (
-                                  <div className="delete-modal">
-                                    <div className="delete-modal-box">
-                                      <div className="delete-modal-content">
-                                        <p className="delete-modal-content-p">
-                                          Are you sure to delete this product?
-                                        </p>
-                                        <div className="delete-modal-btn">
-                                          <button
-                                            onClick={closeDeleteModal}
-                                            className="delete-modal-btn-close"
-                                          >
-                                            Close
-                                          </button>
-                                          <button
-                                            onClick={() => {
-                                              deleteHandler(product);
-                                              closeDeleteModal();
-                                            }}
-                                            className="delete-modal-btn-yes"
-                                          >
-                                            {" "}
-                                            Yes
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )} */}
+                                >
+                                  Delete
+                                </button>
                               </td>
                             </tr>
                             <tr></tr>

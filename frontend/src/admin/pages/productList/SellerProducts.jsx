@@ -61,7 +61,7 @@ const reducer = (state, action) => {
   }
 };
 
-function SellerProduct({ currencySign }) {
+function SellerProduct({ currencySign, webname }) {
   const { state } = useContext(Context);
   const { userInfo } = state;
 
@@ -98,7 +98,6 @@ function SellerProduct({ currencySign }) {
         dispatch({
           type: "FETCH_SUCCESS",
           payload: data,
-          // seller: sellerMode,
         });
         window.scrollTo(0, 0);
       } catch (err) {
@@ -112,13 +111,6 @@ function SellerProduct({ currencySign }) {
       fetchData();
     }
   }, [page, userInfo, successDelete, seller]);
-
-  // const getFilterUrl = (filter) => {
-  //   const filterPage = filter.page || page;
-  //   const filterSeller = filter.seller || seller;
-
-  //   return `/products?page=${filterPage}&seller=${filterSeller}`;
-  // };
 
   const navigate = useNavigate();
 
@@ -141,30 +133,21 @@ function SellerProduct({ currencySign }) {
     }
   };
 
-  //OPENING DELETE MODALS
-  const [openDeleteModal, isOpenDeleteModal] = useState(false);
-  const closeDeleteModal = () => {
-    isOpenDeleteModal(false);
-    document.body.style.overflow = "unset";
-  };
-  const showDeleteModal = (product) => {
-    isOpenDeleteModal(true);
-  };
-
   //DELETE PRODUCT
-
   const deleteHandler = async (product) => {
-    try {
-      await axios.delete(`/api/products/${product._id}`, {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
-      toast.success("product deleted successfully", {
-        position: "bottom-center",
-      });
-      dispatch({ type: "DELETE_SUCCESS" });
-    } catch (err) {
-      toast.error(getError(err), { position: "bottom-center" });
-      dispatch({ type: "DELETE_FAIL" });
+    if (window.confirm("Are you sure to delete this product?")) {
+      try {
+        await axios.delete(`/api/products/${product._id}`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        toast.success("product deleted successfully", {
+          position: "bottom-center",
+        });
+        dispatch({ type: "DELETE_SUCCESS" });
+      } catch (err) {
+        toast.error(getError(err), { position: "bottom-center" });
+        dispatch({ type: "DELETE_FAIL" });
+      }
     }
   };
 
@@ -238,21 +221,22 @@ function SellerProduct({ currencySign }) {
                   <div className="product-table-scroll">
                     <div className="product-table-header">
                       <ul>
-                        <li className="product-id">ID</li>
+                        <li className="product-id">SELLER</li>
                         <li className="product-name">NAME</li>
                         <li className="product-price">PRICE</li>
                         <li className="product-category">CATEGORY</li>
-
                         <li className="product-size">SIZE</li>
                         <li className="product-actions">ACTIONS</li>
                       </ul>
                     </div>
                     <table className="product-table-column">
                       <tbody className="product-table-row">
-                        {products?.map((product, index) => (
+                        {products?.map((product, index, _id) => (
                           <tr className="product-item-list" key={index}>
                             <tr>
-                              <td className="product-item-id">{product._id}</td>
+                              <td className="product-item-id">
+                                {product?.seller?.seller?.name || webname}
+                              </td>
                               <td className="product-item-name">
                                 {product.name}
                               </td>
@@ -276,54 +260,22 @@ function SellerProduct({ currencySign }) {
                                   className="product-btn"
                                   onClick={() =>
                                     navigate(
-                                      `/seller/productedit/${product._id}`
+                                      `/admin/productedit/${product._id}`
                                     )
                                   }
                                 >
                                   Edit
                                 </button>
                                 &nbsp;
-                                <DeleteOutlineIcon
-                                  className="product-delete"
+                                <button
+                                  className="product-delete product-btn"
                                   onClick={() => deleteHandler(product)}
-                                />
+                                >
+                                  Delete
+                                </button>
                               </td>
                             </tr>
-                            <tr>
-                              <tr>
-                                {/* {openDeleteModal ? (
-                                  <div className="delete-modal">
-                                    <div className="delete-modal-box">
-                                      <div className="delete-modal-content">
-                                        <p className="delete-modal-content-p">
-                                          Are you sure to delete this product?
-                                        </p>
-                                        <div className="delete-modal-btn">
-                                          <button
-                                            onClick={closeDeleteModal}
-                                            className="delete-modal-btn-close"
-                                          >
-                                            Close
-                                          </button>
-                                          <button
-                                            onClick={() => {
-                                              deleteHandler(product);
-                                              closeDeleteModal();
-                                            }}
-                                            className="delete-modal-btn-yes"
-                                          >
-                                            {" "}
-                                            Yes
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  ""
-                                )} */}
-                              </tr>
-                            </tr>
+                            <tr></tr>
                           </tr>
                         ))}
                       </tbody>
@@ -334,7 +286,6 @@ function SellerProduct({ currencySign }) {
                   <Pagination
                     page={page}
                     count={pages}
-                    color="secondary"
                     renderItem={(item) => (
                       <PaginationItem
                         className={`${
@@ -343,7 +294,7 @@ function SellerProduct({ currencySign }) {
                             : "paginationItemStyle active"
                         }`}
                         component={Link}
-                        to={`/seller/products?page=${item.page}`}
+                        to={`/admin/products?page=${item.page}`}
                         {...item}
                       />
                     )}

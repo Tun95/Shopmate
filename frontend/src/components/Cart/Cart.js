@@ -100,8 +100,8 @@ function Cart(props) {
                             cartItems.length !== 0 ? "table-scroll" : ""
                           }
                         >
-                          {cartItems.map((item, id) => (
-                            <div key={id} className="table-body">
+                          {cartItems.map((item, index) => (
+                            <div key={index} className="table-body">
                               <div className="first-row">
                                 <img
                                   src={item.image}
@@ -160,7 +160,7 @@ function Cart(props) {
                                 </button>
                               </div>
                               {settings?.map((s, index) => (
-                                <div className="forth-row">
+                                <div className="forth-row" key={index}>
                                   {item.discount ? (
                                     <>
                                       <div className="cart-price" key={index}>

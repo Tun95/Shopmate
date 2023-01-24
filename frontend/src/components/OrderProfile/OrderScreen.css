@@ -61,7 +61,7 @@
   display: inline-block;
   box-shadow: 1px 2px 2px -2px;
   border-radius: 0.5rem;
- 
+
   background-color: lightgreen;
   color: green;
 }
@@ -139,133 +139,7 @@
   -webkit-box-shadow: 0px 0px 7px -1px #b4b4b4;
   box-shadow: 0px 0px 7px -1px #b4b4b4;
 }
-.order-screen .items-box {
-  overflow: hidden;
-  height: 390px;
-}
-.order-screen .box-list .table-order {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
 
-.order-screen .box-list {
-  overflow-y: scroll;
-  width: 100%;
-  height: 355px;
-
-  padding: 20px 0px;
-  padding-top: 10px;
-}
-.order-screen .box-list::-webkit-scrollbar {
-  cursor: pointer;
-  width: 5px;
-  height: 7px;
-}
-
-.order-screen .box-list .order-first-row {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-  width: 333px;
-  position: relative;
-  left: 10px;
-}
-.order-screen .box-list .order-first-row .order-small {
-  width: 50px;
-  border: 2px solid #b4b4b4;
-  padding: 10px;
-
-  height: 50px;
-}
-.order-screen .box-list .order-first-row .order-name-gen {
-  padding-left: 20px;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.order-screen .box-list .order-first-row .order-name-gen a {
-  text-decoration: none;
-  color: #2e2e2e;
-}
-.order-screen .box-list .order-first-row .order-name-gen .gen {
-  color: #6c6c6c;
-  position: relative;
-  display: flex;
-  align-items: center;
-  top: 3px;
-}
-.order-screen .box-list .table-order:nth-child(odd) {
-  background-color: #f7f7f7;
-  width: inherit;
-  padding: 10px;
-}
-.order-screen .box-list .table-order:nth-child(even) {
-  width: inherit;
-  padding: 10px;
-}
-.cl-1 {
-  color: #6eb2fb;
-}
-.cl-2 {
-  color: #00d3ca;
-}
-.cl-3 {
-  color: #f62f5e;
-}
-.cl-4 {
-  color: #f35e3d;
-}
-.cl-5 {
-  color: #effc90;
-}
-.cl-6 {
-  color: #5bca05;
-}
-.cl-7 {
-  color: #a020f0;
-}
-.box-list .order-second-row {
-  display: flex;
-  justify-content: center;
-  width: 60px;
-  font-size: 15px;
-  color: #6c6c6c;
-  position: relative;
-  top: 34px;
-}
-.box-list .order-third-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  right: 8px;
-}
-.box-list .order-third-row .order-quantity {
-  font-weight: 600;
-  border: 1px solid #b4b4b4;
-  border-radius: 15px;
-  padding: 3px 15px;
-
-  width: 10px;
-  margin: 0px 3px;
-}
-.box-list .order-third-row .order-quantity span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.box-list .order-forth-row {
-  margin: 0px 3px;
-}
-.box-list .order-forth-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 800;
-  font-size: 23px;
-  position: relative;
-  left: 19px;
-}
 @media screen and (max-width: 900px) {
   .top-split {
     flex-wrap: wrap-reverse;

@@ -9,7 +9,7 @@ import { Context } from "../../Context/Context";
 function About() {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { loading, error, settings } = state;
-
+  window.scrollTo(0, 0);
   return (
     <>
       {loading ? (

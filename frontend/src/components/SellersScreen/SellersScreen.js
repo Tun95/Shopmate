@@ -85,6 +85,7 @@ function SellersScreen({ currencySign }) {
         const { data } = await axios.get(`/api/users/seller/${sellerId}`);
         dispatch({ type: "FETCH_SELLER_SUCCESS", payload: data });
         console.log(data);
+        window.scrollTo(0, 0);
       } catch (err) {
         dispatch({ type: "FETCH_SELLER_FAIL", payload: getError(err) });
       }
@@ -196,13 +197,12 @@ function SellersScreen({ currencySign }) {
                         </div>
                         <div className="ratings-rev">
                           {/* <Ratings rating={user?.seller?.rating}></Ratings> */}
-                          {/* <span
+                          <span
                             style={{ fontWeight: "bold", margin: "0px 5px" }}
                           >
-                            {" "}
-                            ({user?.numReviews[0]?.numReviews})
+                            ({user?.user?.products[0]?.reviews?.length})
                           </span>{" "}
-                          Reviews */}
+                          Reviews
                         </div>
                         <div>
                           <h4>

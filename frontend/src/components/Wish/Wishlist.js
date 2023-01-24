@@ -111,6 +111,11 @@ function Wishlist({ currencySign }) {
               </div>
               <div className="wish-box">
                 <div className="box">
+                  {user?.wish?.length === 0 && (
+                    <span className="product-not">
+                      <MessageBox>No Product Found </MessageBox>
+                    </span>
+                  )}
                   {user?.wish?.map((product, index) => (
                     <div key={index}>
                       <div className=" wish_product_list">
