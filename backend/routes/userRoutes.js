@@ -257,7 +257,6 @@ userRouter.put(
       user.isAdmin = Boolean(req.body.isAdmin);
       user.isSeller = Boolean(req.body.isSeller);
       user.isBlocked = Boolean(req.body.isBlocked);
-      user.isAccountVerified = Boolean(req.body.isAccountVerified);
       const updatedUser = await user.save();
       res.send({
         message: "User Updated Successfully",
@@ -288,7 +287,7 @@ userRouter.post(
       const resetURL = `<p>if you were requested to verify your
       account,<br/> verify now within the next 10mins,<br/>
       otherwise ignore this message</p>
-      <a href="https://shopmate-0b17.onrender.com/verify-account/${user.id}/${verificationToken}">Click here to verify</a>`;
+      <a href=${`${process.env.SUB_DOMAIN}/verify-account/${user.id}/${verificationToken}`}>Click here to verify</a>`;
       const smtpTransport = nodemailer.createTransport({
         service: process.env.MAIL_SERVICE,
         auth: {
@@ -297,7 +296,7 @@ userRouter.post(
         },
       });
       const mailOptions = {
-        from: `Shopmate ${process.env.EMAIL_ADDRESS}`,
+        from: `${process.env.SHOP_NAME} ${process.env.EMAIL_ADDRESS}`,
         to: `${user.email}`,
         subject: "Verify your email address",
         html: resetURL,
