@@ -147,6 +147,7 @@ userRouter.put(
         isAdmin: updatedUser.isAdmin,
         isSeller: updatedUser.isSeller,
         isBlocked: updatedUser.isBlocked,
+        isAccountVerified: updatedUser.isAccountVerified,
         token: generateToken(updatedUser),
       });
     }
@@ -256,8 +257,12 @@ userRouter.put(
       user.isAdmin = Boolean(req.body.isAdmin);
       user.isSeller = Boolean(req.body.isSeller);
       user.isBlocked = Boolean(req.body.isBlocked);
+      user.isAccountVerified = Boolean(req.body.isAccountVerified);
       const updatedUser = await user.save();
-      res.send({ message: "User Updated Successfully", user: updatedUser });
+      res.send({
+        message: "User Updated Successfully",
+        user: updatedUser,
+      });
     } else {
       res.status(404).send({ message: "User Not Found" });
     }

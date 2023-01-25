@@ -188,7 +188,7 @@ function User() {
                             ? "Admin"
                             : ""}
                         </span>
-                        {!user.isAccountVerified ? (
+                        {!userInfo.isAccountVerified ? (
                           <span className="unverified-account">
                             unverified account
                           </span>

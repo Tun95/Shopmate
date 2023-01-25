@@ -49,6 +49,7 @@ function Profile() {
   const { id: userId } = params;
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { userInfo } = state;
+  console.log(userInfo);
 
   const [{ loading, error, user }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -91,7 +92,6 @@ function Profile() {
       }
     };
     fetchData();
-    console.log(userId);
   }, [userId, userInfo]);
 
   const submitHandler = async (e) => {
