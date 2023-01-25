@@ -77,7 +77,7 @@ const reducer = (state, action) => {
 };
 
 const columns = [
-  { field: "name", headerName: "name", width: 220 },
+  { field: "name", headerName: "name", width: 150 },
   { field: "email", headerName: "Email", width: 230 },
   {
     field: "isSeller",
@@ -223,7 +223,7 @@ function UserList() {
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Actions",
       width: 300,
       renderCell: (user) => {
         return (

@@ -149,6 +149,7 @@ function User() {
       dispatch({ type: "UPLOAD_FAIL" });
     }
   };
+  console.log(user);
 
   return (
     <>
@@ -188,7 +189,7 @@ function User() {
                             ? "Admin"
                             : ""}
                         </span>
-                        {!userInfo.isAccountVerified ? (
+                        {user.isAccountVerified === false ? (
                           <span className="unverified-account">
                             unverified account
                           </span>
