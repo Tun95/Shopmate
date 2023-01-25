@@ -82,7 +82,7 @@
   width: 100%;
   font-weight: 600;
 }
-.verified-account{
+.verified-account {
   background-color: #00d3ca;
   color: #fff;
   padding: 1px 3px;
@@ -149,6 +149,10 @@
   font-weight: 600;
   color: #6c6c6c;
   cursor: pointer;
+}
+#specialInput {
+  border: none;
+  outline: none;
 }
 .user-is-admin {
   margin-right: 15px;

@@ -21,6 +21,18 @@ function StoreItems(props) {
   const { settings } = state;
   const addToCartHandler = async (item) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
+    // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
+    //   dispatch({
+    //     type: "CART_ADD_ITEM_FAIL",
+    //     payload: `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
+    //   });
+    //   toast.error(
+    //     `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
+    //     {
+    //       position: "bottom-center",
+    //     }
+    //   );
+    // } else {
     if (data.countInStock < quantity) {
       toast.error("Sorry, Product stock limit reached or out of stock", {
         position: "bottom-center",

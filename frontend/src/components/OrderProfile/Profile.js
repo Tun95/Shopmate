@@ -18,6 +18,8 @@ import person from "../images/person.png";
 import MessageBox from "../Utilities/MessageBox";
 import PublishIcon from "@mui/icons-material/Publish";
 import JoditEditor from "jodit-react";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,14 +50,11 @@ function Profile() {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { userInfo } = state;
 
-  const [{ loading, error,  user }, dispatch] = useReducer(
-    reducer,
-    {
-      loading: true,
-      error: "",
-      loadingUpdate: false,
-    }
-  );
+  const [{ loading, error, user }, dispatch] = useReducer(reducer, {
+    loading: true,
+    error: "",
+    loadingUpdate: false,
+  });
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -267,20 +266,20 @@ function Profile() {
                               id="email"
                               type="email"
                               value={email}
-                              disabled={userInfo?.isAdmin}
+                              // disabled={userInfo?.isAdmin}
                               placeholder="Email"
                               onChange={(e) => setEmail(e.target.value)}
                             />
                           </div>
                           <div className="profile_form_group">
                             <label htmlFor="phone">Phone </label>
-                            <input
-                              className="profile-input-box"
-                              id="phone"
-                              type="phone"
+                            <PhoneInput
+                              international
+                              countryCallingCodeEditable={false}
+                              defaultCountry="GB"
+                              placeholder="Enter phone number"
                               value={phone}
-                              placeholder="phone"
-                              onChange={(e) => setPhone(e.target.value)}
+                              onChange={setPhone}
                             />
                           </div>
                           <div className="profile_form_group">
@@ -313,7 +312,7 @@ function Profile() {
                               id="password"
                               type="password"
                               value={password}
-                              disabled={userInfo?.isAdmin}
+                              // disabled={userInfo?.isAdmin}
                               placeholder="Password"
                               onChange={(e) => setPassword(e.target.value)}
                             />
@@ -327,7 +326,7 @@ function Profile() {
                               id="c-password"
                               type="password"
                               value={confirmPassword}
-                              disabled={userInfo?.isAdmin}
+                              // disabled={userInfo?.isAdmin}
                               placeholder="Confirm password"
                               onChange={(e) =>
                                 setConfirmPassword(e.target.value)

@@ -21,6 +21,7 @@ import { Helmet } from "react-helmet-async";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import Footer from "../../../components/Footer/Footer";
+import PhoneInput from "react-phone-number-input";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -263,12 +264,22 @@ function User() {
                         <>
                           <div className="userUpdateItem">
                             <label>Phone</label>
-                            <input
+                            {/* <input
                               type="text"
                               placeholder="+1 123 456 78"
                               className="userUpdateInput"
                               value={phone}
                               onChange={(e) => setPhone(e.target.value)}
+                            /> */}
+                            <PhoneInput
+                              international
+                              countryCallingCodeEditable={false}
+                              defaultCountry="GB"
+                              id="specialInput"
+                              className="userUpdateInput"
+                              placeholder="Enter phone number"
+                              value={phone}
+                              onChange={setPhone}
                             />
                           </div>
                           <div className="userUpdateItem">

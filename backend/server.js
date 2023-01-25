@@ -20,7 +20,7 @@ import wishRouter from "./routes/wishRoutes.js";
 import priceRoutes from "./routes/priceRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import colorRoutes from "./routes/colorRoutes.js";
-
+import cartRoutes from "./routes/cartRoutes.js";
 
 dotenv.config();
 
@@ -74,6 +74,7 @@ app.use("/api/color", colorRoutes);
 app.use("/api/price", priceRoutes);
 app.use("/api/banner", bannerRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", stripeRouter);
 
 const _dirname = path.resolve();

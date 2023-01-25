@@ -120,12 +120,12 @@ userRouter.put(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
+      user.name = req.body.name;
+      user.email = req.body.email;
       user.image = req.body.image || user.image;
-      user.phone = req.body.phone || user.phone;
-      user.address = req.body.address || user.address;
-      user.country = req.body.country || user.country;
+      user.phone = req.body.phone;
+      user.address = req.body.address;
+      user.country = req.body.country;
       if (user.isSeller) {
         user.seller.name = req.body.sellerName || user.seller.name;
         user.seller.logo = req.body.sellerLogo || user.seller.logo;
@@ -247,11 +247,11 @@ userRouter.put(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      user.phone = req.body.phone || user.phone;
-      user.address = req.body.address || user.address;
-      user.country = req.body.country || user.country;
+      user.name = req.body.name;
+      user.email = req.body.email;
+      user.phone = req.body.phone;
+      user.address = req.body.address;
+      user.country = req.body.country;
       user.image = req.body.image || user.image;
       user.isAdmin = Boolean(req.body.isAdmin);
       user.isSeller = Boolean(req.body.isSeller);

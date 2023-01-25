@@ -509,7 +509,7 @@ function Store(props) {
             </div>
           </div>
         </div>
-        <div>
+        <div className="end_style_list">
           <FlashDeal simProducts={simProducts} currencySign={currencySign} />
         </div>
 
