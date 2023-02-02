@@ -116,15 +116,11 @@ function Payment(props) {
         dispatch({ type: "PAY_RESET" });
       }
     } else {
-      const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get("/api/keys/paypal", {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-
+      const loadPaypalScript = () => {
         paypalDispatch({
           type: "resetOptions",
           value: {
-            "client-id": clientId,
+            "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
             currency: currency,
           },
         });

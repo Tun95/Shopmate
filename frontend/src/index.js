@@ -10,7 +10,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ContextProvider>
     <HelmetProvider>
-      <PayPalScriptProvider deferLoading={true}>
+      <PayPalScriptProvider
+        deferLoading={true}
+        options={{ components: 'buttons' }}
+      >
         <App />
       </PayPalScriptProvider>
     </HelmetProvider>
