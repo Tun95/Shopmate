@@ -80,7 +80,7 @@ function FlashCard(props) {
   return (
     <>
       <Slider {...setting}>
-        {simProducts?.slice(5, 13).map((sim, index) => (
+        {simProducts?.slice(0, 10).map((sim, index) => (
           <div key={index} className="flash_card">
             <div className="dress">
               <div className="dress_box">

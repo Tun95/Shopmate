@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import CheckoutSteps from "./CheckoutSteps";
 import StripeCheckout from "react-stripe-checkout";
+import { PaystackButton } from "react-paystack";
 import "./Payment.css";
 import paypal from "../images/paypal.png";
 import stripe from "../images/stripe.png";
 import vismas from "../images/vismas.png";
+import paystack from "../images/paystack.png";
+import paystackImg from "../images/paystack-logo.png";
 import { Context } from "../../Context/Context";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -69,6 +72,7 @@ function Payment(props) {
 
   const StripeModal = () => {
     closePaypalModal();
+    closePayStackModal();
     showStripeModal();
   };
 
@@ -80,6 +84,28 @@ function Payment(props) {
   };
   const showPaypalModal = () => {
     is0penPaypalModal(true);
+  };
+
+  const PaypalOrderModal = () => {
+    showPaypalModal();
+    closeStripeModal();
+    closePayStackModal();
+  };
+
+  //PAYSTACK MODAL
+  const [openPayStackModal, is0penPayStackModal] = useState(false);
+  const closePayStackModal = () => {
+    is0penPayStackModal(false);
+    document.body.style.overflow = "unset";
+  };
+  const showPayStackModal = () => {
+    is0penPayStackModal(true);
+  };
+
+  const PayStackOrderModal = () => {
+    closeStripeModal();
+    closePaypalModal();
+    showPayStackModal();
   };
 
   //PAYPAL BUTTONS ACTIONS
@@ -138,6 +164,9 @@ function Payment(props) {
     userInfo,
   ]);
 
+  //==========
+  //PAYPAL
+  //==========
   function createOrder(data, action) {
     return action.order
       .create({
@@ -175,13 +204,6 @@ function Payment(props) {
     toast.error(getError(err), { position: "bottom-center" });
   }
 
-  //ERROR CHECK
-
-  const PaypalOrderModal = () => {
-    showPaypalModal();
-    closeStripeModal();
-  };
-
   //Navigation
   useEffect(() => {
     if (order.isPaid) {
@@ -195,6 +217,55 @@ function Payment(props) {
     localStorage.setItem("paymentMethod", paymentMethodName);
   };
 
+  //==========
+  //PAYSTACK
+  //==========
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: userInfo.email,
+    amount: order.grandTotal, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey: "pk_test_dsdfghuytfd2345678gvxxxxxxxxxx",
+  };
+  // you can call this function anything
+  const handlePaystackSuccessAction = (data, reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    return reference.order.capture().then(async function (details) {
+      try {
+        dispatch({ type: "PAY_REQUEST" });
+        const { data } = await axios.put(
+          `/api/orders/${order._id}/pay`,
+          details,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
+        dispatch({ type: "PAY_SUCCESS", payload: data });
+        toast.success("Order is paid", { position: "bottom-center" });
+        if (!order.isPaid) {
+          navigate("/finish");
+        }
+      } catch (err) {
+        dispatch({ type: "PAY_FAIL", payload: getError(err) });
+        toast.error(getError(err), { position: "bottom-center" });
+      }
+    });
+  };
+
+  // you can call this function anything
+  const handlePaystackCloseAction = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+  };
+
+  const componentProps = {
+    ...config,
+    text: (
+      <span className="paystack_btn_style">
+        <img src={paystackImg} alt="" className="paystack_btn_img" />
+      </span>
+    ),
+    onSuccess: (reference) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
   return (
     <>
       <div className="payment">
@@ -211,7 +282,7 @@ function Payment(props) {
               </div>
             </div>
           </div>
-          <form action="" onSubmit={submitHandler}>
+          <form action="" >
             <div className="payment-details">
               <div className="payment-section">
                 <label
@@ -268,6 +339,33 @@ function Payment(props) {
                         {" "}
                         Pay {currencySign}
                         {order.grandTotal?.toFixed(0)} with PayPal
+                      </strong>
+                    </span>
+                  </div>
+                </label>
+                <label
+                  className={openPayStackModal ? "active-paypal" : "paypal"}
+                  id="paypal"
+                  onClick={PayStackOrderModal}
+                >
+                  <div className="">
+                    <div className="svg">
+                      <img src={paystack} alt="" className="paystack_img" />
+                    </div>
+
+                    <input
+                      type="radio"
+                      required
+                      name="payment"
+                      id="paystack"
+                      value="PayStack"
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                    />
+                    <span>
+                      <strong>
+                        {" "}
+                        Pay {currencySign}
+                        {order.grandTotal?.toFixed(0)} with PayStack
                       </strong>
                     </span>
                   </div>
@@ -359,6 +457,14 @@ function Payment(props) {
                           {/* )} */}
                         </div>
                         {/* )} */}
+                      </div>
+                    )}
+                    {openPayStackModal && (
+                      <div className="paypal-details paystack_btn">
+                        <PaystackButton
+                          {...componentProps}
+                          className="paystack_btn_style"
+                        />
                       </div>
                     )}
                   </div>

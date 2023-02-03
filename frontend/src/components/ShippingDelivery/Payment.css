@@ -14,8 +14,8 @@
 
 .payment-section {
   margin-top: 90px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   padding: 20px 40px;
   gap: 20px;
 }
@@ -30,7 +30,6 @@
   height: 120px;
   text-align: center;
   position: relative;
-  left: -5px;
   line-height: 30px;
   background-color: #f7f7f7;
 }
@@ -53,7 +52,6 @@
   height: 120px;
   text-align: center;
   position: relative;
-  left: -5px;
   line-height: 30px;
   background-color: #e5f1ff;
 }
@@ -97,6 +95,11 @@
 .active-paypal .paypal-svg {
   position: relative;
   top: 30px;
+}
+.payment-section .paystack_img {
+  height: 100%;
+  position: relative;
+  top: 10px;
 }
 
 /* DETAILS */
@@ -209,6 +212,25 @@
 }
 /* PAYPAL-DETAILS */
 
+/* PAYSTACK */
+.paypal-stripe .paystack_btn {
+  position: relative;
+  top: 40px;
+}
+.paystack_btn_style {
+  width: 50%;
+  height: 45px;
+  background-color: #051f64;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.paystack_btn_img {
+  width: 40%;
+}
+/* PAYSTACK */
+
 .p-lower-btn {
   position: relative;
   top: 66px;
@@ -262,6 +284,30 @@
   .n-t-y {
     margin-left: 17px;
   }
+  /* .payment-details{
+    width: 100%;
+  } */
+  .payment-section {
+    margin-top: 90px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .payment-section .paypal {
+    width: auto;
+    height: 120px;
+  }
+  .payment-section .active-paypal {
+    width: auto;
+    height: 120px;
+  }
+  .payment-section .stripe {
+    width: auto;
+    height: 120px;
+  }
+  .payment-section .active {
+    width: auto;
+    height: 120px;
+  }
 }
 @media screen and (max-width: 580px) {
   .stripe-details .p-inner-form {
@@ -275,12 +321,10 @@
     padding-right: 30px;
     width: 60%;
   }
- 
 }
 @media screen and (max-width: 540px) {
   .payment-section {
-    display: grid;
-    justify-content: center;
+    grid-template-columns: 1fr;
   }
   .payment-section .stripe {
     left: 0px;
@@ -335,5 +379,4 @@
   .form-date .form-group-d input {
     width: 90%;
   }
-
 }

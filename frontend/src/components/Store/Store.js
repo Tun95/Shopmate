@@ -119,7 +119,6 @@ function Store(props) {
       products,
       simProducts,
       brands,
-
       sizes,
       categories,
       pages,

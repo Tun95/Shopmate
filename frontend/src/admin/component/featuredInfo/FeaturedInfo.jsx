@@ -38,7 +38,7 @@ function FeaturedInfo(props) {
       <div className="featuredItem">
         <span className="featuredTitle">Users</span>
         <div className="featuredMoneyContainer muiIcon_display">
-          <span className="featuredMoney">{TotalUsers}</span>
+          <span className="featuredMoney">{TotalUsers || 0}</span>
           <span className="featuredMoneyRate ">
             <PersonIcon className="muiIcon" />
           </span>
@@ -48,7 +48,7 @@ function FeaturedInfo(props) {
       <div className="featuredItem featuredItem-two">
         <span className="featuredTitle">Orders</span>
         <div className="featuredMoneyContainer muiIcon_display">
-          <span className="featuredMoney">{TotalOrders}</span>
+          <span className="featuredMoney">{TotalOrders || 0}</span>
           <span className="featuredMoneyRate ">
             <WorkIcon className="muiIcon" />
           </span>
