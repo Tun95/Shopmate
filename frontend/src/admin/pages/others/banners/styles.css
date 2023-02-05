@@ -3,8 +3,17 @@
 }
 .BannerForm .background_image {
   margin-top: 10px;
-  width: 215px;
-  
+
+  gap: 10px;
+  display: flex;
+  align-items: center;
+}
+.BannerForm .background_image .display_block {
+  display: flex;
+  flex-direction: column;
+}
+.BannerForm .background_image .ads_link {
+  margin-top: -15px;
 }
 
 .BannerForm .background_image input {
@@ -19,5 +28,15 @@
 .BannerForm .background_image .fa-solid {
   color: #6c6c6c;
   font-size: 20px;
+  margin-left: 5px;
   cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+  .BannerForm .background_image {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .BannerForm .background_image .ads_link {
+    margin-top: 0px;
+  }
 }

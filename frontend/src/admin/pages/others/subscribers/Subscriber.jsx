@@ -8,6 +8,7 @@ import { Context } from "../../../../Context/Context";
 import "./styles.css";
 import JoditEditor from "jodit-react";
 import Footer from "../../../../components/Footer/Footer";
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -39,16 +40,18 @@ const reducer = (state, action) => {
   }
 };
 function Subscriber() {
-
-	const editor = useRef(null);
+  const editor = useRef(null);
 
   const { state } = useContext(Context);
   const { userInfo } = state;
- 
-  const [{ loading, error,subscribers, successDelete }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: "",
-  });
+
+  const [{ loading, error, subscribers, successDelete }, dispatch] = useReducer(
+    reducer,
+    {
+      loading: true,
+      error: "",
+    }
+  );
 
   //FETCH ALL SUBSCRIBERS
   useEffect(() => {
@@ -107,6 +110,9 @@ function Subscriber() {
   };
   return (
     <>
+      <Helmet>
+        <title>Subscribers</title>
+      </Helmet>
       <div className="new-settings-edit subscribers">
         <div className="new-box ">
           <div className="settings ">

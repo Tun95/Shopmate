@@ -8,6 +8,7 @@ import { getError } from "../../../../components/Utilities/Utils";
 import { Context } from "../../../../Context/Context";
 
 import PublishIcon from "@mui/icons-material/Publish";
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -116,6 +117,9 @@ export function CategoryUpdate() {
 
   return (
     <>
+      <Helmet>
+        <title>Update Category</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">
@@ -241,6 +245,9 @@ export function BrandUpdate() {
 
   return (
     <>
+      <Helmet>
+        <title>Update Brand</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">
@@ -366,6 +373,9 @@ export function SizeUpdate() {
 
   return (
     <>
+      <Helmet>
+        <title>Update Size</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">
@@ -493,6 +503,9 @@ export function PriceUpdate() {
 
   return (
     <>
+      <Helmet>
+        <title>Update Price</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">
@@ -652,6 +665,9 @@ export function ColorUpdate() {
 
   return (
     <>
+      <Helmet>
+        <title>Update Color</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">

@@ -6,6 +6,7 @@ import Footer from "../../../../components/Footer/Footer";
 import { getError } from "../../../../components/Utilities/Utils";
 import { Context } from "../../../../Context/Context";
 import JoditEditor from "jodit-react";
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -46,6 +47,7 @@ export function BannerUpdate() {
 
   const [title, setTitle] = useState("");
   const [background, setBackground] = useState("");
+  const [adslink, setAdslink] = useState("");
   const [descriptions, setDescriptions] = useState("");
 
   const { state } = useContext(Context);
@@ -66,6 +68,7 @@ export function BannerUpdate() {
         });
         setTitle(data.title);
         setBackground(data.background);
+        setAdslink(data.adslink);
         setDescriptions(data.descriptions);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
@@ -84,6 +87,7 @@ export function BannerUpdate() {
         {
           title,
           background,
+          adslink,
           descriptions,
         },
         {
@@ -146,6 +150,9 @@ export function BannerUpdate() {
 
   return (
     <>
+      <Helmet>
+        <title>Banner Update</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">
@@ -179,31 +186,45 @@ export function BannerUpdate() {
                       />
                     </div>{" "}
                     <div className="background_image">
-                      <small>Banner background image here:</small>
-                      <input
-                        type="text"
-                        placeholder="banner background"
-                        value={background}
-                        onChange={(e) => setBackground(e.target.value)}
-                      />
+                      <span className="display_block">
+                        <small>Banner background image here:</small>
+                        <span className="display_flex">
+                          <input
+                            type="text"
+                            placeholder="banner background"
+                            value={background}
+                            onChange={(e) => setBackground(e.target.value)}
+                          />
 
-                      <span>
-                        <label htmlFor="file">
-                          <i
-                            onChange={uploadFileHandler}
-                            className="fa-solid fa-arrow-up-from-bracket"
-                          ></i>
-                        </label>
-                        <input
-                          onChange={uploadFileHandler}
-                          type="file"
-                          id="file"
-                          style={{ display: "none" }}
-                        />
+                          <span>
+                            <label htmlFor="file">
+                              <i
+                                onChange={uploadFileHandler}
+                                className="fa-solid fa-arrow-up-from-bracket"
+                              ></i>
+                            </label>
+                            <input
+                              onChange={uploadFileHandler}
+                              type="file"
+                              id="file"
+                              style={{ display: "none" }}
+                            />
+                          </span>
+                        </span>
+                        <small>
+                          <strong>(900 x 336)px</strong>
+                        </small>
                       </span>
-                      <small>
-                        <strong>(900 x 336)px</strong>
-                      </small>
+
+                      <div className="ads_link display_block">
+                        <small>Banner ads link:</small>
+                        <input
+                          type="text"
+                          placeholder="banner background"
+                          value={adslink}
+                          onChange={(e) => setAdslink(e.target.value)}
+                        />
+                      </div>
                     </div>
                     <div className="settings-btn">
                       <button

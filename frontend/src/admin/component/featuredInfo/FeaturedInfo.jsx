@@ -68,7 +68,7 @@ function FeaturedInfo(props) {
             )}
           </span>
         </div>
-        <span className="featuredSub">Compared to previous day sales</span>
+        <span className="featuredSub">Compared to previous sales</span>
       </div>
     </div>
   );

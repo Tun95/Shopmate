@@ -8,8 +8,11 @@ const bannerSchema = new mongoose.Schema(
     },
     background: {
       type: String,
-      default:
-        "https://res.cloudinary.com/dstj5eqcd/image/upload/v1673724164/banner2_l71yuh.png",
+      default: "banner image",
+    },
+    adslink: {
+      type: String,
+      default: "Banner ads link",
     },
     descriptions: {
       type: String,

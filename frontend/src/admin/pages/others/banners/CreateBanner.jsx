@@ -7,6 +7,7 @@ import { Context } from "../../../../Context/Context";
 import JoditEditor from "jodit-react";
 import Footer from "../../../../components/Footer/Footer";
 import "./styles.css";
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,6 +27,7 @@ export function Banner() {
 
   const [title, setTitle] = useState("");
   const [background, setBackground] = useState("");
+  const [adslink, setAdslink] = useState("");
   const [descriptions, setDescriptions] = useState("");
 
   const { state } = useContext(Context);
@@ -43,7 +45,7 @@ export function Banner() {
       dispatch({ type: "CREATE_REQUEST" });
       const { data } = await axios.post(
         "/api/banner",
-        { title, background, descriptions },
+        { title, background, adslink, descriptions },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -85,6 +87,9 @@ export function Banner() {
 
   return (
     <>
+      <Helmet>
+        <title>Create New Banner ads</title>
+      </Helmet>
       <div className="new-settings-edit">
         <div className="new-box filter-create-shadow">
           <div className="settings ">
@@ -116,31 +121,45 @@ export function Banner() {
                       />
                     </div>{" "}
                     <div className="background_image">
-                      <small>Banner background image here:</small>
-                      <input
-                        type="text"
-                        placeholder="banner background"
-                        value={background}
-                        onChange={(e) => setBackground(e.target.value)}
-                      />
+                      <span className="display_block">
+                        <small>Banner background image here:</small>
+                        <span className="display_flex">
+                          <input
+                            type="text"
+                            placeholder="banner background"
+                            value={background}
+                            onChange={(e) => setBackground(e.target.value)}
+                          />
 
-                      <span>
-                        <label htmlFor="file">
-                          <i
-                            onChange={uploadFileHandler}
-                            className="fa-solid fa-arrow-up-from-bracket"
-                          ></i>
-                        </label>
-                        <input
-                          onChange={uploadFileHandler}
-                          type="file"
-                          id="file"
-                          style={{ display: "none" }}
-                        />
+                          <span>
+                            <label htmlFor="file">
+                              <i
+                                onChange={uploadFileHandler}
+                                className="fa-solid fa-arrow-up-from-bracket"
+                              ></i>
+                            </label>
+                            <input
+                              onChange={uploadFileHandler}
+                              type="file"
+                              id="file"
+                              style={{ display: "none" }}
+                            />
+                          </span>
+                        </span>
+                        <small>
+                          <strong>(900 x 336)px</strong>
+                        </small>
                       </span>
-                      <small>
-                        <strong>(900 x 336)px</strong>
-                      </small>
+
+                      <div className="ads_link display_block">
+                        <small>Banner ads link:</small>
+                        <input
+                          type="text"
+                          placeholder="banner background"
+                          value={adslink}
+                          onChange={(e) => setAdslink(e.target.value)}
+                        />
+                      </div>
                     </div>
                     <div className="settings-btn Filterbtn">
                       <button className="settingsButton setting-create">

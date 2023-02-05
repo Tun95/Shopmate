@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import CheckoutSteps from "./CheckoutSteps";
 import StripeCheckout from "react-stripe-checkout";
-import { PaystackButton } from "react-paystack";
+import { usePaystackPayment, PaystackButton } from "react-paystack";
 import "./Payment.css";
 import paypal from "../images/paypal.png";
 import stripe from "../images/stripe.png";
@@ -282,7 +282,7 @@ function Payment(props) {
               </div>
             </div>
           </div>
-          <form action="" >
+          <form action="">
             <div className="payment-details">
               <div className="payment-section">
                 <label
@@ -343,7 +343,7 @@ function Payment(props) {
                     </span>
                   </div>
                 </label>
-                <label
+                {/* <label
                   className={openPayStackModal ? "active-paypal" : "paypal"}
                   id="paypal"
                   onClick={PayStackOrderModal}
@@ -369,7 +369,7 @@ function Payment(props) {
                       </strong>
                     </span>
                   </div>
-                </label>
+                </label> */}
               </div>
 
               <div className="paypal-stripe">

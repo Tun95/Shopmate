@@ -29,7 +29,13 @@ function SliderCard() {
         {banners?.map((item, index) => (
           <div key={index} className="box  top ">
             <div className="left">
-              <img src={item.background} alt="" />
+              <a
+                href={`${item.adslink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={item.background} alt="" />
+              </a>
               <span className="content">
                 {parse(`<p>${item?.descriptions}</p>`)}
               </span>
