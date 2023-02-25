@@ -121,6 +121,10 @@
   flex-wrap: wrap;
   width: 100%;
 }
+.sec-box .payment_method {
+  color: #6c6c6c;
+  font-weight: 600;
+}
 .sec-box .sec-pay-now {
   width: 150px;
   height: 40px;

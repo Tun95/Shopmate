@@ -4,6 +4,7 @@ import { useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { URL } from "../../../base_url/Base_URL";
 import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import { getError } from "../../../components/Utilities/Utils";
@@ -37,7 +38,7 @@ function NewProduct() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          "/api/products",
+          `${URL}/api/products`,
           {},
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },

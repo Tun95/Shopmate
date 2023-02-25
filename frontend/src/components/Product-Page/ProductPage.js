@@ -25,6 +25,7 @@ import Footer from "../Footer/Footer";
 import Slider from "react-slick";
 import parse from "html-react-parser";
 import ReactTimeAgo from "react-time-ago";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -165,7 +166,7 @@ function ProductPage({ currencySign }) {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get(`${URL}/api/products/slug/${slug}`);
         window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
@@ -179,7 +180,9 @@ function ProductPage({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(`/api/products/related/${product._id}`);
+        const result = await axios.get(
+          `${URL}/api/products/related/${product._id}`
+        );
         dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_SIM_FAIL", payload: error.message });
@@ -198,7 +201,7 @@ function ProductPage({ currencySign }) {
     settings,
   } = state;
   const addToCartHandler = async () => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`${URL}/api/products/${product._id}`);
 
     // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     //   dispatch({
@@ -262,7 +265,7 @@ function ProductPage({ currencySign }) {
       } else {
         try {
           const { data } = await axios.post(
-            `/api/products/${product._id}/reviews`,
+            `${URL}/api/products/${product._id}/reviews`,
             { rating, comment, name: userInfo.name },
             {
               headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -301,7 +304,7 @@ function ProductPage({ currencySign }) {
   const handleChange = async (event) => {
     try {
       const { data } = await axios.post(
-        `/api/wishes`,
+        `${URL}/api/wishes`,
         {
           name: product.name,
           slug: product.slug,
@@ -519,12 +522,44 @@ function ProductPage({ currencySign }) {
                               Out of Stock
                             </button>
                           ) : (
-                            <button
-                              className="add-to-cart"
-                              onClick={addToCartHandler}
-                            >
-                              Add to cart
-                            </button>
+                            <span>
+                              {product.seller ? (
+                                <>
+                                  <h4>Contact Seller Via:</h4>
+                                  <div className="seller_contact">
+                                    <a
+                                      href={`mailto:${product?.seller?.email}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="seller_btn seller_btn_email seller_btn_primary"
+                                    >
+                                      <span className="seller_flex seller_btn_one">
+                                        <i className="fa-regular fa-envelope"></i>
+                                        <p>Email</p>
+                                      </span>
+                                    </a>
+                                    <a
+                                      href={`https://wa.me/${product?.seller?.phone}`}
+                                      className="seller_btn"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      <span className="seller_flex seller_btn_two">
+                                        <i className="fa-solid fa-phone-volume"></i>
+                                        <p>Whatsapp</p>
+                                      </span>
+                                    </a>
+                                  </div>
+                                </>
+                              ) : (
+                                <button
+                                  className="add-to-cart"
+                                  onClick={addToCartHandler}
+                                >
+                                  Add to cart
+                                </button>
+                              )}
+                            </span>
                           )}
                         </div>
                         <div className="wish-list">

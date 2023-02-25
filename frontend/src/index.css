@@ -23,6 +23,32 @@ body a {
   width: 25px;
 }
 
+.seller_btn {
+  width: max-content;
+  display: inline-block;
+  align-items: center;
+  color: #fff;
+  padding: 2px 10px;
+  cursor: pointer;
+  border: 2px solid #f62f5e;
+  transition: all 400ms ease;
+  font-weight: 600;
+}
+/* .seller_btn:hover {
+  background: #f62f5e;
+  color: #fff;
+  border-color: transparent;
+} */
+.seller_btn_primary {
+  background: #f62f5e;
+  color: #f7f7f7;
+}
+/* .seller_btn_primary:hover {
+  background: linear-gradient(#f62f5e, #f62f5e);
+  color: #fff;
+  border-color: #f62f5e;
+} */
+
 /* SMALL SLIDER */
 
 .slider_control_btn .slider_next {

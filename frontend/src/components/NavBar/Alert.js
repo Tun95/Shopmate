@@ -56,7 +56,7 @@ function Alert() {
         <div className="alert-bar-content">
           <ReportProblemOutlinedIcon className="alert-top-icon" />
           <span className="alert-text">Your account is not verified,</span>
-          <Link>
+          <Link to="">
             <span onClick={verificationHandler} className="alert-text-link">
               Click this link to verify
             </span>

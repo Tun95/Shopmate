@@ -5,6 +5,7 @@ import { Context } from "../../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getError } from "../../../components/Utilities/Utils";
+import { URL } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,7 +38,7 @@ function WidgetLg(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/orders", {
+        const { data } = await axios.get(`${URL}/api/orders`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });

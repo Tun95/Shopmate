@@ -18,6 +18,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -61,7 +62,7 @@ function OrderScreen({ currencySign, webname }) {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`${URL}/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -85,7 +86,7 @@ function OrderScreen({ currencySign, webname }) {
     try {
       // dispatch({ type: "DELIVER_REQUEST" });
       const { data } = await axios.put(
-        `/api/orders/${order._id}/deliver`,
+        `${URL}/api/orders/${order._id}/deliver`,
         {},
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
@@ -107,7 +108,7 @@ function OrderScreen({ currencySign, webname }) {
   };
 
   dateFormat(now, `mmmm d, yyyy`);
-
+  console.log(order);
   return (
     <>
       {loading ? (
@@ -231,12 +232,25 @@ function OrderScreen({ currencySign, webname }) {
                       <h2>Payment</h2>
                       <div className="sec-box-body">
                         <div className="p-method">
+                          <strong>Payment Method: </strong>
+                          <span className="payment_method">
+                            {order.paymentMethod}
+                          </span>
+                        </div>
+                        <br />
+                        <div className="p-method">
                           <strong>Status: </strong>
                         </div>
                         <div>
                           {userInfo._id && order.isPaid ? (
                             <MessageBox variant="success">
-                              Paid on {dateFormat(order.paidAt)}
+                              {order.paymentMethod === "Cash on Delivery" ? (
+                                <span className="with_cash">
+                                  Paid with Cash on Delivery
+                                </span>
+                              ) : (
+                                <span>Paid on {dateFormat(order.paidAt)}</span>
+                              )}
                             </MessageBox>
                           ) : userInfo._id ? (
                             <div className="not-paid-btn">

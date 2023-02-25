@@ -97,9 +97,14 @@
   top: 30px;
 }
 .payment-section .paystack_img {
-  height: 100%;
+  width: 60%;
+}
+.payment-section .cash_up {
   position: relative;
-  top: 10px;
+  bottom: 10px;
+}
+.payment-section .cash_img {
+  height: 80px;
 }
 
 /* DETAILS */
@@ -231,6 +236,26 @@
 }
 /* PAYSTACK */
 
+.cash_btn_style .cash_btn {
+  width: 50%;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: #fff;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+.cash_btn_style img {
+  height: 100%;
+}
+.cash_btn_style .cash_text {
+  font-weight: 600;
+  font-size: 20px;
+}
 .p-lower-btn {
   position: relative;
   top: 66px;

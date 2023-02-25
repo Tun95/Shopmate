@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../Context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { URL } from "../../base_url/Base_URL";
 
 function Cart(props) {
   const { closeModal, openModal } = props;
@@ -28,7 +29,7 @@ function Cart(props) {
 
   //CART QUANTITY
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`${URL}/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       toast.error("Sorry, Product is out of stock", {
         position: "bottom-center",
@@ -134,7 +135,9 @@ function Cart(props) {
                                 </div>
                               </div>
                               <div className="second-row">
-                                <div className="clothe-size">{item.size}</div>
+                                <div className="clothe-size">
+                                  {item.size === "" ? "" : item.size}
+                                </div>
                               </div>
                               <div className="third-row">
                                 <button

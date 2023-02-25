@@ -26,7 +26,7 @@ orderRouter.get(
     const sellerFilter = seller && seller !== "all" ? { seller } : {};
     const orders = await Order.find({ ...sellerFilter })
       .populate("user orderItems.seller", "name")
-      .sort("-createdAt")
+      .sort("-updatedAt")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
 
@@ -293,6 +293,7 @@ orderRouter.put(
         update_time: req.body.update_time,
         email_address: req.body.email_address,
       };
+      order.paymentMethod = req.body.paymentMethod;
 
       for (const index in order.orderItems) {
         const item = order.orderItems[index];
@@ -330,7 +331,7 @@ orderRouter.put(
           <tr>
           <td>${item.name}</td>
           <td align="left">${item.keygen}</td>
-          <td align="left">${item.size || ""}</td>
+          <td align="left">${item.size === "" ? "" : item.size}</td>
           <td align="center"><img src=${item.color} alt=""/></td>
           <td align="center">${item.quantity}</td>
           <td align="right"> ${s.currencySign}${item.price.toFixed(2)}</td>
@@ -359,6 +360,10 @@ orderRouter.put(
         <td align="right"><strong> ${s.currencySign}${order.grandTotal.toFixed(
               2
             )}</strong></td>
+        </tr>
+        <tr>
+        <td colspan="2">Payment Method:</td>
+        <td align="right">${order.paymentMethod}</td>
         </tr>
         </table>`
         )}

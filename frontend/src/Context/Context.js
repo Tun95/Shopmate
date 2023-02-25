@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
 import { getError } from "../components/Utilities/Utils";
+import { URL } from "../base_url/Base_URL";
 
 export const Context = createContext();
 
@@ -22,7 +23,7 @@ const initialState = {
 
     paymentMethod: localStorage.getItem("paymentMethod")
       ? JSON.parse(localStorage.getItem("paymentMethod"))
-      : {},
+      : "",
 
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
@@ -138,7 +139,7 @@ export function ContextProvider(props) {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/settings`);
+        const { data } = await axios.get(`${URL}/api/settings`);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
         window.scrollTo(0, 0);
       } catch (error) {
@@ -153,7 +154,7 @@ export function ContextProvider(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/price");
+        const { data } = await axios.get(`${URL}/api/price`);
         dispatch({ type: "FETCH_PRICE_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_PRICE_FAIL", payload: getError(err) });
@@ -166,7 +167,7 @@ export function ContextProvider(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/color");
+        const { data } = await axios.get(`${URL}/api/color`);
         console.log(data);
         dispatch({ type: "FETCH_COLOR_SUCCESS", payload: data });
       } catch (err) {
@@ -181,7 +182,7 @@ export function ContextProvider(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/banner");
+        const { data } = await axios.get(`${URL}/api/banner`);
         dispatch({ type: "FETCH_BANNER_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_BANNER_FAIL", payload: getError(err) });

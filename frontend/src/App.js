@@ -76,6 +76,7 @@ import ru from "javascript-time-ago/locale/ru.json";
 import SizeGuide from "./components/Info/SizeGuide";
 import ReviewGuide from "./components/Info/ReviewGuide";
 
+
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
 

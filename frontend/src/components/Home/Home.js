@@ -10,6 +10,7 @@ import { getError } from "../Utilities/Utils";
 
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Slider from "../Slider/Slider";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -46,7 +47,7 @@ function Home() {
       toast.error("email field is required", { position: "bottom-center" });
     } else {
       try {
-        const { data } = await axios.post("/api/message/subscribe", {
+        const { data } = await axios.post(`${URL}/api/message/subscribe`, {
           email,
         });
         dispatch({ type: "POST_SUCCESS", payload: data });

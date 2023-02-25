@@ -11,6 +11,7 @@ import { Context } from "../../../Context/Context";
 import "./orderList.css";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
+import { URL } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -62,7 +63,7 @@ function OrderList({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/orders?page=${page}`, {
+        const { data } = await axios.get(`${URL}/api/orders?page=${page}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -84,7 +85,7 @@ function OrderList({ currencySign }) {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
         dispatch({ type: "DELETE_REQUEST" });
-        await axios.delete(`/api/orders/${order._id}`, {
+        await axios.delete(`${URL}/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("Order deleted successfully", {
@@ -145,7 +146,10 @@ function OrderList({ currencySign }) {
                             {order.grandTotal.toFixed(2)}
                           </li>
                           <li className="admin-paid">
-                            {order.isPaid ? (
+                            {order.paymentMethod === "Cash on Delivery" ? (
+                              <span className="with_cash">With Cash</span>
+                            ) : order.paymentMethod !== "Cash on Delivery" &&
+                              order.isPaid ? (
                               <div className="admin-paidAt">
                                 {order.paidAt.substring(0, 10)}
                               </div>

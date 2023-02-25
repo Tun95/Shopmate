@@ -157,6 +157,15 @@
   color: #6eb2fb;
   font-weight: 600;
 }
+.admin-order-table-body .with_cash {
+  color: green;
+  font-weight: 600;
+  border: 1px dotted green;
+  padding: 3px;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
 .admin-order-table-body ul .admin-negate {
   color: #f62f5e;
 }

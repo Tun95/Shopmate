@@ -12,6 +12,7 @@ import { eye } from "react-icons-kit/feather/eye";
 import Footer from "../Footer/Footer";
 import { getError } from "../Utilities/Utils";
 import "./passreset.css";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -56,7 +57,7 @@ function PassResetForm(props) {
         dispatch({ type: "SUBMIT_REQUEST" });
         try {
           const { data } = await axios.put(
-            `/api/users/${userId}/reset-password`,
+            `${URL}/api/users/${userId}/reset-password`,
             {
               password,
               token,

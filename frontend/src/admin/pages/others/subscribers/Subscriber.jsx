@@ -9,6 +9,7 @@ import "./styles.css";
 import JoditEditor from "jodit-react";
 import Footer from "../../../../components/Footer/Footer";
 import { Helmet } from "react-helmet-async";
+import { URL } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -58,7 +59,7 @@ function Subscriber() {
     const fetchData = async () => {
       // dispatch({ type: "FETCH_SUBSCRIBER_REQUEST" });
       try {
-        const { data } = await axios.get("/api/message", {
+        const { data } = await axios.get(`${URL}/api/message`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUBSCRIBER_SUCCESS", payload: data });
@@ -77,7 +78,7 @@ function Subscriber() {
   const deleteHandler = async (subscriber) => {
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/message/${subscriber._id}`, {
+      await axios.delete(`${URL}/api/message/${subscriber._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success("Deleted successfully", {
@@ -97,7 +98,7 @@ function Subscriber() {
   const sendHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/message/send", {
+      const { data } = await axios.post(`${URL}/api/message/send`, {
         subject,
         message,
       });

@@ -10,6 +10,7 @@ import { getError } from "../Utilities/Utils";
 import Footer from "../Footer/Footer";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -50,9 +51,12 @@ function OrderHistory({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/orders/mine?page=${page}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get(
+          `${URL}/api/orders/mine?page=${page}`,
+          {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+          }
+        );
         dispatch({ type: "FETCH_SUCCESS", payload: data });
         window.scrollTo(0, 0);
       } catch (err) {
@@ -107,7 +111,10 @@ function OrderHistory({ currencySign }) {
                             {order.grandTotal.toFixed(2)}
                           </li>
                           <li className="paid">
-                            {order.isPaid ? (
+                            {order.paymentMethod === "Cash on Delivery" ? (
+                              <span className="with_cash">With Cash</span>
+                            ) : order.paymentMethod !== "Cash on Delivery" &&
+                              order.isPaid ? (
                               <div className="paidAt">
                                 {order.paidAt.substring(0, 10)}
                               </div>

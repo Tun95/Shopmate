@@ -9,6 +9,7 @@ import { Context } from "../../../../Context/Context";
 import PublishIcon from "@mui/icons-material/Publish";
 import gray from "../../../assets/gray.png";
 import { Helmet } from "react-helmet-async";
+import { URL } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -42,7 +43,7 @@ export function Category() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          "/api/category",
+          `${URL}/api/category`,
           { category },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -122,7 +123,7 @@ export function Brand() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          "/api/brand",
+          `${URL}/api/brand`,
           { brand },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -202,7 +203,7 @@ export function Size() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          "/api/size",
+          `${URL}/api/size`,
           { size },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -282,7 +283,7 @@ export function Price() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          "/api/price",
+          `${URL}/api/price`,
           { price, priceSpan },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -371,7 +372,7 @@ export function Color() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          "/api/color",
+          `${URL}/api/color`,
           { color, name },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -396,7 +397,7 @@ export function Color() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post("/api/upload", bodyFormData, {
+      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

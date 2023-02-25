@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 import { getError } from "../Utilities/Utils";
 import "./passreset.css";
 import CloseIcon from "@mui/icons-material/Close";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,7 +38,7 @@ function PassReset(props) {
     } else {
       dispatch({ type: "SUBMIT_REQUEST" });
       try {
-        const { data } = await axios.post(`/api/users/password-token`, {
+        const { data } = await axios.post(`${URL}/api/users/password-token`, {
           email,
         });
         dispatch({ type: "SUBMIT_SUCCESS", payload: data });

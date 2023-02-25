@@ -235,6 +235,46 @@
               height: 50px;
               border-radius: 25px;
             }
+            .seller_contact {
+              display: flex;
+              align-items: center;
+            }
+            .seller_contact,
+            h4 {
+              position: relative;
+              bottom: 20px;
+            }
+            .seller_btn_email {
+              margin-right: 5px;
+            }
+            .seller_flex {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              i {
+                font-size: 20px;
+                margin-right: 5px;
+              }
+            }
+            .seller_btn_one {
+              i,
+              p {
+                color: #fff;
+              }
+            }
+            .seller_btn_two {
+              i,
+              p {
+                color: #f62f5e;
+              }
+            }
+            // .seller_btn_two:hover {
+            //   i,
+            //   p {
+            //     color: #fff;
+            //   }
+            // }
+
             .add-to-cart {
               background: #f62f5e;
               outline: none;

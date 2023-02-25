@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { URL } from "../../base_url/Base_URL";
 import { Context } from "../../Context/Context";
 import "./cartScreen.css";
 
@@ -16,7 +17,7 @@ function CartScreen() {
 
   //CART QUANTITY
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`${URL}/api/products/${item._id}`);
     if (data.counInStock < quantity) {
       window.alert("Sorry, Product is out of stock");
       return;
@@ -114,7 +115,7 @@ function CartScreen() {
                     </div>
                     <div className="item-size">
                       <label htmlFor="size">Size: </label>
-                      <span>{item.size}</span>
+                      <span>{item.size === "" ? "" : item.size}</span>
                     </div>
                     <div className="item-quantity">
                       <label htmlFor="qty">Quantity</label>

@@ -9,6 +9,7 @@ import { Context } from "../../../../Context/Context";
 
 import PublishIcon from "@mui/icons-material/Publish";
 import { Helmet } from "react-helmet-async";
+import { URL } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -59,7 +60,7 @@ export function CategoryUpdate() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/category/${categoryId}`, {
+        const { data } = await axios.get(`${URL}/api/category/${categoryId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setCategory(data.category);
@@ -77,7 +78,7 @@ export function CategoryUpdate() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/category/${categoryId}`,
+        `${URL}/api/category/${categoryId}`,
         {
           category,
         },
@@ -101,7 +102,7 @@ export function CategoryUpdate() {
     e.preventDefault();
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/category/${categoryId}`, {
+      await axios.delete(`${URL}/api/category/${categoryId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success(" Deleted successfully", {
@@ -187,7 +188,7 @@ export function BrandUpdate() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/brand/${brandId}`, {
+        const { data } = await axios.get(`${URL}/api/brand/${brandId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setBrand(data.brand);
@@ -205,7 +206,7 @@ export function BrandUpdate() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/brand/${brandId}`,
+        `${URL}/api/brand/${brandId}`,
         {
           brand,
         },
@@ -229,7 +230,7 @@ export function BrandUpdate() {
     e.preventDefault();
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/brand/${brandId}`, {
+      await axios.delete(`${URL}/api/brand/${brandId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success(" Deleted successfully", {
@@ -315,7 +316,7 @@ export function SizeUpdate() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/size/${sizeId}`, {
+        const { data } = await axios.get(`${URL}/api/size/${sizeId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setSize(data.size);
@@ -333,7 +334,7 @@ export function SizeUpdate() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/size/${sizeId}`,
+        `${URL}/api/size/${sizeId}`,
         {
           size,
         },
@@ -357,7 +358,7 @@ export function SizeUpdate() {
     e.preventDefault();
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/size/${sizeId}`, {
+      await axios.delete(`${URL}/api/size/${sizeId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success(" Deleted successfully", {
@@ -444,7 +445,7 @@ export function PriceUpdate() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/price/${priceId}`, {
+        const { data } = await axios.get(`${URL}/api/price/${priceId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setPrice(data.price);
@@ -462,7 +463,7 @@ export function PriceUpdate() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/price/${priceId}`,
+        `${URL}/api/price/${priceId}`,
         {
           price,
           priceSpan,
@@ -487,7 +488,7 @@ export function PriceUpdate() {
     e.preventDefault();
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/price/${priceId}`, {
+      await axios.delete(`${URL}/api/price/${priceId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success(" Deleted successfully", {
@@ -582,7 +583,7 @@ export function ColorUpdate() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/color/${colorId}`, {
+        const { data } = await axios.get(`${URL}/api/color/${colorId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setColor(data.color);
@@ -600,7 +601,7 @@ export function ColorUpdate() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/color/${colorId}`,
+        `${URL}/api/color/${colorId}`,
         {
           color,
           colorName,
@@ -625,7 +626,7 @@ export function ColorUpdate() {
     e.preventDefault();
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/color/${colorId}`, {
+      await axios.delete(`${URL}/api/color/${colorId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success(" Deleted successfully", {
@@ -646,7 +647,7 @@ export function ColorUpdate() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post("/api/upload", bodyFormData, {
+      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

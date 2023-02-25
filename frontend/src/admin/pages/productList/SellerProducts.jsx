@@ -23,6 +23,7 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
 import Footer from "../../../components/Footer/Footer";
+import { URL } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -90,7 +91,7 @@ function SellerProduct({ currencySign, webname }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/admin?page=${page}&seller=${seller}`,
+          `${URL}/api/products/admin?page=${page}&seller=${seller}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -118,7 +119,7 @@ function SellerProduct({ currencySign, webname }) {
   const createHandler = async () => {
     try {
       const { data } = await axios.post(
-        "/api/products",
+        `${URL}/api/products`,
         {},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -137,7 +138,7 @@ function SellerProduct({ currencySign, webname }) {
   const deleteHandler = async (product) => {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
-        await axios.delete(`/api/products/${product._id}`, {
+        await axios.delete(`${URL}/api/products/${product._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("product deleted successfully", {

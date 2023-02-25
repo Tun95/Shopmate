@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
+import { URL } from "../../../../base_url/Base_URL";
 import Footer from "../../../../components/Footer/Footer";
 import LoadingBox from "../../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../../components/Utilities/MessageBox";
@@ -37,7 +38,7 @@ function Banners() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get("/api/banner", {
+        const { data } = await axios.get(`${URL}/api/banner`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });

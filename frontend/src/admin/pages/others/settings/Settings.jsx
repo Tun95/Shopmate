@@ -16,6 +16,7 @@ import LoadingBox from "../../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../../components/Utilities/MessageBox";
 import { Helmet } from "react-helmet-async";
 import Footer from "../../../../components/Footer/Footer";
+import { URL } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -94,7 +95,7 @@ function Settings() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/settings/${setId}`, {
+        const { data } = await axios.get(`${URL}/api/settings/${setId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setAbout(data.about);
@@ -144,7 +145,7 @@ function Settings() {
     try {
       dispatch({ type: "UPDATE_REQUEST" });
       await axios.put(
-        `/api/settings/${setId}`,
+        `${URL}/api/settings/${setId}`,
         {
           about,
           terms,
@@ -194,7 +195,7 @@ function Settings() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post("/api/upload", bodyFormData, {
+      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

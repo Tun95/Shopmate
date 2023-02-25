@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { URL } from "../../base_url/Base_URL";
 import { Context } from "../../Context/Context";
 import Footer from "../Footer/Footer";
 import { getError } from "../Utilities/Utils";
@@ -69,7 +70,7 @@ function ConfirmationScreen(props) {
     } else {
       try {
         const { data } = await axios.post(
-          "/api/orders",
+          `${URL}/api/orders`,
           {
             orderItems: cartItems,
             shippingAddress,

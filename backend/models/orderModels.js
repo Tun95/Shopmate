@@ -32,7 +32,7 @@ const orderSchema = new mongoose.Schema(
       country: { type: String, required: true },
       shipping: { type: String, required: true },
     },
-    //paymentMethod: { type: String },
+    paymentMethod: { type: String},
     paymentResult: {
       id: String,
       status: String,

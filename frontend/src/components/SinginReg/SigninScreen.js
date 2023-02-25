@@ -13,6 +13,7 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 
 import Footer from "../Footer/Footer";
+import { URL } from "../../base_url/Base_URL";
 
 function SigninScreen(props) {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function SigninScreen(props) {
       });
     } else {
       try {
-        const { data } = await Axios.post("/api/users/signin", {
+        const { data } = await Axios.post(`${URL}/api/users/signin`, {
           email,
           password,
         });

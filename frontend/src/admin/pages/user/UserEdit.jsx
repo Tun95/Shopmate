@@ -22,6 +22,7 @@ import LoadingBox from "../../../components/Utilities/LoadingBox";
 import MessageBox from "../../../components/Utilities/MessageBox";
 import Footer from "../../../components/Footer/Footer";
 import PhoneInput from "react-phone-number-input";
+import { URL } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -74,7 +75,7 @@ function User() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/users/${userId}`, {
+        const { data } = await axios.get(`${URL}/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setName(data.name);
@@ -99,7 +100,7 @@ function User() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/users/${userId}`,
+        `${URL}/api/users/${userId}`,
         {
           _id: userId,
           name,
@@ -133,7 +134,7 @@ function User() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post("/api/upload", bodyFormData, {
+      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

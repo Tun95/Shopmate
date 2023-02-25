@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import CheckoutSteps from "./CheckoutSteps";
 import StripeCheckout from "react-stripe-checkout";
-import { usePaystackPayment, PaystackButton } from "react-paystack";
+import { PaystackButton } from "react-paystack";
+import cash from "../../components/images/cash.png";
 import "./Payment.css";
 import paypal from "../images/paypal.png";
 import stripe from "../images/stripe.png";
@@ -17,6 +18,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import axios from "axios";
 import LoadingBox from "../Utilities/LoadingBox";
 import Footer from "../Footer/Footer";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,6 +47,11 @@ function Payment(props) {
 
   const { currency, currencySign } = props;
 
+  let PayPal = "PayPal";
+  let Stripe = "Stripe";
+  let Cash = "Cash on Delivery";
+  let PayStack = "PayStack";
+
   //ORDER POSTING
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
@@ -54,8 +61,9 @@ function Payment(props) {
 
   //PAYMENT METHOD
   const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || "PayPal"
+    paymentMethod || PayPal
   );
+  console.log(paymentMethodName);
 
   //STRIPE MODAL
   const [openStripeModal, is0penStripeModal] = useState(false);
@@ -73,6 +81,7 @@ function Payment(props) {
   const StripeModal = () => {
     closePaypalModal();
     closePayStackModal();
+    closeCashModal();
     showStripeModal();
   };
 
@@ -89,6 +98,7 @@ function Payment(props) {
   const PaypalOrderModal = () => {
     showPaypalModal();
     closeStripeModal();
+    closeCashModal();
     closePayStackModal();
   };
 
@@ -105,7 +115,25 @@ function Payment(props) {
   const PayStackOrderModal = () => {
     closeStripeModal();
     closePaypalModal();
+    closeCashModal();
     showPayStackModal();
+  };
+
+  //CASH MODAL
+  const [openCashModal, is0penCashModal] = useState(false);
+  const closeCashModal = () => {
+    is0penCashModal(false);
+    document.body.style.overflow = "unset";
+  };
+  const showCashModal = () => {
+    is0penCashModal(true);
+  };
+
+  const CashOrderModal = () => {
+    closeStripeModal();
+    closePaypalModal();
+    closePayStackModal();
+    showCashModal();
   };
 
   //PAYPAL BUTTONS ACTIONS
@@ -128,7 +156,7 @@ function Payment(props) {
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`${URL}/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -181,17 +209,16 @@ function Payment(props) {
       try {
         dispatch({ type: "PAY_REQUEST" });
         const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
-          details,
+          `${URL}/api/orders/${order._id}/pay`,
+          { details, paymentMethod: paymentMethodName },
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         );
-
         dispatch({ type: "PAY_SUCCESS", payload: data });
 
         toast.success("Order is paid", { position: "bottom-center" });
-        if (!order.isPaid) {
+        if (order.isPaid) {
           navigate("/finish");
         }
       } catch (err) {
@@ -207,14 +234,14 @@ function Payment(props) {
   //Navigation
   useEffect(() => {
     if (order.isPaid) {
-      navigate("/finish?redirect");
+      navigate("/finish");
     }
   }, [navigate, cartItems, order.isPaid]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
-    localStorage.setItem("paymentMethod", paymentMethodName);
+    // ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
+    // localStorage.setItem("paymentMethod", paymentMethodName);
   };
 
   //==========
@@ -223,32 +250,30 @@ function Payment(props) {
   const config = {
     reference: new Date().getTime().toString(),
     email: userInfo.email,
-    amount: order.grandTotal, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: "pk_test_dsdfghuytfd2345678gvxxxxxxxxxx",
+    amount: order.grandTotal * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey: process.env.REACT_PAYSTACK_PUBLIC_KEY,
   };
   // you can call this function anything
-  const handlePaystackSuccessAction = (data, reference) => {
+  const handlePaystackSuccessAction = async (details) => {
     // Implementation for whatever you want to do with reference and after success call.
-    return reference.order.capture().then(async function (details) {
-      try {
-        dispatch({ type: "PAY_REQUEST" });
-        const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
-          details,
-          {
-            headers: { authorization: `Bearer ${userInfo.token}` },
-          }
-        );
-        dispatch({ type: "PAY_SUCCESS", payload: data });
-        toast.success("Order is paid", { position: "bottom-center" });
-        if (!order.isPaid) {
-          navigate("/finish");
+    try {
+      // dispatch({ type: "PAY_REQUEST" });
+      const { data } = await axios.put(
+        `${URL}/api/orders/${order._id}/pay`,
+        { details, paymentMethod: paymentMethodName },
+        {
+          headers: { authorization: `Bearer ${userInfo.token}` },
         }
-      } catch (err) {
-        dispatch({ type: "PAY_FAIL", payload: getError(err) });
-        toast.error(getError(err), { position: "bottom-center" });
+      );
+      dispatch({ type: "PAY_SUCCESS", payload: data });
+      toast.success("Order is paid", { position: "bottom-center" });
+      if (!order.isPaid) {
+        navigate("/finish");
       }
-    });
+    } catch (err) {
+      dispatch({ type: "PAY_FAIL", payload: getError(err) });
+      toast.error(getError(err), { position: "bottom-center" });
+    }
   };
 
   // you can call this function anything
@@ -266,6 +291,33 @@ function Payment(props) {
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
+
+  //============
+  // CASH METHOD
+  //============
+  const cashSubmitHandler = async (data, actions, details) => {
+    try {
+      // dispatch({ type: "PAY_REQUEST" });
+      await axios.put(
+        `${URL}/api/orders/${order._id}/pay`,
+        { details, paymentMethod: paymentMethodName },
+        {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({ type: "PAY_SUCCESS" });
+      toast.success("Approved for Cash on Delivery", {
+        position: "bottom-center",
+      });
+      if (!order.isPaid) {
+        navigate("/finish");
+      }
+    } catch (err) {
+      dispatch({ type: "PAY_FAIL", payload: getError(err) });
+      toast.error(getError(err), { position: "bottom-center" });
+    }
+  };
+
   return (
     <>
       <div className="payment">
@@ -282,7 +334,7 @@ function Payment(props) {
               </div>
             </div>
           </div>
-          <form action="">
+          <form action="" onSubmit={submitHandler}>
             <div className="payment-details">
               <div className="payment-section">
                 <label
@@ -303,7 +355,7 @@ function Payment(props) {
                       required
                       name="payment"
                       id="stripe"
-                      value="Stripe"
+                      value={Stripe}
                       onChange={(e) => setPaymentMethod(e.target.value)}
                     />
                     <span>
@@ -331,7 +383,7 @@ function Payment(props) {
                       required
                       name="payment"
                       id="paypal"
-                      value="PayPal"
+                      value={PayPal}
                       onChange={(e) => setPaymentMethod(e.target.value)}
                     />
                     <span>
@@ -348,7 +400,7 @@ function Payment(props) {
                   id="paypal"
                   onClick={PayStackOrderModal}
                 >
-                  <div className="">
+                  <div className="paypal-svg">
                     <div className="svg">
                       <img src={paystack} alt="" className="paystack_img" />
                     </div>
@@ -358,7 +410,7 @@ function Payment(props) {
                       required
                       name="payment"
                       id="paystack"
-                      value="PayStack"
+                      value={PayStack}
                       onChange={(e) => setPaymentMethod(e.target.value)}
                     />
                     <span>
@@ -370,6 +422,34 @@ function Payment(props) {
                     </span>
                   </div>
                 </label> */}
+                <label
+                  className={openCashModal ? "active-paypal" : "paypal"}
+                  id="paypal"
+                  onClick={CashOrderModal}
+                >
+                  <div className="">
+                    <div className="svg">
+                      <img src={cash} alt="" className=" cash_img" />
+                    </div>
+                    <span className="cash_up">
+                      <input
+                        type="radio"
+                        required
+                        name="payment"
+                        id="cash"
+                        value={Cash}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                      />
+                      <span>
+                        <strong>
+                          {" "}
+                          Pay {currencySign}
+                          {order.grandTotal?.toFixed(0)} with Cash on Delivery
+                        </strong>
+                      </span>
+                    </span>
+                  </div>
+                </label>
               </div>
 
               <div className="paypal-stripe">
@@ -465,6 +545,17 @@ function Payment(props) {
                           {...componentProps}
                           className="paystack_btn_style"
                         />
+                      </div>
+                    )}
+                    {openCashModal && (
+                      <div className="paypal-details paystack_btn cash_btn_style">
+                        <button
+                          className="cash_btn"
+                          onClick={cashSubmitHandler}
+                        >
+                          <img src={cash} alt="" />
+                          <span className="cash_text">Cash on Delivery</span>
+                        </button>
                       </div>
                     )}
                   </div>

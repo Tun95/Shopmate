@@ -15,6 +15,7 @@ import MessageBox from "../../../components/Utilities/MessageBox";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer/Footer";
+import { URL } from "../../../base_url/Base_URL";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -46,7 +47,7 @@ function Dashboard(props) {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/summary`, {
+        const { data } = await axios.get(`${URL}/api/orders/summary`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });

@@ -15,6 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { Pagination, PaginationItem } from "@mui/material";
 import { Helmet } from "react-helmet-async";
+import { URL } from "../../base_url/Base_URL";
 
 masks.longDate = 'mmmm d, yyyy! "Can\'t touch this!"';
 
@@ -82,7 +83,7 @@ function SellersScreen({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/users/seller/${sellerId}`);
+        const { data } = await axios.get(`${URL}/api/users/seller/${sellerId}`);
         dispatch({ type: "FETCH_SELLER_SUCCESS", payload: data });
         console.log(data);
         window.scrollTo(0, 0);
@@ -104,7 +105,7 @@ function SellersScreen({ currencySign }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/admin?page=${page}&seller=${seller}`
+          `${URL}/api/products/admin?page=${page}&seller=${seller}`
         );
         dispatch({
           type: "FETCH_SUCCESS",
@@ -122,7 +123,7 @@ function SellersScreen({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/users/top-sellers`);
+        const { data } = await axios.get(`${URL}/api/users/top-sellers`);
         dispatch({
           type: "FETCH_TOP_SELLER_SUCCESS",
           payload: data,
@@ -206,7 +207,10 @@ function SellersScreen({ currencySign }) {
                         </div>
                         <div>
                           <h4>
-                            <a href={`mailto:${user?.user?.email}`}>
+                            <a
+                              href={`mailto:${user?.user?.email}`}
+                              className="contact_seller"
+                            >
                               Contact Seller
                             </a>
                           </h4>

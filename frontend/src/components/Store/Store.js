@@ -25,6 +25,7 @@ import Footer from "../Footer/Footer";
 import { Context } from "../../Context/Context";
 import Slider from "../Slider/Slider";
 import FlashDeal from "../flash deals/FlashDeal";
+import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -137,7 +138,7 @@ function Store(props) {
     const fetchData = async () => {
       try {
         const result = await axios.get(
-          `/api/products/store?page=${page}&query=${query}&order=${order}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`
+          `${URL}/api/products/store?page=${page}&query=${query}&order=${order}&category=${category}&gender=${gender}&color=${color}&size=${size}&price=${price}&brand=${brand}`
         );
         window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
@@ -167,7 +168,7 @@ function Store(props) {
     const fetchData = async () => {
       dispatch({ type: "FETCH_SIM_REQUEST" });
       try {
-        const result = await axios.get("/api/products");
+        const result = await axios.get(`${URL}/api/products`);
         dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_SIM_FAIL", payload: error.message });
@@ -195,7 +196,7 @@ function Store(props) {
       toast.error("email field is required", { position: "bottom-center" });
     } else {
       try {
-        const { data } = await axios.post("/api/message/subscribe", {
+        const { data } = await axios.post(`${URL}/api/message/subscribe`, {
           email,
         });
         dispatch({ type: "POST_SUCCESS", payload: data });
@@ -213,7 +214,7 @@ function Store(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/category");
+        const { data } = await axios.get(`${URL}/api/category`);
         dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_CATEGORY_FAIL", payload: getError(err) });
@@ -226,7 +227,7 @@ function Store(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/brand");
+        const { data } = await axios.get(`${URL}/api/brand`);
         dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_BRAND_FAIL", payload: getError(err) });
@@ -239,7 +240,7 @@ function Store(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/size");
+        const { data } = await axios.get(`${URL}/api/size`);
         dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_SIZE_FAIL", payload: getError(err) });
