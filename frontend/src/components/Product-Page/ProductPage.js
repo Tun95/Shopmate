@@ -521,7 +521,7 @@ function ProductPage({ currencySign }) {
                             </button>
                           ) : (
                             <span>
-                              {product.seller ? (
+                              {/* {product.seller ? (
                                 <>
                                   <h4>Contact Seller Via:</h4>
                                   <div className="seller_contact">
@@ -549,14 +549,13 @@ function ProductPage({ currencySign }) {
                                     </a>
                                   </div>
                                 </>
-                              ) : (
-                                <button
-                                  className="add-to-cart"
-                                  onClick={addToCartHandler}
-                                >
-                                  Add to cart
-                                </button>
-                              )}
+                              ) : ( */}
+                              <button
+                                className="add-to-cart"
+                                onClick={addToCartHandler}
+                              >
+                                Add to cart
+                              </button>
                             </span>
                           )}
                         </div>
