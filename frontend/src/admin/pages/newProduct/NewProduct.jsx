@@ -38,7 +38,7 @@ function NewProduct() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `${URL}/api/products`,
+          `/api/products`,
           {},
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -59,7 +59,7 @@ function NewProduct() {
       <Helmet>
         <title>New Product</title>
       </Helmet>
-      
+
       <div className="newproduct-width">
         <div className="newProduct">
           <h1 className="addProductTitle">New Product</h1>

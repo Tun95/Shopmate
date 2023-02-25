@@ -76,7 +76,7 @@ function Filters() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get(`${URL}/api/category`, {
+        const { data } = await axios.get(`/api/category`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
@@ -93,7 +93,7 @@ function Filters() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_BRAND_REQUEST" });
       try {
-        const { data } = await axios.get(`${URL}/api/brand`, {
+        const { data } = await axios.get(`/api/brand`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
@@ -110,7 +110,7 @@ function Filters() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_SIZE_REQUEST" });
       try {
-        const { data } = await axios.get(`${URL}/api/size`, {
+        const { data } = await axios.get(`/api/size`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
@@ -126,7 +126,7 @@ function Filters() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`${URL}/api/price`, {
+        const { data } = await axios.get(`/api/price`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_PRICE_SUCCESS", payload: data });
@@ -142,7 +142,7 @@ function Filters() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`${URL}/api/color`, {
+        const { data } = await axios.get(`/api/color`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_COLOR_SUCCESS", payload: data });

@@ -62,7 +62,7 @@ function OrderScreen({ currencySign, webname }) {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const { data } = await axios.get(`${URL}/api/orders/${orderId}`, {
+        const { data } = await axios.get(`/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -86,7 +86,7 @@ function OrderScreen({ currencySign, webname }) {
     try {
       // dispatch({ type: "DELIVER_REQUEST" });
       const { data } = await axios.put(
-        `${URL}/api/orders/${order._id}/deliver`,
+        `/api/orders/${order._id}/deliver`,
         {},
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

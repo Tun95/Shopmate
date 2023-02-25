@@ -156,7 +156,7 @@ function Payment(props) {
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`${URL}/api/orders/${orderId}`, {
+        const { data } = await axios.get(`/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -209,7 +209,7 @@ function Payment(props) {
       try {
         dispatch({ type: "PAY_REQUEST" });
         const { data } = await axios.put(
-          `${URL}/api/orders/${order._id}/pay`,
+          `/api/orders/${order._id}/pay`,
           { details, paymentMethod: paymentMethodName },
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
@@ -259,7 +259,7 @@ function Payment(props) {
     try {
       // dispatch({ type: "PAY_REQUEST" });
       const { data } = await axios.put(
-        `${URL}/api/orders/${order._id}/pay`,
+        `/api/orders/${order._id}/pay`,
         { details, paymentMethod: paymentMethodName },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
@@ -299,7 +299,7 @@ function Payment(props) {
     try {
       // dispatch({ type: "PAY_REQUEST" });
       await axios.put(
-        `${URL}/api/orders/${order._id}/pay`,
+        `/api/orders/${order._id}/pay`,
         { details, paymentMethod: paymentMethodName },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

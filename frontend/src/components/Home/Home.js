@@ -47,7 +47,7 @@ function Home() {
       toast.error("email field is required", { position: "bottom-center" });
     } else {
       try {
-        const { data } = await axios.post(`${URL}/api/message/subscribe`, {
+        const { data } = await axios.post(`/api/message/subscribe`, {
           email,
         });
         dispatch({ type: "POST_SUCCESS", payload: data });

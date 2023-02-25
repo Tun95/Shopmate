@@ -38,7 +38,7 @@ function Verify(props) {
     dispatch({ type: "VERIFY_REQUEST" });
     try {
       const { data } = await axios.put(
-        `${URL}/api/users/verify-account/${userId}`,
+        `/api/users/verify-account/${userId}`,
         { token },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

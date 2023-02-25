@@ -63,7 +63,7 @@ function OrderList({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`${URL}/api/orders?page=${page}`, {
+        const { data } = await axios.get(`/api/orders?page=${page}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -85,7 +85,7 @@ function OrderList({ currencySign }) {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
         dispatch({ type: "DELETE_REQUEST" });
-        await axios.delete(`${URL}/api/orders/${order._id}`, {
+        await axios.delete(`/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("Order deleted successfully", {

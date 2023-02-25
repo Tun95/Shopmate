@@ -43,7 +43,7 @@ export function Category() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `${URL}/api/category`,
+          `/api/category`,
           { category },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -123,7 +123,7 @@ export function Brand() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `${URL}/api/brand`,
+          `/api/brand`,
           { brand },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -203,7 +203,7 @@ export function Size() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `${URL}/api/size`,
+          `/api/size`,
           { size },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -283,7 +283,7 @@ export function Price() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `${URL}/api/price`,
+          `/api/price`,
           { price, priceSpan },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -372,7 +372,7 @@ export function Color() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `${URL}/api/color`,
+          `/api/color`,
           { color, name },
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -397,7 +397,7 @@ export function Color() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

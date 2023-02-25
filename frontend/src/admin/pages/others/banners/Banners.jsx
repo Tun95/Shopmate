@@ -38,7 +38,7 @@ function Banners() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get(`${URL}/api/banner`, {
+        const { data } = await axios.get(`/api/banner`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });

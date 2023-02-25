@@ -38,7 +38,7 @@ function PassReset(props) {
     } else {
       dispatch({ type: "SUBMIT_REQUEST" });
       try {
-        const { data } = await axios.post(`${URL}/api/users/password-token`, {
+        const { data } = await axios.post(`/api/users/password-token`, {
           email,
         });
         dispatch({ type: "SUBMIT_SUCCESS", payload: data });

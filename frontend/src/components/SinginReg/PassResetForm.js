@@ -57,7 +57,7 @@ function PassResetForm(props) {
         dispatch({ type: "SUBMIT_REQUEST" });
         try {
           const { data } = await axios.put(
-            `${URL}/api/users/${userId}/reset-password`,
+            `/api/users/${userId}/reset-password`,
             {
               password,
               token,

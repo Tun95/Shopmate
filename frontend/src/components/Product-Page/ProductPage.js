@@ -166,7 +166,7 @@ function ProductPage({ currencySign }) {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
-        const result = await axios.get(`${URL}/api/products/slug/${slug}`);
+        const result = await axios.get(`/api/products/slug/${slug}`);
         window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
@@ -180,9 +180,7 @@ function ProductPage({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(
-          `${URL}/api/products/related/${product._id}`
-        );
+        const result = await axios.get(`/api/products/related/${product._id}`);
         dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_SIM_FAIL", payload: error.message });
@@ -201,7 +199,7 @@ function ProductPage({ currencySign }) {
     settings,
   } = state;
   const addToCartHandler = async () => {
-    const { data } = await axios.get(`${URL}/api/products/${product._id}`);
+    const { data } = await axios.get(`/api/products/${product._id}`);
 
     // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     //   dispatch({
@@ -265,7 +263,7 @@ function ProductPage({ currencySign }) {
       } else {
         try {
           const { data } = await axios.post(
-            `${URL}/api/products/${product._id}/reviews`,
+            `/api/products/${product._id}/reviews`,
             { rating, comment, name: userInfo.name },
             {
               headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -304,7 +302,7 @@ function ProductPage({ currencySign }) {
   const handleChange = async (event) => {
     try {
       const { data } = await axios.post(
-        `${URL}/api/wishes`,
+        `/api/wishes`,
         {
           name: product.name,
           slug: product.slug,

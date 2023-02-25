@@ -74,7 +74,7 @@ function Profile() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`${URL}/api/users/${userId}`, {
+        const { data } = await axios.get(`/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setName(data.name);
@@ -101,7 +101,7 @@ function Profile() {
     try {
       dispatch({ type: "UPDATE_REQUEST" });
       const { data } = await axios.put(
-        `${URL}/api/users/profile`,
+        `/api/users/profile`,
         {
           name,
           email,
@@ -138,7 +138,7 @@ function Profile() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,
@@ -162,7 +162,7 @@ function Profile() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

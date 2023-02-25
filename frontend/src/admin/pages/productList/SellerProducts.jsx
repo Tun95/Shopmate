@@ -91,7 +91,7 @@ function SellerProduct({ currencySign, webname }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `${URL}/api/products/admin?page=${page}&seller=${seller}`,
+          `/api/products/admin?page=${page}&seller=${seller}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -119,7 +119,7 @@ function SellerProduct({ currencySign, webname }) {
   const createHandler = async () => {
     try {
       const { data } = await axios.post(
-        `${URL}/api/products`,
+        `/api/products`,
         {},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -138,7 +138,7 @@ function SellerProduct({ currencySign, webname }) {
   const deleteHandler = async (product) => {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
-        await axios.delete(`${URL}/api/products/${product._id}`, {
+        await axios.delete(`/api/products/${product._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("product deleted successfully", {

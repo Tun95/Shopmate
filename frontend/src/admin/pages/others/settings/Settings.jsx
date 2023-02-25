@@ -95,7 +95,7 @@ function Settings() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`${URL}/api/settings/${setId}`, {
+        const { data } = await axios.get(`/api/settings/${setId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setAbout(data.about);
@@ -145,7 +145,7 @@ function Settings() {
     try {
       dispatch({ type: "UPDATE_REQUEST" });
       await axios.put(
-        `${URL}/api/settings/${setId}`,
+        `/api/settings/${setId}`,
         {
           about,
           terms,
@@ -195,7 +195,7 @@ function Settings() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`${URL}/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

@@ -59,7 +59,7 @@ function Subscriber() {
     const fetchData = async () => {
       // dispatch({ type: "FETCH_SUBSCRIBER_REQUEST" });
       try {
-        const { data } = await axios.get(`${URL}/api/message`, {
+        const { data } = await axios.get(`/api/message`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUBSCRIBER_SUCCESS", payload: data });
@@ -78,7 +78,7 @@ function Subscriber() {
   const deleteHandler = async (subscriber) => {
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`${URL}/api/message/${subscriber._id}`, {
+      await axios.delete(`/api/message/${subscriber._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success("Deleted successfully", {
@@ -98,7 +98,7 @@ function Subscriber() {
   const sendHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${URL}/api/message/send`, {
+      const { data } = await axios.post(`/api/message/send`, {
         subject,
         message,
       });

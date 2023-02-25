@@ -38,7 +38,7 @@ function SigninScreen(props) {
       });
     } else {
       try {
-        const { data } = await Axios.post(`${URL}/api/users/signin`, {
+        const { data } = await Axios.post(`/api/users/signin`, {
           email,
           password,
         });

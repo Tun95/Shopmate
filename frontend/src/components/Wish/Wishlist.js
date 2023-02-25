@@ -62,7 +62,7 @@ function Wishlist({ currencySign }) {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`${URL}/api/users/${userId}`, {
+        const { data } = await axios.get(`/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -81,7 +81,7 @@ function Wishlist({ currencySign }) {
   //DELETE PRODUCT
   const deleteHandler = async (wish) => {
     try {
-      await axios.delete(`${URL}/api/wishes/${wish._id}`, {
+      await axios.delete(`/api/wishes/${wish._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({ type: "DELETE_SUCCESS" });

@@ -70,7 +70,7 @@ function ConfirmationScreen(props) {
     } else {
       try {
         const { data } = await axios.post(
-          `${URL}/api/orders`,
+          `/api/orders`,
           {
             orderItems: cartItems,
             shippingAddress,

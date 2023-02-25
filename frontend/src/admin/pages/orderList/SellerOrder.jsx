@@ -65,7 +65,7 @@ function SellerOrders({ currencySign }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `${URL}/api/orders/admin?page=${page}&seller=${seller}`,
+          `/api/orders/admin?page=${page}&seller=${seller}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -88,7 +88,7 @@ function SellerOrders({ currencySign }) {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
         dispatch({ type: "DELETE_REQUEST" });
-        await axios.delete(`${URL}/api/orders/${order._id}`, {
+        await axios.delete(`/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("Order deleted successfully", {
