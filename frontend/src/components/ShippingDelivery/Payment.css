@@ -350,37 +350,45 @@
 @media screen and (max-width: 540px) {
   .payment-section {
     grid-template-columns: 1fr;
+    /* justify-content: center; */
   }
   .payment-section .stripe {
     left: 0px;
   }
   .payment-section .active {
     left: 0px;
+  }
+  .cash_btn_style .cash_btn {
+    width: 60%;
+    font-size: 16px;
+  }
+  .cash_btn_style img {
+    height: 90%;
+    object-fit: cover;
+  }
+  .cash_btn_style .cash_text {
+    font-weight: 600;
+    font-size: 95%;
+  }
+}
+@media screen and (max-width: 425px) {
+  .payment-details .paypal-btn {
+    position: relative;
+    top: 40px;
+    width: auto;
   }
 }
 @media screen and (max-width: 375px) {
   .payment-section {
-    position: relative;
-    right: 21px;
+    padding: 20px;
   }
-  .payment-section .stripe {
-    width: 120%;
-  }
-  .payment-section .active {
-    width: 120%;
-  }
-  .payment-section .paypal {
-    width: 120%;
-  }
-  .payment-section .active-paypal {
-    width: 120%;
-  }
-  .payment-section img {
-    width: 120px;
-    height: 40px;
+  .paystack_btn_img {
+    width: 70%;
   }
   .payment-details .paypal-btn {
-    left: -15px;
+    position: relative;
+    top: 40px;
+    /* width: 50%; */
   }
 }
 @media screen and (max-width: 360px) {
