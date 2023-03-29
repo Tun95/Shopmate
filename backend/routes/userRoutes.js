@@ -352,7 +352,7 @@ userRouter.post(
       const resetURL = `<p>if you were requested to reset your 
 		password,<br/> resest now within the next 10mins,<br/>
 		otherwise ignore this message </p>
-		<a href="https://shopmate-0b17.onrender.com/${user.id}/reset-password/${token}">Click here to reset</a>`;
+		<a href=${`${process.env.SUB_DOMAIN}/${user.id}/reset-password/${token}`}>Click here to reset</a>`;
       const smtpTransport = nodemailer.createTransport({
         service: process.env.MAIL_SERVICE,
         auth: {

@@ -87,6 +87,7 @@ function RegisterScreen(props) {
       setType("password");
     }
   };
+  
   //TOGGLE PASSWOD VIEW
   const [typeCom, setTypeCom] = useState("password");
   const [iconCom, setIconCom] = useState(eyeOff);

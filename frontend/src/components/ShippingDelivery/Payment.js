@@ -19,6 +19,7 @@ import axios from "axios";
 import LoadingBox from "../Utilities/LoadingBox";
 import Footer from "../Footer/Footer";
 import { URL } from "../../base_url/Base_URL";
+import CurrencyConverter from "react-currency-conv";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -74,6 +75,7 @@ function Payment(props) {
   const showStripeModal = () => {
     is0penStripeModal(true);
   };
+  
   const backHandler = () => {
     navigate("/confirmation?redirect");
   };
