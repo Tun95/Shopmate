@@ -3,11 +3,8 @@ import expressAsyncHandler from "express-async-handler";
 import Order from "../models/orderModels.js";
 import User from "../models/userModels.js";
 import { isAuth, isAdmin, isSellerOrAdmin } from "../utils.js";
-import nodemailer from "nodemailer";
 import Sib from "sib-api-v3-sdk";
 import Product from "../models/productModels.js";
-import Razorpay from "razorpay";
-import Stripe from "stripe";
 import Settings from "../models/settings.js";
 
 const orderRouter = express.Router();
@@ -248,28 +245,6 @@ orderRouter.put(
       res.send({ message: "Order Delivered" });
     } else {
       res.status(404).send({ message: "Order No Found" });
-    }
-  })
-);
-
-//RAZORPAY CREATE ORDER
-orderRouter.post(
-  "/stripe-create",
-  expressAsyncHandler(async (req, res) => {
-    try {
-      const instance = new Stripe({
-        key_id: process.env.STRIPE_PUBLISHABLE_KEY,
-        key_secret: process.env.STRIPE_SECRET_KEY,
-      });
-      const options = {
-        amount: req.body.amount,
-        currency: "GBP",
-      };
-      const order = await instance.orders.create(options);
-      if (!order) return res.status(500).send("Some error occured");
-      res.send(order);
-    } catch (error) {
-      res.status(500).send(error);
     }
   })
 );
