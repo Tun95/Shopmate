@@ -1,16 +1,15 @@
 import React, { useContext, useReducer, useState } from "react";
-import "./Home.css";
+import "./styles.css";
 import { Link, useNavigate } from "react-router-dom";
 import bag from "../images/bag.png";
 import { Helmet } from "react-helmet-async";
 import { Context } from "../../Context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getError } from "../Utilities/Utils";
+import { getError } from "../Utilities/util/Utils";
 
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Slider from "../Slider/Slider";
-import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {

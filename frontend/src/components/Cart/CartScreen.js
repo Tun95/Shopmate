@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { URL } from "../../base_url/Base_URL";
 import { Context } from "../../Context/Context";
-import "./cartScreen.css";
+import "./styles.css";
 
 function CartScreen() {
   //FETCHING CARTITEMS

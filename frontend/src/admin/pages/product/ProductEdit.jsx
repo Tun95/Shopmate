@@ -13,11 +13,11 @@ import data from "../../../data/data.json";
 
 import { Context } from "../../../Context/Context";
 import { useEffect } from "react";
-import { getError } from "../../../components/Utilities/Utils";
+import { getError } from "../../../components/Utilities/util/Utils";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
-import LoadingBox from "../../../components/Utilities/LoadingBox";
-import MessageBox from "../../../components/Utilities/MessageBox";
+import LoadingBox from "../../../components/Utilities/message loading/LoadingBox";
+import MessageBox from "../../../components/Utilities/message loading/MessageBox";
 import { toast } from "react-toastify";
 
 import PublishIcon from "@mui/icons-material/Publish";
@@ -25,8 +25,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Footer from "../../../components/Footer/Footer";
-import { URL } from "../../../base_url/Base_URL";
+import Footer from "../../../common/footer/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {

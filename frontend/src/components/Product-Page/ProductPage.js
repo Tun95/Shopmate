@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from "react";
 import { Link, useParams } from "react-router-dom";
-import "../Product-Page/ProductPage.scss";
+import "./styles.scss";
 import Rating from "@mui/material/Rating";
 
 import Favorite from "@mui/icons-material/Favorite";
@@ -15,17 +15,16 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
 import { Helmet } from "react-helmet-async";
 import Ratings from "../Ratings/Ratings";
-import LoadingBox from "../Utilities/LoadingBox";
-import MessageBox from "../Utilities/MessageBox";
+import LoadingBox from "../Utilities/message loading/LoadingBox";
+import MessageBox from "../Utilities/message loading/MessageBox";
 import axios from "axios";
-import { getError } from "../Utilities/Utils";
+import { getError } from "../Utilities/util/Utils";
 import { Context } from "../../Context/Context";
 import { toast } from "react-toastify";
-import Footer from "../Footer/Footer";
+import Footer from "../../common/footer/Footer";
 import Slider from "react-slick";
 import parse from "html-react-parser";
 import ReactTimeAgo from "react-time-ago";
-import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {

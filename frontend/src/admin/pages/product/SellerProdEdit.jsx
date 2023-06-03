@@ -5,14 +5,14 @@ import Charts from "../../component/chart/Charts";
 import JoditEditor from "jodit-react";
 
 import data from "../../../data/data.json";
-import Rating from "../../../components/Utilities/Ratings";
+import Rating from "../../../components/Utilities/rating/Ratings";
 import { Context } from "../../../Context/Context";
 import { useEffect } from "react";
-import { getError } from "../../../components/Utilities/Utils";
+import { getError } from "../../../components/Utilities/util/Utils";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
-import LoadingBox from "../../../components/Utilities/LoadingBox";
-import MessageBox from "../../../components/Utilities/MessageBox";
+import LoadingBox from "../../../components/Utilities/message loading/LoadingBox";
+import MessageBox from "../../../components/Utilities/message loading/MessageBox";
 import { toast } from "react-toastify";
 import { useMemo } from "react";
 
@@ -23,8 +23,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import Footer from "../../../components/Footer/Footer";
-import { URL } from "../../../base_url/Base_URL";
+import Footer from "../../../common/footer/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {

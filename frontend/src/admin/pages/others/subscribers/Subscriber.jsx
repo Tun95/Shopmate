@@ -3,13 +3,12 @@ import React, { useContext, useReducer, useRef, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getError } from "../../../../components/Utilities/Utils";
+import { getError } from "../../../../components/Utilities/util/Utils";
 import { Context } from "../../../../Context/Context";
 import "./styles.css";
 import JoditEditor from "jodit-react";
-import Footer from "../../../../components/Footer/Footer";
+import Footer from "../../../../common/footer/Footer";
 import { Helmet } from "react-helmet-async";
-import { URL } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {

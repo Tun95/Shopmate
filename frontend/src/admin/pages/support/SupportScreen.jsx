@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import MessageBox from "../../../components/Utilities/MessageBox";
+import MessageBox from "../../../components/Utilities/message loading/MessageBox";
 import { Context } from "../../../Context/Context";
 import socketIOClient from "socket.io-client";
 import "./supportScreen.css";
 import SendIcon from "@mui/icons-material/Send";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
-import Footer from "../../../components/Footer/Footer";
+import Footer from "../../../common/footer/Footer";
 import { Helmet } from "react-helmet-async";
 
 let allUsers = [];

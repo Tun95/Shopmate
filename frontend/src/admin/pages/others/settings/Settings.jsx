@@ -11,12 +11,11 @@ import axios from "axios";
 import { Context } from "../../../../Context/Context";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getError } from "../../../../components/Utilities/Utils";
-import LoadingBox from "../../../../components/Utilities/LoadingBox";
-import MessageBox from "../../../../components/Utilities/MessageBox";
+import { getError } from "../../../../components/Utilities/util/Utils";
+import LoadingBox from "../../../../components/Utilities/message loading/LoadingBox";
+import MessageBox from "../../../../components/Utilities/message loading/MessageBox";
 import { Helmet } from "react-helmet-async";
-import Footer from "../../../../components/Footer/Footer";
-import { URL } from "../../../../base_url/Base_URL";
+import Footer from "../../../../common/footer/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {

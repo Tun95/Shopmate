@@ -5,7 +5,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Context } from "../../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { URL } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {

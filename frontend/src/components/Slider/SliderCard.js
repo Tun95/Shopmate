@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import { Context } from "../../Context/Context.js";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getError } from "../Utilities/Utils.js";
+import { getError } from "../Utilities/util/Utils.js";
 import parse from "html-react-parser";
 import "./styles.css";
 

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Footer from "../Footer/Footer";
-import LoadingBox from "../Utilities/LoadingBox";
-import MessageBox from "../Utilities/MessageBox";
+import Footer from "../../common/footer/Footer";
+import LoadingBox from "../Utilities/message loading/LoadingBox";
+import MessageBox from "../Utilities/message loading/MessageBox";
 import "./styles.css";
 import parse from "html-react-parser";
 import { Context } from "../../Context/Context";
@@ -22,7 +22,7 @@ function About() {
             <div className="about-container">
               <div className="about-box">
                 <div className="about-section">
-                  {settings.map((s, index) => (
+                  {settings?.map((s, index) => (
                     <div className="about-section-block" key={index}>
                       {parse(`<p>${s?.about}</p>`)}
                     </div>

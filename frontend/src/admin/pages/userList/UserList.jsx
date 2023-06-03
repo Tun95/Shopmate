@@ -3,14 +3,13 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Footer from "../../../components/Footer/Footer";
-import LoadingBox from "../../../components/Utilities/LoadingBox";
-import MessageBox from "../../../components/Utilities/MessageBox";
-import { getError } from "../../../components/Utilities/Utils";
+import Footer from "../../../common/footer/Footer";
+import LoadingBox from "../../../components/Utilities/message loading/LoadingBox";
+import MessageBox from "../../../components/Utilities/message loading/MessageBox";
+import { getError } from "../../../components/Utilities/util/Utils";
 import { Context } from "../../../Context/Context";
 import "./styles.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { URL } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {

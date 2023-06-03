@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
-import { getError } from "../components/Utilities/Utils";
-import { URL } from "../base_url/Base_URL";
+import { getError } from "../components/Utilities/util/Utils";
 
 export const Context = createContext();
 

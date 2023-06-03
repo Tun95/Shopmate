@@ -4,8 +4,7 @@ import pp2 from "../../images/pp2.png";
 import { Context } from "../../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getError } from "../../../components/Utilities/Utils";
-import { URL } from "../../../base_url/Base_URL";
+import { getError } from "../../../components/Utilities/util/Utils";
 
 const reducer = (state, action) => {
   switch (action.type) {

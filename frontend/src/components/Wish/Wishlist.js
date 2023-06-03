@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import { Link, useParams } from "react-router-dom";
-import Footer from "../Footer/Footer";
+import Footer from "../../common/footer/Footer";
 import axios from "axios";
 import { Context } from "../../Context/Context";
-import LoadingBox from "../Utilities/LoadingBox";
-import MessageBox from "../Utilities/MessageBox";
-import { getError } from "../Utilities/Utils";
-import "./wishlist.scss";
+import LoadingBox from "../Utilities/message loading/LoadingBox";
+import MessageBox from "../Utilities/message loading/MessageBox";
+import { getError } from "../Utilities/util/Utils";
+import "./styles.scss";
 import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Helmet } from "react-helmet-async";
-import { URL } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
