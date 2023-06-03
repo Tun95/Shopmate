@@ -86,10 +86,11 @@
   position: relative;
   left: 20px;
 }
-.top-case .admin-select ul li a {
+.top-case .admin-select ul li a,.manage_drop {
   display: block;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
 }
 .admin-select .nested_link {
   position: relative;

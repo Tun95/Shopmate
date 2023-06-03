@@ -304,13 +304,12 @@ function SideBar(props) {
                               className="sidebar-main"
                               onClick={() => setOpenManage(!openManage)}
                             >
-                              <Link
-                                to=""
+                              <div
                                 style={{ position: "relative", right: "10px" }}
                               >
                                 <SettingsIcon className="sidebar-icons" />
                                 Manage
-                              </Link>
+                              </div>
                               <ExpandMoreIcon
                                 className={
                                   openManage

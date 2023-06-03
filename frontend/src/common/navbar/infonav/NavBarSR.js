@@ -117,13 +117,13 @@ function NavBarSR(props) {
                       <Link to="/admin/support">Support</Link>
                     </li>
                     <li>
-                      <Link to="">
+                      <div className="manage_drop">
                         Manage{" "}
                         <i
                           style={{ position: "relative", top: "2px" }}
                           className="fa-solid fa-caret-right"
                         ></i>
-                      </Link>
+                      </div>
                       <ul className="nested_link">
                         {settings?.map((s, index) => (
                           <Link key={index} to={`/admin/settings/${s._id}`}>
