@@ -80,7 +80,7 @@ TimeAgo.addLocale(ru);
 
 function App() {
   const { state } = useContext(Context);
-  const { userInfo, settings } = state;
+  const { userInfo } = state;
   //Opening and Closing of cart
   const [openModal, isOpenModal] = useState(false);
   const closeModal = () => {
