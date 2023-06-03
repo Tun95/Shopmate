@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../../../common/footer/Footer";
 import { getError } from "../../Utilities/util/Utils";
-import "./passreset.css";
+import "./styles.css";
 import CloseIcon from "@mui/icons-material/Close";
 
 const reducer = (state, action) => {
