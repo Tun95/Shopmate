@@ -3,9 +3,9 @@ import React, { useReducer, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Footer from "../../../common/footer/Footer";
-import { getError } from "../../Utilities/util/Utils";
-import "./styles.css";
+import Footer from "../../../../common/footer/Footer";
+import { getError } from "../../../Utilities/util/Utils";
+import "../../password/styles.css";
 import CloseIcon from "@mui/icons-material/Close";
 
 const reducer = (state, action) => {

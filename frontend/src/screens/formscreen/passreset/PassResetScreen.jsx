@@ -1,5 +1,5 @@
 import React from "react";
-import PassReset from "../../../components/forms/passwored reset/PassReset";
+import PassReset from "../../../components/forms/password/passwored reset/PassReset";
 
 function PassResetScreen() {
   return (

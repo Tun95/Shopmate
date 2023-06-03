@@ -11,7 +11,7 @@ import { eye } from "react-icons-kit/feather/eye";
 
 import Footer from "../../../common/footer/Footer";
 import { getError } from "../../Utilities/Utils";
-import "./styles.css";
+import "../../password/styles.css";
 
 const reducer = (state, action) => {
   switch (action.type) {
