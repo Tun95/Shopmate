@@ -7,15 +7,12 @@ import { ToastContainer } from "react-toastify";
 import Cart from "./common/cart/Cart";
 import Profile from "./components/profile/Profile";
 import UserList from "./admin/pages/userList/UserList";
-import AdminRoute from "./components/protectedRoute/AdminRoute";
 import ProductEdit from "./admin/pages/product/ProductEdit";
 import NewProduct from "./admin/pages/newProduct/NewProduct";
 import User from "./admin/pages/user/UserEdit";
-import SellerRoute from "./components/protectedRoute/SellerRoute";
 import SupportScreen from "./admin/pages/support/SupportScreen";
 import { Context } from "./Context/Context";
 import ChatBox from "./components/forms/chatbox/ChatBox";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import SellerProductEdit from "./admin/pages/product/SellerProdEdit";
 import Modal from "./components/modal/Modal";
 import {
@@ -74,6 +71,9 @@ import SellerproductlistScreen from "./admin/pages/productList/main/Sellerproduc
 import SellersOderlistscreen from "./admin/pages/orderList/main/SellersOderlistscreen";
 import CreatePriceScreen from "./admin/pages/others/filters/main/price/CreatePriceScreen";
 import UpdatePriceScreen from "./admin/pages/others/filters/main/price/UpdatePriceScreen";
+import ProtectedRoute from "./components/Utilities/protectedRoute/ProtectedRoute";
+import AdminRoute from "./components/Utilities/protectedRoute/AdminRoute";
+import SellerRoute from "./components/Utilities/protectedRoute/SellerRoute";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
