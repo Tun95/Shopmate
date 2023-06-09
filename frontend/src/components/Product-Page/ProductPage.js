@@ -190,53 +190,16 @@ function ProductPage({ currencySign }) {
   }, [product._id]);
   console.log(products);
 
-  //ADD TO CART
+  //==========
+  //CONTEXT
+  //==========
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const {
     cart: { cartItems },
     userInfo,
     settings,
   } = state;
-  const addToCartHandler = async () => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
 
-    // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
-    //   dispatch({
-    //     type: "CART_ADD_ITEM_FAIL",
-    //     payload: `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
-    //   });
-    //   toast.error(
-    //     `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
-    //     {
-    //       position: "bottom-center",
-    //     }
-    //   );
-    // } else {
-    if (data.countInStock < quantity) {
-      toast.error("Sorry, Product stock limit reached or out of stock", {
-        position: "bottom-center",
-      });
-      return;
-    } else {
-      toast.success(`${product.name} is successfully added to cart`, {
-        position: "bottom-center",
-      });
-    }
-
-    ctxDispatch({
-      type: "CART_ADD_ITEM",
-      payload: {
-        ...product,
-        seller: data.seller,
-        sellerName: product?.seller?.seller?.name,
-        quantity,
-        size,
-        color,
-      },
-    });
-    localStorage.setItem("cartItems", JSON.stringify(state.cart.cartItems));
-    // }
-  };
   console.log(product);
 
   //PRODUCT REVIEWS
@@ -331,6 +294,68 @@ function ProductPage({ currencySign }) {
     }
   };
 
+  //===========
+  // QUANTITY
+  //===========
+  const [count, setCount] = useState(1);
+  const maxAmount = product.countInStock; // Specify the maximum amount
+  const minAmount = 1; // Specify the minimum amount
+
+  const increment = () => {
+    if (count < maxAmount) {
+      setCount(count + 1);
+    }
+  };
+
+  const decrement = () => {
+    if (count > minAmount) {
+      setCount(count - 1);
+    }
+  };
+
+  //==========
+  //ADD TO CART
+  //===========
+  const addToCartHandler = async () => {
+    const { data } = await axios.get(`/api/products/${product._id}`);
+
+    // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
+    //   dispatch({
+    //     type: "CART_ADD_ITEM_FAIL",
+    //     payload: `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
+    //   });
+    //   toast.error(
+    //     `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`,
+    //     {
+    //       position: "bottom-center",
+    //     }
+    //   );
+    // } else {
+    if (data.countInStock < quantity) {
+      toast.error("Sorry, Product stock limit reached or out of stock", {
+        position: "bottom-center",
+      });
+      return;
+    } else {
+      toast.success(`${product.name} is successfully added to cart`, {
+        position: "bottom-center",
+      });
+    }
+
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: {
+        ...product,
+        seller: data.seller,
+        sellerName: product?.seller?.seller?.name,
+        quantity: count,
+        size,
+        color,
+      },
+    });
+    localStorage.setItem("cartItems", JSON.stringify(state.cart.cartItems));
+    // }
+  };
   return (
     <div>
       {loading ? (
@@ -397,13 +422,17 @@ function ProductPage({ currencySign }) {
                         <Ratings rating={product.rating}></Ratings>
                         <div className="count_in_stock">
                           {product.countInStock === 0 ? (
-                            <span className="danger">Unavailable</span>
+                            <small className="danger">Unavailable</small>
                           ) : (
-                            <span className="success">In Stock</span>
+                            <small className="success">
+                              <span>({product?.countInStock})</span> In Stock
+                            </small>
                           )}
                         </div>
                       </div>
-
+                      <div className="sold">
+                        <small>({product.numSales} Item sold so far)</small>
+                      </div>
                       <div className="prod-title">
                         <h2>{product?.name}</h2>
                       </div>
@@ -493,18 +522,18 @@ function ProductPage({ currencySign }) {
                         <h4>Quantity</h4>
                         <div className="product_quantity_content">
                           <button
-                            disabled={quantity === 1}
-                            onClick={() => handleQuantity("dec")}
+                            // disabled={quantity === 1}
+                            onClick={decrement}
                             className="remove-from"
                           >
                             <i className="fa-solid fa-minus"></i>
                           </button>
                           <div className="quantity">
-                            <span>{quantity}</span>
+                            <span>{count}</span>
                           </div>
                           <button
                             disabled={product.countInStock === 0}
-                            onClick={() => handleQuantity("inc")}
+                            onClick={increment}
                             className="add-to"
                           >
                             <i className="fa-solid fa-plus"></i>
