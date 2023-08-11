@@ -6,6 +6,7 @@ import { Context } from "../../Context/Context";
 import { toast } from "react-toastify";
 import { getError } from "../../components/Utilities/util/Utils";
 import axios from "axios";
+import { request } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,7 +34,7 @@ function Alert() {
     dispatch({ type: "CREATE_REQUEST" });
     try {
       const { data } = await axios.post(
-        "/api/users/verification-token",
+        `${request}/api/users/verification-token`,
         {},
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

@@ -10,6 +10,7 @@ import { getError } from "../../../components/Utilities/util/Utils";
 import { Context } from "../../../Context/Context";
 import "./styles.scss";
 import { DataGrid } from "@mui/x-data-grid";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -151,7 +152,7 @@ function UserList() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/users`, {
+        const { data } = await axios.get(`${request}/api/users`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -175,7 +176,7 @@ function UserList() {
       toast.error("Can Not Block Admin User");
     } else {
       try {
-        await axios.put(`/api/users/block/${user.id}`, {
+        await axios.put(`${request}/api/users/block/${user.id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "BLOCK_SUCCESS" });
@@ -192,7 +193,7 @@ function UserList() {
   const unBlockHandler = async (user) => {
     try {
       dispatch({ type: "UNBLOCK_REQUEST" });
-      await axios.put(`/api/users/unblock/${user.id}`, {
+      await axios.put(`${request}/api/users/unblock/${user.id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({ type: "UNBLOCK_SUCCESS" });
@@ -206,7 +207,7 @@ function UserList() {
   const deleteHandler = async (user) => {
     if (window.confirm("Are you sure to delete this user?")) {
       try {
-        await axios.delete(`/api/users/${user.id}`, {
+        await axios.delete(`${request}/api/users/${user.id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("user deleted successfully", {

@@ -7,6 +7,7 @@ import { getError } from "../../../../components/Utilities/util/Utils";
 import { Context } from "../../../../Context/Context";
 import JoditEditor from "jodit-react";
 import { Helmet } from "react-helmet-async";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -34,6 +35,14 @@ const reducer = (state, action) => {
       return { ...state, loadingDelete: false };
     case "UPDATE_RESET":
       return { ...state, loadingDelete: false, successDelete: false };
+
+    case "UPLOAD_REQUEST":
+      return { ...state, loadingUpload: true, errorUpload: "" };
+    case "UPLOAD_SUCCESS":
+      return { ...state, loadingUpload: false, errorUpload: "" };
+    case "UPLOAD_FAIL":
+      return { ...state, loadingUpload: false, errorUpload: action.payload };
+
     default:
       return state;
   }
@@ -63,7 +72,7 @@ export function BannerUpdate() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/banner/${bannerId}`, {
+        const { data } = await axios.get(`${request}/api/banner/${bannerId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setTitle(data.title);
@@ -83,7 +92,7 @@ export function BannerUpdate() {
     e.preventDefault();
     try {
       await axios.put(
-        `/api/banner/${bannerId}`,
+        `${request}/api/banner/${bannerId}`,
         {
           title,
           background,
@@ -110,7 +119,7 @@ export function BannerUpdate() {
     e.preventDefault();
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/banner/${bannerId}`, {
+      await axios.delete(`${request}/api/banner/${bannerId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success(" Deleted successfully", {

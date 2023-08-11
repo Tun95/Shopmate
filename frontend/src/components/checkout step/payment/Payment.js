@@ -15,6 +15,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import axios from "axios";
 import Footer from "../../../common/footer/Footer";
 import CheckoutSteps from "../../Utilities/checkout/CheckoutSteps";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -82,6 +83,7 @@ function Payment(props) {
     showStripeModal();
   };
 
+  //===========
   //PAYPAL MODAL
   const [openPaypalModal, is0penPaypalModal] = useState(false);
   const closePaypalModal = () => {
@@ -133,7 +135,9 @@ function Payment(props) {
     showCashModal();
   };
 
+  //=====================
   //PAYPAL BUTTONS ACTIONS
+  //=====================
   const params = useParams();
   const { id: orderId } = params;
   const [{ loading, error, order, successPay, loadingPay }, dispatch] =
@@ -153,7 +157,7 @@ function Payment(props) {
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`${request}/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -206,7 +210,7 @@ function Payment(props) {
       try {
         dispatch({ type: "PAY_REQUEST" });
         const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
+          `${request}/api/orders/${order._id}/pay`,
           { details, paymentMethod: paymentMethodName },
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
@@ -248,6 +252,7 @@ function Payment(props) {
     reference: new Date().getTime().toString(),
     email: userInfo.email,
     amount: order.grandTotal * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    currency: "NGN",
     publicKey: process.env.REACT_PAYSTACK_PUBLIC_KEY,
   };
   // you can call this function anything
@@ -256,7 +261,7 @@ function Payment(props) {
     try {
       // dispatch({ type: "PAY_REQUEST" });
       const { data } = await axios.put(
-        `/api/orders/${order._id}/pay`,
+        `${request}/api/orders/${order._id}/pay`,
         { details, paymentMethod: paymentMethodName },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
@@ -277,7 +282,6 @@ function Payment(props) {
   const handlePaystackCloseAction = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
   };
-
   const componentProps = {
     ...config,
     text: (
@@ -296,7 +300,7 @@ function Payment(props) {
     try {
       // dispatch({ type: "PAY_REQUEST" });
       await axios.put(
-        `/api/orders/${order._id}/pay`,
+        `${request}/api/orders/${order._id}/pay`,
         { details, paymentMethod: paymentMethodName },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

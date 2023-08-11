@@ -3,7 +3,7 @@ import Confirmation from "../../../components/checkout step/confirmation/Confirm
 import { Context } from "../../../Context/Context";
 
 function ConfirmationScreen() {
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const { settings } = state;
   return (
     <>

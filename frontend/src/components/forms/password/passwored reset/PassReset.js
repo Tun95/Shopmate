@@ -7,6 +7,7 @@ import Footer from "../../../../common/footer/Footer";
 import { getError } from "../../../Utilities/util/Utils";
 import "../../password/styles.css";
 import CloseIcon from "@mui/icons-material/Close";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,9 +38,12 @@ function PassReset(props) {
     } else {
       dispatch({ type: "SUBMIT_REQUEST" });
       try {
-        const { data } = await axios.post(`/api/users/password-token`, {
-          email,
-        });
+        const { data } = await axios.post(
+          `${request}/api/users/password-token`,
+          {
+            email,
+          }
+        );
         dispatch({ type: "SUBMIT_SUCCESS", payload: data });
         toast.success("Password reset email successfully sent to your email", {
           position: "bottom-center",

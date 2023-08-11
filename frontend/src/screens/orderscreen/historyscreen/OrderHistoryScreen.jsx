@@ -3,7 +3,7 @@ import OrderHistory from "../../../components/orders/history/OrderHistory";
 import { Context } from "../../../Context/Context";
 
 function OrderHistoryScreen() {
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const { settings } = state;
   return (
     <>

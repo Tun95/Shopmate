@@ -12,6 +12,7 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 
 import Footer from "../../../common/footer/Footer";
+import { request } from "../../../base_url/Base_URL";
 
 function Register(props) {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ function Register(props) {
         }
 
         try {
-          const { data } = await Axios.post(`/api/users/signup`, {
+          const { data } = await Axios.post(`${request}/api/users/signup`, {
             name,
             email,
             password,

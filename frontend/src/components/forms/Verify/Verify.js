@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { getError } from "../../Utilities/util/Utils";
 import { useParams } from "react-router-dom";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,7 +38,7 @@ function Verify(props) {
     dispatch({ type: "VERIFY_REQUEST" });
     try {
       const { data } = await axios.put(
-        `/api/users/verify-account/${userId}`,
+        `${request}/api/users/verify-account/${userId}`,
         { token },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

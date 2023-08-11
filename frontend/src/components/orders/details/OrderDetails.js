@@ -3,8 +3,6 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
-import "./styles.css";
 import "./styles.scss";
 import dateFormat, { masks } from "dateformat";
 import Table from "@mui/material/Table";
@@ -19,6 +17,7 @@ import { getError } from "../../Utilities/util/Utils";
 import LoadingBox from "../../Utilities/message loading/LoadingBox";
 import MessageBox from "../../Utilities/message loading/MessageBox";
 import Footer from "../../../common/footer/Footer";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -62,7 +61,7 @@ function OrderDetails({ currencySign, webname }) {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`${request}/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -86,7 +85,7 @@ function OrderDetails({ currencySign, webname }) {
     try {
       // dispatch({ type: "DELIVER_REQUEST" });
       const { data } = await axios.put(
-        `/api/orders/${order._id}/deliver`,
+        `${request}/api/orders/${order._id}/deliver`,
         {},
         {
           headers: { authorization: `Bearer ${userInfo.token}` },

@@ -16,6 +16,7 @@ import Footer from "../../../../common/footer/Footer";
 
 import LoadingBox from "../../../../components/Utilities/message loading/LoadingBox";
 import MessageBox from "../../../../components/Utilities/message loading/MessageBox";
+import { request } from "../../../../base_url/Base_URL";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -47,7 +48,7 @@ function Dashboard(props) {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/summary`, {
+        const { data } = await axios.get(`${request}/api/orders/summary`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });

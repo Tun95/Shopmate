@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../../../Context/Context";
 import { toast } from "react-toastify";
+import { request } from "../../../base_url/Base_URL";
 
 function StoreItems(props) {
   const { product, currencySign } = props;
@@ -20,7 +21,7 @@ function StoreItems(props) {
   const { state, dispatch: ctxDispatch } = useContext(Context);
   const { settings } = state;
   const addToCartHandler = async (item) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`${request}/api/products/${item._id}`);
     // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     //   dispatch({
     //     type: "CART_ADD_ITEM_FAIL",

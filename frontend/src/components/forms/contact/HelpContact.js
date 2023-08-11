@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Footer from "../../../common/footer/Footer";
 import { getError } from "../../Utilities/util/Utils";
 import "./styles.css";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -47,7 +48,7 @@ function HelpContact(props) {
     } else {
       try {
         dispatch({ type: "POST_REQUEST" });
-        const { data } = axios.post("/api/message", {
+        const { data } = axios.post(`${request}/api/message`, {
           name,
           email,
           subject,

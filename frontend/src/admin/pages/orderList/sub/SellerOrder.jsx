@@ -13,6 +13,7 @@ import LoadingBox from "../../../../components/Utilities/message loading/Loading
 import MessageBox from "../../../../components/Utilities/message loading/MessageBox";
 import { Context } from "../../../../Context/Context";
 import { getError } from "../../../../components/Utilities/util/Utils";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -66,7 +67,7 @@ function SellerOrders({ currencySign }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/orders/admin?page=${page}&seller=${seller}`,
+          `${request}/api/orders/admin?page=${page}&seller=${seller}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -89,7 +90,7 @@ function SellerOrders({ currencySign }) {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
         dispatch({ type: "DELETE_REQUEST" });
-        await axios.delete(`/api/orders/${order._id}`, {
+        await axios.delete(`${request}/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("Order deleted successfully", {

@@ -8,6 +8,7 @@ import LoadingBox from "../../../../components/Utilities/message loading/Loading
 import MessageBox from "../../../../components/Utilities/message loading/MessageBox";
 import { getError } from "../../../../components/Utilities/util/Utils";
 import { Context } from "../../../../Context/Context";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,7 +39,7 @@ function Banners() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/banner`, {
+        const { data } = await axios.get(`${request}/api/banner`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });

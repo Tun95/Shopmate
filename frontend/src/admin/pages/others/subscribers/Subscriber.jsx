@@ -9,6 +9,7 @@ import "./styles.css";
 import JoditEditor from "jodit-react";
 import Footer from "../../../../common/footer/Footer";
 import { Helmet } from "react-helmet-async";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -52,13 +53,14 @@ function Subscriber() {
       error: "",
     }
   );
-
+  //=====================
   //FETCH ALL SUBSCRIBERS
+  //=====================
   useEffect(() => {
     const fetchData = async () => {
       // dispatch({ type: "FETCH_SUBSCRIBER_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/message`, {
+        const { data } = await axios.get(`${request}/api/message`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUBSCRIBER_SUCCESS", payload: data });
@@ -72,12 +74,13 @@ function Subscriber() {
       fetchData();
     }
   }, [successDelete, userInfo]);
-
+  //=================
   //DELETE SUBSCRIBERS
+  //=================
   const deleteHandler = async (subscriber) => {
     try {
       dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/message/${subscriber._id}`, {
+      await axios.delete(`${request}/api/message/${subscriber._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success("Deleted successfully", {
@@ -92,12 +95,13 @@ function Subscriber() {
 
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-
+  //=====
   //SEND
+  //=====
   const sendHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`/api/message/send`, {
+      const { data } = await axios.post(`${request}/api/message/send`, {
         subject,
         message,
       });

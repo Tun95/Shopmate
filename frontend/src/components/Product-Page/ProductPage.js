@@ -25,6 +25,7 @@ import Footer from "../../common/footer/Footer";
 import Slider from "react-slick";
 import parse from "html-react-parser";
 import ReactTimeAgo from "react-time-ago";
+import { request } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -143,14 +144,6 @@ function ProductPage({ currencySign }) {
   //Product Quantity
   const [quantity, setQuantity] = useState(1);
 
-  const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-
   const params = useParams();
   const { slug } = params;
 
@@ -165,7 +158,7 @@ function ProductPage({ currencySign }) {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get(`${request}/api/products/slug/${slug}`);
         window.scrollTo(0, 0);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
@@ -179,7 +172,9 @@ function ProductPage({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(`/api/products/related/${product._id}`);
+        const result = await axios.get(
+          `${request}/api/products/related/${product._id}`
+        );
         dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
       } catch (error) {
         dispatch({ type: "FETCH_SIM_FAIL", payload: error.message });
@@ -225,7 +220,7 @@ function ProductPage({ currencySign }) {
       } else {
         try {
           const { data } = await axios.post(
-            `/api/products/${product._id}/reviews`,
+            `${request}/api/products/${product._id}/reviews`,
             { rating, comment, name: userInfo.name },
             {
               headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -264,7 +259,7 @@ function ProductPage({ currencySign }) {
   const handleChange = async (event) => {
     try {
       const { data } = await axios.post(
-        `/api/wishes`,
+        `${request}/api/wishes`,
         {
           name: product.name,
           slug: product.slug,
@@ -317,7 +312,7 @@ function ProductPage({ currencySign }) {
   //ADD TO CART
   //===========
   const addToCartHandler = async () => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`${request}/api/products/${product._id}`);
 
     // if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     //   dispatch({

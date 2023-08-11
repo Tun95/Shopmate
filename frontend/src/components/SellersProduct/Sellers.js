@@ -15,6 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { Pagination, PaginationItem } from "@mui/material";
 import { Helmet } from "react-helmet-async";
+import { request } from "../../base_url/Base_URL";
 
 masks.longDate = 'mmmm d, yyyy! "Can\'t touch this!"';
 
@@ -82,7 +83,9 @@ function Sellers({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/users/seller/${sellerId}`);
+        const { data } = await axios.get(
+          `${request}/api/users/seller/${sellerId}`
+        );
         dispatch({ type: "FETCH_SELLER_SUCCESS", payload: data });
         console.log(data);
         window.scrollTo(0, 0);
@@ -104,7 +107,7 @@ function Sellers({ currencySign }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/admin?page=${page}&seller=${seller}`
+          `${request}/api/products/admin?page=${page}&seller=${seller}`
         );
         dispatch({
           type: "FETCH_SUCCESS",
@@ -122,7 +125,7 @@ function Sellers({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/users/top-sellers`);
+        const { data } = await axios.get(`${request}/api/users/top-sellers`);
         dispatch({
           type: "FETCH_TOP_SELLER_SUCCESS",
           payload: data,

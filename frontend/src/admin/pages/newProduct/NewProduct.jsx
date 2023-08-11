@@ -10,6 +10,7 @@ import MessageBox from "../../../components/Utilities/message loading/MessageBox
 import { getError } from "../../../components/Utilities/util/Utils";
 import { Context } from "../../../Context/Context";
 import "./newProduct.css";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,7 +39,7 @@ function NewProduct() {
       try {
         dispatch({ type: "CREATE_REQUEST" });
         const { data } = await axios.post(
-          `/api/products`,
+          `${request}/api/products`,
           {},
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },

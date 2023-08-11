@@ -12,6 +12,7 @@ import { getError } from "../../Utilities/util/Utils";
 import LoadingBox from "../../Utilities/message loading/LoadingBox";
 import MessageBox from "../../Utilities/message loading/MessageBox";
 import Footer from "../../../common/footer/Footer";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -52,9 +53,12 @@ function OrderHistory({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/orders/mine?page=${page}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get(
+          `${request}/api/orders/mine?page=${page}`,
+          {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+          }
+        );
         dispatch({ type: "FETCH_SUCCESS", payload: data });
         window.scrollTo(0, 0);
       } catch (err) {

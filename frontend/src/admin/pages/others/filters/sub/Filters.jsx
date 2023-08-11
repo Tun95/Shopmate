@@ -9,6 +9,7 @@ import MessageBox from "../../../../../components/Utilities/message loading/Mess
 import Footer from "../../../../../common/footer/Footer";
 import { getError } from "../../../../../components/Utilities/util/Utils";
 import { Context } from "../../../../../Context/Context";
+import { request } from "../../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -76,7 +77,7 @@ function Filters() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/category`, {
+        const { data } = await axios.get(`${request}/api/category`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
@@ -93,7 +94,7 @@ function Filters() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_BRAND_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/brand`, {
+        const { data } = await axios.get(`${request}/api/brand`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
@@ -110,7 +111,7 @@ function Filters() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_SIZE_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/size`, {
+        const { data } = await axios.get(`${request}/api/size`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
@@ -126,7 +127,7 @@ function Filters() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/price`, {
+        const { data } = await axios.get(`${request}/api/price`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_PRICE_SUCCESS", payload: data });
@@ -142,7 +143,7 @@ function Filters() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/color`, {
+        const { data } = await axios.get(`${request}/api/color`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_COLOR_SUCCESS", payload: data });

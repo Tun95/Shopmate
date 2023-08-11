@@ -9,6 +9,7 @@ import { getError } from "../../Utilities/util/Utils";
 
 import "./styles.css";
 import CheckoutSteps from "../../Utilities/checkout/CheckoutSteps";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -70,7 +71,7 @@ function Confirmation(props) {
     } else {
       try {
         const { data } = await axios.post(
-          `/api/orders`,
+          `${request}/api/orders`,
           {
             orderItems: cartItems,
             shippingAddress,

@@ -3,12 +3,7 @@ import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useReducer } from "react";
 import { Helmet } from "react-helmet-async";
-import {
-  Link,
-  useLocation,
-  useNavigate,
- 
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingBox from "../../../../components/Utilities/message loading/LoadingBox";
 import MessageBox from "../../../../components/Utilities/message loading/MessageBox";
 import { Context } from "../../../../Context/Context";
@@ -20,6 +15,7 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
 import Footer from "../../../../common/footer/Footer";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -87,7 +83,7 @@ function SellerProductlist({ currencySign, webname }) {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/admin?page=${page}&seller=${seller}`,
+          `${request}/api/products/admin?page=${page}&seller=${seller}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -115,7 +111,7 @@ function SellerProductlist({ currencySign, webname }) {
   const createHandler = async () => {
     try {
       const { data } = await axios.post(
-        `/api/products`,
+        `${request}/api/products`,
         {},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -134,7 +130,7 @@ function SellerProductlist({ currencySign, webname }) {
   const deleteHandler = async (product) => {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
-        await axios.delete(`/api/products/${product._id}`, {
+        await axios.delete(`${request}/api/products/${product._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("product deleted successfully", {

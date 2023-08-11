@@ -12,6 +12,7 @@ import PaginationItem from "@mui/material/PaginationItem";
 import Footer from "../../../../common/footer/Footer";
 import LoadingBox from "../../../../components/Utilities/message loading/LoadingBox";
 import MessageBox from "../../../../components/Utilities/message loading/MessageBox";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -61,7 +62,7 @@ function OrderList({ currencySign }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/orders?page=${page}`, {
+        const { data } = await axios.get(`${request}/api/orders?page=${page}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -83,7 +84,7 @@ function OrderList({ currencySign }) {
     if (window.confirm("Are you sure to delete this product?")) {
       try {
         dispatch({ type: "DELETE_REQUEST" });
-        await axios.delete(`/api/orders/${order._id}`, {
+        await axios.delete(`${request}/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success("Order deleted successfully", {

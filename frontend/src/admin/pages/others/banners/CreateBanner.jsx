@@ -8,6 +8,7 @@ import JoditEditor from "jodit-react";
 import Footer from "../../../../common/footer/Footer";
 import "./styles.css";
 import { Helmet } from "react-helmet-async";
+import { request } from "../../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,7 +45,7 @@ export function Banner() {
     try {
       dispatch({ type: "CREATE_REQUEST" });
       const { data } = await axios.post(
-        "/api/banner",
+        `${request}/api/banner`,
         { title, background, adslink, descriptions },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -68,7 +69,7 @@ export function Banner() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post("/api/upload", bodyFormData, {
+      const { data } = await axios.post(`${request}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

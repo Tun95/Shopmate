@@ -20,6 +20,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 import JoditEditor from "jodit-react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import { request } from "../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -73,7 +74,7 @@ function Profile() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/users/${userId}`, {
+        const { data } = await axios.get(`${request}/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setName(data.name);
@@ -100,7 +101,7 @@ function Profile() {
     try {
       dispatch({ type: "UPDATE_REQUEST" });
       const { data } = await axios.put(
-        `/api/users/profile`,
+        `${request}/api/users/profile`,
         {
           name,
           email,
@@ -137,7 +138,7 @@ function Profile() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`${request}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,
@@ -161,7 +162,7 @@ function Profile() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`${request}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,

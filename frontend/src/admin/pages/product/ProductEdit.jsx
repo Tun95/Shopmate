@@ -26,6 +26,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Footer from "../../../common/footer/Footer";
+import { request } from "../../../base_url/Base_URL";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -133,7 +134,9 @@ function ProductEdit() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/products/${productId}`);
+        const { data } = await axios.get(
+          `${request}/api/products/${productId}`
+        );
         setName(data.name);
         setSlug(data.slug);
         setKeygen(data.keygen);
@@ -162,7 +165,7 @@ function ProductEdit() {
     try {
       dispatch({ type: "UPDATE_REQUEST" });
       await axios.put(
-        `/api/products/${productId}`,
+        `${request}/api/products/${productId}`,
         {
           _id: productId,
           name,
@@ -202,7 +205,7 @@ function ProductEdit() {
     bodyFormData.append("file", file);
     try {
       dispatch({ type: "UPLOAD_REQUEST" });
-      const { data } = await axios.post(`/api/upload`, bodyFormData, {
+      const { data } = await axios.post(`${request}/api/upload`, bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,
@@ -228,7 +231,7 @@ function ProductEdit() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_STATS_REQUEST" });
-        const { data } = await axios.get(`/api/orders/summary`, {
+        const { data } = await axios.get(`${request}/api/orders/summary`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_STATS_SUCCESS", payload: data });
@@ -272,7 +275,7 @@ function ProductEdit() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_CATEGORY_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/category`, {
+        const { data } = await axios.get(`${request}/api/category`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_CATEGORY_SUCCESS", payload: data });
@@ -288,7 +291,7 @@ function ProductEdit() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_BRAND_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/brand`, {
+        const { data } = await axios.get(`${request}/api/brand`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_BRAND_SUCCESS", payload: data });
@@ -304,7 +307,7 @@ function ProductEdit() {
     const fetchData = async () => {
       //dispatch({ type: "FETCH_SIZE_REQUEST" });
       try {
-        const { data } = await axios.get(`/api/size`, {
+        const { data } = await axios.get(`${request}/api/size`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SIZE_SUCCESS", payload: data });
