@@ -298,12 +298,14 @@ productRouter.get("/slug/:slug", async (req, res) => {
   }
 });
 
+//===============
 //RELATED PRODUCT
+//===============
 productRouter.get("/related/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     const related = await Product.find({
-      _id: { $ne: product },
+      _id: { $ne: product._id }, // Use product._id instead of product
       category: product.category,
     })
       .limit(6)

@@ -168,21 +168,25 @@ function ProductPage({ currencySign }) {
     fetchData();
   }, [slug]);
 
-  //FETCH RELATED PRODUCTS
+  //=======================
+  // FETCH RELATED PRODUCTS
+  //=======================
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(
-          `${request}/api/products/related/${product._id}`
-        );
-        dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
+        if (product && product._id) {
+          const result = await axios.get(
+            `${request}/api/products/related/${product._id}`
+          );
+          dispatch({ type: "FETCH_SIM_SUCCESS", payload: result.data });
+        }
       } catch (error) {
         dispatch({ type: "FETCH_SIM_FAIL", payload: error.message });
       }
     };
 
     fetchData();
-  }, [product._id]);
+  }, [product]);
   console.log(products);
 
   //==========
