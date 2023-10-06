@@ -116,7 +116,7 @@ function Signin(props) {
               </div>
               <div className="check-sign">
                 <div className="form-checkbox">
-                  <input type="checkbox" placeholder="Email" id="signin" />
+                  <input type="checkbox"  id="signin" />
                   <label htmlFor="signin">Remember</label>
                 </div>
                 <div className="form-button">
